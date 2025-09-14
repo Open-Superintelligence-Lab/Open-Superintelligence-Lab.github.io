@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="font-sans min-h-screen p-8 pb-20 sm:p-20">
+    <div className="font-sans min-h-screen p-8 pb-20 sm:p-20 bg-pink-500">
       <main className="max-w-4xl mx-auto">
         <div className="mb-6">
           <Link 
