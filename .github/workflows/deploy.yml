@@ -33,6 +33,15 @@ jobs:
         
       - name: Build
         run: npm run build
+        env:
+          NODE_ENV: production
+        
+      - name: Verify build output
+        run: |
+          echo "Build output contents:"
+          ls -la ./out/
+          echo "Index file:"
+          cat ./out/index.html | head -20
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
