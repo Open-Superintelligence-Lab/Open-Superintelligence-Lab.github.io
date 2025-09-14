@@ -1,14 +1,16 @@
+import Link from "next/link";
+
 export default function About() {
   return (
     <div className="font-sans min-h-screen p-8 pb-20 sm:p-20">
       <main className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <a 
+          <Link 
             href="/"
             className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline"
           >
             ← Back to Home
-          </a>
+          </Link>
         </div>
         <h1 className="text-4xl font-bold mb-8 text-center">About Us</h1>
         
@@ -37,7 +39,7 @@ export default function About() {
           <h2 className="text-2xl font-semibold mt-8 mb-4">Get Involved</h2>
           <p>
             We believe that addressing the challenges of superintelligence requires 
-            a collaborative effort from the global community. Whether you're a 
+            a collaborative effort from the global community. Whether you&apos;re a 
             researcher, student, policymaker, or simply interested in AI safety, 
             there are many ways to contribute to our mission.
           </p>
