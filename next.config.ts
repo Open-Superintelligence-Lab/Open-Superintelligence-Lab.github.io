@@ -6,9 +6,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true
   },
-  // GitHub Pages configuration
-  basePath: process.env.NODE_ENV === 'production' ? '/Open-Superintelligence-Lab.github.io' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/Open-Superintelligence-Lab.github.io/' : '',
+  // Custom domain configuration (opensuperintelligencelab.com)
+  // No basePath needed for custom domain
   distDir: 'out',
 };
 
