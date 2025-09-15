@@ -2,17 +2,18 @@ import Link from "next/link";
 
 export default function BlogPost() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
       <header className="container mx-auto px-6 py-8">
         <nav className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold hover:text-purple-300 transition-colors">
+          <Link href="/" className="text-2xl font-bold hover:text-gray-400 transition-colors">
             Open Superintelligence Lab
           </Link>
           <div className="flex gap-6">
-            <Link href="/about" className="hover:text-purple-300 transition-colors">About</Link>
-            <Link href="/blog" className="hover:text-purple-300 transition-colors">Blog</Link>
-            <a href="https://github.com/open-superintelligence-lab" className="hover:text-purple-300 transition-colors">GitHub</a>
+            <Link href="/about" className="hover:text-gray-400 transition-colors">About</Link>
+            <Link href="/blog" className="hover:text-gray-400 transition-colors">Blog</Link>
+            <a href="https://github.com/Open-Superintelligence-Lab/blueberry-llm" className="hover:text-gray-400 transition-colors" target="_blank" rel="noopener noreferrer">Blueberry LLM</a>
+            <a href="https://github.com/open-superintelligence-lab" className="hover:text-gray-400 transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </nav>
       </header>
@@ -21,13 +22,13 @@ export default function BlogPost() {
       <main className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
           {/* Back to Blog */}
-          <Link href="/blog" className="text-purple-300 hover:text-purple-200 transition-colors mb-8 inline-block">
+          <Link href="/blog" className="text-gray-400 hover:text-white transition-colors mb-8 inline-block">
             ← Back to Blog
           </Link>
 
           {/* Article Header */}
           <header className="mb-12">
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold mb-6 text-white">
               Benign Superintelligence: Open or Closed?
             </h1>
             <div className="flex gap-4 text-gray-400 mb-8">
@@ -43,8 +44,8 @@ export default function BlogPost() {
 
           {/* Article Content */}
           <article className="prose prose-lg prose-invert max-w-none">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 mb-8">
-              <h2 className="text-3xl font-bold mb-6 text-purple-300">The Great Debate</h2>
+            <div className="bg-gray-900 rounded-lg p-8 border border-gray-800 mb-8">
+              <h2 className="text-3xl font-bold mb-6 text-white">The Great Debate</h2>
               <p className="text-lg leading-relaxed text-gray-200 mb-6">
                 As we stand on the precipice of artificial general intelligence (AGI) and superintelligence, 
                 one of the most critical questions facing humanity is whether these transformative technologies 
@@ -55,9 +56,9 @@ export default function BlogPost() {
 
             <div className="space-y-8">
               <section>
-                <h2 className="text-3xl font-bold mb-4 text-purple-300">The Case for Open Development</h2>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Democratization of Power</h3>
+                <h2 className="text-3xl font-bold mb-4 text-white">The Case for Open Development</h2>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Democratization of Power</h3>
                   <p className="text-gray-300 leading-relaxed">
                     Open development ensures that superintelligence doesn&apos;t become the exclusive domain of a few 
                     powerful corporations or governments. By making the technology accessible to everyone, we 
@@ -65,8 +66,8 @@ export default function BlogPost() {
                   </p>
                 </div>
                 
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Collective Intelligence</h3>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Collective Intelligence</h3>
                   <p className="text-gray-300 leading-relaxed">
                     The wisdom of crowds applies to AI safety as well. With thousands of researchers, ethicists, 
                     and concerned citizens able to review and contribute to the development process, we can 
@@ -74,8 +75,8 @@ export default function BlogPost() {
                   </p>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Transparency and Trust</h3>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Transparency and Trust</h3>
                   <p className="text-gray-300 leading-relaxed">
                     Open development builds trust through transparency. When the public can see how AI systems 
                     are being developed and what safety measures are in place, it reduces fear and builds 
@@ -85,9 +86,9 @@ export default function BlogPost() {
               </section>
 
               <section>
-                <h2 className="text-3xl font-bold mb-4 text-purple-300">The Case for Controlled Development</h2>
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Risk Management</h3>
+                <h2 className="text-3xl font-bold mb-4 text-white">The Case for Controlled Development</h2>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Risk Management</h3>
                   <p className="text-gray-300 leading-relaxed">
                     Superintelligence poses existential risks that could threaten human civilization. Controlled 
                     development allows for careful risk assessment and implementation of safety measures without 
@@ -95,8 +96,8 @@ export default function BlogPost() {
                   </p>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Preventing Misuse</h3>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Preventing Misuse</h3>
                   <p className="text-gray-300 leading-relaxed">
                     Open source superintelligence could be easily modified for malicious purposes. By keeping 
                     development controlled, we can implement safeguards and prevent the technology from falling 
@@ -104,8 +105,8 @@ export default function BlogPost() {
                   </p>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
-                  <h3 className="text-xl font-semibold mb-3 text-purple-200">Quality Control</h3>
+                <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 mb-6">
+                  <h3 className="text-xl font-semibold mb-3 text-white">Quality Control</h3>
                   <p className="text-gray-300 leading-relaxed">
                     Controlled development ensures that only the most qualified researchers work on the technology, 
                     reducing the risk of dangerous mistakes or suboptimal implementations that could have 
@@ -115,8 +116,8 @@ export default function BlogPost() {
               </section>
 
               <section>
-                <h2 className="text-3xl font-bold mb-4 text-purple-300">A Middle Path: Open Superintelligence Lab</h2>
-                <div className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 backdrop-blur-sm rounded-2xl p-8 border border-purple-500/30 mb-6">
+                <h2 className="text-3xl font-bold mb-4 text-white">A Middle Path: Open Superintelligence Lab</h2>
+                <div className="bg-gray-900 rounded-lg p-8 border border-gray-800 mb-6">
                   <p className="text-lg leading-relaxed text-gray-200 mb-6">
                     At Open Superintelligence Lab, we believe in a third approach: <strong>open development 
                     with built-in safety mechanisms</strong>. Our vision is to democratize superintelligence 
@@ -124,15 +125,15 @@ export default function BlogPost() {
                   </p>
                   
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-white/10 rounded-xl p-6">
-                      <h3 className="text-xl font-semibold mb-3 text-purple-200">Open Source Foundation</h3>
+                    <div className="bg-gray-800 rounded-lg p-6">
+                      <h3 className="text-xl font-semibold mb-3 text-white">Open Source Foundation</h3>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         All our research, code, and findings are open source, allowing global collaboration 
                         and transparency in the development process.
                       </p>
                     </div>
-                    <div className="bg-white/10 rounded-xl p-6">
-                      <h3 className="text-xl font-semibold mb-3 text-purple-200">Safety-First Architecture</h3>
+                    <div className="bg-gray-800 rounded-lg p-6">
+                      <h3 className="text-xl font-semibold mb-3 text-white">Safety-First Architecture</h3>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         Built-in safety mechanisms and alignment protocols ensure that superintelligence 
                         remains beneficial to humanity.
@@ -143,7 +144,7 @@ export default function BlogPost() {
               </section>
 
               <section>
-                <h2 className="text-3xl font-bold mb-4 text-purple-300">The Future We&apos;re Building</h2>
+                <h2 className="text-3xl font-bold mb-4 text-white">The Future We&apos;re Building</h2>
                 <p className="text-lg leading-relaxed text-gray-200 mb-6">
                   The question of open vs. closed development isn&apos;t just about technology—it&apos;s about the kind 
                   of future we want to create. Do we want a world where superintelligence is controlled by 
@@ -156,14 +157,14 @@ export default function BlogPost() {
                   Join us in creating this future.
                 </p>
 
-                <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6 text-center">
+                <div className="bg-gray-900 rounded-lg p-6 text-center border border-gray-800">
                   <h3 className="text-xl font-bold mb-3">Ready to Contribute?</h3>
                   <p className="text-gray-200 mb-4">
                     Help us build the future of open superintelligence
                   </p>
                   <a
                     href="https://github.com/open-superintelligence-lab"
-                    className="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors inline-block"
+                    className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors inline-block"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -177,11 +178,11 @@ export default function BlogPost() {
       </main>
 
       {/* Footer */}
-      <footer className="container mx-auto px-6 py-8 border-t border-white/20">
+      <footer className="container mx-auto px-6 py-8 border-t border-gray-800">
         <div className="flex justify-between items-center text-gray-400">
           <p>&copy; 2024 Open Superintelligence Lab. Open source for everyone.</p>
           <div className="flex gap-6">
-            <a href="https://github.com/open-superintelligence-lab" className="hover:text-white transition-colors">GitHub</a>
+            <a href="https://github.com/open-superintelligence-lab" className="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">GitHub</a>
             <Link href="/about" className="hover:text-white transition-colors">About</Link>
             <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
           </div>
