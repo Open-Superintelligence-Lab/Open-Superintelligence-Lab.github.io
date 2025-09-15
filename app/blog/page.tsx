@@ -3,6 +3,13 @@ import Link from "next/link";
 export default function Blog() {
   const posts = [
     {
+      id: "moving-fast",
+      title: "Moving Fast: Pick a Task, Make an Impact",
+      excerpt: "The best way to contribute to open superintelligence research? Pick a task from our Blueberry LLM issues and start building. Here's why moving fast matters.",
+      date: "2024-01-15",
+      readTime: "5 min read"
+    },
+    {
       id: "benign-superintelligence-open-or-closed",
       title: "Benign Superintelligence: Open or Closed?",
       excerpt: "Exploring the critical question of whether superintelligence should be developed openly or behind closed doors, and the implications for humanity's future.",
@@ -12,17 +19,18 @@ export default function Blog() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#22223b] via-[#4a4e69] to-[#9a8c98] text-white">
       {/* Header */}
       <header className="container mx-auto px-6 py-8">
         <nav className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold hover:text-purple-300 transition-colors">
+          <Link href="/" className="text-2xl font-bold hover:text-[#c9ada7] transition-colors">
             Open Superintelligence Lab
           </Link>
           <div className="flex gap-6">
-            <Link href="/about" className="hover:text-purple-300 transition-colors">About</Link>
-            <Link href="/blog" className="text-purple-300">Blog</Link>
-            <a href="https://github.com/open-superintelligence-lab" className="hover:text-purple-300 transition-colors">GitHub</a>
+            <Link href="/about" className="hover:text-[#c9ada7] transition-colors">About</Link>
+            <Link href="/blog" className="text-[#c9ada7]">Blog</Link>
+            <a href="https://github.com/Open-Superintelligence-Lab/blueberry-llm" className="hover:text-[#c9ada7] transition-colors">Blueberry LLM</a>
+            <a href="https://github.com/open-superintelligence-lab" className="hover:text-[#c9ada7] transition-colors">GitHub</a>
           </div>
         </nav>
       </header>
@@ -30,7 +38,7 @@ export default function Blog() {
       {/* Blog Content */}
       <main className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-[#c9ada7] to-[#f2e9e4] bg-clip-text text-transparent">
             Blog
           </h1>
           <p className="text-xl text-gray-300 mb-12">
