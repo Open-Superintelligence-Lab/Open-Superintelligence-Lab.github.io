@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
     unoptimized: true
   },
   // GitHub Pages configuration
-  basePath: process.env.NODE_ENV === 'production' ? '/open-superintelligence-lab-github-io' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/open-superintelligence-lab-github-io/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/Open-Superintelligence-Lab.github.io' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/Open-Superintelligence-Lab.github.io/' : '',
   distDir: 'out',
 };
 
