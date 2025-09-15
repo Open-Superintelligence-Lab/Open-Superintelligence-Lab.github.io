@@ -2,92 +2,89 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 bg-pink-500 text-white">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+      {/* Header */}
+      <header className="container mx-auto px-6 py-8">
+        <nav className="flex justify-between items-center">
+          <div className="text-2xl font-bold">Open Superintelligence Lab</div>
+          <div className="flex gap-6">
+            <a href="/about" className="hover:text-purple-300 transition-colors">About</a>
+            <a href="/blog" className="hover:text-purple-300 transition-colors">Blog</a>
+            <a href="https://github.com/open-superintelligence-lab" className="hover:text-purple-300 transition-colors">GitHub</a>
+          </div>
+        </nav>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="/about"
-          >
-            About Us
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <main className="container mx-auto px-6 py-16">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-6xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Open Superintelligence Lab
+          </h1>
+          <p className="text-xl text-gray-300 mb-12 leading-relaxed">
+            Democratizing AI development with accessible, scalable superintelligence research
+          </p>
+          
+          {/* Vision Section */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-12 border border-white/20">
+            <h2 className="text-3xl font-bold mb-6 text-purple-300">Our Vision</h2>
+            <p className="text-lg leading-relaxed text-gray-200">
+              Any company or person (even with no technical experience) should be able to download this repository 
+              and run it on their GPU setup - from 1 GPU to 1 million GPUs. The system will be able to automatically 
+              detect your hardware configuration, tune hyperparameters for optimal performance, and run the best 
+              possible training with or without manual configuration from your side.
+            </p>
+          </div>
+
+          {/* Key Features */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+              <div className="text-4xl mb-4">🚀</div>
+              <h3 className="text-xl font-semibold mb-3">Auto-Scaling</h3>
+              <p className="text-gray-300">Seamlessly scale from single GPU to massive distributed clusters</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold mb-3">Auto-Tuning</h3>
+              <p className="text-gray-300">Intelligent hyperparameter optimization for your hardware</p>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+              <div className="text-4xl mb-4">🔧</div>
+              <h3 className="text-xl font-semibold mb-3">Zero-Config</h3>
+              <p className="text-gray-300">Works out of the box with automatic hardware detection</p>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="flex gap-4 justify-center flex-col sm:flex-row">
+            <a
+              href="https://github.com/open-superintelligence-lab"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-4 rounded-full font-semibold transition-all transform hover:scale-105"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Get Started on GitHub
+            </a>
+            <a
+              href="/blog"
+              className="border border-white/30 hover:bg-white/10 px-8 py-4 rounded-full font-semibold transition-all"
+            >
+              Read Our Blog
+            </a>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="container mx-auto px-6 py-8 border-t border-white/20">
+        <div className="flex justify-between items-center text-gray-400">
+          <p>&copy; 2024 Open Superintelligence Lab. Open source for everyone.</p>
+          <div className="flex gap-6">
+            <a href="https://github.com/open-superintelligence-lab" className="hover:text-white transition-colors">GitHub</a>
+            <a href="/about" className="hover:text-white transition-colors">About</a>
+            <a href="/blog" className="hover:text-white transition-colors">Blog</a>
+          </div>
+        </div>
       </footer>
     </div>
   );

@@ -20,8 +20,8 @@ The GitHub Actions workflow will automatically deploy when you push to the `main
 
 ### Method 2: Manual Deployment
 ```bash
-# Build for production
-npm run build:prod
+# Build and export for production
+npm run export
 
 # Serve locally to test
 npm run serve:out
@@ -35,8 +35,8 @@ npm run serve:out
 To test the production build locally:
 
 ```bash
-# Build with production settings
-npm run build:prod
+# Build and export with production settings
+npm run export
 
 # Serve the built files
 npm run serve:out
