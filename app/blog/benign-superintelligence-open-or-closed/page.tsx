@@ -37,7 +37,7 @@ export default function BlogPost() {
             </div>
             <p className="text-xl text-gray-300 leading-relaxed">
               Exploring the critical question of whether superintelligence should be developed openly or behind closed doors, 
-              and the implications for humanity's future.
+              and the implications for humanity&apos;s future.
             </p>
           </header>
 
@@ -48,7 +48,7 @@ export default function BlogPost() {
               <p className="text-lg leading-relaxed text-gray-200 mb-6">
                 As we stand on the precipice of artificial general intelligence (AGI) and superintelligence, 
                 one of the most critical questions facing humanity is whether these transformative technologies 
-                should be developed in the open or behind closed doors. This isn't just a technical decision—it's 
+                should be developed in the open or behind closed doors. This isn&apos;t just a technical decision—it&apos;s 
                 a fundamental choice about the future of human civilization.
               </p>
             </div>
@@ -59,7 +59,7 @@ export default function BlogPost() {
                 <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 mb-6">
                   <h3 className="text-xl font-semibold mb-3 text-purple-200">Democratization of Power</h3>
                   <p className="text-gray-300 leading-relaxed">
-                    Open development ensures that superintelligence doesn't become the exclusive domain of a few 
+                    Open development ensures that superintelligence doesn&apos;t become the exclusive domain of a few 
                     powerful corporations or governments. By making the technology accessible to everyone, we 
                     prevent the concentration of unprecedented power in the hands of a select few.
                   </p>
@@ -143,15 +143,15 @@ export default function BlogPost() {
               </section>
 
               <section>
-                <h2 className="text-3xl font-bold mb-4 text-purple-300">The Future We're Building</h2>
+                <h2 className="text-3xl font-bold mb-4 text-purple-300">The Future We&apos;re Building</h2>
                 <p className="text-lg leading-relaxed text-gray-200 mb-6">
-                  The question of open vs. closed development isn't just about technology—it's about the kind 
+                  The question of open vs. closed development isn&apos;t just about technology—it&apos;s about the kind 
                   of future we want to create. Do we want a world where superintelligence is controlled by 
-                  a few powerful entities, or one where it's developed collaboratively for the benefit of all?
+                  a few powerful entities, or one where it&apos;s developed collaboratively for the benefit of all?
                 </p>
                 
                 <p className="text-lg leading-relaxed text-gray-200 mb-8">
-                  At Open Superintelligence Lab, we're choosing the latter. We're building a future where 
+                  At Open Superintelligence Lab, we&apos;re choosing the latter. We&apos;re building a future where 
                   superintelligence is developed openly, safely, and for the benefit of all humanity. 
                   Join us in creating this future.
                 </p>
