@@ -13,89 +13,44 @@ import { ArrowLeft, Play, Pause, Square, Settings, GitBranch, ExternalLink, Acti
 import Link from 'next/link';
 import { AppLayout } from '@/components/layout/app-layout';
 
-// Mock data for project details
-const mockProject = {
-  id: '1',
-  name: 'Language Model Training',
-  description: 'Training a 7B parameter language model on custom dataset with advanced fine-tuning techniques',
-  status: 'running',
-  created: '2024-01-15',
-  owner: 'research-team',
-  repo: {
-    url: 'https://github.com/research-team/llm-training',
-    branch: 'main',
-    commit: 'a1b2c3d',
-    lastSync: '2 hours ago'
-  },
-  credentials: {
-    openai: 'connected',
-    github: 'connected',
-    novita: 'connected',
-    s3: 'connected'
-  },
-  budget: {
-    total: 1000,
-    used: 345.20,
-    remaining: 654.80
-  }
-};
-
-const mockRuns = [
-  {
-    id: 'run-1',
-    name: 'Base Model Training',
-    status: 'running',
-    progress: 75,
-    eta: '2h 15m',
-    cost: '$45.20',
-    gpu: 'A100 x 4',
-    started: '4 hours ago'
-  },
-  {
-    id: 'run-2',
-    name: 'Hyperparameter Sweep',
-    status: 'completed',
-    progress: 100,
-    eta: '—',
-    cost: '$123.50',
-    gpu: 'H100 x 8',
-    started: '1 day ago'
-  },
-  {
-    id: 'run-3',
-    name: 'Ablation Study',
-    status: 'queued',
-    progress: 0,
-    eta: '—',
-    cost: '$0.00',
-    gpu: 'Pending',
-    started: '—'
-  }
-];
-
-const mockArtifacts = [
-  {
-    name: 'model_checkpoint_epoch_10.pt',
-    size: '2.3 GB',
-    type: 'Model Checkpoint',
-    created: '2 hours ago'
-  },
-  {
-    name: 'training_logs.json',
-    size: '450 KB',
-    type: 'Logs',
-    created: '1 hour ago'
-  },
-  {
-    name: 'evaluation_results.csv',
-    size: '125 KB',
-    type: 'Metrics',
-    created: '30 min ago'
-  }
-];
-
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState('overview');
+
+  // Convex queries
+  const project = useQuery(api.projects.get, { id: params.id as any });
+  const runs = useQuery(api.runs.listByProject, { projectId: params.id as any });
+  const updateRunStatus = useMutation(api.runs.updateStatus);
+  const deleteRun = useMutation(api.runs.remove);
+
+  const handleStopRun = async (runId: string) => {
+    try {
+      await updateRunStatus({
+        id: runId as any,
+        status: "paused"
+      });
+    } catch (error) {
+      console.error("Error pausing run:", error);
+    }
+  };
+
+  const handleDeleteRun = async (runId: string) => {
+    if (!confirm("Are you sure you want to delete this run?")) return;
+    try {
+      await deleteRun({ id: runId as any });
+    } catch (error) {
+      console.error("Error deleting run:", error);
+    }
+  };
+
+  if (!project) {
+    return (
+      <AppLayout>
+        <div className="container mx-auto px-6 py-8">
+          <div className="text-center">Loading project...</div>
+        </div>
+      </AppLayout>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
