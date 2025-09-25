@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Send, Bot, User, Loader2, Play, Pause, Square, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, Bot, User, Loader2, Play, Pause, Square, CheckCircle, AlertCircle, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -116,6 +116,8 @@ What would you like to work on today?`,
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [copiedCodeBlocks, setCopiedCodeBlocks] = useState<Set<string>>(new Set());
+  const [copiedMessages, setCopiedMessages] = useState<Set<string>>(new Set());
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   
   // Use Convex action for AI chat
@@ -130,6 +132,33 @@ What would you like to work on today?`,
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const copyToClipboard = async (text: string, type: 'code' | 'message', id: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (type === 'code') {
+        setCopiedCodeBlocks(prev => new Set([...prev, id]));
+        setTimeout(() => {
+          setCopiedCodeBlocks(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(id);
+            return newSet;
+          });
+        }, 2000);
+      } else {
+        setCopiedMessages(prev => new Set([...prev, id]));
+        setTimeout(() => {
+          setCopiedMessages(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(id);
+            return newSet;
+          });
+        }, 2000);
+      }
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
@@ -286,24 +315,38 @@ What would you like to work on today?`,
             <div className="space-y-4">
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] rounded-lg p-3 ${
+                  <div className={`max-w-[80%] rounded-lg p-3 relative group ${
                     message.type === 'user' 
                       ? 'bg-primary text-primary-foreground' 
                       : message.type === 'system'
                       ? 'bg-muted text-muted-foreground'
                       : 'bg-muted'
                   }`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      {message.type === 'user' ? (
-                        <User className="w-4 h-4" />
-                      ) : message.type === 'assistant' ? (
-                        <Bot className="w-4 h-4" />
-                      ) : (
-                        <CheckCircle className="w-4 h-4" />
-                      )}
-                      <span className="text-xs opacity-70">
-                        {message.timestamp.toLocaleTimeString()}
-                      </span>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {message.type === 'user' ? (
+                          <User className="w-4 h-4" />
+                        ) : message.type === 'assistant' ? (
+                          <Bot className="w-4 h-4" />
+                        ) : (
+                          <CheckCircle className="w-4 h-4" />
+                        )}
+                        <span className="text-xs opacity-70">
+                          {message.timestamp.toLocaleTimeString()}
+                        </span>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
+                        onClick={() => copyToClipboard(message.content, 'message', message.id)}
+                      >
+                        {copiedMessages.has(message.id) ? (
+                          <Check className="w-3 h-3 text-green-600" />
+                        ) : (
+                          <Copy className="w-3 h-3" />
+                        )}
+                      </Button>
                     </div>
                     <div className="text-sm chatbot-markdown">
                       <ReactMarkdown
@@ -312,14 +355,37 @@ What would you like to work on today?`,
                         components={{
                           code: ({ className, children, inline, ...props }: any) => {
                             const match = /language-(\w+)/.exec(className || '');
-                            return !inline && match ? (
-                              <pre className="bg-gray-100 dark:bg-gray-800 rounded p-2 overflow-x-auto">
-                                <code className={className} {...props}>
-                                  {children}
-                                </code>
-                              </pre>
-                            ) : (
-                              <code className="bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 text-xs" {...props}>
+                            const codeId = `${message.id}_${Date.now()}_${Math.random()}`;
+                            
+                            if (!inline && match) {
+                              const codeText = String(children).replace(/\n$/, '');
+                              const isCopied = copiedCodeBlocks.has(codeId);
+                              
+                              return (
+                                <div className="relative group">
+                                  <pre className="bg-gray-100 dark:bg-gray-800 rounded p-4 overflow-x-auto">
+                                    <code className={className} {...props}>
+                                      {children}
+                                    </code>
+                                  </pre>
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 dark:bg-gray-700/80 hover:bg-white dark:hover:bg-gray-700"
+                                    onClick={() => copyToClipboard(codeText, 'code', codeId)}
+                                  >
+                                    {isCopied ? (
+                                      <Check className="w-3 h-3 text-green-600" />
+                                    ) : (
+                                      <Copy className="w-3 h-3" />
+                                    )}
+                                  </Button>
+                                </div>
+                              );
+                            }
+                            
+                            return (
+                              <code className="bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 text-xs font-mono" {...props}>
                                 {children}
                               </code>
                             );
