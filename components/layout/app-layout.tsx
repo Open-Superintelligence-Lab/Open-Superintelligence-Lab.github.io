@@ -34,6 +34,12 @@ export function AppLayout({ children }: AppLayoutProps) {
                 Projects
               </Link>
               <Link
+                href="/agents"
+                className="transition-colors hover:text-foreground/80 text-foreground"
+              >
+                Agents
+              </Link>
+              <Link
                 href="/templates"
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
               >
@@ -121,6 +127,13 @@ export function AppLayout({ children }: AppLayoutProps) {
                 onClick={() => setSidebarOpen(false)}
               >
                 Projects
+              </Link>
+              <Link
+                href="/agents"
+                className="hover:text-foreground/80"
+                onClick={() => setSidebarOpen(false)}
+              >
+                Agents
               </Link>
               <Link
                 href="/templates"
