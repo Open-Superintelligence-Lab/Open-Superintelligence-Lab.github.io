@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Plus, Search, Filter, Play, Pause, Square, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
+import { AppLayout } from '@/components/layout/app-layout';
 
 // Mock data for projects
 const mockProjects = [
@@ -87,67 +88,61 @@ export default function ProjectsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">Auto AI Research System</h1>
-              <p className="text-muted-foreground">Fully autonomous AI research platform</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button>
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Project
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Create New Project</DialogTitle>
-                    <DialogDescription>
-                      Create a new AI research project. Configure your research goals and connect your resources.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Project Name</Label>
-                      <Input id="name" placeholder="Enter project name" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="description">Description</Label>
-                      <Textarea id="description" placeholder="Describe your research goals" />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="template">Template</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a template" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="classification">Classification</SelectItem>
-                          <SelectItem value="qa">Question Answering</SelectItem>
-                          <SelectItem value="lm">Language Modeling</SelectItem>
-                          <SelectItem value="rlhf">RLHF</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
+    <AppLayout>
+      <div className="container mx-auto px-6 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold">Projects</h1>
+            <p className="text-muted-foreground">Manage your AI research projects</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>
+                  <Plus className="w-4 h-4 mr-2" />
+                  New Project
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Create New Project</DialogTitle>
+                  <DialogDescription>
+                    Create a new AI research project. Configure your research goals and connect your resources.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="name">Project Name</Label>
+                    <Input id="name" placeholder="Enter project name" />
                   </div>
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">Cancel</Button>
-                    <Button>Create Project</Button>
+                  <div className="grid gap-2">
+                    <Label htmlFor="description">Description</Label>
+                    <Textarea id="description" placeholder="Describe your research goals" />
                   </div>
-                </DialogContent>
-              </Dialog>
-            </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="template">Template</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a template" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="classification">Classification</SelectItem>
+                        <SelectItem value="qa">Question Answering</SelectItem>
+                        <SelectItem value="lm">Language Modeling</SelectItem>
+                        <SelectItem value="rlhf">RLHF</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline">Cancel</Button>
+                  <Button>Create Project</Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-8">
         {/* Filters */}
         <div className="flex items-center gap-4 mb-8">
           <div className="relative flex-1 max-w-sm">
@@ -282,7 +277,7 @@ export default function ProjectsPage() {
             )}
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
