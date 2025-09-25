@@ -9,6 +9,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, Bot, User, Loader2, Play, Pause, Square, CheckCircle, AlertCircle } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 
 interface Message {
   id: string;
@@ -96,7 +99,18 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
     {
       id: '1',
       type: 'assistant',
-      content: `Hello! I'm your AI research assistant for the "${projectName}" project. I can help you run experiments, analyze data, train models, and deploy them using various tools. What would you like to work on today?`,
+      content: `Hello! I'm your AI research assistant for the "${projectName}" project. 
+
+I can help you with:
+- **General questions** about your research and project
+- **Running experiments** (say "run experiment" to use tools)
+- **Data analysis** (say "analyze data" to use tools)  
+- **Model training** (say "train model" to use tools)
+- **Model deployment** (say "deploy model" to use tools)
+
+I'll only use tools when you explicitly ask me to run experiments or use MCP tools. Otherwise, I'll just chat and provide guidance.
+
+What would you like to work on today?`,
       timestamp: new Date()
     }
   ]);
@@ -132,6 +146,15 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
     setIsLoading(true);
 
     try {
+      // Check if user explicitly wants to run experiments or use tools
+      const shouldUseTools = inputMessage.toLowerCase().includes('run experiment') || 
+                           inputMessage.toLowerCase().includes('use mcp') ||
+                           inputMessage.toLowerCase().includes('run tool') ||
+                           inputMessage.toLowerCase().includes('execute') ||
+                           inputMessage.toLowerCase().includes('train model') ||
+                           inputMessage.toLowerCase().includes('analyze data') ||
+                           inputMessage.toLowerCase().includes('deploy model');
+
       const response = await chatWithGrok({
         message: inputMessage,
         context: projectName,
@@ -143,17 +166,17 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
         type: 'assistant',
         content: response.response,
         timestamp: new Date(),
-        tools: response.tools.map((toolName: string) => ({
+        tools: shouldUseTools && response.tools ? response.tools.map((toolName: string) => ({
           id: `${toolName}_${Date.now()}`,
           name: mockTools[toolName as keyof typeof mockTools].name,
           status: 'pending' as const
-        }))
+        })) : []
       };
 
       setMessages(prev => [...prev, assistantMessage]);
 
-      // Execute tools if any
-      if (response.tools.length > 0) {
+      // Execute tools if any and user explicitly requested them
+      if (shouldUseTools && response.tools && response.tools.length > 0) {
         for (const toolName of response.tools) {
           const tool = mockTools[toolName as keyof typeof mockTools];
           if (tool) {
@@ -282,7 +305,42 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
                         {message.timestamp.toLocaleTimeString()}
                       </span>
                     </div>
-                    <p className="text-sm">{message.content}</p>
+                    <div className="text-sm chatbot-markdown">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeHighlight]}
+                        components={{
+                          code: ({ className, children, inline, ...props }: any) => {
+                            const match = /language-(\w+)/.exec(className || '');
+                            return !inline && match ? (
+                              <pre className="bg-gray-100 dark:bg-gray-800 rounded p-2 overflow-x-auto">
+                                <code className={className} {...props}>
+                                  {children}
+                                </code>
+                              </pre>
+                            ) : (
+                              <code className="bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 text-xs" {...props}>
+                                {children}
+                              </code>
+                            );
+                          },
+                          pre: ({ children }) => <>{children}</>,
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                          ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                          li: ({ children }) => <li className="text-sm">{children}</li>,
+                          h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-base font-bold mb-2">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-sm font-bold mb-1">{children}</h3>,
+                          blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-300 pl-4 italic mb-2">{children}</blockquote>,
+                          table: ({ children }) => <table className="border-collapse border border-gray-300 w-full mb-2">{children}</table>,
+                          th: ({ children }) => <th className="border border-gray-300 px-2 py-1 bg-gray-100 dark:bg-gray-700 font-bold text-xs">{children}</th>,
+                          td: ({ children }) => <td className="border border-gray-300 px-2 py-1 text-xs">{children}</td>,
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    </div>
                     
                     {/* Tool executions */}
                     {message.tools && message.tools.length > 0 && (
@@ -327,7 +385,7 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me to run experiments, analyze data, or train models..."
+                placeholder="Ask questions or say 'run experiment' to use tools..."
                 disabled={isLoading}
                 className="flex-1"
               />
