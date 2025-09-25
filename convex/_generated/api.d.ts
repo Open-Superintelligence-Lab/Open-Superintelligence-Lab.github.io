@@ -18,6 +18,8 @@ import type * as chat from "../chat.js";
 import type * as projects from "../projects.js";
 import type * as runs from "../runs.js";
 import type * as seed from "../seed.js";
+import type * as tutorialChat from "../tutorialChat.js";
+import type * as tutorials from "../tutorials.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -33,6 +35,8 @@ declare const fullApi: ApiFromModules<{
   projects: typeof projects;
   runs: typeof runs;
   seed: typeof seed;
+  tutorialChat: typeof tutorialChat;
+  tutorials: typeof tutorials;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

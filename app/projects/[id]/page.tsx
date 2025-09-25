@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { ArrowLeft, Play, Pause, Square, Settings, GitBranch, ExternalLink, Activity, Terminal, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { AppLayout } from '@/components/layout/app-layout';
-import Chatbot from '@/components/chatbot';
+import ChatGPTStyleChatbot from '@/components/chatgpt-style-chatbot';
 import Canvas from '@/components/canvas';
 
 export default function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {
@@ -40,7 +40,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
 
   // Convex queries - skip for now to test interface
   const project = mockProject;
-  const runs = [];
+  const runs: any[] = [];
   const updateRunStatus = useMutation(api.runs.updateStatus);
   const deleteRun = useMutation(api.runs.remove);
 
@@ -127,8 +127,8 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
           {/* Chatbot Tab */}
           <TabsContent value="chatbot" className="space-y-6">
             {resolvedParams && (
-              <Chatbot 
-                projectId={resolvedParams.id} 
+              <ChatGPTStyleChatbot 
+                projectId={resolvedParams.id as any} 
                 projectName={project?.name || 'Unknown Project'} 
               />
             )}
@@ -298,7 +298,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
                       runs.map((run) => (
                         <TableRow key={run._id}>
                           <TableCell>
-                            <Link href={`/projects/${params.id}/runs/${run._id}`} className="font-semibold hover:underline">
+                            <Link href={`/projects/${resolvedParams?.id}/runs/${run._id}`} className="font-semibold hover:underline">
                               {run.name}
                             </Link>
                           </TableCell>

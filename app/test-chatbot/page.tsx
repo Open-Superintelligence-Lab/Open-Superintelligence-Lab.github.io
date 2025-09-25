@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Chatbot from '@/components/chatbot';
+import ChatGPTStyleChatbot from '@/components/chatgpt-style-chatbot';
 import Canvas from '@/components/canvas';
 import { AppLayout } from '@/components/layout/app-layout';
 
@@ -13,7 +13,7 @@ export default function TestChatbot() {
         <div className="space-y-6">
           <div>
             <h2 className="text-lg font-semibold mb-4">AI Assistant</h2>
-            <Chatbot projectId="test-project" projectName="Test Project" />
+            <ChatGPTStyleChatbot projectId="test-project" projectName="Test Project" />
           </div>
           <div>
             <h2 className="text-lg font-semibold mb-4">Results Canvas</h2>

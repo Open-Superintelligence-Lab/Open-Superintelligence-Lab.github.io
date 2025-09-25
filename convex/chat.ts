@@ -47,6 +47,45 @@ export const getMessages = query({
   },
 });
 
+// Delete a conversation and all its messages
+export const deleteConversation = mutation({
+  args: {
+    conversationId: v.id("conversations"),
+  },
+  handler: async (ctx, { conversationId }) => {
+    // Delete all messages in the conversation
+    const messages = await ctx.db
+      .query("messages")
+      .withIndex("by_conversation", (q) => q.eq("conversationId", conversationId))
+      .collect();
+
+    for (const message of messages) {
+      await ctx.db.delete(message._id);
+    }
+
+    // Delete the conversation
+    await ctx.db.delete(conversationId);
+
+    return conversationId;
+  },
+});
+
+// Update conversation title
+export const updateConversationTitle = mutation({
+  args: {
+    conversationId: v.id("conversations"),
+    title: v.string(),
+  },
+  handler: async (ctx, { conversationId, title }) => {
+    await ctx.db.patch(conversationId, {
+      title,
+      updatedAt: Date.now(),
+    });
+
+    return conversationId;
+  },
+});
+
 // Add a message to a conversation
 export const addMessage = mutation({
   args: {
@@ -128,7 +167,7 @@ Respond naturally and helpfully to the user's request. Remember previous message
       const completion = await client.chat.completions.create({
         model: "x-ai/grok-4-fast:free",
         messages,
-        max_tokens: 1000,
+        max_tokens: 8192,
         temperature: 0.7,
       });
 
