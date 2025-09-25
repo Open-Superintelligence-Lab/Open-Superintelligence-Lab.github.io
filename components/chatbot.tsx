@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useAction } from 'convex/react';
-import { api } from '../../../convex/_generated/api';
+import { api } from '../convex/_generated/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -205,7 +205,7 @@ export default function Chatbot({ projectId, projectName }: ChatbotProps) {
                       ...msg,
                       tools: msg.tools?.map(t => 
                         t.name === tool.name 
-                          ? { ...t, status: 'failed' as const, error: error.message }
+                          ? { ...t, status: 'failed' as const, error: error instanceof Error ? error.message : String(error) }
                           : t
                       )
                     }
