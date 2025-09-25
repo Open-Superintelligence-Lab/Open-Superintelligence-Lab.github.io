@@ -1,14 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '../../../convex/_generated/api';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowLeft, Play, Pause, Square, Settings, GitBranch, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Square, Settings, GitBranch, ExternalLink, Activity, Terminal, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { AppLayout } from '@/components/layout/app-layout';
 
 // Mock data for project details
 const mockProject = {

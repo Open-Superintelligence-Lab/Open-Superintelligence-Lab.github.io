@@ -21,7 +21,8 @@ import {
   TrendingUp,
   Clock,
   Cpu,
-  DollarSign
+  DollarSign,
+  Trash2
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/app-layout';
 
@@ -38,6 +39,8 @@ export default function AgentDashboard() {
     selectedProject ? { projectId: selectedProject as any } : "skip"
   );
   const createAgentPlan = useMutation(api.agents.createAgentPlan);
+  const updateRunStatus = useMutation(api.runs.updateStatus);
+  const deleteRun = useMutation(api.runs.remove);
 
   const handleStartAgent = async () => {
     if (!selectedProject || !researchGoal.trim()) return;
@@ -64,6 +67,35 @@ export default function AgentDashboard() {
       alert("Failed to start agent. Check console for details.");
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const handleStopRun = async (runId: string) => {
+    try {
+      await updateRunStatus({
+        id: runId as any,
+        status: "paused"
+      });
+      console.log("Run paused successfully");
+    } catch (error) {
+      console.error("Error pausing run:", error);
+      alert("Failed to pause run. Check console for details.");
+    }
+  };
+
+  const handleDeleteRun = async (runId: string) => {
+    if (!confirm("Are you sure you want to delete this run? This action cannot be undone.")) {
+      return;
+    }
+    
+    try {
+      await deleteRun({
+        id: runId as any
+      });
+      console.log("Run deleted successfully");
+    } catch (error) {
+      console.error("Error deleting run:", error);
+      alert("Failed to delete run. Check console for details.");
     }
   };
 
@@ -240,14 +272,33 @@ export default function AgentDashboard() {
                           <div className="flex items-center gap-1">
                             {run.status === 'running' && (
                               <>
-                                <Button size="sm" variant="outline">
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleStopRun(run._id)}
+                                  title="Pause run"
+                                >
                                   <Pause className="w-3 h-3" />
                                 </Button>
-                                <Button size="sm" variant="outline">
+                                <Button 
+                                  size="sm" 
+                                  variant="outline"
+                                  onClick={() => handleStopRun(run._id)}
+                                  title="Stop run"
+                                >
                                   <Square className="w-3 h-3" />
                                 </Button>
                               </>
                             )}
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleDeleteRun(run._id)}
+                              title="Delete run"
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
                           </div>
                         </div>
                       </div>
