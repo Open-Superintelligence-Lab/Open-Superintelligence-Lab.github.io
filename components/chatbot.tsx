@@ -358,13 +358,25 @@ What would you like to work on today?`,
                             const codeId = `${message.id}_${Date.now()}_${Math.random()}`;
                             
                             if (!inline && match) {
-                              const codeText = String(children).replace(/\n$/, '');
                               const isCopied = copiedCodeBlocks.has(codeId);
+                              
+                              const handleCopyCode = () => {
+                                // Get the text content from the DOM element
+                                const codeElement = document.querySelector(`[data-code-id="${codeId}"]`);
+                                if (codeElement) {
+                                  const textContent = codeElement.textContent || '';
+                                  copyToClipboard(textContent, 'code', codeId);
+                                }
+                              };
                               
                               return (
                                 <div className="relative group">
                                   <pre className="bg-gray-100 dark:bg-gray-800 rounded p-4 overflow-x-auto">
-                                    <code className={className} {...props}>
+                                    <code 
+                                      className={className} 
+                                      data-code-id={codeId}
+                                      {...props}
+                                    >
                                       {children}
                                     </code>
                                   </pre>
@@ -372,7 +384,7 @@ What would you like to work on today?`,
                                     size="sm"
                                     variant="ghost"
                                     className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 dark:bg-gray-700/80 hover:bg-white dark:hover:bg-gray-700"
-                                    onClick={() => copyToClipboard(codeText, 'code', codeId)}
+                                    onClick={handleCopyCode}
                                   >
                                     {isCopied ? (
                                       <Check className="w-3 h-3 text-green-600" />
