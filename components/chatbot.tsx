@@ -89,6 +89,48 @@ const mockTools = {
         latency: '45ms'
       };
     }
+  },
+  'create_colab_notebook': {
+    name: 'Create Colab Notebook',
+    description: 'Generate and create a Google Colab notebook with code',
+    execute: async (params: any) => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Generate a Colab notebook with the provided code
+      const notebookId = `colab_${Date.now()}`;
+      const colabUrl = `https://colab.research.google.com/drive/${notebookId}`;
+      
+      // Create notebook content (simplified JSON structure for Colab)
+      const notebookContent = {
+        cells: [
+          {
+            cell_type: 'markdown',
+            source: ['# AI Generated Notebook\n', 'Created by AI Research Assistant\n', `Generated at: ${new Date().toLocaleString()}`]
+          },
+          {
+            cell_type: 'code',
+            source: params.code || ['# Add your code here\n', 'print("Hello from AI-generated Colab notebook!")']
+          }
+        ],
+        metadata: {
+          accelerator: 'GPU',
+          colab: {
+            name: params.title || 'AI Generated Notebook',
+            version: '0.3.2'
+          }
+        }
+      };
+      
+      return {
+        notebookId,
+        colabUrl,
+        title: params.title || 'AI Generated Notebook',
+        status: 'created',
+        message: 'Notebook created successfully! Click the link to open in Google Colab.',
+        cells: notebookContent.cells.length,
+        hasCode: true
+      };
+    }
   }
 };
 
@@ -107,6 +149,7 @@ I can help you with:
 - **Data analysis** (say "analyze data" to use tools)  
 - **Model training** (say "train model" to use tools)
 - **Model deployment** (say "deploy model" to use tools)
+- **Google Colab notebooks** (say "create colab notebook" to generate notebooks)
 
 I'll only use tools when you explicitly ask me to run experiments or use MCP tools. Otherwise, I'll just chat and provide guidance.
 
@@ -182,7 +225,11 @@ What would you like to work on today?`,
                            inputMessage.toLowerCase().includes('execute') ||
                            inputMessage.toLowerCase().includes('train model') ||
                            inputMessage.toLowerCase().includes('analyze data') ||
-                           inputMessage.toLowerCase().includes('deploy model');
+                           inputMessage.toLowerCase().includes('deploy model') ||
+                           inputMessage.toLowerCase().includes('create colab') ||
+                           inputMessage.toLowerCase().includes('colab notebook') ||
+                           inputMessage.toLowerCase().includes('generate notebook') ||
+                           inputMessage.toLowerCase().includes('open colab');
 
       const response = await chatWithGrok({
         message: inputMessage,
@@ -244,7 +291,9 @@ What would you like to work on today?`,
               const resultMessage: Message = {
                 id: (Date.now() + 2).toString(),
                 type: 'system',
-                content: `✅ ${tool.name} completed successfully!`,
+                content: tool.name === 'Create Colab Notebook' && (result as any).colabUrl 
+                  ? `✅ ${tool.name} completed successfully!\n\n📓 **Notebook Created**: ${(result as any).title}\n🔗 **Colab Link**: [Open in Google Colab](${(result as any).colabUrl})\n\nClick the link above to open your notebook in Google Colab and start running your code!`
+                  : `✅ ${tool.name} completed successfully!`,
                 timestamp: new Date()
               };
               setMessages(prev => [...prev, resultMessage]);
@@ -432,7 +481,18 @@ What would you like to work on today?`,
                             </Badge>
                             {tool.result && (
                               <div className="text-xs text-muted-foreground ml-auto">
-                                {JSON.stringify(tool.result).substring(0, 50)}...
+                                {tool.name === 'Create Colab Notebook' && tool.result.colabUrl ? (
+                                  <a 
+                                    href={tool.result.colabUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:text-blue-800 underline"
+                                  >
+                                    Open Colab Notebook →
+                                  </a>
+                                ) : (
+                                  JSON.stringify(tool.result).substring(0, 50) + '...'
+                                )}
                               </div>
                             )}
                           </div>
