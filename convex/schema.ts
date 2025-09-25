@@ -91,4 +91,27 @@ export default defineSchema({
   })
     .index("by_project", ["projectId"])
     .index("by_service", ["serviceType"]),
+
+  conversations: defineTable({
+    projectId: v.id("projects"),
+    title: v.string(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_project", ["projectId"])
+    .index("by_updated", ["updatedAt"]),
+
+  messages: defineTable({
+    conversationId: v.id("conversations"),
+    role: v.union(
+      v.literal("user"),
+      v.literal("assistant"),
+      v.literal("system")
+    ),
+    content: v.string(),
+    timestamp: v.number(),
+    tools: v.optional(v.array(v.any())),
+  })
+    .index("by_conversation", ["conversationId"])
+    .index("by_conversation_and_timestamp", ["conversationId", "timestamp"]),
 });

@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useAction } from 'convex/react';
+import { useAction, useMutation, useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
+import { Id } from '../convex/_generated/dataModel';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,7 +32,7 @@ interface ToolExecution {
 }
 
 interface ChatbotProps {
-  projectId: string;
+  projectId: Id<"projects">;
   projectName: string;
 }
 
@@ -137,11 +138,61 @@ const mockTools = {
 // This will be replaced by the Convex action call
 
 export default function Chatbot({ projectId, projectName }: ChatbotProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      type: 'assistant',
-      content: `Hello! I'm your AI research assistant for the "${projectName}" project. 
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [copiedCodeBlocks, setCopiedCodeBlocks] = useState<Set<string>>(new Set());
+  const [copiedMessages, setCopiedMessages] = useState<Set<string>>(new Set());
+  const [currentConversationId, setCurrentConversationId] = useState<Id<"conversations"> | null>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  
+  // Convex hooks
+  const chatWithGrok = useAction(api.chat.chatWithGrok);
+  const createConversation = useMutation(api.chat.createConversation);
+  const addMessage = useMutation(api.chat.addMessage);
+  const conversations = useQuery(api.chat.getConversations, { projectId });
+  const conversationMessages = useQuery(
+    api.chat.getMessages, 
+    currentConversationId ? { conversationId: currentConversationId } : "skip"
+  );
+
+  const scrollToBottom = () => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Load conversation messages when conversation changes
+  useEffect(() => {
+    if (conversationMessages) {
+      const formattedMessages: Message[] = conversationMessages.map(msg => ({
+        id: msg._id,
+        type: msg.role as 'user' | 'assistant' | 'system',
+        content: msg.content,
+        timestamp: new Date(msg.timestamp),
+        tools: msg.tools
+      }));
+      setMessages(formattedMessages);
+    }
+  }, [conversationMessages]);
+
+  // Create initial conversation if none exists
+  useEffect(() => {
+    if (!currentConversationId && conversations && conversations.length === 0) {
+      createConversation({ 
+        projectId, 
+        title: `Chat with ${projectName}` 
+      }).then(conversationId => {
+        setCurrentConversationId(conversationId);
+        // Add welcome message
+        addMessage({
+          conversationId,
+          role: 'assistant',
+          content: `Hello! I'm your AI research assistant for the "${projectName}" project. 
 
 I can help you with:
 - **General questions** about your research and project
@@ -153,28 +204,14 @@ I can help you with:
 
 I'll only use tools when you explicitly ask me to run experiments or use MCP tools. Otherwise, I'll just chat and provide guidance.
 
-What would you like to work on today?`,
-      timestamp: new Date()
+What would you like to work on today?`
+        });
+      });
+    } else if (conversations && conversations.length > 0 && !currentConversationId) {
+      // Load the most recent conversation
+      setCurrentConversationId(conversations[0]._id);
     }
-  ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [copiedCodeBlocks, setCopiedCodeBlocks] = useState<Set<string>>(new Set());
-  const [copiedMessages, setCopiedMessages] = useState<Set<string>>(new Set());
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
-  
-  // Use Convex action for AI chat
-  const chatWithGrok = useAction(api.chat.chatWithGrok);
-
-  const scrollToBottom = () => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
-    }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  }, [conversations, currentConversationId, projectId, projectName, createConversation, addMessage]);
 
   const copyToClipboard = async (text: string, type: 'code' | 'message', id: string) => {
     try {
@@ -204,7 +241,7 @@ What would you like to work on today?`,
   };
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!inputMessage.trim() || isLoading || !currentConversationId) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -214,27 +251,43 @@ What would you like to work on today?`,
     };
 
     setMessages(prev => [...prev, userMessage]);
+    
+    // Save user message to database
+    await addMessage({
+      conversationId: currentConversationId,
+      role: 'user',
+      content: inputMessage
+    });
+
+    const messageToSend = inputMessage;
     setInputMessage('');
     setIsLoading(true);
 
     try {
       // Check if user explicitly wants to run experiments or use tools
-      const shouldUseTools = inputMessage.toLowerCase().includes('run experiment') || 
-                           inputMessage.toLowerCase().includes('use mcp') ||
-                           inputMessage.toLowerCase().includes('run tool') ||
-                           inputMessage.toLowerCase().includes('execute') ||
-                           inputMessage.toLowerCase().includes('train model') ||
-                           inputMessage.toLowerCase().includes('analyze data') ||
-                           inputMessage.toLowerCase().includes('deploy model') ||
-                           inputMessage.toLowerCase().includes('create colab') ||
-                           inputMessage.toLowerCase().includes('colab notebook') ||
-                           inputMessage.toLowerCase().includes('generate notebook') ||
-                           inputMessage.toLowerCase().includes('open colab');
+      const shouldUseTools = messageToSend.toLowerCase().includes('run experiment') || 
+                           messageToSend.toLowerCase().includes('use mcp') ||
+                           messageToSend.toLowerCase().includes('run tool') ||
+                           messageToSend.toLowerCase().includes('execute') ||
+                           messageToSend.toLowerCase().includes('train model') ||
+                           messageToSend.toLowerCase().includes('analyze data') ||
+                           messageToSend.toLowerCase().includes('deploy model') ||
+                           messageToSend.toLowerCase().includes('create colab') ||
+                           messageToSend.toLowerCase().includes('colab notebook') ||
+                           messageToSend.toLowerCase().includes('generate notebook') ||
+                           messageToSend.toLowerCase().includes('open colab');
+
+      // Prepare conversation history for the AI
+      const conversationHistory = messages.slice(0, -1).map(msg => ({
+        role: msg.type as 'user' | 'assistant' | 'system',
+        content: msg.content
+      }));
 
       const response = await chatWithGrok({
-        message: inputMessage,
+        message: messageToSend,
         context: projectName,
-        projectName: projectName
+        projectName: projectName,
+        conversationHistory
       });
       
       const assistantMessage: Message = {
@@ -250,6 +303,18 @@ What would you like to work on today?`,
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+
+      // Save assistant message to database
+      await addMessage({
+        conversationId: currentConversationId,
+        role: 'assistant',
+        content: response.response,
+        tools: shouldUseTools && response.tools ? response.tools.map((toolName: string) => ({
+          id: `${toolName}_${Date.now()}`,
+          name: mockTools[toolName as keyof typeof mockTools].name,
+          status: 'pending' as const
+        })) : []
+      });
 
       // Execute tools if any and user explicitly requested them
       if (shouldUseTools && response.tools && response.tools.length > 0) {
@@ -288,15 +353,24 @@ What would you like to work on today?`,
               ));
 
               // Add result message
+              const resultContent = tool.name === 'Create Colab Notebook' && (result as any).colabUrl 
+                ? `✅ ${tool.name} completed successfully!\n\n📓 **Notebook Created**: ${(result as any).title}\n🔗 **Colab Link**: [Open in Google Colab](${(result as any).colabUrl})\n\nClick the link above to open your notebook in Google Colab and start running your code!`
+                : `✅ ${tool.name} completed successfully!`;
+              
               const resultMessage: Message = {
                 id: (Date.now() + 2).toString(),
                 type: 'system',
-                content: tool.name === 'Create Colab Notebook' && (result as any).colabUrl 
-                  ? `✅ ${tool.name} completed successfully!\n\n📓 **Notebook Created**: ${(result as any).title}\n🔗 **Colab Link**: [Open in Google Colab](${(result as any).colabUrl})\n\nClick the link above to open your notebook in Google Colab and start running your code!`
-                  : `✅ ${tool.name} completed successfully!`,
+                content: resultContent,
                 timestamp: new Date()
               };
               setMessages(prev => [...prev, resultMessage]);
+
+              // Save result message to database
+              await addMessage({
+                conversationId: currentConversationId,
+                role: 'system',
+                content: resultContent
+              });
 
             } catch (error) {
               // Update tool status to failed
@@ -318,13 +392,23 @@ What would you like to work on today?`,
       }
 
     } catch (error) {
+      const errorContent = "I'm sorry, I encountered an error. Please try again.";
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: 'assistant',
-        content: "I'm sorry, I encountered an error. Please try again.",
+        content: errorContent,
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
+
+      // Save error message to database
+      if (currentConversationId) {
+        await addMessage({
+          conversationId: currentConversationId,
+          role: 'assistant',
+          content: errorContent
+        });
+      }
     } finally {
       setIsLoading(false);
     }
