@@ -152,6 +152,19 @@ export const updateCost = mutation({
   },
 });
 
+// Update run configuration
+export const updateConfig = mutation({
+  args: {
+    id: v.id("runs"),
+    config: v.any(),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.patch(args.id, {
+      config: args.config,
+    });
+  },
+});
+
 // Update job reference
 export const updateJobRef = mutation({
   args: {

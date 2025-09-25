@@ -29,38 +29,41 @@ export default function AgentDashboard() {
   const [selectedProject, setSelectedProject] = useState<string>('');
   const [researchGoal, setResearchGoal] = useState('');
   const [codebase, setCodebase] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
 
   // Convex queries and mutations
   const projects = useQuery(api.projects.list, {});
-  const runs = useQuery(api.runs.listByProject, { 
-    projectId: selectedProject as any 
-  });
+  const runs = useQuery(
+    api.runs.listByProject, 
+    selectedProject ? { projectId: selectedProject as any } : "skip"
+  );
   const createAgentPlan = useMutation(api.agents.createAgentPlan);
-  const executeResearchPlan = useMutation(api.agents.executeResearchPlan);
 
   const handleStartAgent = async () => {
     if (!selectedProject || !researchGoal.trim()) return;
     
+    setIsCreating(true);
     try {
+      // Create a run first, then generate the plan
       const runId = await createAgentPlan({
         projectId: selectedProject as any,
         researchGoal,
         codebase: codebase || undefined,
       });
       
-      // Execute the plan immediately
-      const run = await api.runs.get({ id: runId });
-      if (run?.config?.plan) {
-        await executeResearchPlan({
-          runId,
-          plan: run.config.plan,
-        });
-      }
+      console.log("Agent started with run ID:", runId);
       
+      // Clear the form
       setResearchGoal('');
       setCodebase('');
+      
+      // Show success message
+      alert(`AI Agent launched successfully! Run ID: ${runId}`);
     } catch (error) {
       console.error("Error starting agent:", error);
+      alert("Failed to start agent. Check console for details.");
+    } finally {
+      setIsCreating(false);
     }
   };
 
@@ -133,11 +136,11 @@ export default function AgentDashboard() {
 
                 <Button 
                   onClick={handleStartAgent}
-                  disabled={!selectedProject || !researchGoal.trim()}
+                  disabled={!selectedProject || !researchGoal.trim() || isCreating}
                   className="w-full"
                 >
                   <Play className="w-4 h-4 mr-2" />
-                  Launch AI Agent
+                  {isCreating ? "Launching Agent..." : "Launch AI Agent"}
                 </Button>
               </CardContent>
             </Card>
@@ -185,7 +188,11 @@ export default function AgentDashboard() {
                   <div className="text-center py-8 text-muted-foreground">
                     Select a project to view agent runs
                   </div>
-                ) : runs?.length === 0 ? (
+                ) : !runs ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    Loading runs...
+                  </div>
+                ) : runs.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     No agent runs yet. Launch an agent to get started!
                   </div>

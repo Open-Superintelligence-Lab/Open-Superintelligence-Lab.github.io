@@ -1,21 +1,36 @@
-import { action } from "./_generated/server";
+import { action, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 // AI Agent System for Autonomous Research
-export const createAgentPlan = action({
+export const createAgentPlan = mutation({
   args: {
     projectId: v.id("projects"),
     researchGoal: v.string(),
     codebase: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    // This will integrate with OpenRouter API to generate research plans
-    const plan = await generateResearchPlan(args.researchGoal, args.codebase);
+    // Create a mock plan for now (will be enhanced with AI later)
+    const plan = {
+      objectives: [args.researchGoal],
+      experiments: [
+        {
+          name: "Initial Experiment",
+          description: `Research: ${args.researchGoal}`,
+          model: "GPT-3.5-turbo",
+          hyperparameters: { learning_rate: 0.001, batch_size: 32 },
+          expectedDuration: "1h",
+          gpuRequirements: "A100 x 1"
+        }
+      ],
+      metrics: ["accuracy", "loss"],
+      timeline: "1-2 days",
+      budget: "$50-100"
+    };
     
     // Create a new run with the generated plan
     const runId = await ctx.runMutation("runs:create", {
       projectId: args.projectId,
-      name: `Research Plan: ${args.researchGoal}`,
+      name: `AI Agent: ${args.researchGoal}`,
       config: {
         plan,
         researchGoal: args.researchGoal,
@@ -25,6 +40,34 @@ export const createAgentPlan = action({
     });
 
     return runId;
+  },
+});
+
+// AI-powered research plan generation (action for external API calls)
+export const generateAIPlan = action({
+  args: {
+    runId: v.id("runs"),
+    researchGoal: v.string(),
+    codebase: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    // Generate AI-powered plan
+    const plan = await generateResearchPlan(args.researchGoal, args.codebase);
+    
+    // Update the run with the AI-generated plan
+    const run = await ctx.runQuery("runs:get", { id: args.runId });
+    if (run) {
+      await ctx.runMutation("runs:updateConfig", {
+        id: args.runId,
+        config: {
+          ...run.config,
+          plan,
+          aiGenerated: true,
+        },
+      });
+    }
+    
+    return plan;
   },
 });
 
