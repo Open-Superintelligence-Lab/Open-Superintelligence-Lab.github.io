@@ -45,7 +45,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* DeepSeek Project */}
           <Link 
-            href="/research/deepseek-v3-2-exp"
+            href="/research/deepseek"
             className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
           >
             <div className="absolute top-4 left-4">

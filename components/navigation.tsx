@@ -48,14 +48,12 @@ export function Navigation({ currentPath }: NavigationProps) {
           >
             {t.github}
           </a>
-          <a 
-            href="https://skool.com/open-superintelligence-lab" 
+          <Link 
+            href="/learn" 
             className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-            target="_blank" 
-            rel="noopener noreferrer"
           >
-            Join Lab
-          </a>
+            Learn
+          </Link>
         </div>
       </nav>
     </header>

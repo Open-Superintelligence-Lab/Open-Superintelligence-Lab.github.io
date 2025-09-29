@@ -97,7 +97,7 @@ export default function ReasoningReplicationPage() {
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
             <Link 
-              href="/research/deepseek-v3-2-exp" 
+              href="/research/deepseek" 
               className="text-gray-400 hover:text-white transition-colors"
             >
               ← Back to DeepSeek Research
@@ -236,7 +236,7 @@ export default function ReasoningReplicationPage() {
           {/* Back Navigation */}
           <div className="text-center">
             <Link 
-              href="/research/deepseek-v3-2-exp" 
+              href="/research/deepseek" 
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-700/50 to-slate-600/50 border border-slate-500/50 rounded-lg hover:border-cyan-500/50 hover:bg-slate-600/50 transition-all duration-200"
             >
               <span>←</span>
