@@ -17,7 +17,7 @@ export function Navigation({ currentPath }: NavigationProps) {
   };
 
   return (
-    <header className="container mx-auto px-6 py-6">
+    <header className="container mx-auto px-6 py-6 relative z-10">
       <nav className="flex justify-between items-center">
         <Link href="/" className="flex items-center gap-3 text-2xl font-bold hover:text-blue-400 transition-colors">
           <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
