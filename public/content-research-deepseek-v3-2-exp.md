@@ -122,27 +122,59 @@ The architecture supports **Multi-Query Attention (MQA)** mode, where:
 - Enables even faster inference
 - Particularly effective for autoregressive generation
 
+## Implementation Task
+
+**Primary Goal**: Implement the DeepSeek V3.2-Exp architecture from the research paper: [DeepSeek V3.2-Exp Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf)
+
+### Key Implementation Components
+
+1. **DeepSeek Sparse Attention (DSA)**
+   - Lightning Indexer for efficient token selection
+   - Dynamic sparse attention computation
+   - O(nk) complexity implementation
+
+2. **Mixture-of-Latent-Attention (MLA)**
+   - Key-value compression to latent space
+   - Multi-head efficiency optimization
+   - Memory footprint reduction
+
+3. **128K Context Window Support**
+   - Long sequence processing capabilities
+   - Memory optimization techniques
+   - Performance benchmarking
+
 ## Research Questions & Open Problems
 
-### 1. Optimal Sparse Patterns
+### 1. Lightning Indexer Optimization
 
-**Question**: What are the optimal sparse attention patterns for different task types?
+**Question**: How can we optimize the Lightning Indexer algorithm for different sequence lengths and task types?
 
 Current research directions:
-- Document summarization vs. question answering
-- Code generation vs. natural language understanding
-- Short-range vs. long-range dependencies
-- Task-adaptive sparse patterns
+- Algorithm complexity analysis across different k values
+- Task-specific token selection strategies
+- Hardware-aware optimization techniques
+- Parallel processing implementations
 
-### 2. Adaptive Token Selection
+### 2. Optimal Sparse Patterns
 
-**Question**: Can we develop adaptive mechanisms that dynamically adjust k based on context complexity?
+**Question**: What are the optimal sparse attention patterns for maintaining performance across diverse long-context tasks?
 
 Potential approaches:
+- Document summarization vs. question answering patterns
+- Code generation vs. natural language understanding
+- Short-range vs. long-range dependency handling
+- Task-adaptive sparse pattern learning
+
+### 3. Adaptive Token Selection
+
+**Question**: How can we adaptively adjust the token selection parameter k based on context complexity and computational budget?
+
+Research directions:
 - Entropy-based complexity estimation
 - Meta-learning for k selection
 - Per-layer adaptive sparsity
 - Content-aware budget allocation
+- Real-time performance monitoring
 
 ---
 

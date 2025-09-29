@@ -7,29 +7,57 @@ export default function DeepSeekSparseAttentionPage() {
   const { language } = useLanguage();
 
   const project = language === 'en' ? {
-    title: "DeepSeek Sparse Attention",
-    description: "Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing and memory optimization",
-    status: "Open Source",
+    title: "DeepSeek V3.2-Exp Implementation",
+    description: "Implementing DeepSeek V3.2-Exp architecture with sparse attention mechanisms for efficient long-context processing",
+    status: "In Progress",
     features: [
-      "Sparse attention mechanisms",
-      "Long-context efficiency",
-      "Memory optimization",
-      "V3.2-Exp architecture",
-      "Open-source implementation"
+      "DeepSeek Sparse Attention (DSA)",
+      "Lightning Indexer implementation",
+      "Mixture-of-Latent-Attention (MLA)",
+      "128K context window support",
+      "Memory optimization techniques"
     ],
-    details: "This research focuses on DeepSeek's breakthrough sparse attention technology that enables efficient processing of long contexts while maintaining high performance. The DeepSeek Sparse Attention (DSA) mechanism significantly reduces computational complexity and memory requirements, making it possible to handle much longer sequences than traditional attention mechanisms."
+    details: "This project aims to implement the DeepSeek V3.2-Exp architecture as described in the research paper. The implementation focuses on the novel DeepSeek Sparse Attention (DSA) mechanism that enables efficient processing of up to 128K tokens while maintaining computational efficiency. The task involves implementing the Lightning Indexer for token selection and the Mixture-of-Latent-Attention (MLA) for memory optimization.",
+    task: "Implement the DeepSeek V3.2-Exp architecture from the research paper: https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf",
+    researchQuestions: [
+      "How can we optimize the Lightning Indexer algorithm for different sequence lengths and task types?",
+      "What are the optimal sparse attention patterns for maintaining performance across diverse long-context tasks?",
+      "How can we adaptively adjust the token selection parameter k based on context complexity and computational budget?"
+    ],
+    tasks: [
+      "Review and understand DeepGEMM PR #200: https://github.com/deepseek-ai/DeepGEMM/pull/200",
+      "Review and understand FlashMLA PR #98: https://github.com/deepseek-ai/FlashMLA/pull/98",
+      "Create markdown explanations and practice exercises for both",
+      "Create YouTube videos explaining both",
+      "Create paid Skool bonus exercises",
+      "Translate all materials to Chinese"
+    ]
   } : {
-    title: "DeepSeek稀疏注意力",
-    description: "DeepSeek创新稀疏注意力机制的高效长上下文处理和内存优化研究",
-    status: "开源",
+    title: "DeepSeek V3.2-Exp 实现",
+    description: "实现DeepSeek V3.2-Exp架构，采用稀疏注意力机制进行高效长上下文处理",
+    status: "进行中",
     features: [
-      "稀疏注意力机制",
-      "长上下文效率",
-      "内存优化",
-      "V3.2-Exp架构",
-      "开源实现"
+      "DeepSeek稀疏注意力(DSA)",
+      "闪电索引器实现",
+      "潜在注意力混合(MLA)",
+      "128K上下文窗口支持",
+      "内存优化技术"
     ],
-    details: "这项研究专注于DeepSeek突破性的稀疏注意力技术，能够在保持高性能的同时实现长上下文的高效处理。DeepSeek稀疏注意力(DSA)机制显著降低了计算复杂度和内存需求，使其能够处理比传统注意力机制更长的序列。"
+    details: "本项目旨在实现研究论文中描述的DeepSeek V3.2-Exp架构。实现重点在于新颖的DeepSeek稀疏注意力(DSA)机制，能够在保持计算效率的同时高效处理多达128K个token。任务包括实现用于token选择的闪电索引器和用于内存优化的潜在注意力混合(MLA)。",
+    task: "实现研究论文中的DeepSeek V3.2-Exp架构：https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf",
+    researchQuestions: [
+      "如何针对不同序列长度和任务类型优化闪电索引器算法？",
+      "在多样化的长上下文任务中，保持性能的最佳稀疏注意力模式是什么？",
+      "如何根据上下文复杂度和计算预算自适应调整token选择参数k？"
+    ],
+    tasks: [
+      "审查和理解DeepGEMM PR #200: https://github.com/deepseek-ai/DeepGEMM/pull/200",
+      "审查和理解FlashMLA PR #98: https://github.com/deepseek-ai/FlashMLA/pull/98",
+      "为两者创建markdown解释和实践练习",
+      "创建YouTube视频解释两者",
+      "创建付费Skool奖励练习",
+      "将所有材料翻译成中文"
+    ]
   };
 
   return (
@@ -72,10 +100,22 @@ export default function DeepSeekSparseAttentionPage() {
               </p>
             </div>
 
+            {/* Task Section */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold mb-4 text-blue-400">
+                {language === 'en' ? 'Implementation Task' : '实现任务'}
+              </h3>
+              <div className="bg-slate-800/50 border border-slate-600/50 rounded-lg p-4 mb-6">
+                <p className="text-gray-300 leading-relaxed">
+                  {project.task}
+                </p>
+              </div>
+            </div>
+
             {/* Features Section */}
             <div className="mb-8">
               <h3 className="text-xl font-semibold mb-4 text-blue-400">
-                {language === 'en' ? 'Key Features' : '主要特性'}
+                {language === 'en' ? 'Key Components' : '主要组件'}
               </h3>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {project.features.map((feature, index) => (
@@ -86,18 +126,62 @@ export default function DeepSeekSparseAttentionPage() {
                 ))}
               </ul>
             </div>
+
+            {/* Research Questions Section */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold mb-4 text-blue-400">
+                {language === 'en' ? 'Research Questions' : '研究问题'}
+              </h3>
+              <div className="space-y-4">
+                {project.researchQuestions.map((question, index) => (
+                  <div key={index} className="bg-slate-800/30 border border-slate-600/30 rounded-lg p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="bg-blue-500/20 text-blue-400 text-sm px-2 py-1 rounded-md font-medium">
+                        {index + 1}
+                      </span>
+                      <p className="text-gray-300 leading-relaxed">{question}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tasks Section */}
+            <div className="mb-8">
+              <h3 className="text-xl font-semibold mb-4 text-blue-400">
+                {language === 'en' ? 'Tasks' : '任务'}
+              </h3>
+              <div className="space-y-3">
+                {project.tasks.map((task, index) => (
+                  <div key={index} className="flex items-start gap-3 text-gray-300">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                    <span className="leading-relaxed">{task}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500">DeepSeek Research</span>
+              <span className="text-sm text-gray-500">DeepSeek V3.2-Exp Implementation</span>
               <div className="flex gap-3">
-                <button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/50 rounded-lg text-blue-400 hover:bg-blue-500/30 hover:border-blue-400/70 transition-all duration-200">
-                  <span>{language === 'en' ? 'View Research' : '查看研究'}</span>
-                  <span>→</span>
-                </button>
-                <button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-600/20 to-slate-700/20 border border-slate-500/50 rounded-lg text-slate-300 hover:bg-slate-600/30 hover:border-slate-400/70 transition-all duration-200">
+                <a 
+                  href="https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border border-blue-500/50 rounded-lg text-blue-400 hover:bg-blue-500/30 hover:border-blue-400/70 transition-all duration-200"
+                >
+                  <span>{language === 'en' ? 'Research Paper' : '研究论文'}</span>
+                  <span>↗</span>
+                </a>
+                <a 
+                  href="https://github.com/deepseek-ai/DeepSeek-V3.2-Exp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-600/20 to-slate-700/20 border border-slate-500/50 rounded-lg text-slate-300 hover:bg-slate-600/30 hover:border-slate-400/70 transition-all duration-200"
+                >
                   <span>{language === 'en' ? 'GitHub' : 'GitHub'}</span>
                   <span>↗</span>
-                </button>
+                </a>
               </div>
             </div>
           </article>
