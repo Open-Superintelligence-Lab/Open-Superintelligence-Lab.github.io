@@ -22,7 +22,7 @@ export function Navigation({ currentPath }: NavigationProps) {
         <Link href="/" className="flex items-center gap-3 text-2xl font-bold hover:text-blue-400 transition-colors">
           <div className="relative">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <span className="text-white font-black text-sm">OSIL</span>
+              <span className="text-white text-lg">🔮</span>
             </div>
             {/* Subtle glow effect */}
             <div className="absolute inset-0 w-10 h-10 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-xl blur-sm"></div>

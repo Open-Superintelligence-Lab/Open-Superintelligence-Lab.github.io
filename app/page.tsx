@@ -166,9 +166,9 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 container mx-auto px-6 py-12">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* DeepSeek Project */}
           <Link 
             href="/research/deepseek"
@@ -336,6 +336,7 @@ export default function Home() {
               </div>
             </div>
           </Link>
+          </div>
         </div>
       </main>
     </>
