@@ -2,69 +2,30 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
+import { useState, useEffect } from "react";
 
 export default function DeepSeekV32ExpPage() {
   const { language } = useLanguage();
+  const [markdownContent, setMarkdownContent] = useState<string>("");
+  const [loading, setLoading] = useState(true);
 
-  const researchQuestions = language === 'en' ? [
-    "How can we optimize the lightning indexer for even better computational efficiency?",
-    "What are the optimal sparse attention patterns for different types of long-context tasks?",
-    "How does DSA perform on multimodal tasks with long sequences?",
-    "Can we develop adaptive sparse attention that adjusts k based on context complexity?",
-    "What are the theoretical limits of sparse attention while maintaining model performance?",
-    "How can we improve the fine-grained token selection mechanism?",
-    "What impact does DSA have on different model architectures beyond MLA?",
-    "How can we optimize DSA for edge devices and mobile deployment?"
-  ] : [
-    "我们如何优化闪电索引器以获得更好的计算效率？",
-    "对于不同类型的长上下文任务，最优的稀疏注意力模式是什么？",
-    "DSA在多模态长序列任务上的表现如何？",
-    "我们能否开发自适应稀疏注意力，根据上下文复杂性调整k值？",
-    "在保持模型性能的同时，稀疏注意力的理论极限是什么？",
-    "我们如何改进细粒度token选择机制？",
-    "DSA对MLA之外的不同模型架构有什么影响？",
-    "我们如何优化DSA以用于边缘设备和移动部署？"
-  ];
-
-  const contributionAreas = language === 'en' ? [
-    {
-      title: "Implementation & Optimization",
-      description: "Contribute to the open-source implementation, optimize CUDA kernels, and improve inference speed."
-    },
-    {
-      title: "Research & Analysis", 
-      description: "Analyze sparse attention patterns, conduct ablation studies, and publish research findings."
-    },
-    {
-      title: "Benchmarking & Evaluation",
-      description: "Develop new benchmarks for long-context tasks and evaluate DSA performance across domains."
-    },
-    {
-      title: "Documentation & Tutorials",
-      description: "Create comprehensive documentation, tutorials, and educational content for the community."
-    }
-  ] : [
-    {
-      title: "实现与优化",
-      description: "为开源实现做出贡献，优化CUDA内核，提高推理速度。"
-    },
-    {
-      title: "研究与分析",
-      description: "分析稀疏注意力模式，进行消融研究，发表研究成果。"
-    },
-    {
-      title: "基准测试与评估",
-      description: "为长上下文任务开发新的基准测试，评估DSA在各领域的性能。"
-    },
-    {
-      title: "文档与教程",
-      description: "为社区创建全面的文档、教程和教育内容。"
-    }
-  ];
+  useEffect(() => {
+    // Fetch the markdown content from the external file
+    fetch('/content-research-deepseek-v3-2-exp.md')
+      .then(res => res.text())
+      .then(content => {
+        setMarkdownContent(content);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading markdown:', error);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <>
-      
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 via-yellow-600/20 to-orange-600/20"></div>
@@ -85,7 +46,7 @@ export default function DeepSeekV32ExpPage() {
             </p>
             <div className="flex justify-center gap-4">
               <span className="bg-orange-500/20 text-orange-400 text-sm px-3 py-1 rounded-md">Open Source</span>
-              <span className="bg-yellow-500/20 text-yellow-400 text-sm px-3 py-1 rounded-md">Architecture</span>
+              <span className="bg-yellow-500/20 text-yellow-400 text-sm px-3 py-1 rounded-md">Research Article</span>
             </div>
           </div>
         </div>
@@ -96,133 +57,26 @@ export default function DeepSeekV32ExpPage() {
           <div className="mb-8">
             <Link 
               href="/research/deepseek" 
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2"
             >
-              ← Back to DeepSeek Research
+              <span>←</span>
+              <span>{language === 'en' ? 'Back to DeepSeek Research' : '返回DeepSeek研究'}</span>
             </Link>
           </div>
 
-          {/* Research Path */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-semibold mb-6">
-              {language === 'en' ? 'Research Path' : '研究路径'}
-            </h2>
-            <div className="space-y-4">
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/20">
-                <h3 className="text-xl font-semibold mb-3">1. Architecture Analysis</h3>
-                <p className="text-gray-300">
-                  {language === 'en' 
-                    ? "Study the DeepSeek Sparse Attention (DSA) architecture, including the lightning indexer and fine-grained token selection mechanism."
-                    : "研究DeepSeek稀疏注意力(DSA)架构，包括闪电索引器和细粒度token选择机制。"
-                  }
-                </p>
-              </div>
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/20">
-                <h3 className="text-xl font-semibold mb-3">2. Implementation Research</h3>
-                <p className="text-gray-300">
-                  {language === 'en'
-                    ? "Explore the open-source implementation, understand the MQA mode of MLA, and identify optimization opportunities."
-                    : "探索开源实现，理解MLA的MQA模式，识别优化机会。"
-                  }
-                </p>
-              </div>
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/20">
-                <h3 className="text-xl font-semibold mb-3">3. Performance Evaluation</h3>
-                <p className="text-gray-300">
-                  {language === 'en'
-                    ? "Benchmark DSA performance across different tasks, analyze efficiency gains, and identify limitations."
-                    : "在不同任务上对DSA性能进行基准测试，分析效率提升，识别局限性。"
-                  }
-                </p>
-              </div>
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/20">
-                <h3 className="text-xl font-semibold mb-3">4. Innovation & Extension</h3>
-                <p className="text-gray-300">
-                  {language === 'en'
-                    ? "Develop novel improvements, explore new applications, and contribute to the open-source ecosystem."
-                    : "开发新颖的改进，探索新的应用，为开源生态系统做出贡献。"
-                  }
-                </p>
-              </div>
+          {/* Markdown Content */}
+          {loading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-400"></div>
             </div>
-          </section>
-
-          {/* Research Questions */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-semibold mb-6">
-              {language === 'en' ? 'Research Questions' : '研究问题'}
-            </h2>
-            <div className="grid gap-4">
-              {researchQuestions.map((question, index) => (
-                <div key={index} className="p-4 border border-gray-800 rounded-lg hover:border-orange-600/50 transition-colors bg-slate-800/20">
-                  <p className="text-gray-300">{question}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* How to Contribute */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-semibold mb-6">
-              {language === 'en' ? 'How to Contribute' : '如何贡献'}
-            </h2>
-            <div className="grid gap-6 md:grid-cols-2">
-              {contributionAreas.map((area, index) => (
-                <div key={index} className="p-6 border border-gray-800 rounded-lg hover:border-orange-600/50 transition-colors bg-slate-800/20">
-                  <h3 className="text-xl font-semibold mb-3">{area.title}</h3>
-                  <p className="text-gray-300">{area.description}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Open Source Research */}
-          <section className="mb-12">
-            <h2 className="text-3xl font-semibold mb-6">
-              {language === 'en' ? 'Open Source Research' : '开源研究'}
-            </h2>
-            <div className="space-y-6">
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/30">
-                <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'Repository & Resources' : '仓库与资源'}
-                </h3>
-                <div className="space-y-3">
-                  <a 
-                    href="https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block text-orange-400 hover:text-orange-300 transition-colors"
-                  >
-                    🤗 Hugging Face Model Repository
-                  </a>
-                  <a 
-                    href="https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp/tree/main/inference" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block text-orange-400 hover:text-orange-300 transition-colors"
-                  >
-                    📁 Open Source Implementation
-                  </a>
-                </div>
-              </div>
-              
-              <div className="p-6 border border-gray-800 rounded-lg bg-slate-800/30">
-                <h3 className="text-xl font-semibold mb-3">
-                  {language === 'en' ? 'Key Research Areas' : '关键研究领域'}
-                </h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li>• {language === 'en' ? 'Sparse Attention Mechanisms' : '稀疏注意力机制'}</li>
-                  <li>• {language === 'en' ? 'Long-Context Efficiency' : '长上下文效率'}</li>
-                  <li>• {language === 'en' ? 'Lightning Indexer Optimization' : '闪电索引器优化'}</li>
-                  <li>• {language === 'en' ? 'Multi-Query Attention (MQA)' : '多查询注意力(MQA)'}</li>
-                  <li>• {language === 'en' ? 'Mixture-of-Latent-Attention (MLA)' : '混合潜在注意力(MLA)'}</li>
-                </ul>
-              </div>
-            </div>
-          </section>
+          ) : (
+            <article className="bg-slate-900/50 border border-gray-800 rounded-lg p-8 md:p-12">
+              <MarkdownRenderer content={markdownContent} />
+            </article>
+          )}
 
           {/* Back Navigation */}
-          <div className="text-center">
+          <div className="text-center mt-12">
             <Link 
               href="/research/deepseek" 
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-700/50 to-slate-600/50 border border-slate-500/50 rounded-lg hover:border-orange-500/50 hover:bg-slate-600/50 transition-all duration-200"
