@@ -57,3 +57,4 @@ export function Navigation({ currentPath }: NavigationProps) {
     </header>
   );
 }
+
