@@ -13,37 +13,11 @@ export function Navigation({ currentPath }: NavigationProps) {
         </Link>
         <div className="flex gap-6">
           <Link 
-            href="/about" 
-            className={currentPath === "/about" ? "text-gray-400" : "hover:text-gray-400 transition-colors"}
-          >
-            About
-          </Link>
-          <Link 
-            href="/blog" 
-            className={currentPath === "/blog" ? "text-gray-400" : "hover:text-gray-400 transition-colors"}
-          >
-            Blog
-          </Link>
-          <Link 
-            href="/tutorials" 
-            className={currentPath?.startsWith("/tutorials") ? "text-gray-400" : "hover:text-gray-400 transition-colors"}
-          >
-            Tutorials
-          </Link>
-          <Link 
             href="/projects" 
             className={currentPath === "/projects" ? "text-gray-400" : "hover:text-gray-400 transition-colors"}
           >
             Projects
           </Link>
-          <a 
-            href="https://github.com/Open-Superintelligence-Lab/blueberry-llm" 
-            className="hover:text-gray-400 transition-colors" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            Blueberry LLM
-          </a>
           <a 
             href="https://github.com/open-superintelligence-lab" 
             className="hover:text-gray-400 transition-colors" 

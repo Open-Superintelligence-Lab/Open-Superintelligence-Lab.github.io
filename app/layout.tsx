@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Auto AI Research System",
-  description: "Fully autonomous, web-based AI research platform",
+  title: "Open Superintelligence Lab",
+  description: "开放超级智能实验室 - Advancing AI research and development",
 };
 
 export default function RootLayout({
