@@ -33,40 +33,91 @@ export default function Home() {
           <div className="text-center max-w-5xl mx-auto">
             {/* Enhanced title with more effects */}
             <div className="relative">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
-                {t.title}
-              </h1>
-              
-              {/* Glow effect */}
-              <div className="absolute inset-0 text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent blur-sm leading-tight">
-                {t.title}
+              <div className="flex flex-col items-center">
+                <div className="relative">
+                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-2 bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent leading-tight">
+                    {language === 'en' ? 'Open' : '开放'}
+                  </h1>
+                  {/* Glow effect for Open */}
+                  <div className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent blur-sm leading-tight">
+                    {language === 'en' ? 'Open' : '开放'}
+                  </div>
+                </div>
+                
+                <div className="relative">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
+                    {language === 'en' ? 'Superintelligence Lab' : '超级智能实验室'}
+                  </h2>
+                  {/* Glow effect for main title */}
+                  <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent blur-sm leading-tight">
+                    {language === 'en' ? 'Superintelligence Lab' : '超级智能实验室'}
+                  </div>
+                </div>
               </div>
               
               {/* Decorative elements */}
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-60 animate-bounce"></div>
-              <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full opacity-60 animate-bounce delay-500"></div>
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-60 animate-bounce"></div>
+              <div className="absolute top-1/2 -right-4 w-6 h-6 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full opacity-60 animate-bounce delay-500"></div>
+              <div className="absolute -bottom-4 left-1/2 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-60 animate-bounce delay-1000"></div>
             </div>
             
             {/* Enhanced tagline */}
             <div className="mt-8 mb-12">
-              <p className="text-xl md:text-2xl text-slate-300 font-medium bg-gradient-to-r from-slate-300 to-slate-400 bg-clip-text text-transparent">
-                {t.description}
-              </p>
+              <div className="space-y-4">
+                <p className="text-xl md:text-2xl text-slate-300 font-medium">
+                  {language === 'en' ? (
+                    <>
+                      <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">
+                        Pushing the boundaries
+                      </span>{" "}
+                      of artificial intelligence through{" "}
+                      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-semibold">
+                        open research
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">
+                        推动边界
+                      </span>{" "}
+                      通过{" "}
+                      <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent font-semibold">
+                        开放研究
+                      </span>{" "}
+                      推进人工智能
+                    </>
+                  )}
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400">
+                  <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    {language === 'en' ? 'Open Source' : '开源'}
+                  </span>
+                  <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-300"></div>
+                    {language === 'en' ? 'LLM Research' : '大模型研究'}
+                  </span>
+                  <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-700"></div>
+                    {language === 'en' ? 'Innovation' : '创新'}
+                  </span>
+                </div>
+              </div>
             </div>
             
             {/* Call to action buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link 
-                href="/research" 
+              <button 
+                onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
               >
                 <span className="flex items-center gap-2">
                   Explore Research
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
                 </span>
-              </Link>
+              </button>
               <Link 
                 href="/about" 
                 className="group px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
@@ -84,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <main className="container mx-auto px-6 py-12">
+      <main id="research-projects" className="container mx-auto px-6 py-12">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* DeepSeek Project */}
