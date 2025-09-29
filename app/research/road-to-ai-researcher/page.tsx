@@ -3,33 +3,33 @@
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
 
-export default function TrainLLMFor1DollarPage() {
+export default function RoadToAIResearcherPage() {
   const { language } = useLanguage();
 
   const project = language === 'en' ? {
-    title: "Train LLM For $1",
-    description: "Revolutionary research on ultra-low-cost large language model training using innovative optimization techniques and distributed computing strategies",
-    status: "Research",
+    title: "Road to AI Researcher",
+    description: "A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies",
+    status: "Learning Path",
     features: [
-      "Ultra-low-cost training methodologies",
-      "Distributed computing optimization",
-      "Memory-efficient algorithms",
-      "Open-source implementation",
-      "Scalable architecture design"
+      "Comprehensive AI fundamentals",
+      "Research methodology training",
+      "Hands-on project experience",
+      "Open-source contributions",
+      "Community-driven learning"
     ],
-    details: "This groundbreaking research explores how to train state-of-the-art large language models for just $1 using advanced optimization techniques, distributed computing strategies, and memory-efficient algorithms. Our approach combines innovative model architectures with cost-effective training methodologies to democratize AI development."
+    details: "This comprehensive learning path guides aspiring AI researchers through the essential skills, knowledge, and experiences needed to become successful in the field. From foundational concepts to advanced research techniques, this program provides a structured approach to building expertise in artificial intelligence research."
   } : {
-    title: "1美元训练大模型",
-    description: "使用创新优化技术和分布式计算策略进行超低成本大语言模型训练的革命性研究",
-    status: "研究",
+    title: "AI研究员之路",
+    description: "成为AI研究员的综合学习路径，涵盖从基础概念到前沿研究方法的所有内容",
+    status: "学习路径",
     features: [
-      "超低成本训练方法",
-      "分布式计算优化",
-      "内存高效算法",
-      "开源实现",
-      "可扩展架构设计"
+      "全面的AI基础知识",
+      "研究方法培训",
+      "实践项目经验",
+      "开源贡献",
+      "社区驱动学习"
     ],
-    details: "这项突破性研究探索如何使用先进的优化技术、分布式计算策略和内存高效算法，仅用1美元训练最先进的大语言模型。我们的方法将创新的模型架构与成本效益高的训练方法相结合，以民主化AI开发。"
+    details: "这个综合学习路径指导有抱负的AI研究员掌握在该领域取得成功所需的基本技能、知识和经验。从基础概念到高级研究技术，这个项目提供了构建人工智能研究专业知识的结构化方法。"
   };
 
   return (
@@ -58,7 +58,7 @@ export default function TrainLLMFor1DollarPage() {
           <article className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-3 py-1 rounded-md">Research</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-3 py-1 rounded-md">Learning Path</span>
                 <span className="bg-green-500/20 text-green-400 text-xs px-3 py-1 rounded-md">{project.status}</span>
               </div>
             </div>
@@ -94,10 +94,15 @@ export default function TrainLLMFor1DollarPage() {
                   <span>{language === 'en' ? 'View Research' : '查看研究'}</span>
                   <span>→</span>
                 </button>
-                <button className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-600/20 to-slate-700/20 border border-slate-500/50 rounded-lg text-slate-300 hover:bg-slate-600/30 hover:border-slate-400/70 transition-all duration-200">
+                <a 
+                  href="https://github.com/vukrosic/blueberry-llm-kimi-deepseek"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-600/20 to-slate-700/20 border border-slate-500/50 rounded-lg text-slate-300 hover:bg-slate-600/30 hover:border-slate-400/70 transition-all duration-200"
+                >
                   <span>{language === 'en' ? 'GitHub' : 'GitHub'}</span>
                   <span>↗</span>
-                </button>
+                </a>
               </div>
             </div>
           </article>

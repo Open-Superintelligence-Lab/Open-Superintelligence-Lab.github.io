@@ -35,60 +35,6 @@ export function Navigation({ currentPath }: NavigationProps) {
           >
             {t.about}
           </Link>
-          <Link 
-            href="/research/deepseek" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            DeepSeek
-          </Link>
-          <Link 
-            href="/research/openai" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            OpenAI
-          </Link>
-          <Link 
-            href="/research/google" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            Google
-          </Link>
-          <Link 
-            href="/research/meta" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            Meta
-          </Link>
-          <Link 
-            href="/research/qwen" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            Qwen
-          </Link>
-          <Link 
-            href="/research/glm" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            GLM
-          </Link>
-          <Link 
-            href="/research/nvidia" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            Nvidia
-          </Link>
-          <Link 
-            href="/research/mit" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            MIT
-          </Link>
-          <Link 
-            href="/research/tsinghua" 
-            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
-          >
-            Tsinghua
-          </Link>
           <a 
             href="https://github.com/open-superintelligence-lab" 
             className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
