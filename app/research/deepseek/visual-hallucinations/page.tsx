@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import { Navigation } from "@/components/navigation";
 import { useLanguage } from "@/components/providers/language-provider";
 
 export default function VisualHallucinationsPage() {
@@ -64,8 +63,7 @@ export default function VisualHallucinationsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      <Navigation />
+    <>
       
       {/* Hero Section */}
       <section className="relative overflow-hidden">
@@ -203,6 +201,6 @@ export default function VisualHallucinationsPage() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }

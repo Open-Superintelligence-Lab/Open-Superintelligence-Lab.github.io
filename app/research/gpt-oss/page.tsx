@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import { Navigation } from "@/components/navigation";
 import { useLanguage } from "@/components/providers/language-provider";
 import { translations } from "@/lib/language-detection";
 
@@ -98,8 +97,7 @@ export default function GPTOSSResearchPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <Navigation />
+    <>
       
       <main className="container mx-auto px-6 py-16">
         <div className="max-w-4xl mx-auto">
@@ -257,6 +255,6 @@ export default function GPTOSSResearchPage() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }

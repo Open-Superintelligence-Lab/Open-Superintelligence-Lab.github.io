@@ -2,15 +2,13 @@
 
 import { useLanguage } from "@/components/providers/language-provider";
 import { translations } from "@/lib/language-detection";
-import { Navigation } from "@/components/navigation";
 
 export default function AboutPage() {
   const { language } = useLanguage();
   const t = translations[language];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      <Navigation currentPath="/about" />
+    <>
       
       <main className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
@@ -192,6 +190,6 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
