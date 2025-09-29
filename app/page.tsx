@@ -168,10 +168,12 @@ export default function Home() {
       {/* Projects Section */}
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Road to AI Researcher Project */}
-          <Link 
-            href="/research/road-to-ai-researcher"
+          <a 
+            href="https://github.com/vukrosic/blueberry-llm-kimi-deepseek"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
           >
             <div className="absolute top-4 left-4">
@@ -183,7 +185,7 @@ export default function Home() {
             
             <div className="mt-8">
               <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                Road to AI Researcher
+                Road to AI Researcher - Full Course
               </h4>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                 A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies
@@ -195,7 +197,7 @@ export default function Home() {
                 </span>
               </div>
             </div>
-          </Link>
+          </a>
 
           {/* DeepSeek Sparse Attention Project */}
           <a 
@@ -221,6 +223,66 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">DeepSeek Research</span>
                 <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
+                  Learn More →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          {/* GLM4-MoE Project */}
+          <a 
+            href="https://github.com/THUDM/GLM-4"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+          >
+            <div className="absolute top-4 left-4">
+              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">MoE</span>
+            </div>
+            
+            <div className="mt-8">
+              <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                GLM4-MoE
+              </h4>
+              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                Advanced Mixture of Experts implementation with GLM4 architecture for efficient scaling and improved performance
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">THUDM Research</span>
+                <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                  Explore →
+                </span>
+              </div>
+            </div>
+          </a>
+
+          {/* DeepSeek Attention + GLM4-MoE Project */}
+          <a 
+            href="https://github.com/Open-Superintelligence-Lab/deepseek-attention-glm4-moe"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300"
+          >
+            <div className="absolute top-4 left-4">
+              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-cyan-500/20 text-cyan-400 text-xs px-2 py-1 rounded-md">Hybrid</span>
+            </div>
+            
+            <div className="mt-8">
+              <h4 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
+                DeepSeek Attention + GLM4-MoE
+              </h4>
+              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                Innovative combination of DeepSeek's sparse attention mechanisms with GLM4's Mixture of Experts architecture
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                <span className="text-cyan-400 text-sm group-hover:text-cyan-300 transition-colors">
                   Learn More →
                 </span>
               </div>
