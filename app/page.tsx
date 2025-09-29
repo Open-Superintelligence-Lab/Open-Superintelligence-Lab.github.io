@@ -15,32 +15,76 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative overflow-hidden">
+        {/* Enhanced background effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"></div>
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 py-20">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              {t.title}
-            </h1>
-            <h2 className="text-xl md:text-2xl text-gray-300 mb-8">
-              {t.subtitle}
-            </h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              {t.description}
-            </p>
+        {/* Animated background particles */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-400/30 rounded-full animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-purple-400/40 rounded-full animate-pulse delay-300"></div>
+          <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-cyan-400/30 rounded-full animate-pulse delay-700"></div>
+          <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-pink-400/40 rounded-full animate-pulse delay-1000"></div>
+        </div>
+        
+        <div className="relative container mx-auto px-6 py-24">
+          <div className="text-center max-w-5xl mx-auto">
+            {/* Enhanced title with more effects */}
+            <div className="relative">
+              <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
+                {t.title}
+              </h1>
+              
+              {/* Glow effect */}
+              <div className="absolute inset-0 text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent blur-sm leading-tight">
+                {t.title}
+              </div>
+              
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-60 animate-bounce"></div>
+              <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full opacity-60 animate-bounce delay-500"></div>
+            </div>
+            
+            {/* Enhanced tagline */}
+            <div className="mt-8 mb-12">
+              <p className="text-xl md:text-2xl text-slate-300 font-medium bg-gradient-to-r from-slate-300 to-slate-400 bg-clip-text text-transparent">
+                {t.description}
+              </p>
+            </div>
+            
+            {/* Call to action buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link 
+                href="/research" 
+                className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
+              >
+                <span className="flex items-center gap-2">
+                  Explore Research
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </Link>
+              <Link 
+                href="/about" 
+                className="group px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
+              >
+                <span className="flex items-center gap-2">
+                  Learn More
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Projects Section */}
       <main className="container mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <h3 className="text-3xl font-bold mb-4">{t.projects}</h3>
-          <p className="text-gray-400">Explore our cutting-edge AI research projects</p>
-        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {/* DeepSeek Project */}

@@ -32,14 +32,12 @@ export function Navigation({ currentPath }: NavigationProps) {
           >
             {t.toggleLanguage}
           </button>
-          <a 
-            href="https://skool.com/open-superintelligence-lab" 
-            className="px-4 py-2 text-sm hover:text-blue-400 transition-colors" 
-            target="_blank" 
-            rel="noopener noreferrer"
+          <Link 
+            href="/about" 
+            className="px-4 py-2 text-sm hover:text-blue-400 transition-colors"
           >
-            {t.skool}
-          </a>
+            {t.about}
+          </Link>
           <a 
             href="https://github.com/open-superintelligence-lab" 
             className="px-4 py-2 text-sm hover:text-blue-400 transition-colors" 
