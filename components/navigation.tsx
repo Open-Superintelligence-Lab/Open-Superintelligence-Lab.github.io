@@ -28,22 +28,70 @@ export function Navigation({ currentPath }: NavigationProps) {
             <div className="absolute inset-0 w-10 h-10 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-xl blur-sm"></div>
           </div>
         </Link>
-        <div className="flex gap-4 items-center">
-          <button
-            onClick={toggleLanguage}
-            className="text-sm px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg hover:border-blue-500/50 hover:bg-slate-700/50 transition-all duration-200"
-          >
-            {t.toggleLanguage}
-          </button>
+        <div className="flex gap-2 items-center">
           <Link 
             href="/about" 
-            className="px-4 py-2 text-sm hover:text-blue-400 transition-colors"
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
           >
             {t.about}
           </Link>
+          <Link 
+            href="/research/deepseek" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            DeepSeek
+          </Link>
+          <Link 
+            href="/research/openai" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            OpenAI
+          </Link>
+          <Link 
+            href="/research/google" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            Google
+          </Link>
+          <Link 
+            href="/research/meta" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            Meta
+          </Link>
+          <Link 
+            href="/research/qwen" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            Qwen
+          </Link>
+          <Link 
+            href="/research/glm" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            GLM
+          </Link>
+          <Link 
+            href="/research/nvidia" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            Nvidia
+          </Link>
+          <Link 
+            href="/research/mit" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            MIT
+          </Link>
+          <Link 
+            href="/research/tsinghua" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            Tsinghua
+          </Link>
           <a 
             href="https://github.com/open-superintelligence-lab" 
-            className="px-4 py-2 text-sm hover:text-blue-400 transition-colors" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
             target="_blank" 
             rel="noopener noreferrer"
           >
@@ -55,6 +103,12 @@ export function Navigation({ currentPath }: NavigationProps) {
           >
             Learn
           </Link>
+          <button
+            onClick={toggleLanguage}
+            className="text-sm px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg hover:border-blue-500/50 hover:bg-slate-700/50 transition-all duration-200"
+          >
+            {t.toggleLanguage}
+          </button>
         </div>
       </nav>
     </header>
