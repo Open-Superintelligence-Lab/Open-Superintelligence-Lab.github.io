@@ -172,7 +172,7 @@ export default function Home() {
       {/* Main Projects Section */}
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Road to AI Researcher Project */}
             <Link 
               href="/blog/zero-to-ai-researcher"
@@ -224,6 +224,34 @@ export default function Home() {
                   <span className="text-xs text-gray-500">DeepSeek Research</span>
                   <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
                     Learn More →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* NVFP4 4-Bit Training Project */}
+            <Link 
+              href="/blog/nvfp4-4bit-training"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                  NVIDIA NVFP4 - 4-Bit LLM Training
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">NVIDIA Research</span>
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                    Explore →
                   </span>
                 </div>
               </div>
