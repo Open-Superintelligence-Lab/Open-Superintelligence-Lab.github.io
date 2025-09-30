@@ -210,7 +210,7 @@ export default function Home() {
                 <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">WIP</span>
+                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">In Progress</span>
               </div>
               
               <div className="mt-8">
