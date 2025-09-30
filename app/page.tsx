@@ -361,6 +361,170 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* Localhost Todos Section - Only visible on localhost */}
+      {isLocalhost && (
+        <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-center mb-8 text-slate-300">
+                {language === 'en' ? 'Development Todos' : '开发待办事项'}
+              </h2>
+              
+              {/* Dream-Coder 7B Todo */}
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-4 h-4 border-2 border-blue-400 rounded-full bg-blue-400/20"></div>
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                      Dream-Coder 7B Exploration
+                    </h3>
+                    <p className="text-slate-300 text-sm mb-4">
+                      Explore Dream-Coder 7B - diffusion LLM for code generation with 21.4% pass@1 on LiveCodeBench
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Review GitHub repository: https://github.com/DreamLM/Dream-Coder</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Understand diffusion LLM architecture for code</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Test code generation capabilities</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Experiment with flexible generation patterns</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Install dependencies: transformers==4.46.2 and torch==2.5.1</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-600/50">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-blue-400/30 rounded-full"></div>
+                        <span>Features: Emergent any-order generation, variable-length infilling, open-source trained</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* NVFP4 Research Todo */}
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-4 h-4 border-2 border-green-400 rounded-full bg-green-400/20"></div>
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-green-400 mb-2">
+                      NVFP4 LLM Pretraining Research
+                    </h3>
+                    <p className="text-slate-300 text-sm mb-4">
+                      Research NVIDIA's NVFP4 (4-bit floating point) training methodology - 2-3x performance boost with 50% memory reduction
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Study paper: https://arxiv.org/pdf/2509.25149</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Understand NVFP4 vs MXFP4 format differences</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Learn Random Hadamard Transforms (RHT) for outlier bounding</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Study two-dimensional quantization scheme</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Research stochastic rounding for unbiased gradients</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Set up experimental environment for FP4 training</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Study TransformerEngine NVFP4 implementation (PR #2177)</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Test NVFP4 support with fusible operations</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-600/50">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-green-400/30 rounded-full"></div>
+                        <span>Results: 12B model on 10T tokens, MMLU-pro 62.58% (vs 62.62% FP8) - first successful 4-bit billion-parameter training</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* MobileLLM-R1 Research Todo */}
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 mt-1">
+                    <div className="w-4 h-4 border-2 border-purple-400 rounded-full bg-purple-400/20"></div>
+                  </div>
+                  <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-purple-400 mb-2">
+                      MobileLLM-R1 Sub-Billion Reasoning Research
+                    </h3>
+                    <p className="text-slate-300 text-sm mb-4">
+                      Research Meta's MobileLLM-R1 - sub-billion parameter reasoning models with strong capabilities using only ~2T high-quality tokens
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Study paper: https://arxiv.org/pdf/2509.24945</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Understand data curation and resampling techniques (~2T tokens)</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Learn benchmark-free, self-evolving data optimization</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Study data-model co-evolution strategy for mid-training</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Analyze training recipe: 4.2T tokens from resampled ~2T tokens</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-xs text-slate-400">
+                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
+                        <span>Test MobileLLM-R1-950M model capabilities</span>
+                      </div>
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-slate-600/50">
+                      <div className="flex items-center gap-2 text-xs text-slate-500">
+                        <div className="w-2 h-2 bg-purple-400/30 rounded-full"></div>
+                        <span>Results: AIME 15.5 vs OLMo-2-1.48B (0.6), matches Qwen3-0.6B with only 11.7% of tokens (4.2T vs 36T)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
