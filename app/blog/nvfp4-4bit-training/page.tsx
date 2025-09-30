@@ -205,8 +205,9 @@ export default function NVFP4Project() {
               </p>
             </div>
             
-            <div className="space-y-4">
-              {/* Block Size Comparison */}
+            {/* Visual Comparison Cards */}
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              {/* Block Size Card */}
               <Tooltip 
                 content={
                   <div>
@@ -220,26 +221,24 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 cursor-help hover:border-slate-500/50 transition-all duration-300">
+                  <h3 className="text-lg font-bold text-white mb-4">Block Size</h3>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-white">Block Size</h3>
-                    <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <div className="text-orange-400 font-mono text-sm">32 numbers</div>
-                        <div className="text-slate-400 text-xs">MXFP4</div>
-                      </div>
-                      <div className="text-slate-400">→</div>
-                      <div className="text-center">
-                        <div className="text-blue-400 font-mono text-sm">16 numbers</div>
-                        <div className="text-slate-400 text-xs">NVFP4</div>
-                      </div>
+                    <div className="text-center">
+                      <div className="text-orange-400 font-mono text-sm mb-1">32 numbers</div>
+                      <div className="text-slate-400 text-xs">MXFP4</div>
+                    </div>
+                    <div className="text-slate-400 text-2xl">→</div>
+                    <div className="text-center">
+                      <div className="text-blue-400 font-mono text-sm mb-1">16 numbers</div>
+                      <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
                   <p className="text-slate-300 text-sm">Smaller blocks = better fit</p>
                 </div>
               </Tooltip>
 
-              {/* Scale Format Comparison */}
+              {/* Scale Format Card */}
               <Tooltip 
                 content={
                   <div>
@@ -253,26 +252,24 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 cursor-help hover:border-slate-500/50 transition-all duration-300">
+                  <h3 className="text-lg font-bold text-white mb-4">Scale Format</h3>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-white">Scale Format</h3>
-                    <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <div className="text-orange-400 font-mono text-sm">UE8M0 (crude)</div>
-                        <div className="text-slate-400 text-xs">MXFP4</div>
-                      </div>
-                      <div className="text-slate-400">→</div>
-                      <div className="text-center">
-                        <div className="text-blue-400 font-mono text-sm">E4M3 (precise)</div>
-                        <div className="text-slate-400 text-xs">NVFP4</div>
-                      </div>
+                    <div className="text-center">
+                      <div className="text-orange-400 font-mono text-sm mb-1">UE8M0 (crude)</div>
+                      <div className="text-slate-400 text-xs">MXFP4</div>
+                    </div>
+                    <div className="text-slate-400 text-2xl">→</div>
+                    <div className="text-center">
+                      <div className="text-blue-400 font-mono text-sm mb-1">E4M3 (precise)</div>
+                      <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
                   <p className="text-slate-300 text-sm">More accurate scaling</p>
                 </div>
               </Tooltip>
 
-              {/* Scaling Strategy Comparison */}
+              {/* Scaling Strategy Card */}
               <Tooltip 
                 content={
                   <div>
@@ -286,19 +283,17 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 cursor-help hover:border-slate-500/50 transition-all duration-300">
+                  <h3 className="text-lg font-bold text-white mb-4">Scaling Strategy</h3>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-white">Scaling Strategy</h3>
-                    <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <div className="text-orange-400 font-mono text-sm">Single-level</div>
-                        <div className="text-slate-400 text-xs">MXFP4</div>
-                      </div>
-                      <div className="text-slate-400">→</div>
-                      <div className="text-center">
-                        <div className="text-blue-400 font-mono text-sm">Two-level</div>
-                        <div className="text-slate-400 text-xs">NVFP4</div>
-                      </div>
+                    <div className="text-center">
+                      <div className="text-orange-400 font-mono text-sm mb-1">Single-level</div>
+                      <div className="text-slate-400 text-xs">MXFP4</div>
+                    </div>
+                    <div className="text-slate-400 text-2xl">→</div>
+                    <div className="text-center">
+                      <div className="text-blue-400 font-mono text-sm mb-1">Two-level</div>
+                      <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
                   <p className="text-slate-300 text-sm">Better dynamic range</p>
