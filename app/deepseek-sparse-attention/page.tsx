@@ -24,7 +24,7 @@ export default function DeepSeekProject() {
           <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">

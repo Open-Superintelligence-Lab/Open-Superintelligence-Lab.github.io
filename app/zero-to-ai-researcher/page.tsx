@@ -8,17 +8,13 @@ export default function BlueberryLLMPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Header */}
-      <header className="border-b border-slate-700/50">
-        <div className="container mx-auto px-6 py-4">
+      {/* Blog Content */}
+      <main className="container mx-auto px-6 pt-32 pb-12 max-w-4xl">
+        <div className="mb-8">
           <Link href="/" className="text-slate-300 hover:text-white transition-colors">
             ← Back to Home
           </Link>
         </div>
-      </header>
-
-      {/* Blog Content */}
-      <main className="container mx-auto px-6 py-12 max-w-4xl">
         <article className="prose prose-invert max-w-none">
           {/* Title */}
           <header className="mb-12">

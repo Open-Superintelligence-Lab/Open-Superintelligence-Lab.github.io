@@ -26,7 +26,7 @@ export default function SDLMPage() {
           <div className="absolute top-2/3 right-1/3 w-3.5 h-3.5 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full opacity-35 animate-pulse delay-1200"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 pt-32 pb-24">
           <div className="text-center max-w-5xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen flex flex-col">
         {/* Enhanced background effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"></div>
         <div className="absolute inset-0 opacity-30">
@@ -57,7 +57,7 @@ export default function Home() {
           <div className="absolute top-2/5 right-1/5 w-1 h-1 bg-gradient-to-r from-rose-400/40 to-pink-400/40 rounded-full blur-sm animate-pulse delay-850 shadow-lg shadow-rose-400/35"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 py-24">
+        <div className="relative container mx-auto px-6 pt-32 pb-24 flex-grow flex items-center">
           <div className="text-center max-w-5xl mx-auto">
             {/* Enhanced title with more effects */}
             <div className="relative">

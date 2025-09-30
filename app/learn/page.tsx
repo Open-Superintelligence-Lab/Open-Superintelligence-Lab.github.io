@@ -137,13 +137,13 @@ export default function LearnPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20"></div>
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 py-20">
+        <div className="relative container mx-auto px-6 pt-32 pb-20">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               {language === 'en' ? 'Become an AI Researcher' : '成为AI研究员'}
@@ -163,7 +163,8 @@ export default function LearnPage() {
         </div>
       </section>
 
-      <main className="container mx-auto px-6 py-12">
+      <main className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
+        <div className="container mx-auto px-6">
         {/* What AI Researchers Do Daily */}
         <section className="mb-16">
           <div className="text-center mb-12">
@@ -353,6 +354,7 @@ export default function LearnPage() {
             </div>
           </div>
         </section>
+        </div>
       </main>
     </>
   );
