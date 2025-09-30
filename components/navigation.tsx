@@ -43,6 +43,20 @@ export function Navigation({ }: NavigationProps) {
           >
             {t.github}
           </a>
+          <a 
+            href="https://discord.com/invite/6AbXGpKTwN" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            {language === 'en' ? 'Discord' : 'Discord'}
+          </a>
+          <Link 
+            href="/contribute" 
+            className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+          >
+            {language === 'en' ? 'Contribute' : '贡献'}
+          </Link>
           <Link 
             href="/learn" 
             className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"

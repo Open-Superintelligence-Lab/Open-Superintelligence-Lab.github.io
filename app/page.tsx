@@ -282,6 +282,34 @@ export default function Home() {
               </div>
             </div>
           </a>
+
+          {/* SLA Sparse-Linear Attention Project */}
+          <Link 
+            href="/sla-sparse-linear-attention"
+            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+          >
+            <div className="absolute top-4 left-4">
+              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">New</span>
+            </div>
+            
+            <div className="mt-8">
+              <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
+                SLA: Sparse-Linear Attention
+              </h4>
+              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                Beyond Sparsity in Diffusion Transformers via Fine-Tunable Sparse-Linear Attention - 20x speedup with minimal quality loss
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-500">Tsinghua University</span>
+                <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
+                  Learn More →
+                </span>
+              </div>
+            </div>
+          </Link>
           </div>
         </div>
       </main>
