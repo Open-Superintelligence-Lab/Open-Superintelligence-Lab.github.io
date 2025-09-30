@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Static export configuration for production builds
-  // output: 'export', // Commented out for development
+  output: 'export',
   trailingSlash: true,
   images: {
     unoptimized: true
