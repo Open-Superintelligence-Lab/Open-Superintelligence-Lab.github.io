@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
+import { useState } from "react";
 
 const tutorialContent = `## Key Innovation: DeepSeek Sparse Attention (DSA)
 
@@ -92,6 +93,304 @@ export default function DeepSeekProject() {
       <main className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6 max-w-4xl">
           
+          {/* The Problem - Visual Explanation */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">⚠️</span>
+                {language === 'en' ? 'The Tyranny of O(L²)' : 'O(L²) 的暴政'}
+              </h2>
+              <p className="text-slate-400 text-lg">
+                {language === 'en' 
+                  ? 'Why long contexts break the bank'
+                  : '为什么长上下文会掏空钱包'
+                }
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              {/* Sequence Length Examples */}
+              <div className="bg-gradient-to-br from-red-900/20 to-red-800/20 backdrop-blur-sm border border-red-600/30 rounded-xl p-6 text-center">
+                <div className="text-4xl mb-4">📄</div>
+                <h3 className="text-xl font-bold text-white mb-2">1,000 tokens</h3>
+                <div className="text-red-400 font-mono text-2xl mb-2">1M ops</div>
+                <p className="text-slate-300 text-sm">Short document</p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-orange-900/20 to-orange-800/20 backdrop-blur-sm border border-orange-600/30 rounded-xl p-6 text-center">
+                <div className="text-4xl mb-4">📚</div>
+                <h3 className="text-xl font-bold text-white mb-2">10,000 tokens</h3>
+                <div className="text-orange-400 font-mono text-2xl mb-2">100M ops</div>
+                <p className="text-slate-300 text-sm">Medium document</p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-red-900/20 to-red-800/20 backdrop-blur-sm border border-red-600/30 rounded-xl p-6 text-center">
+                <div className="text-4xl mb-4">🏢</div>
+                <h3 className="text-xl font-bold text-white mb-2">128,000 tokens</h3>
+                <div className="text-red-400 font-mono text-2xl mb-2">16B ops</div>
+                <p className="text-slate-300 text-sm">Entire codebase</p>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 text-center">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <span className="text-slate-300">Every token must look at</span>
+                <div className="bg-red-500/20 border border-red-500/50 rounded-lg px-4 py-2">
+                  <span className="text-red-400 font-mono text-lg">ALL</span>
+                </div>
+                <span className="text-slate-300">previous tokens</span>
+              </div>
+              <p className="text-slate-400 text-sm">
+                {language === 'en' 
+                  ? 'This quadratic scaling makes long contexts prohibitively expensive'
+                  : '这种二次缩放使得长上下文极其昂贵'
+                }
+              </p>
+            </div>
+          </div>
+
+          {/* The Solution - Lightning Indexer */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">⚡</span>
+                {language === 'en' ? 'The Lightning Indexer Solution' : '闪电索引器解决方案'}
+              </h2>
+              <p className="text-slate-400 text-lg">
+                {language === 'en' 
+                  ? 'From O(L²) to O(Lk) - The scout and elite squad approach'
+                  : '从 O(L²) 到 O(Lk) - 侦察兵和精英小队方法'
+                }
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              {/* Scout Phase */}
+              <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🔍</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">
+                    {language === 'en' ? 'Phase 1: The Scout' : '阶段 1：侦察兵'}
+                  </h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-blue-400 font-mono text-sm">Lightning Indexer</span>
+                    <span className="text-slate-400 text-sm">→</span>
+                    <span className="text-slate-300 text-sm">
+                      {language === 'en' ? 'Fast relevance scoring' : '快速相关性评分'}
+                    </span>
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                    <div className="text-blue-400 font-mono text-sm mb-1">I_t,s = Σ w_t,j^I * ReLU(q_t,j^I ⋅ k_s^I)</div>
+                    <p className="text-slate-300 text-xs">
+                      {language === 'en' 
+                        ? 'Ultra-fast dot product + ReLU for speed'
+                        : '超快速点积 + ReLU 以提高速度'
+                      }
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
+                    <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                    {language === 'en' ? 'Runs in FP8 precision' : '以 FP8 精度运行'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
+                    <span className="w-2 h-2 bg-blue-400 rounded-full"></span>
+                    {language === 'en' ? 'Minimal computational cost' : '最小计算成本'}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Elite Squad Phase */}
+              <div className="bg-gradient-to-br from-emerald-900/20 to-emerald-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🎯</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">
+                    {language === 'en' ? 'Phase 2: Elite Squad' : '阶段 2：精英小队'}
+                  </h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-emerald-400 font-mono text-sm">Top-k Selection</span>
+                    <span className="text-slate-400 text-sm">→</span>
+                    <span className="text-slate-300 text-sm">
+                      {language === 'en' ? 'k=2048 best tokens' : 'k=2048 个最佳 token'}
+                    </span>
+                  </div>
+                  <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3">
+                    <div className="text-emerald-400 font-mono text-sm mb-1">u_t = Attn(h_t, &#123;c_s | I_t,s ∈ Top-k&#125;)</div>
+                    <p className="text-slate-300 text-xs">
+                      {language === 'en' 
+                        ? 'Full attention only on selected tokens'
+                        : '仅对选定的 token 进行完整注意力'
+                      }
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                    {language === 'en' ? 'L×L → L×k complexity' : 'L×L → L×k 复杂度'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
+                    <span className="w-2 h-2 bg-emerald-400 rounded-full"></span>
+                    {language === 'en' ? 'Massive cost reduction' : '大幅降低成本'}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Complexity Comparison */}
+            <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {language === 'en' ? 'Complexity Transformation' : '复杂度转换'}
+                </h3>
+              </div>
+              <div className="flex items-center justify-center gap-6">
+                <div className="text-center">
+                  <div className="text-red-400 font-mono text-2xl mb-2">O(L²)</div>
+                  <div className="text-slate-300 text-sm">
+                    {language === 'en' ? 'Quadratic' : '二次'}
+                  </div>
+                </div>
+                <div className="text-3xl text-slate-400">→</div>
+                <div className="text-center">
+                  <div className="text-emerald-400 font-mono text-2xl mb-2">O(Lk)</div>
+                  <div className="text-slate-300 text-sm">
+                    {language === 'en' ? 'Nearly Linear' : '近似线性'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Training Process */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">🎓</span>
+                {language === 'en' ? 'Training the Sparse Model' : '训练稀疏模型'}
+              </h2>
+              <p className="text-slate-400 text-lg">
+                {language === 'en' 
+                  ? 'Two-phase approach: Teach the scout, then train the team'
+                  : '两阶段方法：训练侦察兵，然后训练团队'
+                }
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Phase 1 */}
+              <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/20 backdrop-blur-sm border border-purple-600/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    1
+                  </div>
+                  <h3 className="text-lg font-bold text-white">
+                    {language === 'en' ? 'Dense Warm-up' : '密集预热'}
+                  </h3>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                    {language === 'en' ? 'Freeze main model' : '冻结主模型'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                    {language === 'en' ? 'Train indexer to mimic dense attention' : '训练索引器模仿密集注意力'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-purple-400 rounded-full"></span>
+                    {language === 'en' ? 'KL divergence loss' : 'KL 散度损失'}
+                  </div>
+                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-2 mt-3">
+                    <div className="text-purple-400 font-mono text-xs">1,000 steps</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Phase 2 */}
+              <div className="bg-gradient-to-br from-teal-900/20 to-teal-800/20 backdrop-blur-sm border border-teal-600/30 rounded-xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    2
+                  </div>
+                  <h3 className="text-lg font-bold text-white">
+                    {language === 'en' ? 'Sparse Training' : '稀疏训练'}
+                  </h3>
+                </div>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
+                    {language === 'en' ? 'Enable Top-k selection' : '启用 Top-k 选择'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
+                    {language === 'en' ? 'Train both model and indexer' : '训练模型和索引器'}
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-300">
+                    <span className="w-2 h-2 bg-teal-400 rounded-full"></span>
+                    {language === 'en' ? 'Language modeling + KL loss' : '语言建模 + KL 损失'}
+                  </div>
+                  <div className="bg-teal-500/10 border border-teal-500/30 rounded-lg p-2 mt-3">
+                    <div className="text-teal-400 font-mono text-xs">15,000 steps</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Results Summary */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">🏆</span>
+                {language === 'en' ? 'The Results' : '结果'}
+              </h2>
+              <p className="text-slate-400 text-lg">
+                {language === 'en' 
+                  ? 'Massive efficiency gains with minimal performance loss'
+                  : '巨大的效率提升，性能损失最小'
+                }
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Performance */}
+              <div className="bg-gradient-to-br from-green-900/20 to-green-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center">
+                <div className="text-4xl mb-4">📊</div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {language === 'en' ? 'Performance' : '性能'}
+                </h3>
+                <div className="text-green-400 text-2xl font-bold mb-2">~99%</div>
+                <p className="text-slate-300 text-sm">
+                  {language === 'en' 
+                    ? 'Identical to dense model on benchmarks'
+                    : '在基准测试中与密集模型相同'
+                  }
+                </p>
+              </div>
+              
+              {/* Efficiency */}
+              <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 text-center">
+                <div className="text-4xl mb-4">⚡</div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {language === 'en' ? 'Efficiency' : '效率'}
+                </h3>
+                <div className="text-blue-400 text-2xl font-bold mb-2">~10x</div>
+                <p className="text-slate-300 text-sm">
+                  {language === 'en' 
+                    ? 'Faster for long contexts'
+                    : '长上下文更快'
+                  }
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Community Tasks */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-8">
             <div className="flex items-start gap-6">
