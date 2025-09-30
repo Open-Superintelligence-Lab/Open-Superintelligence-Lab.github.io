@@ -175,7 +175,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
             <Link 
-              href="/zero-to-ai-researcher"
+              href="/blog/zero-to-ai-researcher"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
@@ -203,7 +203,7 @@ export default function Home() {
 
             {/* DeepSeek Sparse Attention Project */}
             <Link 
-              href="/deepseek-sparse-attention"
+              href="/blog/deepseek-sparse-attention"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
@@ -303,7 +303,7 @@ export default function Home() {
 
                 {/* SLA Sparse-Linear Attention Project */}
                 <Link 
-                  href="/sla-sparse-linear-attention"
+                  href="/blog/sla-sparse-linear-attention"
                   className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
                 >
                   <div className="absolute top-2 left-2">
@@ -331,7 +331,7 @@ export default function Home() {
 
                 {/* SDLM Sequential Diffusion Language Model Project */}
                 <Link 
-                  href="/sdlm-sequential-diffusion-language-model"
+                  href="/blog/sdlm-sequential-diffusion-language-model"
                   className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
                 >
                   <div className="absolute top-2 left-2">

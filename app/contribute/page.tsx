@@ -111,7 +111,7 @@ export default function Contribute() {
                   }
                 </p>
                 <Link 
-                  href="/zero-to-ai-researcher"
+                  href="/blog/zero-to-ai-researcher"
                   className="text-green-400 text-sm hover:text-green-300 transition-colors"
                 >
                   {language === 'en' ? 'Learn More →' : '了解更多 →'}
@@ -137,7 +137,7 @@ export default function Contribute() {
                   }
                 </p>
                 <Link 
-                  href="/deepseek-sparse-attention"
+                  href="/blog/deepseek-sparse-attention"
                   className="text-blue-400 text-sm hover:text-blue-300 transition-colors"
                 >
                   {language === 'en' ? 'Learn More →' : '了解更多 →'}
