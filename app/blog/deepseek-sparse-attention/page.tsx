@@ -38,6 +38,7 @@ const tutorialContent = `## Key Innovation: DeepSeek Sparse Attention (DSA)
 // Tooltip Component
 function Tooltip({ children, content, position = "top" }: { children: React.ReactNode; content: React.ReactNode; position?: "top" | "bottom" | "left" | "right" }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [actualPosition, setActualPosition] = useState(position);
 
   const positionClasses = {
     top: "bottom-full left-1/2 transform -translate-x-1/2 mb-2",
@@ -46,24 +47,34 @@ function Tooltip({ children, content, position = "top" }: { children: React.Reac
     right: "left-full top-1/2 transform -translate-y-1/2 ml-2"
   };
 
+  const handleMouseEnter = () => {
+    setIsVisible(true);
+    // Auto-adjust position based on screen space
+    if (position === "top") {
+      setActualPosition("right"); // Default to right for better screen fit
+    } else {
+      setActualPosition(position);
+    }
+  };
+
   return (
     <div 
       className="relative inline-block"
-      onMouseEnter={() => setIsVisible(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setIsVisible(false)}
     >
       {children}
       {isVisible && (
-        <div className={`absolute z-50 ${positionClasses[position]} pointer-events-none`}>
+        <div className={`absolute z-50 ${positionClasses[actualPosition]} pointer-events-none`}>
           <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-600/50 rounded-xl p-4 shadow-2xl max-w-xs w-max">
             <div className="text-white text-sm leading-relaxed">
               {content}
             </div>
             {/* Arrow */}
             <div className={`absolute w-2 h-2 bg-slate-800/95 border-r border-b border-slate-600/50 transform rotate-45 ${
-              position === "top" ? "top-full left-1/2 -translate-x-1/2 -translate-y-1/2" :
-              position === "bottom" ? "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2" :
-              position === "left" ? "left-full top-1/2 -translate-y-1/2 -translate-x-1/2" :
+              actualPosition === "top" ? "top-full left-1/2 -translate-x-1/2 -translate-y-1/2" :
+              actualPosition === "bottom" ? "bottom-full left-1/2 -translate-x-1/2 translate-y-1/2" :
+              actualPosition === "left" ? "left-full top-1/2 -translate-y-1/2 -translate-x-1/2" :
               "right-full top-1/2 -translate-y-1/2 translate-x-1/2"
             }`}></div>
           </div>
