@@ -87,7 +87,7 @@ export default function NVFP4Project() {
             </div>
             
             <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-              How NVIDIA trained a 12B parameter model using 4-bit precision without losing performance
+              How NVIDIA trained a 12B parameter hybrid Mamba-Transformer model on 10 trillion tokens using 4-bit precision without losing performance
             </p>
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function NVFP4Project() {
                 NVIDIA has figured out how to train massive LLMs using a new <strong className="text-blue-400">4-bit number format called NVFP4</strong>, which is a huge deal for efficiency. Training in 4-bit is much faster and uses less memory than the current 8-bit standard (FP8), but it's very difficult to do without the model's performance collapsing.
               </p>
               <p className="text-slate-300 leading-relaxed">
-                Their solution combines four key techniques to train a <strong className="text-purple-400">12-billion-parameter model on 10 trillion tokens</strong> with performance nearly identical to FP8 training.
+                Their solution combines four key techniques to train a <strong className="text-purple-400">12-billion-parameter hybrid Mamba-Transformer model on 10 trillion tokens</strong> with performance nearly identical to FP8 training. This marks the first successful demonstration of training billion-parameter language models with 4-bit precision over a multi-trillion-token horizon.
               </p>
             </div>
           </div>
@@ -205,37 +205,105 @@ export default function NVFP4Project() {
               </p>
             </div>
             
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b border-slate-600">
-                    <th className="text-left p-4 text-slate-300">Feature</th>
-                    <th className="text-left p-4 text-slate-300">MXFP4 (Old)</th>
-                    <th className="text-left p-4 text-blue-400">NVFP4 (New)</th>
-                    <th className="text-left p-4 text-emerald-400">Why Better?</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-slate-700">
-                    <td className="p-4 text-slate-300 font-semibold">Block Size</td>
-                    <td className="p-4 text-slate-400">32 numbers</td>
-                    <td className="p-4 text-blue-400 font-mono">16 numbers</td>
-                    <td className="p-4 text-slate-300 text-sm">Smaller blocks = better fit</td>
-                  </tr>
-                  <tr className="border-b border-slate-700">
-                    <td className="p-4 text-slate-300 font-semibold">Scale Format</td>
-                    <td className="p-4 text-slate-400">UE8M0 (crude)</td>
-                    <td className="p-4 text-blue-400 font-mono">E4M3 (precise)</td>
-                    <td className="p-4 text-slate-300 text-sm">More accurate scaling</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 text-slate-300 font-semibold">Scaling Strategy</td>
-                    <td className="p-4 text-slate-400">Single-level</td>
-                    <td className="p-4 text-blue-400 font-mono">Two-level</td>
-                    <td className="p-4 text-slate-300 text-sm">Better dynamic range</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="space-y-4">
+              {/* Block Size Comparison */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-slate-300 mb-2">📦 Block Size Impact</div>
+                    <p className="mb-2">Block size determines how many numbers share a single scale factor.</p>
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-orange-400">MXFP4</span>: 32 numbers per block</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">NVFP4</span>: 16 numbers per block</div>
+                    </div>
+                    <p className="text-xs text-slate-400">Smaller blocks = less variation = better scale factor fit = more accurate quantization!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-white">Block Size</h3>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-orange-400 font-mono text-sm">32 numbers</div>
+                        <div className="text-slate-400 text-xs">MXFP4</div>
+                      </div>
+                      <div className="text-slate-400">→</div>
+                      <div className="text-center">
+                        <div className="text-blue-400 font-mono text-sm">16 numbers</div>
+                        <div className="text-slate-400 text-xs">NVFP4</div>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 text-sm">Smaller blocks = better fit</p>
+                </div>
+              </Tooltip>
+
+              {/* Scale Format Comparison */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-slate-300 mb-2">🎯 Scale Format Precision</div>
+                    <p className="mb-2">Scale format determines how precisely we can represent scale factors.</p>
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-orange-400">UE8M0</span>: Power-of-two only (2, 4, 8, 16...)</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">E4M3</span>: More precise (2.5, 4.75, 8.25...)</div>
+                    </div>
+                    <p className="text-xs text-slate-400">More precise scaling = less rounding error = better preservation of information!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-white">Scale Format</h3>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-orange-400 font-mono text-sm">UE8M0 (crude)</div>
+                        <div className="text-slate-400 text-xs">MXFP4</div>
+                      </div>
+                      <div className="text-slate-400">→</div>
+                      <div className="text-center">
+                        <div className="text-blue-400 font-mono text-sm">E4M3 (precise)</div>
+                        <div className="text-slate-400 text-xs">NVFP4</div>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 text-sm">More accurate scaling</p>
+                </div>
+              </Tooltip>
+
+              {/* Scaling Strategy Comparison */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-slate-300 mb-2">📊 Two-Level Scaling Strategy</div>
+                    <p className="mb-2">NVFP4 uses a sophisticated two-level scaling approach for maximum flexibility.</p>
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-orange-400">Single-level</span>: One scale per block</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Two-level</span>: Tensor-wide + per-block scales</div>
+                    </div>
+                    <p className="text-xs text-slate-400">Like adjusting overall brightness (tensor) then fine-tuning contrast (blocks) for perfect representation!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6 hover:border-slate-500/50 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-white">Scaling Strategy</h3>
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
+                        <div className="text-orange-400 font-mono text-sm">Single-level</div>
+                        <div className="text-slate-400 text-xs">MXFP4</div>
+                      </div>
+                      <div className="text-slate-400">→</div>
+                      <div className="text-center">
+                        <div className="text-blue-400 font-mono text-sm">Two-level</div>
+                        <div className="text-slate-400 text-xs">NVFP4</div>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 text-sm">Better dynamic range</p>
+                </div>
+              </Tooltip>
             </div>
           </div>
 
@@ -258,12 +326,27 @@ export default function NVFP4Project() {
                   <div>
                     <div className="font-bold text-purple-400 mb-2">🎯 Mixed Precision Strategy</div>
                     <p className="mb-2">Some layers are more numerically sensitive than others, especially at the beginning and end of the network.</p>
+                    
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
-                      <div className="text-xs text-slate-300">• First/last layers: BF16 (high precision)</div>
-                      <div className="text-xs text-slate-300">• Middle layers: NVFP4 (efficient)</div>
-                      <div className="text-xs text-slate-300">• Only ~15% high precision needed</div>
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Layer Sensitivity Analysis</div>
+                      <div className="text-xs text-slate-300">Input embedding: <span className="text-red-400">Very sensitive</span> (BF16)</div>
+                      <div className="text-xs text-slate-300">Hidden layers 1-20: <span className="text-green-400">Robust</span> (NVFP4)</div>
+                      <div className="text-xs text-slate-300">Output head: <span className="text-red-400">Very sensitive</span> (BF16)</div>
                     </div>
-                    <p className="text-xs text-slate-400 mt-2">This pragmatic compromise ensures stability without sacrificing speed.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Precision Distribution (12B Model)</div>
+                      <div className="text-xs text-slate-300">BF16 layers: First 2 + last 8 blocks (16% of linear layers)</div>
+                      <div className="text-xs text-slate-300">NVFP4 layers: Middle 52 blocks (84% of linear layers)</div>
+                      <div className="text-xs text-slate-300">Memory savings: ~42% overall</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Input/Output</span>: Critical for accuracy</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Middle layers</span>: Can tolerate quantization</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Result</span>: Best of both worlds</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like using premium materials for the foundation and roof, standard for the walls!</p>
                   </div>
                 }
               >
@@ -287,14 +370,29 @@ export default function NVFP4Project() {
               <Tooltip 
                 content={
                   <div>
-                    <div className="font-bold text-blue-400 mb-2">🔄 Random Hadamard Transform</div>
+                    <div className="font-bold text-blue-400 mb-2">🔄 Random Hadamard Transform (RHT)</div>
                     <p className="mb-2">Outliers (extreme values) force all other values to be crushed near zero when quantized.</p>
+                    
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
-                      <div className="text-xs text-slate-300">• RHT = orthogonal rotation</div>
-                      <div className="text-xs text-slate-300">• "Smears" outlier energy</div>
-                      <div className="text-xs text-slate-300">• Creates uniform distribution</div>
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Example: Before RHT</div>
+                      <div className="text-xs text-slate-300">Values: [0.1, 0.2, 0.3, <span className="text-red-400 font-bold">15.7</span>, 0.4, 0.5]</div>
+                      <div className="text-xs text-slate-300">Scale factor: 15.7 (dominated by outlier)</div>
+                      <div className="text-xs text-slate-300">Quantized: [0, 0, 0, <span className="text-red-400">15</span>, 0, 0]</div>
                     </div>
-                    <p className="text-xs text-slate-400 mt-2">Think of it like spreading butter evenly instead of having lumps!</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">After RHT (simplified)</div>
+                      <div className="text-xs text-slate-300">Values: [2.1, 2.3, 2.5, 2.7, 2.9, 3.1]</div>
+                      <div className="text-xs text-slate-300">Scale factor: 3.1 (much more reasonable)</div>
+                      <div className="text-xs text-slate-300">Quantized: [2, 2, 3, 3, 3, 3]</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">RHT</span>: H = (1/√2) × H₂ ⊗ H<sub>d/2</sub> with random sign vector</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Matrix size</span>: 16×16 optimal for 12B models</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Applied to</span>: Wgrad inputs only (not Fprop/Dgrad)</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like spreading butter evenly instead of having lumps - all values get fair representation!</p>
                   </div>
                 }
               >
@@ -320,12 +418,27 @@ export default function NVFP4Project() {
                   <div>
                     <div className="font-bold text-emerald-400 mb-2">📐 2D Scaling Consistency</div>
                     <p className="mb-2">In backpropagation, weight matrices are transposed. Row-wise scaling becomes column-wise, breaking consistency.</p>
+                    
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
-                      <div className="text-xs text-slate-300">• Forward: W scaled row-wise</div>
-                      <div className="text-xs text-slate-300">• Backward: W^T scaled column-wise</div>
-                      <div className="text-xs text-slate-300">• Solution: 16×16 2D blocks</div>
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Example: 1D Scaling Problem</div>
+                      <div className="text-xs text-slate-300">Forward: W = [1, 2, 3] → scaled row-wise</div>
+                      <div className="text-xs text-slate-300">Backward: W^T = [1, 2, 3] → scaled column-wise</div>
+                      <div className="text-xs text-red-400">❌ Different scaling = broken chain rule!</div>
                     </div>
-                    <p className="text-xs text-slate-400 mt-2">2D scaling is transpose-invariant, preserving the chain rule!</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">2D Block Solution</div>
+                      <div className="text-xs text-slate-300">16×16 block: [[1,2,3,4], [5,6,7,8], ...]</div>
+                      <div className="text-xs text-slate-300">Same block scaling for W and W^T</div>
+                      <div className="text-xs text-emerald-400">✅ Transpose-invariant = consistent!</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Forward</span>: W scaled in 16×16 blocks</div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Backward</span>: W^T scaled in same 16×16 blocks</div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Result</span>: Chain rule preserved</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like having the same ruler for measuring in both directions!</p>
                   </div>
                 }
               >
@@ -351,13 +464,27 @@ export default function NVFP4Project() {
                   <div>
                     <div className="font-bold text-cyan-400 mb-2">🎲 Stochastic Rounding</div>
                     <p className="mb-2">Standard rounding introduces systematic bias that accumulates over billions of operations.</p>
+                    
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
-                      <div className="text-xs text-slate-300">• Example: 2.7 rounds to...</div>
-                      <div className="text-xs text-slate-300">  → 3 with 70% probability</div>
-                      <div className="text-xs text-slate-300">  → 2 with 30% probability</div>
-                      <div className="text-xs text-slate-300">• Average: exactly 2.7!</div>
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Example: Value 2.7</div>
+                      <div className="text-xs text-slate-300">Deterministic: 2.7 → 3 (always)</div>
+                      <div className="text-xs text-slate-300">Stochastic: 2.7 → 3 (70%) or 2 (30%)</div>
+                      <div className="text-xs text-slate-300">Expected: 0.7×3 + 0.3×2 = 2.7 ✅</div>
                     </div>
-                    <p className="text-xs text-slate-400 mt-2">Probabilistic rounding eliminates systematic bias in gradients.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Bias Accumulation Problem</div>
+                      <div className="text-xs text-slate-300">1M operations: 2.7 → 3 (always)</div>
+                      <div className="text-xs text-slate-300">Total bias: 1M × 0.3 = 300,000</div>
+                      <div className="text-xs text-red-400">❌ Systematic error grows!</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-cyan-400">Formula</span>: P(round up) = x - floor(x)</div>
+                      <div className="text-xs text-slate-300">• <span className="text-cyan-400">Applied to</span>: Gradients only (not weights/activations)</div>
+                      <div className="text-xs text-slate-300">• <span className="text-cyan-400">Result</span>: Unbiased on average, prevents divergence</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like flipping a weighted coin - fair in the long run!</p>
                   </div>
                 }
               >
@@ -398,7 +525,8 @@ export default function NVFP4Project() {
                 <div className="text-green-400 text-3xl font-bold mb-2">12B params</div>
                 <p className="text-slate-300 text-sm mb-3">10 trillion tokens trained</p>
                 <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-                  <div className="text-green-400 text-sm">Largest 4-bit training run ever</div>
+                  <div className="text-green-400 text-sm">Hybrid Mamba-Transformer architecture</div>
+                  <div className="text-green-400 text-sm">First multi-trillion-token 4-bit training</div>
                 </div>
               </div>
               
@@ -409,6 +537,8 @@ export default function NVFP4Project() {
                 <p className="text-slate-300 text-sm mb-3">Of FP8 baseline performance</p>
                 <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
                   <div className="text-blue-400 text-sm">MMLU-pro: 62.58% vs 62.62% (FP8)</div>
+                  <div className="text-blue-400 text-sm">Math: 86.88% vs 86.20% (FP8)</div>
+                  <div className="text-blue-400 text-sm">GSM8k: 92.27% vs 89.08% (FP8)</div>
                 </div>
               </div>
             </div>
@@ -419,16 +549,18 @@ export default function NVFP4Project() {
                 NVFP4 vs MXFP4
               </h3>
               <p className="text-slate-300 mb-4">
-                In direct comparison, MXFP4 needed <strong className="text-purple-400">36% more training data</strong> to match NVFP4's performance. This proves NVFP4's superior design.
+                In direct comparison on an 8B model, MXFP4 needed <strong className="text-purple-400">36% more training data</strong> (1.36T vs 1T tokens) to match NVFP4's performance. This proves NVFP4's superior design.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
                   <div className="text-purple-400 font-mono text-sm mb-1">NVFP4</div>
                   <div className="text-slate-300 text-xs">Better accuracy with same data</div>
+                  <div className="text-slate-300 text-xs">E4M3 scale factors, 16-element blocks</div>
                 </div>
                 <div className="bg-slate-700/30 border border-slate-600/30 rounded-lg p-4">
                   <div className="text-slate-400 font-mono text-sm mb-1">MXFP4</div>
                   <div className="text-slate-300 text-xs">Needs 36% more data to catch up</div>
+                  <div className="text-slate-300 text-xs">UE8M0 scale factors, 32-element blocks</div>
                 </div>
               </div>
             </div>
@@ -479,6 +611,16 @@ export default function NVFP4Project() {
                     <h3 className="text-lg font-semibold text-white mb-1">Green AI</h3>
                     <p className="text-slate-300 text-sm">
                       Massive reduction in energy consumption for training makes AI more sustainable and environmentally friendly.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">Blackwell GPU Ready</h3>
+                    <p className="text-slate-300 text-sm">
+                      Native Tensor Core support for NVFP4 on NVIDIA Blackwell GPUs delivers 4× speedup on GB200 and 6× on GB300 chips.
                     </p>
                   </div>
                 </div>
