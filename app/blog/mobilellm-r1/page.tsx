@@ -398,6 +398,325 @@ export default function MobileLLMR1Project() {
             </div>
           </div>
 
+          {/* Training Pipeline */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">🔧</span>
+                The Training Pipeline
+              </h2>
+              <p className="text-slate-400 text-lg">
+                A carefully designed multi-phase approach to building reasoning capabilities
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              {/* Phase 1: Pre-training */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-blue-400 mb-2">🎯 Phase 1: Pre-training (4.2T tokens)</div>
+                    <p className="mb-2">Foundation building with carefully curated high-quality data from multiple sources.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Key Data Sources</div>
+                      <div className="text-xs text-slate-300">• FineWeb-Edu (63.75% → 54.83%)</div>
+                      <div className="text-xs text-slate-300">• OpenWebMath (6.93% → 23.33%)</div>
+                      <div className="text-xs text-slate-300">• StarCoder (10.66% → 0.52%)</div>
+                      <div className="text-xs text-slate-300">• Arxiv, StackExchange, Wiki</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Training Details</div>
+                      <div className="text-xs text-slate-300">• 2 phases of 2T tokens each</div>
+                      <div className="text-xs text-slate-300">• Batch size: 16, Sequence length: 2k</div>
+                      <div className="text-xs text-slate-300">• Learning rate: 4e-3 with linear decay</div>
+                      <div className="text-xs text-slate-300">• 500k steps per phase</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Progressive weighting</span> toward reasoning data</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Quality over quantity</span> approach</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Cross-domain learning</span> for generalization</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like building a strong foundation before adding specialized skills!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-blue-900/20 to-purple-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 cursor-help hover:border-blue-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      1
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Pre-training</h3>
+                      <p className="text-slate-400 text-sm">4.2T tokens across 2 phases</p>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Foundation building with curated high-quality data, progressively shifting from general web content to reasoning-specific datasets.
+                  </p>
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                    <div className="text-blue-400 text-sm font-mono">Phase 1: General → Phase 2: Reasoning</div>
+                  </div>
+                </div>
+              </Tooltip>
+              
+              {/* Phase 2: Mid-training */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-purple-400 mb-2">🔄 Phase 2: Mid-training (200B tokens)</div>
+                    <p className="mb-2">Knowledge compression and reasoning specialization using data-model co-evolution.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Key Innovation: Data-Model Co-Evolution</div>
+                      <div className="text-xs text-slate-300">• Model evaluates its own training data</div>
+                      <div className="text-xs text-slate-300">• Removes negative influence samples</div>
+                      <div className="text-xs text-slate-300">• Adapts data mixture to model capacity</div>
+                      <div className="text-xs text-slate-300">• Self-evolving optimization process</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Training Details</div>
+                      <div className="text-xs text-slate-300">• 2 phases of 100B tokens each</div>
+                      <div className="text-xs text-slate-300">• Batch size: 4, Sequence length: 4k</div>
+                      <div className="text-xs text-slate-300">• Learning rate: 3.6e-4 with linear decay</div>
+                      <div className="text-xs text-slate-300">• Knowledge distillation from LLaMA-3.1-8B</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Influence-based filtering</span> of training data</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Adaptive curriculum</span> that grows with model</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Benchmark-free optimization</span></div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like a smart student who knows what to study next!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-purple-900/20 to-indigo-800/20 backdrop-blur-sm border border-purple-600/30 rounded-xl p-6 cursor-help hover:border-purple-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Mid-training</h3>
+                      <p className="text-slate-400 text-sm">200B tokens with co-evolution</p>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Knowledge compression using data-model co-evolution, where the model actively curates its own training data based on influence scores.
+                  </p>
+                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
+                    <div className="text-purple-400 text-sm font-mono">Self-Evolving Data Optimization</div>
+                  </div>
+                </div>
+              </Tooltip>
+              
+              {/* Phase 3: Post-training */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-emerald-400 mb-2">🎯 Phase 3: Post-training</div>
+                    <p className="mb-2">Supervised fine-tuning and instruction alignment using established datasets.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Stage 1: General SFT</div>
+                      <div className="text-xs text-slate-300">• Tulu-3-SFT (866K samples)</div>
+                      <div className="text-xs text-slate-300">• 2 epochs, 4k sequence length</div>
+                      <div className="text-xs text-slate-300">• Learning rate: 5e-6</div>
+                      <div className="text-xs text-slate-300">• Focus: Instruction following</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Stage 2: Reasoning SFT</div>
+                      <div className="text-xs text-slate-300">• OpenMathReasoning (3.2M samples)</div>
+                      <div className="text-xs text-slate-300">• OpenScienceReasoning-2 (802K samples)</div>
+                      <div className="text-xs text-slate-300">• OpenCodeReasoning-2 (2.2M samples)</div>
+                      <div className="text-xs text-slate-300">• 4 epochs, 32k sequence length</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Two-stage approach</span> for better alignment</div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Long context reasoning</span> (32k tokens)</div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Domain-specific specialization</span></div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like getting specialized training after mastering the basics!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-emerald-900/20 to-teal-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6 cursor-help hover:border-emerald-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      3
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white">Post-training</h3>
+                      <p className="text-slate-400 text-sm">SFT with reasoning specialization</p>
+                    </div>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Two-stage supervised fine-tuning: first for general instruction following, then for specialized reasoning capabilities with long context support.
+                  </p>
+                  <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3">
+                    <div className="text-emerald-400 text-sm font-mono">General SFT → Reasoning SFT</div>
+                  </div>
+                </div>
+              </Tooltip>
+            </div>
+          </div>
+
+          {/* Technical Architecture */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">🏗️</span>
+                Technical Architecture
+              </h2>
+              <p className="text-slate-400 text-lg">
+                Model specifications and design choices
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6">
+                <div className="text-4xl mb-4 text-center">140M</div>
+                <h3 className="text-lg font-bold text-white mb-3 text-center">MobileLLM-R1-140M</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Layers:</span>
+                    <span className="text-white">15</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Heads:</span>
+                    <span className="text-white">9</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">KV Heads:</span>
+                    <span className="text-white">3</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Dim:</span>
+                    <span className="text-white">576</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Hidden Dim:</span>
+                    <span className="text-white">2048</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6">
+                <div className="text-4xl mb-4 text-center">360M</div>
+                <h3 className="text-lg font-bold text-white mb-3 text-center">MobileLLM-R1-360M</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Layers:</span>
+                    <span className="text-white">15</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Heads:</span>
+                    <span className="text-white">16</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">KV Heads:</span>
+                    <span className="text-white">4</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Dim:</span>
+                    <span className="text-white">1024</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Hidden Dim:</span>
+                    <span className="text-white">4096</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6">
+                <div className="text-4xl mb-4 text-center">950M</div>
+                <h3 className="text-lg font-bold text-white mb-3 text-center">MobileLLM-R1-950M</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Layers:</span>
+                    <span className="text-white">22</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Heads:</span>
+                    <span className="text-white">24</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">KV Heads:</span>
+                    <span className="text-white">6</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Dim:</span>
+                    <span className="text-white">1536</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Hidden Dim:</span>
+                    <span className="text-white">6144</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span>⚙️</span>
+                Key Design Features
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">LLaMA3.2 Tokenizer</h4>
+                      <p className="text-slate-300 text-sm">128k subword vocabulary for efficient tokenization</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">QK-Norm</h4>
+                      <p className="text-slate-300 text-sm">Mitigates training instabilities in self-attention blocks</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">Weight Sharing</h4>
+                      <p className="text-slate-300 text-sm">Input and output embeddings share weights for parameter efficiency</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">Mobile-Optimized</h4>
+                      <p className="text-slate-300 text-sm">Designed specifically for on-device deployment</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">Long Context</h4>
+                      <p className="text-slate-300 text-sm">Supports up to 32k token context length</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-orange-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <div>
+                      <h4 className="text-white font-semibold">Reasoning-First</h4>
+                      <p className="text-slate-300 text-sm">Architecture optimized for chain-of-thought reasoning</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Results */}
           <div className="mb-8">
             <div className="text-center mb-8">
@@ -434,28 +753,221 @@ export default function MobileLLMR1Project() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-emerald-900/20 to-teal-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-emerald-900/20 to-teal-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6 mb-8">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span>📈</span>
-                Benchmark Comparisons
+                Benchmark Performance Comparison
               </h3>
               <p className="text-slate-300 mb-4">
                 MobileLLM-R1-950M matches or surpasses Qwen3-0.6B across multiple reasoning benchmarks despite being trained on significantly less data.
               </p>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
-                  <div className="text-emerald-400 font-mono text-sm mb-1">MobileLLM-R1-950M</div>
-                  <div className="text-slate-300 text-xs">950M parameters</div>
-                  <div className="text-slate-300 text-xs">2T training tokens</div>
-                  <div className="text-slate-300 text-xs">Strong reasoning performance</div>
+                  <div className="text-emerald-400 font-mono text-sm mb-2">GSM8K (Math)</div>
+                  <div className="text-white text-2xl font-bold mb-1">61.6%</div>
+                  <div className="text-slate-300 text-xs">vs 60.9% (Qwen3-0.6B)</div>
                 </div>
-                <div className="bg-slate-700/30 border border-slate-600/30 rounded-lg p-4">
-                  <div className="text-slate-400 font-mono text-sm mb-1">Qwen3-0.6B</div>
-                  <div className="text-slate-300 text-xs">600M parameters</div>
-                  <div className="text-slate-300 text-xs">36T training tokens</div>
-                  <div className="text-slate-300 text-xs">Matched or surpassed</div>
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
+                  <div className="text-emerald-400 font-mono text-sm mb-2">HumanEval (Code)</div>
+                  <div className="text-white text-2xl font-bold mb-1">46.3%</div>
+                  <div className="text-slate-300 text-xs">vs 30.5% (Qwen3-0.6B)</div>
+                </div>
+                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
+                  <div className="text-emerald-400 font-mono text-sm mb-2">MMLU (Knowledge)</div>
+                  <div className="text-white text-2xl font-bold mb-1">47.4%</div>
+                  <div className="text-slate-300 text-xs">vs 52.4% (Qwen3-0.6B)</div>
                 </div>
               </div>
+            </div>
+            
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                <span>📱</span>
+                On-Device Performance
+              </h3>
+              <p className="text-slate-300 mb-4">
+                MobileLLM-R1 models demonstrate excellent efficiency for on-device deployment, with the 140M model achieving over 100 tokens/second on mobile devices.
+              </p>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-slate-700/30 border border-slate-600/30 rounded-lg p-4 text-center">
+                  <div className="text-slate-400 font-mono text-sm mb-2">MobileLLM-R1-140M</div>
+                  <div className="text-white text-2xl font-bold mb-1">129.67</div>
+                  <div className="text-slate-300 text-xs">tokens/sec (1k context)</div>
+                </div>
+                <div className="bg-slate-700/30 border border-slate-600/30 rounded-lg p-4 text-center">
+                  <div className="text-slate-400 font-mono text-sm mb-2">MobileLLM-R1-360M</div>
+                  <div className="text-white text-2xl font-bold mb-1">77.23</div>
+                  <div className="text-slate-300 text-xs">tokens/sec (1k context)</div>
+                </div>
+                <div className="bg-slate-700/30 border border-slate-600/30 rounded-lg p-4 text-center">
+                  <div className="text-slate-400 font-mono text-sm mb-2">MobileLLM-R1-950M</div>
+                  <div className="text-white text-2xl font-bold mb-1">31.05</div>
+                  <div className="text-slate-300 text-xs">tokens/sec (1k context)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Data Curation Methodology */}
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                <span className="text-4xl">🔬</span>
+                Data Curation Methodology
+              </h2>
+              <p className="text-slate-400 text-lg">
+                How MobileLLM-R1 identifies and optimizes training data
+              </p>
+            </div>
+            
+            <div className="space-y-6">
+              {/* Leave-One-Out Analysis */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-blue-400 mb-2">🔍 Leave-One-Out Analysis</div>
+                    <p className="mb-2">Systematic evaluation of each dataset's contribution to reasoning capabilities.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Methodology</div>
+                      <div className="text-xs text-slate-300">• Train models excluding one dataset at a time</div>
+                      <div className="text-xs text-slate-300">• Measure negative log-likelihood on capability-probing datasets</div>
+                      <div className="text-xs text-slate-300">• Quantify each dataset's impact on reasoning</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Key Findings</div>
+                      <div className="text-xs text-slate-300">• FineWeb-Edu: Largest cross-domain benefit</div>
+                      <div className="text-xs text-slate-300">• StarCoder: Strong code + math transfer</div>
+                      <div className="text-xs text-slate-300">• Math datasets: Primarily benefit math</div>
+                      <div className="text-xs text-slate-300">• Wikipedia: Limited reasoning impact</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Benchmark-free</span> evaluation</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Cross-domain analysis</span> of data impact</div>
+                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Quantitative measurement</span> of contributions</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like testing each ingredient to see which makes the cake taste better!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-blue-900/20 to-purple-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 cursor-help hover:border-blue-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      1
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Leave-One-Out Analysis</h3>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Systematic evaluation of each dataset's contribution to reasoning capabilities by training models with and without specific data sources.
+                  </p>
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
+                    <div className="text-blue-400 text-sm font-mono">Quantify Data Impact = Better Mixtures</div>
+                  </div>
+                </div>
+              </Tooltip>
+              
+              {/* Influence-Based Data Mixing */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-purple-400 mb-2">🎯 Influence-Based Data Mixing</div>
+                    <p className="mb-2">Using influence scores to create optimal data mixtures without benchmark exposure.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Influence Score Calculation</div>
+                      <div className="text-xs text-slate-300">• Measure impact of each training sample</div>
+                      <div className="text-xs text-slate-300">• Cross-capability influence analysis</div>
+                      <div className="text-xs text-slate-300">• Self-influence vs cross-influence</div>
+                      <div className="text-xs text-slate-300">• Weighted across training checkpoints</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Data Mixture Optimization</div>
+                      <div className="text-xs text-slate-300">• Higher influence = higher sampling weight</div>
+                      <div className="text-xs text-slate-300">• Cross-domain transfer benefits</div>
+                      <div className="text-xs text-slate-300">• Benchmark-free optimization</div>
+                      <div className="text-xs text-slate-300">• Self-evolving process</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Principled weighting</span> based on empirical impact</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Cross-domain learning</span> for generalization</div>
+                      <div className="text-xs text-slate-300">• <span className="text-purple-400">Adaptive optimization</span> throughout training</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like having a smart tutor who knows exactly what to teach next!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-purple-900/20 to-indigo-800/20 backdrop-blur-sm border border-purple-600/30 rounded-xl p-6 cursor-help hover:border-purple-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      2
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Influence-Based Data Mixing</h3>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Principled data mixture optimization using influence scores to weight datasets based on their empirical contribution to reasoning capabilities.
+                  </p>
+                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
+                    <div className="text-purple-400 text-sm font-mono">Empirical Impact = Optimal Mixtures</div>
+                  </div>
+                </div>
+              </Tooltip>
+              
+              {/* Hierarchical Rejection Sampling */}
+              <Tooltip 
+                content={
+                  <div>
+                    <div className="font-bold text-emerald-400 mb-2">🎲 Hierarchical Rejection Sampling</div>
+                    <p className="mb-2">Multi-stage filtering to create high-quality capability-probing datasets.</p>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Stage 1: Quality Filtering</div>
+                      <div className="text-xs text-slate-300">• FineWeb-Edu classifier (score &gt; 4)</div>
+                      <div className="text-xs text-slate-300">• Educational value assessment</div>
+                      <div className="text-xs text-slate-300">• Remove low-quality content</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Stage 2: Reasoning Relevance</div>
+                      <div className="text-xs text-slate-300">• Ask-LLM paradigm evaluation</div>
+                      <div className="text-xs text-slate-300">• Binary classification (include/exclude)</div>
+                      <div className="text-xs text-slate-300">• Top 10% confidence samples</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300 font-semibold mb-1">Stage 3: Domain Specialization</div>
+                      <div className="text-xs text-slate-300">• Code, Math, Knowledge domains</div>
+                      <div className="text-xs text-slate-300">• Domain-specific prompts</div>
+                      <div className="text-xs text-slate-300">• Semantic deduplication</div>
+                    </div>
+                    
+                    <div className="bg-slate-700/50 rounded p-2 mb-2">
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Multi-stage filtering</span> for quality</div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Domain-specific optimization</span></div>
+                      <div className="text-xs text-slate-300">• <span className="text-emerald-400">Representative sampling</span> (10K examples)</div>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2">Like having multiple quality control checkpoints!</p>
+                  </div>
+                }
+              >
+                <div className="bg-gradient-to-br from-emerald-900/20 to-teal-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6 cursor-help hover:border-emerald-500/50 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
+                      3
+                    </div>
+                    <h3 className="text-xl font-bold text-white">Hierarchical Rejection Sampling</h3>
+                  </div>
+                  <p className="text-slate-300 mb-3">
+                    Multi-stage filtering pipeline combining classifier-based quality assessment with model-based reasoning relevance evaluation.
+                  </p>
+                  <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3">
+                    <div className="text-emerald-400 text-sm font-mono">Quality + Relevance = Better Data</div>
+                  </div>
+                </div>
+              </Tooltip>
             </div>
           </div>
 
