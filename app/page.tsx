@@ -2,11 +2,9 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
-import { translations } from "@/lib/language-detection";
 
 export default function Home() {
   const { language } = useLanguage();
-  const t = translations[language];
 
   return (
     <>
@@ -218,7 +216,7 @@ export default function Home() {
                 DeepSeek Sparse Attention
               </h4>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing and memory optimization
+                Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">DeepSeek Research</span>
@@ -278,7 +276,7 @@ export default function Home() {
                 DeepSeek Attention + GLM4-MoE
               </h4>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Innovative combination of DeepSeek's sparse attention mechanisms with GLM4's Mixture of Experts architecture
+                Innovative combination of DeepSeek&apos;s sparse attention mechanisms with GLM4&apos;s Mixture of Experts architecture
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">Open Superintelligence Lab</span>

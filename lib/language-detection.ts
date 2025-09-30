@@ -16,7 +16,7 @@ export async function detectLanguageFromIP(): Promise<Language> {
     // Check if user is from Hong Kong or other Chinese-speaking regions
     const chineseRegions = ['HK', 'CN', 'TW', 'MO', 'SG'];
     return chineseRegions.includes(data.country_code) ? 'zh' : 'en';
-  } catch (error) {
+  } catch {
     console.log('Failed to detect language from IP, defaulting to English');
     return 'en';
   }

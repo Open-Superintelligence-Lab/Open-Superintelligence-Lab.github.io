@@ -103,12 +103,14 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             if (!src) return null;
             
             // Handle external images
-            if (src.startsWith('http')) {
+            if (typeof src === 'string' && src.startsWith('http')) {
               return (
                 <div className="my-6 rounded-lg overflow-hidden border border-gray-700">
-                  <img
+                  <Image
                     src={src}
                     alt={alt || ''}
+                    width={800}
+                    height={400}
                     className="w-full h-auto"
                     loading="lazy"
                   />
@@ -125,7 +127,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             return (
               <div className="my-6 rounded-lg overflow-hidden border border-gray-700">
                 <Image
-                  src={src}
+                  src={src as string}
                   alt={alt || ''}
                   width={800}
                   height={400}

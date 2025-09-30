@@ -345,10 +345,10 @@ export default function LearnPage() {
                 {language === 'en' ? 'Join Skool Community' : '加入Skool社区'}
               </a>
               <Link 
-                href="/research/deepseek"
+                href="/about"
                 className="px-8 py-3 border border-gray-600/50 text-gray-300 font-medium rounded-lg hover:border-blue-500/50 hover:text-white transition-all duration-200"
               >
-                {language === 'en' ? 'Explore Research Projects' : '探索研究项目'}
+                {language === 'en' ? 'Learn More About Us' : '了解更多关于我们'}
               </Link>
             </div>
           </div>

@@ -8,7 +8,7 @@ interface NavigationProps {
   currentPath?: string;
 }
 
-export function Navigation({ currentPath }: NavigationProps) {
+export function Navigation({ }: NavigationProps) {
   const { language, setLanguage } = useLanguage();
   const t = translations[language];
 

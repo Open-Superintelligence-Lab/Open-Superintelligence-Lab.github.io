@@ -1,11 +1,9 @@
 'use client';
 
 import { useLanguage } from "@/components/providers/language-provider";
-import { translations } from "@/lib/language-detection";
 
 export default function AboutPage() {
   const { language } = useLanguage();
-  const t = translations[language];
 
   return (
     <>
