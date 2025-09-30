@@ -172,7 +172,7 @@ export default function Home() {
       {/* Main Projects Section */}
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
             <Link 
               href="/blog/zero-to-ai-researcher"
@@ -229,8 +229,8 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* NVFP4 4-Bit Training Project */}
-            <Link 
+            {/* NVFP4 4-Bit Training Project - HIDDEN */}
+            {/* <Link 
               href="/blog/nvfp4-4bit-training"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
@@ -255,10 +255,10 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </Link> */}
 
-            {/* MobileLLM-R1 Project */}
-            <Link 
+            {/* MobileLLM-R1 Project - HIDDEN */}
+            {/* <Link 
               href="/blog/mobilellm-r1"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
             >
@@ -283,7 +283,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </main>
