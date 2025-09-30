@@ -55,23 +55,23 @@ export default function NVFP4Project() {
     <>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 via-emerald-600/20 to-teal-600/20"></div>
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-green-500/5 to-transparent"></div>
         </div>
         
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-50 animate-pulse delay-300"></div>
-          <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full opacity-40 animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-60 animate-pulse"></div>
+          <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full opacity-50 animate-pulse delay-300"></div>
+          <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-teal-400 to-green-400 rounded-full opacity-40 animate-pulse delay-700"></div>
+          <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
         
         <div className="relative container mx-auto px-6 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
                   NVIDIA's 4-Bit Revolution
                 </span>
               </h1>
@@ -80,7 +80,7 @@ export default function NVFP4Project() {
               </div>
               
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
-                <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
                   NVIDIA's 4-Bit Revolution
                 </span>
               </div>
@@ -99,16 +99,16 @@ export default function NVFP4Project() {
           
           {/* TL;DR Section */}
           <div className="mb-8">
-            <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6">
               <h2 className="text-3xl font-bold text-white mb-4 flex items-center gap-3">
                 <span className="text-4xl">📝</span>
                 TL;DR
               </h2>
               <p className="text-slate-300 leading-relaxed mb-4">
-                NVIDIA has figured out how to train massive LLMs using a new <strong className="text-blue-400">4-bit number format called NVFP4</strong>, which is a huge deal for efficiency. Training in 4-bit is much faster and uses less memory than the current 8-bit standard (FP8), but it's very difficult to do without the model's performance collapsing.
+                NVIDIA has figured out how to train massive LLMs using a new <strong className="text-green-400">4-bit number format called NVFP4</strong>, which is a huge deal for efficiency. Training in 4-bit is much faster and uses less memory than the current 8-bit standard (FP8), but it's very difficult to do without the model's performance collapsing.
               </p>
               <p className="text-slate-300 leading-relaxed">
-                Their solution combines four key techniques to train a <strong className="text-purple-400">12-billion-parameter hybrid Mamba-Transformer model on 10 trillion tokens</strong> with performance nearly identical to FP8 training. This marks the first successful demonstration of training billion-parameter language models with 4-bit precision over a multi-trillion-token horizon.
+                Their solution combines four key techniques to train a <strong className="text-emerald-400">12-billion-parameter hybrid Mamba-Transformer model on 10 trillion tokens</strong> with performance nearly identical to FP8 training. This marks the first successful demonstration of training billion-parameter language models with 4-bit precision over a multi-trillion-token horizon.
               </p>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function NVFP4Project() {
               <Tooltip 
                 content={
                   <div>
-                    <div className="font-bold text-blue-400 mb-2">✨ New Format: NVFP4</div>
+                    <div className="font-bold text-green-400 mb-2">✨ New Format: NVFP4</div>
                     <p className="mb-2">4-bit floating point has only 16 possible values, making it extremely challenging but highly efficient.</p>
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300">• Only 16 possible values (2⁴)</div>
@@ -161,10 +161,10 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 text-center cursor-help hover:border-blue-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="text-4xl mb-4">✨</div>
                   <h3 className="text-xl font-bold text-white mb-2">NVFP4 (New!)</h3>
-                  <div className="text-blue-400 font-mono text-2xl mb-2">16 values</div>
+                  <div className="text-green-400 font-mono text-2xl mb-2">16 values</div>
                   <p className="text-slate-300 text-sm">4-bit precision</p>
                 </div>
               </Tooltip>
@@ -172,7 +172,7 @@ export default function NVFP4Project() {
               <Tooltip 
                 content={
                   <div>
-                    <div className="font-bold text-emerald-400 mb-2">📊 The Benefits</div>
+                    <div className="font-bold text-green-400 mb-2">📊 The Benefits</div>
                     <p className="mb-2">NVFP4 enables dramatic improvements in training efficiency.</p>
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300">• 2-3x faster calculations</div>
@@ -183,10 +183,10 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-emerald-900/20 to-emerald-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6 text-center cursor-help hover:border-emerald-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-teal-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="text-4xl mb-4">🚀</div>
                   <h3 className="text-xl font-bold text-white mb-2">Performance</h3>
-                  <div className="text-emerald-400 font-mono text-2xl mb-2">2-3x faster</div>
+                  <div className="text-green-400 font-mono text-2xl mb-2">2-3x faster</div>
                   <p className="text-slate-300 text-sm">50% less memory</p>
                 </div>
               </Tooltip>
@@ -215,7 +215,7 @@ export default function NVFP4Project() {
                     <p className="mb-2">Block size determines how many numbers share a single scale factor.</p>
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300">• <span className="text-orange-400">MXFP4</span>: 32 numbers per block</div>
-                      <div className="text-xs text-slate-300">• <span className="text-blue-400">NVFP4</span>: 16 numbers per block</div>
+                      <div className="text-xs text-slate-300">• <span className="text-green-400">NVFP4</span>: 16 numbers per block</div>
                     </div>
                     <p className="text-xs text-slate-400">Smaller blocks = less variation = better scale factor fit = more accurate quantization!</p>
                   </div>
@@ -230,7 +230,7 @@ export default function NVFP4Project() {
                     </div>
                     <div className="text-slate-400 text-2xl">→</div>
                     <div className="text-center">
-                      <div className="text-blue-400 font-mono text-sm mb-1">16 numbers</div>
+                      <div className="text-green-400 font-mono text-sm mb-1">16 numbers</div>
                       <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export default function NVFP4Project() {
                     <p className="mb-2">Scale format determines how precisely we can represent scale factors.</p>
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300">• <span className="text-orange-400">UE8M0</span>: Power-of-two only (2, 4, 8, 16...)</div>
-                      <div className="text-xs text-slate-300">• <span className="text-blue-400">E4M3</span>: More precise (2.5, 4.75, 8.25...)</div>
+                      <div className="text-xs text-slate-300">• <span className="text-green-400">E4M3</span>: More precise (2.5, 4.75, 8.25...)</div>
                     </div>
                     <p className="text-xs text-slate-400">More precise scaling = less rounding error = better preservation of information!</p>
                   </div>
@@ -261,7 +261,7 @@ export default function NVFP4Project() {
                     </div>
                     <div className="text-slate-400 text-2xl">→</div>
                     <div className="text-center">
-                      <div className="text-blue-400 font-mono text-sm mb-1">E4M3 (precise)</div>
+                      <div className="text-green-400 font-mono text-sm mb-1">E4M3 (precise)</div>
                       <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
@@ -277,7 +277,7 @@ export default function NVFP4Project() {
                     <p className="mb-2">NVFP4 uses a sophisticated two-level scaling approach for maximum flexibility.</p>
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300">• <span className="text-orange-400">Single-level</span>: One scale per block</div>
-                      <div className="text-xs text-slate-300">• <span className="text-blue-400">Two-level</span>: Tensor-wide + per-block scales</div>
+                      <div className="text-xs text-slate-300">• <span className="text-green-400">Two-level</span>: Tensor-wide + per-block scales</div>
                     </div>
                     <p className="text-xs text-slate-400">Like adjusting overall brightness (tensor) then fine-tuning contrast (blocks) for perfect representation!</p>
                   </div>
@@ -292,7 +292,7 @@ export default function NVFP4Project() {
                     </div>
                     <div className="text-slate-400 text-2xl">→</div>
                     <div className="text-center">
-                      <div className="text-blue-400 font-mono text-sm mb-1">Two-level</div>
+                      <div className="text-green-400 font-mono text-sm mb-1">Two-level</div>
                       <div className="text-slate-400 text-xs">NVFP4</div>
                     </div>
                   </div>
@@ -345,9 +345,9 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/20 backdrop-blur-sm border border-purple-600/30 rounded-xl p-6 cursor-help hover:border-purple-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
                       1
                     </div>
                     <h3 className="text-xl font-bold text-white">Selective High-Precision Layers</h3>
@@ -355,8 +355,8 @@ export default function NVFP4Project() {
                   <p className="text-slate-300 mb-3">
                     Keep sensitive layers (first/last ~15%) in higher precision (BF16), while using NVFP4 for the bulk of computation.
                   </p>
-                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
-                    <div className="text-purple-400 text-sm font-mono">~15% BF16 + ~85% NVFP4 = Stable Training</div>
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                    <div className="text-green-400 text-sm font-mono">~15% BF16 + ~85% NVFP4 = Stable Training</div>
                   </div>
                 </div>
               </Tooltip>
@@ -391,9 +391,9 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 cursor-help hover:border-blue-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
                       2
                     </div>
                     <h3 className="text-xl font-bold text-white">Random Hadamard Transforms (RHT)</h3>
@@ -401,8 +401,8 @@ export default function NVFP4Project() {
                   <p className="text-slate-300 mb-3">
                     Mathematical operation that "smears" extreme outlier values across all values, making distributions more uniform and easier to quantize.
                   </p>
-                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-                    <div className="text-blue-400 text-sm font-mono">Outliers → Uniform Distribution</div>
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                    <div className="text-green-400 text-sm font-mono">Outliers → Uniform Distribution</div>
                   </div>
                 </div>
               </Tooltip>
@@ -437,9 +437,9 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-emerald-900/20 to-emerald-800/20 backdrop-blur-sm border border-emerald-600/30 rounded-xl p-6 cursor-help hover:border-emerald-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-teal-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">
                       3
                     </div>
                     <h3 className="text-xl font-bold text-white">Two-Dimensional (2D) Scaling</h3>
@@ -447,8 +447,8 @@ export default function NVFP4Project() {
                   <p className="text-slate-300 mb-3">
                     Scale weights in 16×16 2D blocks instead of 1D rows, ensuring consistency between forward and backward passes when matrices are transposed.
                   </p>
-                  <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3">
-                    <div className="text-emerald-400 text-sm font-mono">Forward ≡ Backward (Transpose-Invariant)</div>
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                    <div className="text-green-400 text-sm font-mono">Forward ≡ Backward (Transpose-Invariant)</div>
                   </div>
                 </div>
               </Tooltip>
@@ -483,9 +483,9 @@ export default function NVFP4Project() {
                   </div>
                 }
               >
-                <div className="bg-gradient-to-br from-cyan-900/20 to-cyan-800/20 backdrop-blur-sm border border-cyan-600/30 rounded-xl p-6 cursor-help hover:border-cyan-500/50 transition-all duration-300">
+                <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 cursor-help hover:border-green-500/50 transition-all duration-300">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
                       4
                     </div>
                     <h3 className="text-xl font-bold text-white">Stochastic Rounding</h3>
@@ -493,8 +493,8 @@ export default function NVFP4Project() {
                   <p className="text-slate-300 mb-3">
                     Probabilistic rounding instead of deterministic "round-to-nearest" eliminates systematic bias that accumulates in gradient calculations.
                   </p>
-                  <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-lg p-3">
-                    <div className="text-cyan-400 text-sm font-mono">Unbiased Gradients = Better Training</div>
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                    <div className="text-green-400 text-sm font-mono">Unbiased Gradients = Better Training</div>
                   </div>
                 </div>
               </Tooltip>
@@ -514,7 +514,7 @@ export default function NVFP4Project() {
             </div>
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-gradient-to-br from-green-900/20 to-green-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center">
+              <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center">
                 <div className="text-4xl mb-4">📊</div>
                 <h3 className="text-xl font-bold text-white mb-2">Training Success</h3>
                 <div className="text-green-400 text-3xl font-bold mb-2">12B params</div>
@@ -525,30 +525,30 @@ export default function NVFP4Project() {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 backdrop-blur-sm border border-blue-600/30 rounded-xl p-6 text-center">
+              <div className="bg-gradient-to-br from-green-900/20 to-teal-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6 text-center">
                 <div className="text-4xl mb-4">⚡</div>
                 <h3 className="text-xl font-bold text-white mb-2">Performance Match</h3>
-                <div className="text-blue-400 text-3xl font-bold mb-2">~99%</div>
+                <div className="text-green-400 text-3xl font-bold mb-2">~99%</div>
                 <p className="text-slate-300 text-sm mb-3">Of FP8 baseline performance</p>
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-                  <div className="text-blue-400 text-sm">MMLU-pro: 62.58% vs 62.62% (FP8)</div>
-                  <div className="text-blue-400 text-sm">Math: 86.88% vs 86.20% (FP8)</div>
-                  <div className="text-blue-400 text-sm">GSM8k: 92.27% vs 89.08% (FP8)</div>
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
+                  <div className="text-green-400 text-sm">MMLU-pro: 62.58% vs 62.62% (FP8)</div>
+                  <div className="text-green-400 text-sm">Math: 86.88% vs 86.20% (FP8)</div>
+                  <div className="text-green-400 text-sm">GSM8k: 92.27% vs 89.08% (FP8)</div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/20 backdrop-blur-sm border border-purple-600/30 rounded-xl p-6">
+            <div className="bg-gradient-to-br from-green-900/20 to-emerald-800/20 backdrop-blur-sm border border-green-600/30 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span>📈</span>
                 NVFP4 vs MXFP4
               </h3>
               <p className="text-slate-300 mb-4">
-                In direct comparison on an 8B model, MXFP4 needed <strong className="text-purple-400">36% more training data</strong> (1.36T vs 1T tokens) to match NVFP4's performance. This proves NVFP4's superior design.
+                In direct comparison on an 8B model, MXFP4 needed <strong className="text-green-400">36% more training data</strong> (1.36T vs 1T tokens) to match NVFP4's performance. This proves NVFP4's superior design.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
-                  <div className="text-purple-400 font-mono text-sm mb-1">NVFP4</div>
+                <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+                  <div className="text-green-400 font-mono text-sm mb-1">NVFP4</div>
                   <div className="text-slate-300 text-xs">Better accuracy with same data</div>
                   <div className="text-slate-300 text-xs">E4M3 scale factors, 16-element blocks</div>
                 </div>
