@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ConvexClientProvider } from "@/components/providers/convex-provider";
+import "highlight.js/styles/github-dark.css";
+import { LanguageProvider } from "@/components/providers/language-provider";
+import { Navigation } from "@/components/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Auto AI Research System",
-  description: "Fully autonomous, web-based AI research platform",
+  title: "Open Superintelligence Lab",
+  description: "开放超级智能实验室 - Advancing AI research and development",
 };
 
 export default function RootLayout({
@@ -24,13 +26,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
+        <LanguageProvider>
+          <div className="min-h-screen text-white">
+            <Navigation />
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
