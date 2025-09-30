@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { language } = useLanguage();
+  const [isLocalhost, setIsLocalhost] = useState(false);
+
+  useEffect(() => {
+    setIsLocalhost(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  }, []);
 
   return (
     <>
@@ -163,184 +169,198 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Main Projects Section */}
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Road to AI Researcher Project */}
-          <Link 
-            href="/zero-to-ai-researcher"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Learning Path</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">Active</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                Zero To AI Researcher - Full Course
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
-                  Read Blog Post →
-                </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Road to AI Researcher Project */}
+            <Link 
+              href="/zero-to-ai-researcher"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Learning Path</span>
               </div>
-            </div>
-          </Link>
+              <div className="absolute top-4 right-4">
+                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">Active</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
+                  Zero To AI Researcher - Full Course
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                  <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
+                    Read Blog Post →
+                  </span>
+                </div>
+              </div>
+            </Link>
 
-          {/* DeepSeek Sparse Attention Project */}
-          <Link 
-            href="/deepseek-sparse-attention"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">WIP</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
-                DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">DeepSeek Research</span>
-                <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
-                  Learn More →
-                </span>
+            {/* DeepSeek Sparse Attention Project */}
+            <Link 
+              href="/deepseek-sparse-attention"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
               </div>
-            </div>
-          </Link>
-
-          {/* GLM4-MoE Project */}
-          <a 
-            href="https://github.com/THUDM/GLM-4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">MoE</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                GLM4-MoE
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Advanced Mixture of Experts implementation with GLM4 architecture for efficient scaling and improved performance
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">THUDM Research</span>
-                <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                  Explore →
-                </span>
+              <div className="absolute top-4 right-4">
+                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">WIP</span>
               </div>
-            </div>
-          </a>
-
-          {/* DeepSeek Attention + GLM4-MoE Project */}
-          <a 
-            href="https://github.com/Open-Superintelligence-Lab/deepseek-attention-glm4-moe"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-cyan-500/20 text-cyan-400 text-xs px-2 py-1 rounded-md">Hybrid</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
-                DeepSeek Attention + GLM4-MoE
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Innovative combination of DeepSeek&apos;s sparse attention mechanisms with GLM4&apos;s Mixture of Experts architecture
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                <span className="text-cyan-400 text-sm group-hover:text-cyan-300 transition-colors">
-                  Learn More →
-                </span>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
+                  DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">DeepSeek Research</span>
+                  <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
+                    Learn More →
+                  </span>
+                </div>
               </div>
-            </div>
-          </a>
-
-          {/* SLA Sparse-Linear Attention Project */}
-          <Link 
-            href="/sla-sparse-linear-attention"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">New</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
-                SLA: Sparse-Linear Attention
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Beyond Sparsity in Diffusion Transformers via Fine-Tunable Sparse-Linear Attention - 20x speedup with minimal quality loss
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">Tsinghua University</span>
-                <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
-                  Learn More →
-                </span>
-              </div>
-            </div>
-          </Link>
-
-          {/* SDLM Sequential Diffusion Language Model Project */}
-          <Link 
-            href="/sdlm-sequential-diffusion-language-model"
-            className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
-          >
-            <div className="absolute top-4 left-4">
-              <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
-            </div>
-            
-            <div className="mt-8">
-              <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                SDLM: Sequential Diffusion Language Model
-              </h4>
-              <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                Enhances pre-trained autoregressive language models by adaptively determining generation length and maintaining KV-cache compatibility, achieving 2x speedup
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">OpenGVLab</span>
-                <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                  Learn More →
-                </span>
-              </div>
-            </div>
-          </Link>
+            </Link>
           </div>
         </div>
       </main>
+
+      {/* Ideas Section - Only visible on localhost */}
+      {isLocalhost && (
+        <section className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800 py-12">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-2xl font-bold text-center mb-8 text-slate-300">
+                {language === 'en' ? 'Research Ideas & Concepts' : '研究想法与概念'}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* GLM4-MoE Project */}
+                <a 
+                  href="https://github.com/THUDM/GLM-4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
+                >
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
+                  </div>
+                  <div className="absolute top-2 right-2">
+                    <span className="bg-purple-500/20 text-purple-300 text-xs px-2 py-1 rounded">MoE</span>
+                  </div>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold mb-2 group-hover:text-purple-300 transition-colors">
+                      GLM4-MoE
+                    </h4>
+                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                      Advanced Mixture of Experts implementation with GLM4 architecture
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">THUDM Research</span>
+                      <span className="text-purple-300 text-xs group-hover:text-purple-200 transition-colors">
+                        Explore →
+                      </span>
+                    </div>
+                  </div>
+                </a>
+
+                {/* DeepSeek Attention + GLM4-MoE Project */}
+                <a 
+                  href="https://github.com/Open-Superintelligence-Lab/deepseek-attention-glm4-moe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300"
+                >
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
+                  </div>
+                  <div className="absolute top-2 right-2">
+                    <span className="bg-cyan-500/20 text-cyan-300 text-xs px-2 py-1 rounded">Hybrid</span>
+                  </div>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold mb-2 group-hover:text-cyan-300 transition-colors">
+                      DeepSeek Attention + GLM4-MoE
+                    </h4>
+                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                      Combination of DeepSeek&apos;s sparse attention with GLM4&apos;s MoE
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">Open Superintelligence Lab</span>
+                      <span className="text-cyan-300 text-xs group-hover:text-cyan-200 transition-colors">
+                        Learn More →
+                      </span>
+                    </div>
+                  </div>
+                </a>
+
+                {/* SLA Sparse-Linear Attention Project */}
+                <Link 
+                  href="/sla-sparse-linear-attention"
+                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
+                >
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
+                  </div>
+                  <div className="absolute top-2 right-2">
+                    <span className="bg-orange-500/20 text-orange-300 text-xs px-2 py-1 rounded">New</span>
+                  </div>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold mb-2 group-hover:text-orange-300 transition-colors">
+                      SLA: Sparse-Linear Attention
+                    </h4>
+                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                      20x speedup with minimal quality loss in diffusion transformers
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">Tsinghua University</span>
+                      <span className="text-orange-300 text-xs group-hover:text-orange-200 transition-colors">
+                        Learn More →
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+
+                {/* SDLM Sequential Diffusion Language Model Project */}
+                <Link 
+                  href="/sdlm-sequential-diffusion-language-model"
+                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
+                >
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
+                  </div>
+                  <div className="absolute top-2 right-2">
+                    <span className="bg-purple-500/20 text-purple-300 text-xs px-2 py-1 rounded">Latest</span>
+                  </div>
+                  
+                  <div className="mt-6">
+                    <h4 className="text-lg font-semibold mb-2 group-hover:text-purple-300 transition-colors">
+                      SDLM: Sequential Diffusion Language Model
+                    </h4>
+                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
+                      Adaptive generation length with 2x speedup and KV-cache compatibility
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400">OpenGVLab</span>
+                      <span className="text-purple-300 text-xs group-hover:text-purple-200 transition-colors">
+                        Learn More →
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
