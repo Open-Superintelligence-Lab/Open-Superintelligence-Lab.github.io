@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import { useLanguage } from "@/components/providers/language-provider";
 
 export default function BlueberryLLMPage() {
 
@@ -69,7 +68,7 @@ export default function BlueberryLLMPage() {
             </p>
             <p className="text-slate-300 leading-relaxed">
               This course provides hands-on experience with advanced AI research methodologies, from foundational concepts to implementing 
-              state-of-the-art architectures. Whether you're a beginner or looking to deepen your understanding of modern LLM research, 
+              state-of-the-art architectures. Whether you&apos;re a beginner or looking to deepen your understanding of modern LLM research, 
               this course offers a structured path to becoming an AI researcher.
             </p>
           </section>
@@ -87,9 +86,9 @@ export default function BlueberryLLMPage() {
               </div>
               
               <div className="bg-slate-800/30 border border-slate-600/30 rounded-lg p-6">
-                <h3 className="text-lg font-semibold mb-3 text-purple-400">2. What makes DeepSeek's attention mechanisms innovative and how can they be combined with MoE?</h3>
+                <h3 className="text-lg font-semibold mb-3 text-purple-400">2. What makes DeepSeek&apos;s attention mechanisms innovative and how can they be combined with MoE?</h3>
                 <p className="text-slate-300">
-                  Explore DeepSeek's advanced attention mechanisms, including sparse attention patterns, RoPE scaling, and LoRA-style projections, 
+                  Explore DeepSeek&apos;s advanced attention mechanisms, including sparse attention patterns, RoPE scaling, and LoRA-style projections, 
                   and understand how to integrate them with MoE architectures for optimal performance.
                 </p>
               </div>
@@ -134,7 +133,7 @@ export default function BlueberryLLMPage() {
 
           {/* Key Features */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-white">What You'll Build</h2>
+            <h2 className="text-2xl font-bold mb-6 text-white">What You&apos;ll Build</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-slate-800/30 border border-slate-600/30 rounded-lg p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center mx-auto mb-4">
