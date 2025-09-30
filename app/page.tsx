@@ -436,7 +436,7 @@ export default function Home() {
                       </div>
                       <div className="flex items-center gap-2 text-xs text-slate-400">
                         <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Understand NVFP4 vs MXFP4 format differences</span>
+                        <span>https://github.com/NVIDIA/TransformerEngine/pull/2177/files - Code</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-slate-400">
                         <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
