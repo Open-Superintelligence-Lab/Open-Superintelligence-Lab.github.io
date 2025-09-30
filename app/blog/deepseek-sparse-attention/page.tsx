@@ -2,6 +2,92 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
+
+const tutorialContent = `### High-Level Summary
+
+The paper introduces an experimental model, **DeepSeek-V3.2-Exp**, which is a more efficient version of its predecessor, **DeepSeek-V3.1-Terminus**. The core problem with large language models is that the computational cost of the attention mechanism grows quadratically with the length of the input sequence (O(L²)), making very long contexts (like a whole book) extremely expensive to process.
+
+The solution presented is **DeepSeek Sparse Attention (DSA)**, a new attention mechanism that reduces this complexity to be nearly linear (O(Lk), where k is a small constant). They achieve this without a significant drop in performance, making long-context processing much faster and cheaper.
+
+---
+
+### Step 1: The Problem - The Cost of Long Contexts
+
+Standard self-attention, the core of the Transformer architecture, requires every token in a sequence to "attend to" (or compare itself with) every single token that came before it.
+
+*   If you have a sequence of **L** tokens, the 10th token looks at the first 9 tokens.
+*   The 100th token looks at the first 99 tokens.
+*   The 100,000th token looks at the first 99,999 tokens.
+
+This results in a total number of computations proportional to L², which becomes computationally infeasible and very expensive for long sequences (e.g., L = 128,000).
+
+### Step 2: The Solution - DeepSeek Sparse Attention (DSA)
+
+DSA is the key innovation. Instead of having every token look at *all* previous tokens, it intelligently selects only a small, fixed number (\\`k\\`) of the most relevant previous tokens to look at. This is a two-part process.
+
+#### Part A: The "Lightning Indexer" (The Scout)
+
+This is a very small, fast component whose only job is to quickly figure out which previous tokens are most important for the current token.
+
+*   For a current query token (\\`h_t\\`), the indexer calculates an "index score" (\\`I_t,s\\`) for every preceding token (\\`h_s\\`).
+*   This score represents the predicted relevance of token \\`s\\` to token \\`t\\`.
+*   As described in **Equation (1)**, this calculation is designed to be extremely fast. It uses a small number of heads and can even run in low-precision FP8 format, making it much cheaper than full attention.
+*   Think of it as a "scout" that quickly scans the entire history and flags the most promising locations.
+
+#### Part B: Fine-grained Token Selection & Sparse Attention (The Main Operation)
+
+Once the Lightning Indexer has calculated scores for all preceding tokens, this mechanism kicks in.
+
+*   It simply picks the **top-k** highest scores. For this model, \\`k\\` is set to **2048**.
+*   The main attention mechanism then operates *only* on the key-value pairs of these 2048 selected tokens.
+*   Instead of calculating attention over L tokens, it now only calculates it over \\`k\\` tokens. This dramatically reduces the complexity from O(L²) to O(L * k). Since \\`k\\` is a fixed number and much smaller than \\`L\\`, the cost grows linearly with the sequence length, not quadratically.
+
+**Figure 1** in the paper visualizes this. The input (\\`h_t\\`) is split. One path goes to the Lightning Indexer to get the scores. The other path goes to the main attention module. The indexer's output is used by a "Top-k Selector" to filter the key-value pairs that the main attention module is allowed to see.
+
+
+
+### Step 3: The Training Process - How to Teach the Model to be Sparse
+
+They couldn't just switch on DSA in a pre-trained model and expect it to work. They used a careful, multi-stage training process, starting from an already powerful model (DeepSeek-V3.1-Terminus).
+
+#### Stage 1: Dense Warm-up (Teaching the Scout)
+
+The first step was to train just the Lightning Indexer.
+*   **Goal:** Teach the indexer to find the same tokens that the full, dense attention mechanism would find important.
+*   **Method:** They froze the main model parameters and kept the standard (dense) attention active. They then trained the indexer to mimic the attention patterns of the main model.
+*   **Loss Function (Equation 3):** They used a KL-divergence loss, which essentially measures how different two probability distributions are. The goal was to minimize the difference between the indexer's scores and the actual attention scores from the main model.
+*   This stage was very short (1000 steps), just to get the indexer properly initialized.
+
+#### Stage 2: Sparse Training (Adapting the Whole System)
+
+Now, they activate the full DSA mechanism, including the top-k selection.
+*   **Goal:** Adapt the entire model (both the main part and the indexer) to work effectively with this new sparse attention pattern.
+*   **Method:** The model now only "sees" the 2048 tokens selected by the indexer.
+    *   The **main model** is trained on the standard language modeling task (predicting the next token).
+    *   The **Lightning Indexer** continues to be trained to align with the main attention distribution, but now only on the set of selected tokens (as shown in **Equation 4**).
+*   This was the main training phase, running for 15,000 steps on a massive amount of data (943.7 billion tokens).
+
+#### Stage 3: Post-Training (Fine-tuning and Alignment)
+
+After the model learned to use sparse attention, they fine-tuned it for specific tasks like coding, math, and following instructions. Crucially, they used the **exact same data and methods** as they did for the non-sparse DeepSeek-V3.1-Terminus. This ensures a fair comparison of the models' capabilities, isolating the impact of adding DSA.
+
+### Step 4: The Results - The Payoff
+
+The paper evaluates the new model on two fronts: capabilities and efficiency.
+
+#### Capabilities (Table 1 & Figure 2)
+
+*   **Performance:** DeepSeek-V3.2-Exp performs **almost identically** to its dense predecessor, DeepSeek-V3.1-Terminus. There is no significant drop in quality on benchmarks for math, coding, and general knowledge.
+*   **Training Stability:** The training curves in Figure 2 show that the sparse model learns just as steadily during Reinforcement Learning (RL) fine-tuning as the dense model. This proves that DSA is a stable architecture.
+
+#### Efficiency (Figure 3)
+
+This is the main victory. The graphs show the cost per million tokens during inference.
+*   **Prefilling (Processing the prompt):** As the input context gets longer (moving right on the x-axis), the cost for the old model (blue line) skyrockets. The cost for the new sparse model (orange line) grows much, much slower.
+*   **Decoding (Generating the response):** The same pattern holds. The cost of generating a new token is significantly lower with the sparse model when the context is long, as it doesn't need to re-scan the entire history with expensive, dense attention.
+
+In summary, they successfully traded a tiny, almost negligible amount of model performance for a massive improvement in computational efficiency for long-context tasks.`;
 
 export default function DeepSeekProject() {
   const { language } = useLanguage();
@@ -29,22 +115,22 @@ export default function DeepSeekProject() {
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  {language === 'en' ? 'DeepSeek Sparse Attention - DeepSeek-V3.2-Exp' : 'DeepSeek 稀疏注意力 - DeepSeek-V3.2-Exp'}
+                  {language === 'en' ? 'How DeepSeek Slashed LLM Costs' : 'DeepSeek 如何大幅降低 LLM 成本'}
                 </span>
               </h1>
               
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
-                  {language === 'en' ? 'DeepSeek Sparse Attention - DeepSeek-V3.2-Exp' : 'DeepSeek 稀疏注意力 - DeepSeek-V3.2-Exp'}
+                  {language === 'en' ? 'How DeepSeek Slashed LLM Costs' : 'DeepSeek 如何大幅降低 LLM 成本'}
                 </span>
               </div>
             </div>
             
             <p className="text-xl text-slate-300 mb-12 leading-relaxed">
               {language === 'en' 
-                ? 'Advanced research on DeepSeek\'s innovative sparse attention mechanisms and efficient long-context processing'
-                : 'DeepSeek 创新稀疏注意力机制和高效长上下文处理的前沿研究'
+                ? 'A deep dive into sparse attention and the Lightning Indexer - DeepSeek-V3.2-Exp'
+                : '深入探讨稀疏注意力和闪电索引器 - DeepSeek-V3.2-Exp'
               }
             </p>
           </div>
@@ -55,32 +141,8 @@ export default function DeepSeekProject() {
       <main className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6 max-w-4xl">
           
-          {/* Work in Progress Notice */}
-          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-6 mb-8">
-            <div className="flex items-start gap-4">
-              <div className="flex-shrink-0">
-                <div className="w-8 h-8 bg-amber-500/20 rounded-full flex items-center justify-center">
-                  <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-amber-400 mb-2">
-                  {language === 'en' ? 'Work in Progress' : '进行中'}
-                </h3>
-                <p className="text-slate-300 leading-relaxed">
-                  {language === 'en' 
-                    ? 'This project is currently under development. We are structuring learning materials and research content to provide comprehensive insights into DeepSeek\'s innovative approaches to sparse attention and long-context processing.'
-                    : '此项目目前正在开发中。我们正在构建学习材料和研究内容，以提供对 DeepSeek 稀疏注意力和长上下文处理创新方法的全面见解。'
-                  }
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Research Paper Section */}
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
+          {/* Research Paper Link */}
+          <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-8">
             <div className="flex items-start gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center">
@@ -91,12 +153,12 @@ export default function DeepSeekProject() {
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-white mb-4">
-                  {language === 'en' ? 'DeepSeek V3.2 Research Paper' : 'DeepSeek V3.2 研究论文'}
+                  {language === 'en' ? 'Read the Original Research Paper' : '阅读原始研究论文'}
                 </h2>
                 <p className="text-slate-300 mb-6 leading-relaxed">
                   {language === 'en' 
-                    ? 'Explore the latest research on DeepSeek\'s V3.2 experimental model, featuring advanced sparse attention mechanisms and innovative approaches to long-context processing.'
-                    : '探索 DeepSeek V3.2 实验模型的最新研究，具有先进的稀疏注意力机制和长上下文处理的创新方法。'
+                    ? 'Explore the full DeepSeek-V3.2-Exp research paper for complete technical details and experimental results.'
+                    : '探索完整的 DeepSeek-V3.2-Exp 研究论文，获取完整的技术细节和实验结果。'
                   }
                 </p>
                 <a 
@@ -114,78 +176,9 @@ export default function DeepSeekProject() {
             </div>
           </div>
 
-          {/* Blog Section */}
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
-            <div className="flex items-start gap-6">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                  </svg>
-                </div>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  {language === 'en' ? 'DeepSeek Blog & Learning' : 'DeepSeek 博客与学习'}
-                </h2>
-                <p className="text-slate-300 mb-6 leading-relaxed">
-                  {language === 'en' 
-                    ? 'Access our comprehensive blog posts and learning materials about DeepSeek\'s architecture, sparse attention mechanisms, and practical implementations.'
-                    : '访问我们关于 DeepSeek 架构、稀疏注意力机制和实际实现的综合博客文章和学习材料。'
-                  }
-                </p>
-                <Link 
-                  href="/learn"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white font-semibold rounded-xl hover:from-green-700 hover:to-teal-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-green-500/25"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  {language === 'en' ? 'Visit Blog' : '访问博客'}
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Key Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-white">
-                  {language === 'en' ? 'Sparse Attention' : '稀疏注意力'}
-                </h3>
-              </div>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {language === 'en' 
-                  ? 'Advanced sparse attention mechanisms for efficient long-context processing and memory optimization.'
-                  : '先进的稀疏注意力机制，用于高效的长上下文处理和内存优化。'
-                }
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-white">
-                  {language === 'en' ? 'Long Context' : '长上下文'}
-                </h3>
-              </div>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                {language === 'en' 
-                  ? 'Innovative approaches to handling extended context windows with improved efficiency.'
-                  : '处理扩展上下文窗口的创新方法，提高效率。'
-                }
-              </p>
-            </div>
+          {/* Tutorial Content */}
+          <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-8 mb-8">
+            <MarkdownRenderer content={tutorialContent} />
           </div>
 
           {/* Back to Home */}
