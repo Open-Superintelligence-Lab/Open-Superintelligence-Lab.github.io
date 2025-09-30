@@ -168,10 +168,8 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Road to AI Researcher Project */}
-          <a 
-            href="https://github.com/vukrosic/blueberry-llm-kimi-deepseek"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link 
+            href="/zero-to-ai-researcher"
             className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
           >
             <div className="absolute top-4 left-4">
@@ -183,7 +181,7 @@ export default function Home() {
             
             <div className="mt-8">
               <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                Road to AI Researcher - Full Course
+                Zero To AI Researcher - Full Course
               </h4>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                 A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies
@@ -191,29 +189,27 @@ export default function Home() {
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
                 <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
-                  Explore →
+                  Read Blog Post →
                 </span>
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* DeepSeek Sparse Attention Project */}
-          <a 
-            href="https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link 
+            href="/deepseek-sparse-attention"
             className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
           >
             <div className="absolute top-4 left-4">
               <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
             </div>
             <div className="absolute top-4 right-4">
-              <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">Open Source</span>
+              <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">WIP</span>
             </div>
             
             <div className="mt-8">
               <h4 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
-                DeepSeek Sparse Attention
+                DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
               </h4>
               <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                 Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
@@ -225,7 +221,7 @@ export default function Home() {
                 </span>
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* GLM4-MoE Project */}
           <a 
