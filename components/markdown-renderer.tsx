@@ -61,17 +61,17 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           // Custom list styles
           ul: ({ children }) => (
-            <ul className="list-disc list-inside mb-10 space-y-4 text-gray-300 text-lg">
+            <ul className="list-disc list-outside mb-10 space-y-4 text-gray-300 text-lg pl-6">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-inside mb-10 space-y-4 text-gray-300 text-lg">
+            <ol className="list-decimal list-outside mb-10 space-y-4 text-gray-300 text-lg pl-6">
               {children}
             </ol>
           ),
           li: ({ children }) => (
-            <li className="text-gray-300 ml-4 leading-relaxed">
+            <li className="text-gray-300 leading-relaxed">
               {children}
             </li>
           ),
