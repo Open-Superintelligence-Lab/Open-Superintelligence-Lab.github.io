@@ -5,9 +5,16 @@ import { useLanguage } from "@/components/providers/language-provider";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { useEffect, useState } from "react";
 
+interface HeroData {
+  title: string;
+  subtitle: string;
+  tags: string[];
+}
+
 export default function DeepSeekProject() {
   const { language } = useLanguage();
   const [markdownContent, setMarkdownContent] = useState<string>('');
+  const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,7 +22,70 @@ export default function DeepSeekProject() {
       try {
         const response = await fetch('/deepseek-sparse-attention-content.md');
         const content = await response.text();
-        setMarkdownContent(content);
+        
+        // Parse frontmatter
+        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+        if (frontmatterMatch) {
+          const frontmatterContent = frontmatterMatch[1];
+          const markdownBody = frontmatterMatch[2];
+          
+          // Parse YAML-like frontmatter (simple parsing for our use case)
+          const heroData: HeroData = {
+            title: "DeepSeek's Attention Revolution",
+            subtitle: "⚡ From O(L²) to O(Lk) - The Lightning Indexer Breakthrough",
+            tags: ["⏱️ Technical Deep Dive", "📄 Research Article"]
+          };
+          
+          // Extract values from frontmatter
+          const lines = frontmatterContent.split('\n');
+          let currentKey = '';
+          let currentArray: string[] = [];
+          
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (trimmedLine.startsWith('hero:')) continue;
+            
+            if (trimmedLine.includes(':')) {
+              const [key, ...valueParts] = trimmedLine.split(':');
+              const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+              
+              switch (key.trim()) {
+                case 'title':
+                  heroData.title = value;
+                  break;
+                case 'subtitle':
+                  heroData.subtitle = value;
+                  break;
+                case 'tags':
+                  currentKey = 'tags';
+                  currentArray = [];
+                  break;
+              }
+            } else if (trimmedLine.startsWith('- ')) {
+              if (currentKey === 'tags') {
+                const tagValue = trimmedLine.substring(2).replace(/^["']|["']$/g, '');
+                currentArray.push(tagValue);
+              }
+            } else if (trimmedLine === '' && currentArray.length > 0) {
+              if (currentKey === 'tags') {
+                heroData.tags = currentArray;
+                currentArray = [];
+                currentKey = '';
+              }
+            }
+          }
+          
+          // Handle final array
+          if (currentArray.length > 0 && currentKey === 'tags') {
+            heroData.tags = currentArray;
+          }
+          
+          setHeroData(heroData);
+          setMarkdownContent(markdownBody);
+        } else {
+          // Fallback if no frontmatter
+          setMarkdownContent(content);
+        }
       } catch (error) {
         console.error('Failed to fetch markdown content:', error);
         setMarkdownContent('# Error loading content\n\nFailed to load the article content.');
@@ -56,71 +126,63 @@ export default function DeepSeekProject() {
           <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 pt-32 pb-24">
+        <div className="relative container mx-auto px-6 pt-32 pb-12">
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  {language === 'en' ? 'DeepSeek\'s Attention Revolution' : 'DeepSeek 的注意力革命'}
+                  {heroData?.title || (language === 'en' ? 'DeepSeek\'s Attention Revolution' : 'DeepSeek 的注意力革命')}
                 </span>
               </h1>
-              <div className="text-lg md:text-xl text-slate-400 mb-4">
-                {language === 'en' 
+              <div className="text-lg md:text-xl text-slate-400 mb-8">
+                {heroData?.subtitle || (language === 'en' 
                   ? '⚡ From O(L²) to O(Lk) - The Lightning Indexer Breakthrough'
                   : '⚡ 从 O(L²) 到 O(Lk) - 闪电索引器突破'
-                }
+                )}
               </div>
+              
+              {/* Tags */}
+              {heroData?.tags && heroData.tags.length > 0 && (
+                <div className="flex items-center justify-center gap-3 text-sm text-slate-400 mb-8">
+                  {heroData.tags.map((tag, index) => (
+                    <span key={index} className="flex items-center gap-2">
+                      {index > 0 && <span className="text-slate-600">•</span>}
+                      <span className="flex items-center gap-2">
+                        {tag.includes('⏱️') && (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        )}
+                        {tag.includes('📄') && (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                          </svg>
+                        )}
+                        {tag.replace(/[⏱️📄]/g, '').trim()}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              )}
               
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
-                  {language === 'en' ? 'DeepSeek\'s Attention Revolution' : 'DeepSeek 的注意力革命'}
+                  {heroData?.title || (language === 'en' ? 'DeepSeek\'s Attention Revolution' : 'DeepSeek 的注意力革命')}
                 </span>
               </div>
             </div>
-            
-            <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-              {language === 'en' 
-                ? 'A deep dive into sparse attention and the Lightning Indexer - DeepSeek-V3.2-Exp'
-                : '深入探讨稀疏注意力和闪电索引器 - DeepSeek-V3.2-Exp'
-              }
-            </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <main className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           {/* Article Container */}
           <article className="max-w-4xl mx-auto">
             {/* Content Card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
-              {/* Article Header */}
-              <div className="bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-cyan-600/10 border-b border-white/10 px-8 sm:px-12 py-8">
-                <div className="flex items-center gap-3 text-sm text-slate-400 mb-4">
-                  <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    Technical Deep Dive
-                  </span>
-                  <span className="text-slate-600">•</span>
-                  <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    Research Article
-                  </span>
-                </div>
-                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-                  DeepSeek Sparse Attention
-                </h1>
-                <p className="text-slate-400 text-lg leading-relaxed">
-                  A comprehensive exploration of the Lightning Indexer and Multi-Head Latent Attention architecture
-                </p>
-              </div>
-
               {/* Article Body */}
               <div className="px-8 sm:px-12 py-12">
                 <div className="prose prose-lg prose-invert max-w-none">

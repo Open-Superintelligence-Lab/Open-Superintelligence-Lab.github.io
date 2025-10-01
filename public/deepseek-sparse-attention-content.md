@@ -1,3 +1,12 @@
+---
+hero:
+  title: "DeepSeek Sparse Attention"
+  subtitle: "⚡ From quadratic to near-linear attention - The Lightning Indexer Breakthrough"
+  tags:
+    - "⏱️ Technical Deep Dive"
+    - "📄 Research Article"
+---
+
 Prerequisites: Attention Mechanism
 
 **📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch this video: [DeeepSeek V3 From Scratch](https://youtu.be/TfEG0TwueTs)
