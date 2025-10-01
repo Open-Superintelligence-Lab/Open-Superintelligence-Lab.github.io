@@ -109,7 +109,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             // Handle external images
             if (typeof src === 'string' && src.startsWith('http')) {
               return (
-                <div className="my-6 rounded-lg overflow-hidden border border-gray-700">
+                <span className="block my-6 rounded-lg overflow-hidden border border-gray-700">
                   <Image
                     src={src}
                     alt={alt || ''}
@@ -119,17 +119,17 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                     loading="lazy"
                   />
                   {alt && (
-                    <p className="text-center text-sm text-gray-400 mt-2 px-4 pb-4">
+                    <span className="block text-center text-sm text-gray-400 mt-2 px-4 pb-4">
                       {alt}
-                    </p>
+                    </span>
                   )}
-                </div>
+                </span>
               );
             }
             
             // Handle local images with Next.js Image
             return (
-              <div className="my-6 rounded-lg overflow-hidden border border-gray-700">
+              <span className="block my-6 rounded-lg overflow-hidden border border-gray-700">
                 <Image
                   src={src as string}
                   alt={alt || ''}
@@ -139,11 +139,11 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   priority={false}
                 />
                 {alt && (
-                  <p className="text-center text-sm text-gray-400 mt-2 px-4 pb-4">
+                  <span className="block text-center text-sm text-gray-400 mt-2 px-4 pb-4">
                     {alt}
-                  </p>
+                  </span>
                 )}
-              </div>
+              </span>
             );
           },
           // Custom table styles

@@ -7,9 +7,9 @@ hero:
     - "📄 Research Article"
 ---
 
-[Research Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf) • [Model](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) • [GitHub (DeepSeek)](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp) • [GitHub (Our Research)](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research)
+[Research Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf) • [Model](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) • [GPU Kernels](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp) (TileLang for research, CUDA for production)
 
-![Inference Cost Comparison](/images/deepseek/Inference-cost.jpeg)
+![Inference Cost Comparison](Inference-cost.jpeg)
 
 The new model makes inference and training significantly cheaper through sparse attention, reducing computational costs while maintaining performance.
 
