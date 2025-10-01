@@ -29,6 +29,8 @@ DeepSeek-V3.2-Exp makes inference and training significantly cheaper through spa
 -  **If you understand classic attention and want to only watch DeepSeek's Multihead Latent Attention (MLA):** Start from 38:53 or use this direct link: [https://youtu.be/TfEG0TwueTs?t=2333](https://youtu.be/TfEG0TwueTs?t=2333)
 -  **Note:** I will explain MLA again in this article / video, but I recommend watching both for better understanding.
 
+💡 *We are also researching this topic - see our findings at the bottom of this article.*
+
 Standard Transformers use an "attention" mechanism where every new token being generated looks back at all the previous tokens in the sequence.
 
 This is computationally very expensive. If you have a sequence of length $L$, the complexity is $O(L^2)$, meaning the computation and memory required grow quadratically.

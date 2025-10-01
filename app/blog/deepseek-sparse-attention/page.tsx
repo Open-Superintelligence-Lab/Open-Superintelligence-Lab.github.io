@@ -206,6 +206,49 @@ export default function DeepSeekProject() {
           <article className="max-w-4xl mx-auto">
             {/* Content Card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+              {/* Copy Button at Top */}
+              <div className="px-8 sm:px-12 pt-8 pb-4">
+                <div className="flex justify-end">
+                  <div className="relative inline-block group">
+                    <button
+                      onClick={handleCopyArticle}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                        copySuccess
+                          ? 'text-green-400 bg-green-400/10 border border-green-400/20'
+                          : 'text-slate-400 hover:text-blue-400 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50'
+                      }`}
+                    >
+                      {copySuccess ? (
+                        <>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm font-medium">
+                            {language === 'en' ? 'Copied!' : '已复制!'}
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                        </>
+                      )}
+                    </button>
+                    
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
+                      {language === 'en' 
+                        ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
+                        : '非常适合粘贴到AI聊天机器人进行自学！🤖'
+                      }
+                      {/* Tooltip arrow */}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Article Body */}
               <div className="px-8 sm:px-12 pb-20">
                 <div className="prose prose-lg prose-invert max-w-none">
@@ -259,7 +302,7 @@ export default function DeepSeekProject() {
                       </div>
                     </div>
                     
-                    <a href="https://twitter.com/intent/tweet?text=DeepSeek%20Sparse%20Attention%20-%20Lightning%20Indexer" 
+                    <a href="https://twitter.com/intent/tweet?text=Learn%20how%20DeepSeek's%20latest%20sparse%20attention%20works%20-%20from%20O(L%C2%B2)%20to%20O(Lk)%20complexity%20with%20the%20Lightning%20Indexer%20breakthrough%20%E2%9A%A1%EF%B8%8F&url=https://opensuperintelligencelab.com/blog/deepseek-sparse-attention/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
@@ -267,7 +310,7 @@ export default function DeepSeekProject() {
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com" 
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/deepseek-sparse-attention/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
