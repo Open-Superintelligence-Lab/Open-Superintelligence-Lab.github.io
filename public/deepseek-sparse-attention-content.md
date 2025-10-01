@@ -39,13 +39,13 @@ $$
 
 This formula calculates the **index score** ($I_{t,s}$), which represents the "relevance" of a past token $s$ to the current token $t$. Let's break it down:
 
-*   `I_t,s`: The final importance score. A higher score means token `s` is more important for token `t`.
-*   `h_t` and `h_s`: These are the vector representations (hidden states) of the current token (`t`) and a previous token (`s`).
-*   `q_t,j^I` and `k_s^I`: These are special, lightweight **query** and **key** vectors created just for the indexer (indicated by the `I` superscript). They are derived from `h_t` and `h_s` respectively.
-*   `q_t,j^I ⋅ k_s^I`: This is a dot product, the fundamental operation in attention. It measures the similarity or compatibility between the query and the key.
-*   `ReLU(...)`: A simple activation function (Rectified Linear Unit). It's very fast to compute. If the dot product is negative, it becomes 0; otherwise, it stays the same.
-*   `w_t,j^I`: An additional weight, also derived from the query token `h_t`. It acts as a learned gate or importance factor for each indexer head `j`.
-*   `Σ ...`: This sums the results across all the indexer's heads (`H^I`). The indexer has only a few heads to keep it fast.
+*   $I_{t,s}$: The final importance score. A higher score means token $s$ is more important for token $t$.
+*   $h_t$ and $h_s$: These are the vector representations (hidden states) of the current token ($t$) and a previous token ($s$).
+*   $q_{t,j}^I$ and $k_s^I$: These are special, lightweight **query** and **key** vectors created just for the indexer (indicated by the $I$ superscript). They are derived from $h_t$ and $h_s$ respectively.
+*   $q_{t,j}^I \cdot k_s^I$: This is a dot product, the fundamental operation in attention. It measures the similarity or compatibility between the query and the key.
+*   $\text{ReLU}(\cdots)$: A simple activation function (Rectified Linear Unit). It's very fast to compute. If the dot product is negative, it becomes 0; otherwise, it stays the same.
+*   $w_{t,j}^I$: An additional weight, also derived from the query token $h_t$. It acts as a learned gate or importance factor for each indexer head $j$.
+*   $\sum \cdots$: This sums the results across all the indexer's heads ($H^I$). The indexer has only a few heads to keep it fast.
 
 **In simple terms:** The Lightning Indexer is a mini, simplified attention mechanism. Its only job is to quickly calculate a relevance score for every pair of tokens without doing the full, expensive attention computation.
 
@@ -55,21 +55,21 @@ $$
 u_t = \text{Attn}(h_t, \{c_s | I_{t,s} \in \text{Top-k}(I_{t,:})\})
 $$
 
-This formula describes how the final output (`u_t`) is computed after the selection is done.
+This formula describes how the final output ($u_t$) is computed after the selection is done.
 
-*   `u_t`: The final output hidden state for the current token `t`.
-*   `Attn(...)`: This represents the main, powerful attention mechanism (in this case, Multi-Query Attention).
-*   `h_t`: The query from the current token.
-*   `{c_s | I_t,s ∈ Top-k(I_t,:)}`: This is the most important part. It means: "Use the set of key-value entries `c_s` **only if** their corresponding index score `I_t,s` (calculated in Formula 1) is among the `top-k` highest scores for the current token `t`."
+*   $u_t$: The final output hidden state for the current token $t$.
+*   $\text{Attn}(\cdots)$: This represents the main, powerful attention mechanism (in this case, Multi-Query Attention).
+*   $h_t$: The query from the current token.
+*   $\{c_s | I_{t,s} \in \text{Top-k}(I_{t,:})\}$: This is the most important part. It means: "Use the set of key-value entries $c_s$ **only if** their corresponding index score $I_{t,s}$ (calculated in Formula 1) is among the $\text{top-k}$ highest scores for the current token $t$."
 
 **In simple terms:** The main attention mechanism is told to ignore almost all previous tokens and focus *only* on the handful of key-value entries that the Lightning Indexer identified as most important.
 
 #### Component 2: The Fine-grained Token Selection
-This component is simple: it takes all the index scores calculated by the Lightning Indexer and picks the `top-k` highest scores.
+This component is simple: it takes all the index scores calculated by the Lightning Indexer and picks the $\text{top-k}$ highest scores.
 
 *   **Function:** It acts as a gatekeeper. It tells the main, powerful attention mechanism: "You don't need to look at all 100,000 previous tokens. I've found the 2,048 most important ones for you. Just look at these."
 
-The final attention output (`u_t`) is then calculated by the main attention module, but only using the current token's query and the `k` key-value pairs that were selected.
+The final attention output ($u_t$) is then calculated by the main attention module, but only using the current token's query and the $k$ key-value pairs that were selected.
 
 ### Step 3: How The Model Was Trained
 
@@ -83,9 +83,9 @@ They didn't train this model from scratch. They cleverly adapted an existing, po
 
 2.  **Sparse Training Stage:**
     *   **Goal:** To adapt the entire model to work with the sparse attention pattern.
-    *   **Method:** They "switched on" the `top-k` selector, making the attention sparse. They unfroze the main model and trained everything together.
+    *   **Method:** They "switched on" the $\text{top-k}$ selector, making the attention sparse. They unfroze the main model and trained everything together.
         *   The **main model** was trained on its usual task: predicting the next word (language modeling loss). It had to learn to perform well with only the limited context provided by the selector.
-        *   The **Lightning Indexer** continued to be trained with the KL-divergence loss to align with the main model's attention, but now only on the selected `k` tokens.
+        *   The **Lightning Indexer** continued to be trained with the KL-divergence loss to align with the main model's attention, but now only on the selected $k$ tokens.
     *   This was the main training phase (15,000 steps, using 943.7 billion tokens).
 
 #### Stage 2: Post-Training
@@ -105,16 +105,16 @@ The process can be split into two main parts:
 
 ### Step 1: Processing Keys and Values (Formulas 1-5)
 
-This section explains how the model takes the input for the current token (`h_t`) and creates the Key and Value vectors that will be stored (in a compressed form) and used by future tokens.
+This section explains how the model takes the input for the current token ($h_t$) and creates the Key and Value vectors that will be stored (in a compressed form) and used by future tokens.
 
 #### Formula (1): The Compression Step
 $$
 c_t^{KV} = W^{DKV} \cdot h_t
 $$
 
-*   **What it does:** This is the most critical step for saving memory. It takes the large, high-dimensional input vector for the current token (`h_t`) and projects it down into a much smaller, low-dimensional vector called the **compressed latent vector** (`c_t^KV`).
-*   **`W^DKV`:** This is a learned "Down-projection" matrix. The model learns how to best squish the information from `h_t` into `c_t^KV` during training.
-*   **Analogy:** Think of `h_t` as a high-resolution image and `c_t^KV` as a highly compressed JPEG. The JPEG is much smaller to store but retains the most important visual information. `c_t^KV` is the only part related to the token's *content* that gets stored in the cache.
+*   **What it does:** This is the most critical step for saving memory. It takes the large, high-dimensional input vector for the current token ($h_t$) and projects it down into a much smaller, low-dimensional vector called the **compressed latent vector** ($c_t^{KV}$).
+*   **$W^{DKV}$:** This is a learned "Down-projection" matrix. The model learns how to best squish the information from $h_t$ into $c_t^{KV}$ during training.
+*   **Analogy:** Think of $h_t$ as a high-resolution image and $c_t^{KV}$ as a highly compressed JPEG. The JPEG is much smaller to store but retains the most important visual information. $c_t^{KV}$ is the only part related to the token's *content* that gets stored in the cache.
 
 ---
 
@@ -126,21 +126,21 @@ The final Key for each attention head is constructed from two separate pieces: a
     $$
     \begin{bmatrix} k_{t,1}^C \\ \vdots \\ k_{t,n_h}^C \end{bmatrix} = W^{UK} \cdot c_t^{KV}
     $$
-    *   This takes the small latent vector `c_t^KV` and projects it *back up* to the full dimension, creating the "content" part of the key (`k_t^C`) for all `n_h` attention heads.
-    *   **`W^UK`:** This is a learned "Up-projection" matrix for Keys. It's the decompressor.
+    *   This takes the small latent vector $c_t^{KV}$ and projects it *back up* to the full dimension, creating the "content" part of the key ($k_t^C$) for all $n_h$ attention heads.
+    *   **$W^{UK}$:** This is a learned "Up-projection" matrix for Keys. It's the decompressor.
 
 *   **Formula (3): Creating the "Positional" Key**
     $$
     k_t^R = \text{RoPE}(W^{KR} \cdot h_t)
     $$
-    *   This part handles the token's position in the sequence. It takes the *original* high-dimensional input `h_t` and applies a transformation (`W^KR`) followed by **Rotary Positional Embedding (RoPE)**.
-    *   This creates a "decoupled" key `k_t^R` that purely encodes positional information. This is the second and final piece that gets stored in the cache.
+    *   This part handles the token's position in the sequence. It takes the *original* high-dimensional input $h_t$ and applies a transformation ($W^{KR}$) followed by **Rotary Positional Embedding (RoPE)**.
+    *   This creates a "decoupled" key $k_t^R$ that purely encodes positional information. This is the second and final piece that gets stored in the cache.
 
 *   **Formula (4): Combining for the Final Key**
     $$
     k_{t,i} = \begin{bmatrix} k_{t,i}^C \\ k_t^R \end{bmatrix}
     $$
-    *   The final key for a specific attention head `i` (`k_t,i`) is formed by simply concatenating (sticking together) the content part (`k_t,i^C`) and the positional part (`k_t^R`).
+    *   The final key for a specific attention head $i$ ($k_{t,i}$) is formed by simply concatenating (sticking together) the content part ($k_{t,i}^C$) and the positional part ($k_t^R$).
 
 ---
 
@@ -149,11 +149,11 @@ $$
 \begin{bmatrix} v_{t,1}^C \\ \vdots \\ v_{t,n_h}^C \end{bmatrix} = W^{UV} \cdot c_t^{KV}
 $$
 
-*   This is very similar to the key decompression. It uses the *same* small latent vector `c_t^KV` but a *different* up-projection matrix (`W^UV`) to reconstruct the full-size Value vectors for all `n_h` heads.
-*   This shows that `c_t^KV` is a **joint** compression of both Key and Value information.
+*   This is very similar to the key decompression. It uses the *same* small latent vector $c_t^{KV}$ but a *different* up-projection matrix ($W^{UV}$) to reconstruct the full-size Value vectors for all $n_h$ heads.
+*   This shows that $c_t^{KV}$ is a **joint** compression of both Key and Value information.
 
 **Key Takeaway for KV Cache:**
-The text explicitly states that **only the blue-boxed vectors (`c_t^KV` and `k_t^R`) need to be cached.** This is the magic of MLA. Instead of storing massive Key and Value vectors for every head, you only store one tiny latent vector (`c_t^KV`) and one positional vector (`k_t^R`). The full Keys and Values are reconstructed on the fly when needed.
+The text explicitly states that **only the blue-boxed vectors ($c_t^{KV}$ and $k_t^R$) need to be cached.** This is the magic of MLA. Instead of storing massive Key and Value vectors for every head, you only store one tiny latent vector ($c_t^{KV}$) and one positional vector ($k_t^R$). The full Keys and Values are reconstructed on the fly when needed.
 
 ---
 
@@ -165,40 +165,40 @@ This process mirrors the key generation, but it's for the Queries of the *curren
     $$
     c_t^Q = W^{DQ} \cdot h_t
     $$
-    *   Just like for the KV, the input `h_t` is compressed into a small latent query vector `c_t^Q` using a separate down-projection matrix (`W^DQ`).
+    *   Just like for the KV, the input $h_t$ is compressed into a small latent query vector $c_t^Q$ using a separate down-projection matrix ($W^{DQ}$).
 
 *   **Formula (7): Decompressing the "Content" Query**
     $$
     \begin{bmatrix} q_{t,1}^C \\ \vdots \\ q_{t,n_h}^C \end{bmatrix} = W^{UQ} \cdot c_t^Q
     $$
-    *   The small latent query `c_t^Q` is projected back up to create the "content" part of the query (`q_t^C`) for each head.
+    *   The small latent query $c_t^Q$ is projected back up to create the "content" part of the query ($q_t^C$) for each head.
 
 *   **Formula (8): Creating the "Positional" Query**
     $$
     \begin{bmatrix} q_{t,1}^R \\ \vdots \\ q_{t,n_h}^R \end{bmatrix} = \text{RoPE}(W^{QR} \cdot c_t^Q)
     $$
-    *   The positional part of the query (`q_t^R`) is created by applying RoPE to a projection of the *compressed* latent query `c_t^Q`.
+    *   The positional part of the query ($q_t^R$) is created by applying RoPE to a projection of the *compressed* latent query $c_t^Q$.
 
 *   **Formula (9): Combining for the Final Query**
     $$
     q_{t,i} = \begin{bmatrix} q_{t,i}^C \\ q_{t,i}^R \end{bmatrix}
     $$
-    *   The final query for each head `i` is formed by concatenating its content and positional parts.
+    *   The final query for each head $i$ is formed by concatenating its content and positional parts.
 
 ### Summary of the Entire MLA Flow
 
-1.  **For each token `t`:** Take its input embedding `h_t`.
-2.  **Compress:** Create a tiny latent vector `c_t^KV` that jointly represents Keys and Values.
-3.  **Get Position:** Create a positional key `k_t^R` from `h_t`.
-4.  **Cache:** Store **only** `c_t^KV` and `k_t^R` in the KV cache. This is the **memory saving** step.
-5.  **Attend:** When a new token needs to perform attention, it generates its query (`q_t,i`). It then retrieves the cached `c_s^KV` and `k_s^R` for all previous tokens `s`, reconstructs their full Keys and Values on the fly using the up-projection matrices, and computes the attention scores.
+1.  **For each token $t$:** Take its input embedding $h_t$.
+2.  **Compress:** Create a tiny latent vector $c_t^{KV}$ that jointly represents Keys and Values.
+3.  **Get Position:** Create a positional key $k_t^R$ from $h_t$.
+4.  **Cache:** Store **only** $c_t^{KV}$ and $k_t^R$ in the KV cache. This is the **memory saving** step.
+5.  **Attend:** When a new token needs to perform attention, it generates its query ($q_{t,i}$). It then retrieves the cached $c_s^{KV}$ and $k_s^R$ for all previous tokens $s$, reconstructs their full Keys and Values on the fly using the up-projection matrices, and computes the attention scores.
 
 ### How MLA Integrates with DeepSeek Sparse Attention
 
 The beauty of this architecture is how MLA works seamlessly with DSA:
 
 1. **DSA selects the relevant tokens:** The Lightning Indexer identifies the top-k most important previous tokens
-2. **MLA processes only the selected tokens:** Instead of reconstructing Keys and Values for all 128,000 previous tokens, MLA only needs to decompress the cached `c_s^KV` and `k_s^R` for the selected top-k tokens
+2. **MLA processes only the selected tokens:** Instead of reconstructing Keys and Values for all 128,000 previous tokens, MLA only needs to decompress the cached $c_s^{KV}$ and $k_s^R$ for the selected $\text{top-k}$ tokens
 3. **Memory efficiency is multiplied:** DSA reduces the number of tokens to process, while MLA reduces the memory footprint of each token
 
 This combination allows DeepSeek-V3.2 to process extremely long sequences (128,000+ tokens) while maintaining both computational efficiency and memory efficiency.
