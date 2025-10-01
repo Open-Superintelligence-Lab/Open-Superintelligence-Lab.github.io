@@ -120,127 +120,11 @@ They didn't train this model from scratch. They cleverly adapted an existing, po
 #### Stage 2: Post-Training
 After the pre-training was done, they fine-tuned the model for specific tasks (like coding, math, reasoning, and following instructions) using Reinforcement Learning (RL). Crucially, they used the **exact same data and methods** as they did for the original DeepSeek-V3.1-Terminus model. This ensures a fair comparison between the dense and sparse models.
 
-## Deep Dive: Multi-Head Latent Attention (MLA) Architecture
-
 ![Attention Architecture](/content/deepseek-sparse-attention/Attention-architecture.png)
 
-Let's break down the Multi-Head Latent Attention (MLA) architecture step-by-step, using the provided formulas and text.
-
-The core goal of MLA is to dramatically reduce the size of the Key-Value (KV) cache, which is the main memory bottleneck when processing long sequences. It achieves this through a clever "compress-then-decompress" strategy.
-
-The process can be split into two main parts:
-1. Creating the Keys and Values (for the cache).
-2. Creating the Queries (to interact with the cache).
-
 ---
 
-### Step 1: Processing Keys and Values (Formulas 1-5)
-
-This section explains how the model takes the input for the current token ($h_t$) and creates the Key and Value vectors that will be stored (in a compressed form) and used by future tokens.
-
-#### Formula (1): The Compression Step
-$$
-c_t^{KV} = W^{DKV} \cdot h_t
-$$
-
-*Note: The superscript $KV$ indicates this compressed vector will be used to create both Key and Value.*
-
--  **What it does:** This is the most critical step for saving memory. It takes the large, high-dimensional input vector for the current token ($h_t$) and projects it down into a much smaller, low-dimensional vector called the **compressed latent vector** ($c_t^{KV}$).
--  **$W^{DKV}$:** This is a learned "Down-projection" matrix. The model learns how to best squish the information from $h_t$ into $c_t^{KV}$ during training.
--  **Analogy:** Think of $h_t$ as a high-resolution image and $c_t^{KV}$ as a highly compressed JPEG. The JPEG is much smaller to store but retains the most important visual information. $c_t^{KV}$ is the only part related to the token's *content* that gets stored in the cache.
-
----
-
-#### Formulas (2), (3), and (4): Reconstructing the Final Key
-
-The final Key for each attention head is constructed from two separate pieces: a "content" part and a "positional" part.
-
--  **Formula (2): Decompressing the "Content" Key**
-    $$
-    \begin{bmatrix} k_{t,1}^C \\ \vdots \\ k_{t,n_h}^C \end{bmatrix} = W^{UK} \cdot c_t^{KV}
-    $$
-    *Note: The subscript $i$ (ranging from 1 to $n_h$) represents the attention head index, and the superscript $C$ indicates the "Content" part of the key.*
-    *   This takes the small latent vector $c_t^{KV}$ and projects it *back up* to the full dimension, creating the "content" part of the key ($k_t^C$) for all $n_h$ attention heads.
-    -  **$W^{UK}$:** This is a learned "Up-projection" matrix for Keys. It's the decompressor.
-
--  **Formula (3): Creating the "Positional" Key**
-    $$
-    k_t^R = \text{RoPE}(W^{KR} \cdot h_t)
-    $$
-    *Note: The superscript $R$ indicates the "Rotational/Positional" part of the key.*
-    *   This part handles the token's position in the sequence. It takes the *original* high-dimensional input $h_t$ and applies a transformation ($W^{KR}$) followed by **Rotary Positional Embedding (RoPE)**.
-    *   This creates a "decoupled" key $k_t^R$ that purely encodes positional information. This is the second and final piece that gets stored in the cache.
-
--  **Formula (4): Combining for the Final Key**
-    $$
-    k_{t,i} = \begin{bmatrix} k_{t,i}^C \\ k_t^R \end{bmatrix}
-    $$
-    *Note: Here $i$ represents the specific attention head index (1 to $n_h$).*
-    *   The final key for a specific attention head $i$ ($k_{t,i}$) is formed by simply concatenating (sticking together) the content part ($k_{t,i}^C$) and the positional part ($k_t^R$).
-
----
-
-#### Formula (5): Decompressing the Value
-$$
-\begin{bmatrix} v_{t,1}^C \\ \vdots \\ v_{t,n_h}^C \end{bmatrix} = W^{UV} \cdot c_t^{KV}
-$$
-
-*   This is very similar to the key decompression. It uses the *same* small latent vector $c_t^{KV}$ but a *different* up-projection matrix ($W^{UV}$) to reconstruct the full-size Value vectors for all $n_h$ heads.
-*   This shows that $c_t^{KV}$ is a **joint** compression of both Key and Value information.
-
-**Key Takeaway for KV Cache:**
-The text explicitly states that **only the blue-boxed vectors ($c_t^{KV}$ and $k_t^R$) need to be cached.** This is the magic of MLA. Instead of storing massive Key and Value vectors for every head, you only store one tiny latent vector ($c_t^{KV}$) and one positional vector ($k_t^R$). The full Keys and Values are reconstructed on the fly when needed.
-
----
-
-### Step 2: Processing Queries (Formulas 6-9)
-
-This process mirrors the key generation, but it's for the Queries of the *current* token that will attend to the past keys in the cache.
-
--  **Formula (6): Compressing the Query**
-    $$
-    c_t^Q = W^{DQ} \cdot h_t
-    $$
-    *Note: The superscript $Q$ indicates this compressed vector is specifically for Query information.*
-    *   Just like for the KV, the input $h_t$ is compressed into a small latent query vector $c_t^Q$ using a separate down-projection matrix ($W^{DQ}$).
-
--  **Formula (7): Decompressing the "Content" Query**
-    $$
-    \begin{bmatrix} q_{t,1}^C \\ \vdots \\ q_{t,n_h}^C \end{bmatrix} = W^{UQ} \cdot c_t^Q
-    $$
-    *   The small latent query $c_t^Q$ is projected back up to create the "content" part of the query ($q_t^C$) for each head.
-
--  **Formula (8): Creating the "Positional" Query**
-    $$
-    \begin{bmatrix} q_{t,1}^R \\ \vdots \\ q_{t,n_h}^R \end{bmatrix} = \text{RoPE}(W^{QR} \cdot c_t^Q)
-    $$
-    *   The positional part of the query ($q_t^R$) is created by applying RoPE to a projection of the *compressed* latent query $c_t^Q$.
-
--  **Formula (9): Combining for the Final Query**
-    $$
-    q_{t,i} = \begin{bmatrix} q_{t,i}^C \\ q_{t,i}^R \end{bmatrix}
-    $$
-    *   The final query for each head $i$ is formed by concatenating its content and positional parts.
-
-### Summary of the Entire MLA Flow
-
-1.  **For each token $t$:** Take its input embedding $h_t$.
-2.  **Compress:** Create a tiny latent vector $c_t^{KV}$ that jointly represents Keys and Values.
-3.  **Get Position:** Create a positional key $k_t^R$ from $h_t$.
-4.  **Cache:** Store **only** $c_t^{KV}$ and $k_t^R$ in the KV cache. This is the **memory saving** step.
-5.  **Attend:** When a new token needs to perform attention, it generates its query ($q_{t,i}$). It then retrieves the cached $c_s^{KV}$ and $k_s^R$ for all previous tokens $s$, reconstructs their full Keys and Values on the fly using the up-projection matrices, and computes the attention scores.
-
-### How MLA Integrates with DeepSeek Sparse Attention
-
-The beauty of this architecture is how MLA works seamlessly with DSA:
-
-1. **DSA selects the relevant tokens:** The Lightning Indexer identifies the top-k most important previous tokens
-2. **MLA processes only the selected tokens:** Instead of reconstructing Keys and Values for all 128,000 previous tokens, MLA only needs to decompress the cached $c_s^{KV}$ and $k_s^R$ for the selected $\text{top-k}$ tokens
-3. **Memory efficiency is multiplied:** DSA reduces the number of tokens to process, while MLA reduces the memory footprint of each token
-
----
-
-*We also did some [research](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research) ourselves
+*We are actively doing research on this ourselves - [contribute here](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research)*
 
 ### Research Questions
 
@@ -272,7 +156,7 @@ Our experiments aimed to answer:
 | 1024       | **4.10**  | 6.91             | **-41% worse** | **32.2%** | 10.7%           |
 | 2048       | 6.64      | **6.63**         | **0% same**   | 11.9%    | **14.4%**       |
 
-**Key Finding**: Mixed results - sparse helped short sequences but hurt long sequences on MHLA. Might be due to implementation. Research in progress...
+**Key Finding**: Mixed results - sparse helped short sequences but hurt long sequences on MHLA. Might be due to implementation (research in progress)
 
 ### Speed Analysis
 
