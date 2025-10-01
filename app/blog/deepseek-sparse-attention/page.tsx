@@ -107,7 +107,10 @@ export default function DeepSeekProject() {
       const content = await response.text();
       
       // Remove frontmatter if present
-      const contentWithoutFrontmatter = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+      let contentWithoutFrontmatter = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+      
+      // Remove image paths (markdown image syntax: ![alt text](image-path))
+      contentWithoutFrontmatter = contentWithoutFrontmatter.replace(/!\[.*?\]\(.*?\)/g, '');
       
       await navigator.clipboard.writeText(contentWithoutFrontmatter);
       setCopySuccess(true);
@@ -202,32 +205,26 @@ export default function DeepSeekProject() {
           {/* Article Container */}
           <article className="max-w-4xl mx-auto">
             {/* Content Card */}
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
               {/* Copy Article Button */}
               <div className="px-8 sm:px-12 pt-8 pb-4">
-                <div className="relative inline-block">
+                <div className="relative inline-block group">
                   <button
                     onClick={handleCopyArticle}
-                    className={`group flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    className={`flex items-center justify-center p-3 rounded-lg font-medium transition-all duration-300 ${
                       copySuccess
                         ? 'bg-green-500/20 text-green-400 border border-green-500/30'
                         : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 border border-white/10 hover:border-blue-500/50'
                     }`}
                   >
                     {copySuccess ? (
-                      <>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        {language === 'en' ? 'Copied!' : '已复制!'}
-                      </>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
                     ) : (
-                      <>
-                        <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                        </svg>
-                        {language === 'en' ? 'Copy Article' : '复制文章'}
-                      </>
+                      <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
                     )}
                   </button>
                   
