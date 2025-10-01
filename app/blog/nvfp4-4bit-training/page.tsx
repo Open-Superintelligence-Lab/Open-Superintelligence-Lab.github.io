@@ -72,7 +72,7 @@ export default function NVFP4Project() {
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  NVIDIA's 4-Bit Revolution
+                  NVIDIA&apos;s 4-Bit Revolution
                 </span>
               </h1>
               <div className="text-lg md:text-xl text-slate-400 mb-4">
@@ -81,7 +81,7 @@ export default function NVFP4Project() {
               
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                  NVIDIA's 4-Bit Revolution
+                  NVIDIA&apos;s 4-Bit Revolution
                 </span>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function NVFP4Project() {
                 TL;DR
               </h2>
               <p className="text-slate-300 leading-relaxed mb-4">
-                NVIDIA has figured out how to train massive LLMs using a new <strong className="text-green-400">4-bit number format called NVFP4</strong>, which is a huge deal for efficiency. Training in 4-bit is much faster and uses less memory than the current 8-bit standard (FP8), but it's very difficult to do without the model's performance collapsing.
+                NVIDIA has figured out how to train massive LLMs using a new <strong className="text-green-400">4-bit number format called NVFP4</strong>, which is a huge deal for efficiency. Training in 4-bit is much faster and uses less memory than the current 8-bit standard (FP8), but it&apos;s very difficult to do without the model&apos;s performance collapsing.
               </p>
               <p className="text-slate-300 leading-relaxed">
                 Their solution combines four key techniques to train a <strong className="text-emerald-400">12-billion-parameter hybrid Mamba-Transformer model on 10 trillion tokens</strong> with performance nearly identical to FP8 training. This marks the first successful demonstration of training billion-parameter language models with 4-bit precision over a multi-trillion-token horizon.
@@ -201,7 +201,7 @@ export default function NVFP4Project() {
                 NVFP4 vs MXFP4
               </h2>
               <p className="text-slate-400 text-lg">
-                How NVIDIA's format improves on the standard
+                How NVIDIA&apos;s format improves on the standard
               </p>
             </div>
             
@@ -310,7 +310,7 @@ export default function NVFP4Project() {
                 The 4 Key Techniques
               </h2>
               <p className="text-slate-400 text-lg">
-                The "secret sauce" that makes NVFP4 work
+                The &quot;secret sauce&quot; that makes NVFP4 work
               </p>
             </div>
             
@@ -399,7 +399,7 @@ export default function NVFP4Project() {
                     <h3 className="text-xl font-bold text-white">Random Hadamard Transforms (RHT)</h3>
                   </div>
                   <p className="text-slate-300 mb-3">
-                    Mathematical operation that "smears" extreme outlier values across all values, making distributions more uniform and easier to quantize.
+                    Mathematical operation that &quot;smears&quot; extreme outlier values across all values, making distributions more uniform and easier to quantize.
                   </p>
                   <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
                     <div className="text-green-400 text-sm font-mono">Outliers → Uniform Distribution</div>
@@ -491,7 +491,7 @@ export default function NVFP4Project() {
                     <h3 className="text-xl font-bold text-white">Stochastic Rounding</h3>
                   </div>
                   <p className="text-slate-300 mb-3">
-                    Probabilistic rounding instead of deterministic "round-to-nearest" eliminates systematic bias that accumulates in gradient calculations.
+                    Probabilistic rounding instead of deterministic &quot;round-to-nearest&quot; eliminates systematic bias that accumulates in gradient calculations.
                   </p>
                   <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
                     <div className="text-green-400 text-sm font-mono">Unbiased Gradients = Better Training</div>
@@ -544,7 +544,7 @@ export default function NVFP4Project() {
                 NVFP4 vs MXFP4
               </h3>
               <p className="text-slate-300 mb-4">
-                In direct comparison on an 8B model, MXFP4 needed <strong className="text-green-400">36% more training data</strong> (1.36T vs 1T tokens) to match NVFP4's performance. This proves NVFP4's superior design.
+                In direct comparison on an 8B model, MXFP4 needed <strong className="text-green-400">36% more training data</strong> (1.36T vs 1T tokens) to match NVFP4&apos;s performance. This proves NVFP4&apos;s superior design.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">

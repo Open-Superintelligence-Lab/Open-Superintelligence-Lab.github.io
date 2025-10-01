@@ -105,10 +105,10 @@ export default function MobileLLMR1Project() {
                 TL;DR
               </h2>
               <p className="text-slate-300 leading-relaxed mb-4">
-                Meta's MobileLLM-R1 challenges two fundamental assumptions about reasoning in language models: (1) that reasoning only emerges in large models, and (2) that it requires massive datasets. They demonstrate that <strong className="text-blue-400">sub-billion parameter models can achieve strong reasoning</strong> with just 2T tokens of carefully curated data.
+                Meta&apos;s MobileLLM-R1 challenges two fundamental assumptions about reasoning in language models: (1) that reasoning only emerges in large models, and (2) that it requires massive datasets. They demonstrate that <strong className="text-blue-400">sub-billion parameter models can achieve strong reasoning</strong> with just 2T tokens of carefully curated data.
               </p>
               <p className="text-slate-300 leading-relaxed">
-                Their <strong className="text-purple-400">950M parameter model achieves an AIME score of 15.5</strong>, compared to just 0.6 for OLMo-2-1.48B and 0.3 for SmoILM-2-1.7B. Remarkably, despite being trained on only 11.7% of the tokens compared to Qwen3's 36T-token corpus, MobileLLM-R1-950M matches or surpasses Qwen3-0.6B across multiple reasoning benchmarks.
+                Their <strong className="text-purple-400">950M parameter model achieves an AIME score of 15.5</strong>, compared to just 0.6 for OLMo-2-1.48B and 0.3 for SmoILM-2-1.7B. Remarkably, despite being trained on only 11.7% of the tokens compared to Qwen3&apos;s 36T-token corpus, MobileLLM-R1-950M matches or surpasses Qwen3-0.6B across multiple reasoning benchmarks.
               </p>
             </div>
           </div>
@@ -253,7 +253,7 @@ export default function MobileLLMR1Project() {
                 content={
                   <div>
                     <div className="font-bold text-purple-400 mb-2">🔄 Data-Model Co-Evolution</div>
-                    <p className="mb-2">As the model's capacity changes during training, the data mixture adapts to match the model's current capabilities.</p>
+                    <p className="mb-2">As the model&apos;s capacity changes during training, the data mixture adapts to match the model&apos;s current capabilities.</p>
                     
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300 font-semibold mb-1">Early Training</div>
@@ -289,8 +289,8 @@ export default function MobileLLMR1Project() {
                     </div>
                     <h3 className="text-xl font-bold text-white">Data-Model Co-Evolution</h3>
                   </div>
-                  <p className="text-slate-300 mb-3">
-                    Adaptive training strategy where the data mixture evolves alongside the model's growing capacity, ensuring optimal challenge levels throughout training.
+                    <p className="text-slate-300 mb-3">
+                    Adaptive training strategy where the data mixture evolves alongside the model&apos;s growing capacity, ensuring optimal challenge levels throughout training.
                   </p>
                   <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
                     <div className="text-purple-400 text-sm font-mono">Adaptive Curriculum = Optimal Learning</div>
@@ -745,7 +745,7 @@ export default function MobileLLMR1Project() {
                 <div className="text-4xl mb-4">⚡</div>
                 <h3 className="text-xl font-bold text-white mb-2">Efficiency</h3>
                 <div className="text-purple-400 text-3xl font-bold mb-2">11.7%</div>
-                <p className="text-slate-300 text-sm mb-3">Of Qwen3's tokens</p>
+                <p className="text-slate-300 text-sm mb-3">Of Qwen3&apos;s tokens</p>
                 <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
                   <div className="text-purple-400 text-sm">2T vs 36T tokens</div>
                   <div className="text-purple-400 text-sm">Same or better performance</div>
@@ -826,13 +826,13 @@ export default function MobileLLMR1Project() {
                 content={
                   <div>
                     <div className="font-bold text-blue-400 mb-2">🔍 Leave-One-Out Analysis</div>
-                    <p className="mb-2">Systematic evaluation of each dataset's contribution to reasoning capabilities.</p>
+                    <p className="mb-2">Systematic evaluation of each dataset&apos;s contribution to reasoning capabilities.</p>
                     
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
                       <div className="text-xs text-slate-300 font-semibold mb-1">Methodology</div>
                       <div className="text-xs text-slate-300">• Train models excluding one dataset at a time</div>
                       <div className="text-xs text-slate-300">• Measure negative log-likelihood on capability-probing datasets</div>
-                      <div className="text-xs text-slate-300">• Quantify each dataset's impact on reasoning</div>
+                      <div className="text-xs text-slate-300">• Quantify each dataset&apos;s impact on reasoning</div>
                     </div>
                     
                     <div className="bg-slate-700/50 rounded p-2 mb-2">
@@ -859,8 +859,8 @@ export default function MobileLLMR1Project() {
                     </div>
                     <h3 className="text-xl font-bold text-white">Leave-One-Out Analysis</h3>
                   </div>
-                  <p className="text-slate-300 mb-3">
-                    Systematic evaluation of each dataset's contribution to reasoning capabilities by training models with and without specific data sources.
+                    <p className="text-slate-300 mb-3">
+                    Systematic evaluation of each dataset&apos;s contribution to reasoning capabilities by training models with and without specific data sources.
                   </p>
                   <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
                     <div className="text-blue-400 text-sm font-mono">Quantify Data Impact = Better Mixtures</div>

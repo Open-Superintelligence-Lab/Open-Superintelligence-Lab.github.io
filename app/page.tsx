@@ -483,7 +483,7 @@ export default function Home() {
                       NVFP4 LLM Pretraining Research
                     </h3>
                     <p className="text-slate-300 text-sm mb-4">
-                      Research NVIDIA's NVFP4 (4-bit floating point) training methodology - 2-3x performance boost with 50% memory reduction
+                      Research NVIDIA&apos;s NVFP4 (4-bit floating point) training methodology - 2-3x performance boost with 50% memory reduction
                     </p>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-xs text-slate-400">
@@ -540,7 +540,7 @@ export default function Home() {
                       MobileLLM-R1 Sub-Billion Reasoning Research
                     </h3>
                     <p className="text-slate-300 text-sm mb-4">
-                      Research Meta's MobileLLM-R1 - sub-billion parameter reasoning models with strong capabilities using only ~2T high-quality tokens
+                      Research Meta&apos;s MobileLLM-R1 - sub-billion parameter reasoning models with strong capabilities using only ~2T high-quality tokens
                     </p>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-xs text-slate-400">
