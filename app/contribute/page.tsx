@@ -10,43 +10,45 @@ export default function Contribute() {
     <>
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 via-emerald-600/20 to-teal-600/20"></div>
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-green-500/5 to-transparent"></div>
-        </div>
-        
-        {/* Animated background particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full opacity-50 animate-pulse delay-300"></div>
-          <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-emerald-400 to-green-400 rounded-full opacity-40 animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
-        </div>
-        
-        <div className="relative container mx-auto px-6 pt-32 pb-24">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="relative">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  {language === 'en' ? 'Contribute to Our Lab' : '为我们的实验室贡献'}
-                </span>
-              </h1>
-              
-              {/* Glow effect for the title */}
-              <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
-                <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                  {language === 'en' ? 'Contribute to Our Lab' : '为我们的实验室贡献'}
-                </span>
+        <div className="relative container mx-auto px-6 pt-28 pb-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a 
+                  href="https://github.com/open-superintelligence-lab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/60 hover:bg-slate-700/60 border border-slate-600/50 hover:border-green-500/50 text-slate-300 hover:text-green-400 rounded-lg transition-all duration-200"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  GitHub
+                </a>
+                <a 
+                  href="https://discord.com/invite/6AbXGpKTwN"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/60 hover:bg-slate-700/60 border border-slate-600/50 hover:border-indigo-500/50 text-slate-300 hover:text-indigo-400 rounded-lg transition-all duration-200"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  </svg>
+                  Discord
+                </a>
+                <a 
+                  href="https://www.skool.com/become-ai-researcher-2669/about"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/60 hover:bg-slate-700/60 border border-slate-600/50 hover:border-amber-500/50 text-slate-300 hover:text-amber-400 rounded-lg transition-all duration-200"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Skool
+                </a>
               </div>
             </div>
-            
-            <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-              {language === 'en' 
-                ? 'Join our open-source research community and help advance the field of artificial intelligence and superintelligence'
-                : '加入我们的开源研究社区，帮助推进人工智能和超级智能领域的发展'
-              }
-            </p>
           </div>
         </div>
       </section>
@@ -56,150 +58,89 @@ export default function Contribute() {
         <div className="container mx-auto px-6 max-w-6xl">
           
           {/* About Our Lab */}
-          <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
-            <div className="flex items-start gap-6">
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-800/80 to-slate-700/80 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8 mb-8 shadow-xl">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-emerald-500/10 to-cyan-500/10 rounded-full blur-3xl"></div>
+            
+            <div className="relative flex items-start gap-6">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                  <span className="text-3xl">🔬</span>
                 </div>
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-white mb-4">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-4">
                   {language === 'en' ? 'About Open Superintelligence Lab' : '关于开放超级智能实验室'}
                 </h2>
-                <p className="text-slate-300 mb-6 leading-relaxed">
+                <p className="text-slate-300 mb-4 leading-relaxed text-lg">
                   {language === 'en' 
-                    ? 'We are a collaborative research community focused on advancing artificial intelligence and superintelligence through open-source projects, cutting-edge research, and knowledge sharing. Our lab brings together researchers, developers, and enthusiasts to work on innovative AI technologies and methodologies.'
-                    : '我们是一个协作研究社区，专注于通过开源项目、前沿研究和知识共享来推进人工智能和超级智能。我们的实验室汇集了研究人员、开发人员和爱好者，致力于创新的AI技术和方法。'
-                  }
-                </p>
-                <p className="text-slate-300 leading-relaxed">
-                  {language === 'en' 
-                    ? 'We believe in the power of open collaboration and transparent research to accelerate progress in AI. Our projects span from foundational learning resources to advanced research in sparse attention mechanisms, mixture of experts, and other cutting-edge AI architectures.'
-                    : '我们相信开放协作和透明研究的力量，能够加速AI的进步。我们的项目涵盖从基础学习资源到稀疏注意力机制、专家混合和其他前沿AI架构的高级研究。'
+                    ? 'We conduct open research on neural networks and LLMs. We bring top-tier company and university experience to everyone to contribute to AI research and accelerate the progress of humanity.'
+                    : '我们对神经网络和大语言模型进行开放研究。我们将顶级公司和大学的经验带给每个人，让他们为AI研究做出贡献并加速人类进步。'
                   }
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Our Projects */}
+          {/* Featured Research Example */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">
-              {language === 'en' ? 'Our Research Projects' : '我们的研究项目'}
+            <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+              <span className="text-3xl">✨</span>
+              {language === 'en' ? 'Featured Research' : '精选研究'}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
-              {/* Zero to AI Researcher */}
-              <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
+            <Link href="/blog/deepseek-sparse-attention">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-blue-900/40 to-purple-900/40 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-8 hover:border-blue-400/60 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-blue-500/20">
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                
+                <div className="relative">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+                      <span className="text-2xl">⚡</span>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    {language === 'en' ? 'Zero to AI Researcher' : '从零到AI研究员'}
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">
+                        DeepSeek Sparse Attention
                   </h3>
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                      <p className="text-blue-300 text-sm mb-3">
+                        From O(L²) to O(Lk) - The Lightning Indexer Breakthrough
+                      </p>
+              </div>
+                  </div>
+                  
+                  <p className="text-slate-300 leading-relaxed mb-4">
                   {language === 'en' 
-                    ? 'Comprehensive learning path for becoming an AI researcher, covering foundational concepts to cutting-edge methodologies.'
-                    : '成为AI研究员的综合学习路径，涵盖从基础概念到前沿方法。'
+                      ? 'Our research on DeepSeek\'s sparse attention mechanism that reduces attention complexity from quadratic to near-linear scaling. We conducted experiments comparing standard attention vs sparse attention, showing up to 302% performance improvements on small LLMs.'
+                      : '我们对DeepSeek稀疏注意力机制的研究，将注意力复杂度从二次缩放降低到近线性缩放。我们进行了标准注意力与稀疏注意力的对比实验，在小型LLM上显示出高达302%的性能改进。'
                   }
                 </p>
-                <Link 
-                  href="/blog/zero-to-ai-researcher"
-                  className="text-green-400 text-sm hover:text-green-300 transition-colors"
-                >
-                  {language === 'en' ? 'Learn More →' : '了解更多 →'}
-                </Link>
+                  
+                  <div className="flex items-center gap-4 text-sm text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {language === 'en' ? 'Technical Deep Dive' : '技术深入分析'}
+                    </span>
+                    <span className="text-slate-600">•</span>
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                      {language === 'en' ? 'Research Article' : '研究文章'}
+                    </span>
               </div>
 
-              {/* DeepSeek Sparse Attention */}
-              <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  <div className="mt-6 flex items-center gap-2 text-blue-400 group-hover:text-blue-300 transition-colors">
+                    <span className="font-semibold">{language === 'en' ? 'Read Full Research' : '阅读完整研究'}</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    {language === 'en' ? 'DeepSeek Sparse Attention' : 'DeepSeek 稀疏注意力'}
-                  </h3>
                 </div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                  {language === 'en' 
-                    ? 'Advanced research on sparse attention mechanisms for efficient long-context processing and memory optimization.'
-                    : '稀疏注意力机制的高级研究，用于高效的长上下文处理和内存优化。'
-                  }
-                </p>
-                <Link 
-                  href="/blog/deepseek-sparse-attention"
-                  className="text-blue-400 text-sm hover:text-blue-300 transition-colors"
-                >
-                  {language === 'en' ? 'Learn More →' : '了解更多 →'}
-                </Link>
               </div>
-
-              {/* GLM4-MoE */}
-              <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    {language === 'en' ? 'GLM4-MoE' : 'GLM4-MoE'}
-                  </h3>
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                  {language === 'en' 
-                    ? 'Mixture of Experts implementation with GLM4 architecture for efficient scaling and improved performance.'
-                    : 'GLM4架构的专家混合实现，用于高效扩展和性能提升。'
-                  }
-                </p>
-                <a 
-                  href="https://github.com/THUDM/GLM-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-purple-400 text-sm hover:text-purple-300 transition-colors"
-                >
-                  {language === 'en' ? 'Explore →' : '探索 →'}
-                </a>
-              </div>
-
-              {/* DeepSeek + GLM4 Hybrid */}
-              <div className="bg-gradient-to-br from-slate-800/30 to-slate-700/30 backdrop-blur-sm border border-slate-600/30 rounded-xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    {language === 'en' ? 'DeepSeek + GLM4 Hybrid' : 'DeepSeek + GLM4 混合'}
-                  </h3>
-                </div>
-                <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                  {language === 'en' 
-                    ? 'Innovative combination of DeepSeek\'s sparse attention with GLM4\'s Mixture of Experts architecture.'
-                    : 'DeepSeek稀疏注意力与GLM4专家混合架构的创新结合。'
-                  }
-                </p>
-                <a 
-                  href="https://github.com/Open-Superintelligence-Lab/deepseek-attention-glm4-moe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-cyan-400 text-sm hover:text-cyan-300 transition-colors"
-                >
-                  {language === 'en' ? 'Learn More →' : '了解更多 →'}
-                </a>
-              </div>
-            </div>
+            </Link>
           </div>
 
           {/* How to Contribute */}
@@ -362,33 +303,24 @@ export default function Contribute() {
                   href="https://github.com/open-superintelligence-lab"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-green-500/25"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-green-500/25"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
-                  {language === 'en' ? 'Visit Our GitHub' : '访问我们的 GitHub'}
+                  {language === 'en' ? 'GitHub' : 'GitHub'}
                 </a>
                 <a 
                   href="https://discord.com/invite/6AbXGpKTwN"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/25"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/25"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                   </svg>
-                  {language === 'en' ? 'Join Our Discord' : '加入我们的 Discord'}
+                  {language === 'en' ? 'Discord' : 'Discord'}
                 </a>
-                <Link 
-                  href="/"
-                  className="inline-flex items-center gap-2 px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-green-500 hover:text-green-400 transition-all duration-300 transform hover:scale-105"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  {language === 'en' ? 'Back to Home' : '返回首页'}
-                </Link>
               </div>
             </div>
           </div>
