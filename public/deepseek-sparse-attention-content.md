@@ -8,11 +8,11 @@ Prerequisites: Attention Mechanism
 
 Standard Transformers use an "attention" mechanism where every new token being generated looks back at all the previous tokens in the sequence.
 
-This is computationally very expensive. If you have a sequence of length L, the complexity is O(L²), meaning the computation and memory required grow quadratically.
+This is computationally very expensive. If you have a sequence of length $L$, the complexity is $O(L^2)$, meaning the computation and memory required grow quadratically.
 
 Doubling the text length from 10,000 to 20,000 tokens doesn't just double the cost—it quadruples it. This makes processing very long documents (like books or large codebases) prohibitively slow and expensive.
 
-Instead of having each token attend to all previous tokens, DeepSeek Sparse Attention (DSA) intelligently selects a small, fixed-size subset (k) of the most relevant previous tokens to attend to. This changes the complexity from O(L²) to O(L * k), which is much more manageable since k is a small constant (e.g., 2048) and L can be very large (e.g., 128,000).
+Instead of having each token attend to all previous tokens, DeepSeek Sparse Attention (DSA) intelligently selects a small, fixed-size subset ($k$) of the most relevant previous tokens to attend to. This changes the complexity from $O(L^2)$ to $O(L \cdot k)$, which is much more manageable since $k$ is a small constant (e.g., 2048) and $L$ can be very large (e.g., 128,000).
 
 
 DSA is made of two main components:
@@ -23,9 +23,9 @@ The lightning indexer will perform full attention between every token but it's a
 
 This is a fast and lightweight mechanism whose only job is to figure out which past tokens are important for the current token.
 
-*   **How it works:** For the current token (`h_t`), the indexer quickly calculates an "index score" (`I_t,s`) for every previous token (`h_s`). This score represents the predicted relevance of token `s` to token `t`.
-*   **Formula `(1)`:** The formula 1 is essentially a simplified attention calculation. It uses its own small set of queries (`q_I`) and keys (`k_I`) to compute these scores.
-*   **Why it's "Lightning":** It's designed for speed. It uses a simple `ReLU` activation function and can be run with low-precision numbers (FP8), making it computationally very cheap, even though it still technically looks at all previous tokens (an `O(L²)` operation, but a very, very fast one).
+*   **How it works:** For the current token ($h_t$), the indexer quickly calculates an "index score" ($I_{t,s}$) for every previous token ($h_s$). This score represents the predicted relevance of token $s$ to token $t$.
+*   **Formula (1):** The formula 1 is essentially a simplified attention calculation. It uses its own small set of queries ($q^I$) and keys ($k^I$) to compute these scores.
+*   **Why it's "Lightning":** It's designed for speed. It uses a simple $\\text{ReLU}$ activation function and can be run with low-precision numbers (FP8), making it computationally very cheap, even though it still technically looks at all previous tokens (an $O(L^2)$ operation, but a very, very fast one).
 
 ### 1. The Formulas Explained (The "What")
 
@@ -33,9 +33,11 @@ The paper provides two key formulas that describe this two-step process.
 
 #### **Formula (1): The Lightning Indexer**
 
-`I_t,s = Σ H_I (j=1) [w_t,j^I ⋅ ReLU(q_t,j^I ⋅ k_s^I)]`
+$$
+I_{t,s} = \sum_{j=1}^{H_I} w_{t,j}^I \cdot \text{ReLU}(q_{t,j}^I \cdot k_s^I)
+$$
 
-This formula calculates the **index score** (`I_t,s`), which represents the "relevance" of a past token `s` to the current token `t`. Let's break it down:
+This formula calculates the **index score** ($I_{t,s}$), which represents the "relevance" of a past token $s$ to the current token $t$. Let's break it down:
 
 *   `I_t,s`: The final importance score. A higher score means token `s` is more important for token `t`.
 *   `h_t` and `h_s`: These are the vector representations (hidden states) of the current token (`t`) and a previous token (`s`).
@@ -49,7 +51,9 @@ This formula calculates the **index score** (`I_t,s`), which represents the "rel
 
 #### **Formula (2): The Main Attention Calculation**
 
-`u_t = Attn(h_t, {c_s | I_t,s ∈ Top-k(I_t,:)})`
+$$
+u_t = \text{Attn}(h_t, \{c_s | I_{t,s} \in \text{Top-k}(I_{t,:})\})
+$$
 
 This formula describes how the final output (`u_t`) is computed after the selection is done.
 
@@ -104,7 +108,9 @@ The process can be split into two main parts:
 This section explains how the model takes the input for the current token (`h_t`) and creates the Key and Value vectors that will be stored (in a compressed form) and used by future tokens.
 
 #### Formula (1): The Compression Step
-`c_t^KV = W^DKV * h_t`
+$$
+c_t^{KV} = W^{DKV} \cdot h_t
+$$
 
 *   **What it does:** This is the most critical step for saving memory. It takes the large, high-dimensional input vector for the current token (`h_t`) and projects it down into a much smaller, low-dimensional vector called the **compressed latent vector** (`c_t^KV`).
 *   **`W^DKV`:** This is a learned "Down-projection" matrix. The model learns how to best squish the information from `h_t` into `c_t^KV` during training.
@@ -117,23 +123,31 @@ This section explains how the model takes the input for the current token (`h_t`
 The final Key for each attention head is constructed from two separate pieces: a "content" part and a "positional" part.
 
 *   **Formula (2): Decompressing the "Content" Key**
-    `[k_t,1^C; ...; k_t,nh^C] = W^UK * c_t^KV`
+    $$
+    \begin{bmatrix} k_{t,1}^C \\ \vdots \\ k_{t,n_h}^C \end{bmatrix} = W^{UK} \cdot c_t^{KV}
+    $$
     *   This takes the small latent vector `c_t^KV` and projects it *back up* to the full dimension, creating the "content" part of the key (`k_t^C`) for all `n_h` attention heads.
     *   **`W^UK`:** This is a learned "Up-projection" matrix for Keys. It's the decompressor.
 
 *   **Formula (3): Creating the "Positional" Key**
-    `k_t^R = RoPE(W^KR * h_t)`
+    $$
+    k_t^R = \text{RoPE}(W^{KR} \cdot h_t)
+    $$
     *   This part handles the token's position in the sequence. It takes the *original* high-dimensional input `h_t` and applies a transformation (`W^KR`) followed by **Rotary Positional Embedding (RoPE)**.
     *   This creates a "decoupled" key `k_t^R` that purely encodes positional information. This is the second and final piece that gets stored in the cache.
 
 *   **Formula (4): Combining for the Final Key**
-    `k_t,i = [k_t,i^C; k_t^R]`
+    $$
+    k_{t,i} = \begin{bmatrix} k_{t,i}^C \\ k_t^R \end{bmatrix}
+    $$
     *   The final key for a specific attention head `i` (`k_t,i`) is formed by simply concatenating (sticking together) the content part (`k_t,i^C`) and the positional part (`k_t^R`).
 
 ---
 
 #### Formula (5): Decompressing the Value
-`[v_t,1^C; ...; v_t,nh^C] = W^UV * c_t^KV`
+$$
+\begin{bmatrix} v_{t,1}^C \\ \vdots \\ v_{t,n_h}^C \end{bmatrix} = W^{UV} \cdot c_t^{KV}
+$$
 
 *   This is very similar to the key decompression. It uses the *same* small latent vector `c_t^KV` but a *different* up-projection matrix (`W^UV`) to reconstruct the full-size Value vectors for all `n_h` heads.
 *   This shows that `c_t^KV` is a **joint** compression of both Key and Value information.
@@ -148,19 +162,27 @@ The text explicitly states that **only the blue-boxed vectors (`c_t^KV` and `k_t
 This process mirrors the key generation, but it's for the Queries of the *current* token that will attend to the past keys in the cache.
 
 *   **Formula (6): Compressing the Query**
-    `c_t^Q = W^DQ * h_t`
+    $$
+    c_t^Q = W^{DQ} \cdot h_t
+    $$
     *   Just like for the KV, the input `h_t` is compressed into a small latent query vector `c_t^Q` using a separate down-projection matrix (`W^DQ`).
 
 *   **Formula (7): Decompressing the "Content" Query**
-    `[q_t,1^C; ...; q_t,nh^C] = W^UQ * c_t^Q`
+    $$
+    \begin{bmatrix} q_{t,1}^C \\ \vdots \\ q_{t,n_h}^C \end{bmatrix} = W^{UQ} \cdot c_t^Q
+    $$
     *   The small latent query `c_t^Q` is projected back up to create the "content" part of the query (`q_t^C`) for each head.
 
 *   **Formula (8): Creating the "Positional" Query**
-    `[q_t,1^R; ...; q_t,nh^R] = RoPE(W^QR * c_t^Q)`
+    $$
+    \begin{bmatrix} q_{t,1}^R \\ \vdots \\ q_{t,n_h}^R \end{bmatrix} = \text{RoPE}(W^{QR} \cdot c_t^Q)
+    $$
     *   The positional part of the query (`q_t^R`) is created by applying RoPE to a projection of the *compressed* latent query `c_t^Q`.
 
 *   **Formula (9): Combining for the Final Query**
-    `q_t,i = [q_t,i^C; q_t,i^R]`
+    $$
+    q_{t,i} = \begin{bmatrix} q_{t,i}^C \\ q_{t,i}^R \end{bmatrix}
+    $$
     *   The final query for each head `i` is formed by concatenating its content and positional parts.
 
 ### Summary of the Entire MLA Flow
@@ -196,8 +218,8 @@ Our experiments aimed to answer:
 
 Future research (that you can participate in):
 ## Core Architecture
-1. **Why do we need extra weight for indexer score?** (`w_t,j^I` necessity)
-2. **What is the optimal k value for different sequence lengths?**
+1. **Why do we need extra weight for indexer score?** ($w_{t,j}^I$ necessity)
+2. **What is the optimal $k$ value for different sequence lengths?**
 
 ## Lightning Indexer
 3. **How does indexer performance scale with sequence length?**
