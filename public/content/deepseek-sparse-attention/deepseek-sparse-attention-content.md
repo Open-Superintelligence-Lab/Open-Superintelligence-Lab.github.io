@@ -105,24 +105,46 @@ The final attention output ($u_t$) is then calculated by the main attention modu
 
 ### Step 3: How The Model Was Trained
 
-They didn't train this model from scratch. They cleverly adapted an existing, powerful model (**DeepSeek-V3.1-Terminus**) that was already trained on long contexts. The training happened in several stages.
+The creation of DeepSeek-V3.2-Exp was not a matter of starting from scratch. Instead, researchers cleverly adapted an existing, powerful model, **DeepSeek-V3.1-Terminus**, which was already proficient in handling long contexts of 128K tokens. This adaptation involved a multi-stage training process designed to seamlessly integrate the new sparse attention mechanism while ensuring a fair comparison by using the same data distribution as the original model.
 
-#### Stage 1: Continued Pre-Training (Two Phases)
+#### Phase 1: Continued Pre-Training
 
-1.  **Dense Warm-up Stage:**
-    -  **Goal:** To teach the brand-new Lightning Indexer what "important" tokens look like.
-    -  **Method:** They froze the main model and kept the standard (dense = each token with every previous token) attention active. They then trained *only* the Lightning Indexer. The indexer's objective was to make its importance scores match the attention scores from the powerful, pre-trained main model. They used a KL-divergence loss, which is a way of measuring how similar two probability distributions are. In essence, they told the indexer: "Learn to predict what the main model *would have* paid attention to." This phase was very short (1,000 steps).
+The first phase focused on teaching the model to use its new sparse attention architecture.
 
-2.  **Sparse Training Stage:**
-    -  **Goal:** To adapt the entire model to work with the sparse attention pattern.
-    -  **Method:** They "switched on" the $\text{top-k}$ selector, making the attention sparse. They unfroze the main model and trained everything together.
-        *   The **main model** was trained on its usual task: predicting the next word (language modeling loss). It had to learn to perform well with only the limited context provided by the selector.
-        *   The **Lightning Indexer** continued to be trained with the KL-divergence loss to align with the main model's attention, but now only on the selected $k$ tokens.
-    *   This was the main training phase (15,000 steps, using 943.7 billion tokens).
+**Dense Warm-up Stage: An Initial Crash Course**
 
-#### Stage 2: Post-Training
-After the pre-training was done, they fine-tuned the model for specific tasks (like coding, math, reasoning, and following instructions) using Reinforcement Learning (RL). Crucially, they used the **exact same data and methods** as they did for the original DeepSeek-V3.1-Terminus model. This ensures a fair comparison between the dense and sparse models.
+> **Goal:** To teach the brand-new **Lightning Indexer** what "important" tokens look like by having it mimic the original model's attention.
 
+This was a short but critical initial stage lasting just 1,000 steps (2.1B tokens). The researchers froze the main model and kept the standard (dense) attention active. They then trained *only* the Lightning Indexer, tasking it with predicting the attention patterns of the powerful, pre-trained main model.
+-   **Method:** A **KL-divergence loss** was used to measure how closely the indexer's predictions matched the main model's attention scores.
+-   **Key Stats:**
+    -   **Learning Rate:** $10^{-3}$
+    -   **Batch Size:** 16 sequences of 128K tokens.
+
+**Sparse Training Stage: Adapting to a New Reality**
+
+> **Goal:** To adapt the entire model to work with the sparse attention pattern selected by the indexer.
+
+This was the main training phase, lasting 15,000 steps (943.7B tokens). Here, the researchers "switched on" the sparse mechanism, un-froze the main model, and trained everything together.
+-   **Method:** The model was now forced to predict the next word using only the **top-k** ($k=2048$) tokens identified by the indexer.
+-   **Key Innovation:** The indexer and the main model were optimized separately by detaching the indexer from the main computational graph. This prevented their training signals from interfering.
+    -   The **main model** was trained solely on language modeling loss (predicting the next word).
+    -   The **Lightning Indexer** was trained solely on the KL-divergence loss to keep it aligned with the main model's attention, but only on the selected $k$ tokens.
+-   **Key Stats:**
+    -   **Learning Rate:** $7.3 \times 10^{-6}$
+    -   **Batch Size:** 480 sequences of 128K tokens.
+
+#### Phase 2: Post-Training - Fine-Tuning for a Fair Fight
+
+To ensure a rigorous and fair assessment, the post-training pipeline—including algorithms and data—was kept identical to that of the original DeepSeek-V3.1-Terminus.
+
+**Specialist Distillation**
+
+First, the team developed specialized models for domains like mathematics, competitive programming, and agentic coding. Each specialist was fine-tuned from the same pre-trained DeepSeek-V3.2 base checkpoint. Using large-scale Reinforcement Learning (RL), these models generated high-quality, domain-specific data that was "distilled" to train the final model.
+
+**Mixed RL Training**
+
+Finally, the model was fine-tuned using **Group Relative Policy Optimization (GRPO)**. In a key strategic shift, the team merged reasoning, agent, and human alignment training into a single RL stage. This unified approach balanced performance across diverse skills while avoiding the "catastrophic forgetting" common in multi-stage training. The results were promising: the RL training curves of the new sparse model closely matched the original, demonstrating that DSA is a stable and effective addition.
 
 ---
 
