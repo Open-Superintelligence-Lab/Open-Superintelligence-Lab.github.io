@@ -12,7 +12,7 @@ hero:
 > **🚦 Prerequisite:**  
 > To get the most out of this article, you should have a basic understanding of **attention mechanism**.  
 >  
-> _Not sure what that means? Scroll down to the **Recommended Video Resource** below and get up to speed in minutes!_
+> _Not sure what that means? Scroll down to the **Recommended Video Resource** below and get up to speed!_
 
 The new DeepSeek architecture makes LLMs that went BRR now go BRRRRRRRRRRRR - it reduces attention complexity from quadratic scaling $O(L^2)$ to near-linear scaling $O(L \cdot k)$, where $L$ is the sequence length (number of tokens in the context window) and $k$ is a small constant (e.g., 2048).
 
@@ -40,14 +40,14 @@ Instead of having each token attend to all previous tokens, DeepSeek Sparse Atte
 
 DSA is made of two main components:
 
-The **lightning indexer** will perform full attention between every token but it's a lot smaller and faster attenion - ReLU actionvation which is very fast and a lot smaller dimension of key and query.
+The **lightning indexer** is essentially a classic attention mechanism but much smaller and faster. It performs full attention between every token using ReLU activation (which is very fast) and much smaller dimensions for keys and queries.
 
 #### Component 1: The Lightning Indexer
 
-This is a fast and lightweight mechanism whose only job is to figure out which past tokens are important for the current token.
+This is a fast and lightweight mechanism whose only job is to figure out which past tokens are important for the current token. It works exactly like standard attention: it calculates attention scores between tokens by performing dot products between queries (q) and keys (k) of those tokens. However, unlike regular attention where these scores are used to blend information/context from other tokens, the lightning indexer uses these scores purely to determine importance relationships between tokens. Score = Importance. The AI learns to generate keys and queries that calculate these importance scores accurately.
 
--  **How it works:** For the current token ($h_t$), the indexer quickly calculates an "index score" ($I_{t,s}$) for every previous token ($h_s$). This score represents the predicted relevance of token $s$ to token $t$.
--  **Formula (1):** The formula 1 is essentially a simplified attention calculation. It uses its own small set of queries ($q^I$) and keys ($k^I$) to compute these scores.
+-  **How it works:** For the current token ($h_t$, where $t$ represents the current token index), the indexer quickly calculates an "index score" ($I_{t,s}$, where $t$ is the current token and $s$ is a previous token) for every previous token ($h_s$). This score represents the predicted relevance of token $s$ to token $t$.
+-  **Formula (1):** The formula 1 is essentially a simplified attention calculation. It uses its own small set of queries ($q^I$) and keys ($k^I$) to compute these scores. ($I$) indicates that this belongs to indexer calculations.
 -  **Why it's "Lightning":** It's designed for speed. It uses a simple $\text{ReLU}$ activation function and can be run with low-precision numbers (FP8), making it computationally very cheap, even though it still technically looks at all previous tokens (an $O(L^2)$ operation, but a very, very fast one).
 
 ### 1. The Formulas Explained (The "What")
@@ -59,6 +59,8 @@ The paper provides two key formulas that describe this two-step process.
 $$
 I_{t,s} = \sum_{j=1}^{H_I} w_{t,j}^I \cdot \text{ReLU}(q_{t,j}^I \cdot k_s^I)
 $$
+
+*Note: $j$ represents the attention head index in the Lightning Indexer, ranging from 1 to $H_I$ total heads.*
 
 This formula calculates the **index score** ($I_{t,s}$), which represents the "relevance" of a past token $s$ to the current token $t$. Let's break it down:
 
@@ -78,11 +80,15 @@ $$
 u_t = \text{Attn}(h_t, \{c_s | I_{t,s} \in \text{Top-k}(I_{t,:})\})
 $$
 
-This formula describes how the final output ($u_t$) is computed after the selection is done.
+This formula shows how the final output ($u_t$) is calculated after selecting the most relevant tokens. ($u_t$) is the same output you get from a standard attention - vector embedding of the current token enhanced with context (information) from previous tokens. 
+
+[Attention Explained](https://youtu.be/wcDV3l4CD14?t=5562)
+
+Like standard attention, $u_t$ combines the current token with contextual information from previous tokens—but instead of attending to all prior tokens, it only incorporates context from the Top-k most important ones as determined by the Lightning Indexer.
 
 *   $u_t$: The final output hidden state for the current token $t$.
 *   $\text{Attn}(\cdots)$: This represents the main, powerful attention mechanism (in this case, Multi-Query Attention).
-*   $h_t$: The query from the current token.
+*   $h_t$: (Somewhat confusingly) The query from the current token. In previous formula it was the current token itself, that is its vector representations (hidden state), now it's the query of the current token.
 *   $\{c_s | I_{t,s} \in \text{Top-k}(I_{t,:})\}$: This is the most important part. It means: "Use the set of key-value entries $c_s$ **only if** their corresponding index score $I_{t,s}$ (calculated in Formula 1) is among the $\text{top-k}$ highest scores for the current token $t$."
 
 **In simple terms:** The main attention mechanism is told to ignore almost all previous tokens and focus *only* on the handful of key-value entries that the Lightning Indexer identified as most important.
@@ -92,7 +98,7 @@ This component is simple: it takes all the index scores calculated by the Lightn
 
 -  **Function:** It acts as a gatekeeper. It tells the main, powerful attention mechanism: "You don't need to look at all 100,000 previous tokens. I've found the 2,048 most important ones for you. Just look at these."
 
-The final attention output ($u_t$) is then calculated by the main attention module, but only using the current token's query and the $k$ key-value pairs that were selected.
+The final attention output ($u_t$) is then calculated by the main attention module, but only using the current token's query and the $top-k$ key-value pairs that were selected.
 
 ### Step 3: How The Model Was Trained
 
@@ -102,7 +108,7 @@ They didn't train this model from scratch. They cleverly adapted an existing, po
 
 1.  **Dense Warm-up Stage:**
     -  **Goal:** To teach the brand-new Lightning Indexer what "important" tokens look like.
-    -  **Method:** They froze the main model and kept the standard (dense) attention active. They then trained *only* the Lightning Indexer. The indexer's objective was to make its importance scores match the attention scores from the powerful, pre-trained main model. They used a KL-divergence loss, which is a way of measuring how similar two probability distributions are. In essence, they told the indexer: "Learn to predict what the main model *would have* paid attention to." This phase was very short (1,000 steps).
+    -  **Method:** They froze the main model and kept the standard (dense = each token with every previous token) attention active. They then trained *only* the Lightning Indexer. The indexer's objective was to make its importance scores match the attention scores from the powerful, pre-trained main model. They used a KL-divergence loss, which is a way of measuring how similar two probability distributions are. In essence, they told the indexer: "Learn to predict what the main model *would have* paid attention to." This phase was very short (1,000 steps).
 
 2.  **Sparse Training Stage:**
     -  **Goal:** To adapt the entire model to work with the sparse attention pattern.
@@ -137,6 +143,8 @@ $$
 c_t^{KV} = W^{DKV} \cdot h_t
 $$
 
+*Note: The superscript $KV$ indicates this compressed vector will be used to create both Key and Value.*
+
 -  **What it does:** This is the most critical step for saving memory. It takes the large, high-dimensional input vector for the current token ($h_t$) and projects it down into a much smaller, low-dimensional vector called the **compressed latent vector** ($c_t^{KV}$).
 -  **$W^{DKV}$:** This is a learned "Down-projection" matrix. The model learns how to best squish the information from $h_t$ into $c_t^{KV}$ during training.
 -  **Analogy:** Think of $h_t$ as a high-resolution image and $c_t^{KV}$ as a highly compressed JPEG. The JPEG is much smaller to store but retains the most important visual information. $c_t^{KV}$ is the only part related to the token's *content* that gets stored in the cache.
@@ -151,6 +159,7 @@ The final Key for each attention head is constructed from two separate pieces: a
     $$
     \begin{bmatrix} k_{t,1}^C \\ \vdots \\ k_{t,n_h}^C \end{bmatrix} = W^{UK} \cdot c_t^{KV}
     $$
+    *Note: The subscript $i$ (ranging from 1 to $n_h$) represents the attention head index, and the superscript $C$ indicates the "Content" part of the key.*
     *   This takes the small latent vector $c_t^{KV}$ and projects it *back up* to the full dimension, creating the "content" part of the key ($k_t^C$) for all $n_h$ attention heads.
     -  **$W^{UK}$:** This is a learned "Up-projection" matrix for Keys. It's the decompressor.
 
@@ -158,6 +167,7 @@ The final Key for each attention head is constructed from two separate pieces: a
     $$
     k_t^R = \text{RoPE}(W^{KR} \cdot h_t)
     $$
+    *Note: The superscript $R$ indicates the "Rotational/Positional" part of the key.*
     *   This part handles the token's position in the sequence. It takes the *original* high-dimensional input $h_t$ and applies a transformation ($W^{KR}$) followed by **Rotary Positional Embedding (RoPE)**.
     *   This creates a "decoupled" key $k_t^R$ that purely encodes positional information. This is the second and final piece that gets stored in the cache.
 
@@ -165,6 +175,7 @@ The final Key for each attention head is constructed from two separate pieces: a
     $$
     k_{t,i} = \begin{bmatrix} k_{t,i}^C \\ k_t^R \end{bmatrix}
     $$
+    *Note: Here $i$ represents the specific attention head index (1 to $n_h$).*
     *   The final key for a specific attention head $i$ ($k_{t,i}$) is formed by simply concatenating (sticking together) the content part ($k_{t,i}^C$) and the positional part ($k_t^R$).
 
 ---
@@ -190,6 +201,7 @@ This process mirrors the key generation, but it's for the Queries of the *curren
     $$
     c_t^Q = W^{DQ} \cdot h_t
     $$
+    *Note: The superscript $Q$ indicates this compressed vector is specifically for Query information.*
     *   Just like for the KV, the input $h_t$ is compressed into a small latent query vector $c_t^Q$ using a separate down-projection matrix ($W^{DQ}$).
 
 -  **Formula (7): Decompressing the "Content" Query**
@@ -226,12 +238,9 @@ The beauty of this architecture is how MLA works seamlessly with DSA:
 2. **MLA processes only the selected tokens:** Instead of reconstructing Keys and Values for all 128,000 previous tokens, MLA only needs to decompress the cached $c_s^{KV}$ and $k_s^R$ for the selected $\text{top-k}$ tokens
 3. **Memory efficiency is multiplied:** DSA reduces the number of tokens to process, while MLA reduces the memory footprint of each token
 
-This combination allows DeepSeek-V3.2 to process extremely long sequences (128,000+ tokens) while maintaining both computational efficiency and memory efficiency.
 ---
 
-## Experimental Research Results
-
-*Preliminary findings from [Open Superintelligence Lab](https://opensuperintelligencelab.com/) research*
+*We also did some [research](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research) ourselves
 
 ### Research Questions
 
@@ -241,15 +250,7 @@ Our experiments aimed to answer:
 2. **Does sparse attention provide additional benefits when applied to already-efficient Multi-Head Latent Attention (MHLA)?**
 3. **How do these mechanisms scale across different sequence lengths?**
 
-Future research (that you can participate in):
-## Core Architecture
-1. **Why do we need extra weight for indexer score?** ($w_{t,j}^I$ necessity)
-2. **What is the optimal $k$ value for different sequence lengths?**
-
-## Lightning Indexer
-3. **How does indexer performance scale with sequence length?**
-4. **How does scaling influence indexer accuracy and computational efficiency?**
-
+**Limited training time**: Only 500-1000 steps (5-10 minutes on 1 x Nvidia 4090) per experiment.
 
 ### Experiment 1: Standard Attention vs Sparse Attention
 
@@ -259,61 +260,44 @@ Future research (that you can participate in):
 | 128        | 7.28          | **3.00**    | **143% better** | 6.5%        | **57.6%**  |
 | 256        | 7.15          | **1.78**    | **302% better** | 7.6%        | **68.4%**  |
 
-**Key Finding**: Sparse attention dramatically outperformed standard attention, with benefits increasing for longer sequences.
+**Key Finding**: Our small LLM learns faster with sparse attention (research in progress)
 
-### Experiment 2: MHLA Dense vs MHLA + Sparse
+### Experiment 2: DeepSeek MHLA Dense vs MHLA + Sparse
 
 | Seq Length | MHLA Loss | MHLA+Sparse Loss | Improvement | MHLA Acc | MHLA+Sparse Acc |
 |------------|-----------|------------------|-------------|----------|-----------------|
 | 64         | 7.43      | **6.64**         | **12% better** | 9.2%     | **15.5%**       |
-| 128        | 6.85      | 6.97             | -2% worse    | 10.3%    | 10.3%           |
+| 128        | **6.85**  | 6.97             | -2% worse    | 10.3%    | 10.3%           |
 | 256        | 6.61      | **6.55**         | **1% better** | 12.5%    | **13.2%**       |
 | 1024       | **4.10**  | 6.91             | **-41% worse** | **32.2%** | 10.7%           |
 | 2048       | 6.64      | **6.63**         | **0% same**   | 11.9%    | **14.4%**       |
 
-**Key Finding**: Mixed results - sparse helped short sequences but significantly hurt long sequences on MHLA.
+**Key Finding**: Mixed results - sparse helped short sequences but hurt long sequences on MHLA. Might be due to implementation. Research in progress...
 
 ### Speed Analysis
 
 **Experiment 1**: Similar training speeds (~0.06s per step for both)  
-**Experiment 2**: Sparse version was 1-4% slower due to Lightning Indexer overhead
+**Experiment 2**: Sparse version was 1-4% slower due to Lightning Indexer overhead (shouldn't it be faster due to less tokens 🤔)
 
 ### Research Insights
 
-**Why Sparse Helps Standard Attention:**
-- **Forced selectivity** acts as regularization
-- **Reduces attention dilution** in dense attention
-- **Prevents overfitting** by focusing on relevant tokens
+Sparse attention maybe not just be a weaker dense attentin, it can show its own unique strangths, like preventing attention dilution.
 
-**Why Sparse May Not Help MHLA:**
-- **Redundant mechanisms**: MHLA already compresses via latent space
-- **Conflicting patterns**: MHLA's learned compression vs Lightning Indexer selection
-- **Double compression**: May be too aggressive for long sequences
+### Future research (that you can participate in):
 
-### Limitations and Caveats
+## Core Architecture
+1. **Why do we need extra weight for indexer score?** ($w_{t,j}^I$ necessity)
+2. **What is the optimal $k$ value for different sequence lengths?**
 
-These are preliminary results from limited experiments. Several factors may affect generalizability:
-
-- **Limited training time**: Only 500-1000 steps per experiment
-- **Small model size**: 512d models may not reflect larger model behavior
-- **Dataset**: Results on TinyStories may not generalize to other domains
-- **Hyperparameters**: Not extensively tuned for each configuration
-
-### Conclusion
-
-Our preliminary findings suggest:
-
-1. **Sparse attention significantly improves standard attention architectures**
-2. **MHLA's latent compression may already provide most benefits of sparsity**
-3. **Combining both mechanisms may be redundant or even harmful for long sequences**
-
-However, these results require further validation with larger models, longer training, and diverse datasets.
+## Lightning Indexer
+3. **How does indexer performance scale with sequence length?**
+4. **How does scaling influence indexer accuracy and computational efficiency?**
 
 ### About Open Superintelligence Lab
 
-[Open Superintelligence Lab](https://opensuperintelligencelab.com/) is dedicated to advancing open-source AI research. We conduct experiments like these to understand fundamental mechanisms in large language models and share our findings transparently with the community.
+[Open Superintelligence Lab](https://opensuperintelligencelab.com/) is dedicated to allowing anyone anywhere to contribute to open-source AI research. We conduct experiments like these to understand fundamental mechanisms neural networks and large language models and share our findings.
 
-Our research is ongoing, and we welcome collaboration and feedback from the community. These experiments represent active research that may contain flaws or limitations, and we encourage independent verification of our findings.
+Our research is ongoing, and we welcome collaboration and feedback. These experiments represent active research that may contain flaws or limitations, and we encourage independent verification of our findings.
 
 ---
 
@@ -321,7 +305,7 @@ Our research is ongoing, and we welcome collaboration and feedback from the comm
 
 ![MHA and MQA Modes of MLA](/content/deepseek-sparse-attention/MHA-and-MQA-modes-of-MLA.png)
 
-The diagram above illustrates Multi-Head Attention (MHA) and Multi-Query Attention (MQA) modes within the MLA framework. While these advanced attention patterns are not currently implemented in our research, they represent promising directions for future investigation and could serve as the foundation for more sophisticated sparse attention mechanisms.
+The diagram above illustrates Multi-Head Attention (MHA) and Multi-Query Attention (MQA) modes within the MLA framework.
 
 ---
 

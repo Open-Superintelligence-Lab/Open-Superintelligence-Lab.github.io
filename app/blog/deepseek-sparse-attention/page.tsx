@@ -16,6 +16,7 @@ export default function DeepSeekProject() {
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   useEffect(() => {
     const fetchMarkdownContent = async () => {
@@ -97,6 +98,24 @@ export default function DeepSeekProject() {
 
     fetchMarkdownContent();
   }, [language]);
+
+  const handleCopyArticle = async () => {
+    try {
+      // Get the raw markdown content without frontmatter
+      const filename = language === 'zh' ? 'deepseek-sparse-attention-content-zh.md' : 'deepseek-sparse-attention-content.md';
+      const response = await fetch(`/content/deepseek-sparse-attention/${filename}`);
+      const content = await response.text();
+      
+      // Remove frontmatter if present
+      const contentWithoutFrontmatter = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+      
+      await navigator.clipboard.writeText(contentWithoutFrontmatter);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (error) {
+      console.error('Failed to copy article:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -184,8 +203,36 @@ export default function DeepSeekProject() {
           <article className="max-w-4xl mx-auto">
             {/* Content Card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+              {/* Copy Article Button */}
+              <div className="px-8 sm:px-12 pt-8 pb-4">
+                <button
+                  onClick={handleCopyArticle}
+                  className={`group flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                    copySuccess
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                      : 'bg-white/5 hover:bg-white/10 text-slate-300 hover:text-blue-400 border border-white/10 hover:border-blue-500/50'
+                  }`}
+                >
+                  {copySuccess ? (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      {language === 'en' ? 'Copied!' : '已复制!'}
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                      {language === 'en' ? 'Copy Article' : '复制文章'}
+                    </>
+                  )}
+                </button>
+              </div>
+              
               {/* Article Body */}
-              <div className="px-8 sm:px-12 py-12">
+              <div className="px-8 sm:px-12 pb-12">
                 <div className="prose prose-lg prose-invert max-w-none">
                   <MarkdownRenderer content={markdownContent} />
                 </div>
