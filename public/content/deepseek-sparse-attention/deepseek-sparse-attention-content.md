@@ -7,18 +7,26 @@ hero:
     - "📄 Research Article"
 ---
 
-[Research Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf) • [Model](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) • [GitHub (DeepSeek)](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp) • [GitHub (Our Research)](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research)
+[Research Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf) • [Model](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) • [GitHub](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp) • [Join open research on DeepSeek Sparse Attention](https://github.com/Open-Superintelligence-Lab/deepseek-sparse-attention-research)
 
-![Inference Cost Comparison](/images/deepseek/Inference-cost.jpeg)
+> **🚦 Prerequisite:**  
+> To get the most out of this article, you should have a basic understanding of **attention mechanism**.  
+>  
+> _Not sure what that means? Scroll down to the **Recommended Video Resource** below and get up to speed in minutes!_
 
-The new model makes inference and training significantly cheaper through sparse attention, reducing computational costs while maintaining performance.
+The new DeepSeek architecture makes LLMs that went BRR now go BRRRRRRRRRRRR - it reduces attention complexity from quadratic scaling $O(L^2)$ to near-linear scaling $O(L \cdot k)$, where $L$ is the sequence length (number of tokens in the context window) and $k$ is a small constant (e.g., 2048).
 
-Prerequisites: Attention Mechanism
+![Inference Cost Comparison](/content/deepseek-sparse-attention/Inference-cost.jpeg)
 
-**📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch this video: [DeeepSeek V3 From Scratch](https://youtu.be/TfEG0TwueTs)
+DeepSeek-V3.2-Exp makes inference and training significantly cheaper through sparse attention, reducing computational costs while maintaining performance.
 
--  **If you're new to attention mechanisms:** Start from the beginning of the video
--  **If you want to focus on DeepSeek's Multihead Latent Attention (MLA):** Jump to 38:53 or use this direct link: [https://youtu.be/TfEG0TwueTs?t=2333](https://youtu.be/TfEG0TwueTs?t=2333)
+> ⚡ **Heads Up for Developers:**  
+> This is probably an early signal for those building infrastructure to **get ready for DeepSeek-V4** which will likely use the same attention mechanism.
+
+**📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch my course: [DeeepSeek V3 From Scratch](https://youtu.be/TfEG0TwueTs)
+
+-  **If you're new to attention mechanisms:** Start from the beginning of the video until 58:39 where coding starts. Watching the coding part is optional.
+-  **If you understand classic attention and want to only watch DeepSeek's Multihead Latent Attention (MLA):** Start from 38:53 or use this direct link: [https://youtu.be/TfEG0TwueTs?t=2333](https://youtu.be/TfEG0TwueTs?t=2333)
 -  **Note:** I will explain MLA again in this article / video, but I recommend watching both for better understanding.
 
 Standard Transformers use an "attention" mechanism where every new token being generated looks back at all the previous tokens in the sequence.
@@ -27,12 +35,12 @@ This is computationally very expensive. If you have a sequence of length $L$, th
 
 Doubling the text length from 10,000 to 20,000 tokens doesn't just double the cost—it quadruples it. This makes processing very long documents (like books or large codebases) prohibitively slow and expensive.
 
-Instead of having each token attend to all previous tokens, DeepSeek Sparse Attention (DSA) intelligently selects a small, fixed-size subset ($k$) of the most relevant previous tokens to attend to. This changes the complexity from $O(L^2)$ to $O(L \cdot k)$, which is much more manageable since $k$ is a small constant (e.g., 2048) and $L$ can be very large (e.g., 128,000).
+Instead of having each token attend to all previous tokens, DeepSeek Sparse Attention (DSA) intelligently selects a small, fixed-size subset ($k$) of the most relevant previous tokens to attend to. This changes the complexity from $O(L^2)$ to $O(L \cdot k)$, which is much more manageable since $k$ is a small constant (e.g., 2048) and $L$ can be very large (e.g., 128,000 or 2,000,000).
 
 
 DSA is made of two main components:
 
-The lightning indexer will perform full attention between every token but it's a lot smaller and faster attenion - ReLU actionvation which is very fast and a lot smaller dimension of key and query.
+The **lightning indexer** will perform full attention between every token but it's a lot smaller and faster attenion - ReLU actionvation which is very fast and a lot smaller dimension of key and query.
 
 #### Component 1: The Lightning Indexer
 
@@ -107,6 +115,8 @@ They didn't train this model from scratch. They cleverly adapted an existing, po
 After the pre-training was done, they fine-tuned the model for specific tasks (like coding, math, reasoning, and following instructions) using Reinforcement Learning (RL). Crucially, they used the **exact same data and methods** as they did for the original DeepSeek-V3.1-Terminus model. This ensures a fair comparison between the dense and sparse models.
 
 ## Deep Dive: Multi-Head Latent Attention (MLA) Architecture
+
+![Attention Architecture](/content/deepseek-sparse-attention/Attention-architecture.png)
 
 Let's break down the Multi-Head Latent Attention (MLA) architecture step-by-step, using the provided formulas and text.
 
@@ -304,6 +314,14 @@ However, these results require further validation with larger models, longer tra
 [Open Superintelligence Lab](https://opensuperintelligencelab.com/) is dedicated to advancing open-source AI research. We conduct experiments like these to understand fundamental mechanisms in large language models and share our findings transparently with the community.
 
 Our research is ongoing, and we welcome collaboration and feedback from the community. These experiments represent active research that may contain flaws or limitations, and we encourage independent verification of our findings.
+
+---
+
+## Future Research Directions
+
+![MHA and MQA Modes of MLA](/content/deepseek-sparse-attention/MHA-and-MQA-modes-of-MLA.png)
+
+The diagram above illustrates Multi-Head Attention (MHA) and Multi-Query Attention (MQA) modes within the MLA framework. While these advanced attention patterns are not currently implemented in our research, they represent promising directions for future investigation and could serve as the foundation for more sophisticated sparse attention mechanisms.
 
 ---
 
