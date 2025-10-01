@@ -7,11 +7,11 @@ hero:
     - "📄 Research Article"
 ---
 
-**Research Paper:** [DeepSeek-V3.2-Exp: Boosting Long-Context Efficiency with DeepSeek Sparse Attention](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf)
+[Research Paper](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf) • [Model](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp) • [GPU Kernels](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp) (TileLang for research, CUDA for production)
 
-**Model:** [DeepSeek-V3.2-Exp on Hugging Face](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp)
+![Inference Cost Comparison](/images/deepseek/Inference-cost.jpeg)
 
-**Key GPU Kernels:** TileLang & CUDA (use TileLang for rapid research prototyping!)
+The new model makes inference and training significantly cheaper through sparse attention, reducing computational costs while maintaining performance.
 
 Prerequisites: Attention Mechanism
 

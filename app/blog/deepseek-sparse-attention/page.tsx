@@ -20,7 +20,8 @@ export default function DeepSeekProject() {
   useEffect(() => {
     const fetchMarkdownContent = async () => {
       try {
-        const response = await fetch('/deepseek-sparse-attention-content.md');
+        const filename = language === 'zh' ? 'deepseek-sparse-attention-content-zh.md' : 'deepseek-sparse-attention-content.md';
+        const response = await fetch(`/content/deepseek-sparse-attention/${filename}`);
         const content = await response.text();
         
         // Parse frontmatter
@@ -95,7 +96,7 @@ export default function DeepSeekProject() {
     };
 
     fetchMarkdownContent();
-  }, []);
+  }, [language]);
 
   if (isLoading) {
     return (
