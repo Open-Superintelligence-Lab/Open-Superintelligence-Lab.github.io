@@ -4,6 +4,7 @@ import "./globals.css";
 import "highlight.js/styles/github-dark.css";
 import { LanguageProvider } from "@/components/providers/language-provider";
 import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LanguageProvider>
-          <div className="min-h-screen text-white">
+          <div className="min-h-screen text-white flex flex-col">
             <Navigation />
-            {children}
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
           </div>
         </LanguageProvider>
       </body>
