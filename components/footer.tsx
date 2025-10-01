@@ -60,7 +60,7 @@ export function Footer() {
         {/* Bottom section */}
         <div className="mt-6 pt-6 border-t border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <div>
-            © 2024 Open Superintelligence Lab. {language === 'en' ? 'All rights reserved.' : '保留所有权利。'}
+            © 2025 Open Superintelligence Lab. {language === 'en' ? 'All rights reserved.' : '保留所有权利。'}
           </div>
           <div className="flex gap-4">
             <a 

@@ -7,6 +7,12 @@ hero:
     - "📄 Research Article"
 ---
 
+**Research Paper:** [DeepSeek-V3.2-Exp: Boosting Long-Context Efficiency with DeepSeek Sparse Attention](https://github.com/deepseek-ai/DeepSeek-V3.2-Exp/blob/main/DeepSeek_V3_2.pdf)
+
+**Model:** [DeepSeek-V3.2-Exp on Hugging Face](https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp)
+
+**Key GPU Kernels:** TileLang & CUDA (use TileLang for rapid research prototyping!)
+
 Prerequisites: Attention Mechanism
 
 **📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch this video: [DeeepSeek V3 From Scratch](https://youtu.be/TfEG0TwueTs)
