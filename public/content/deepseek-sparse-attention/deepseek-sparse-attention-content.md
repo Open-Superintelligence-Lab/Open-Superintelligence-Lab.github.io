@@ -37,6 +37,9 @@ Doubling the text length from 10,000 to 20,000 tokens doesn't just double the co
 
 Instead of having each token attend to all previous tokens, DeepSeek Sparse Attention (DSA) intelligently selects a small, fixed-size subset ($k$) of the most relevant previous tokens to attend to. This changes the complexity from $O(L^2)$ to $O(L \cdot k)$, which is much more manageable since $k$ is a small constant (e.g., 2048) and $L$ can be very large (e.g., 128,000 or 2,000,000).
 
+![Attention Architecture](/content/deepseek-sparse-attention/Attention-architecture.png)
+
+*Let's explain how DSA (marked in green) works with MLA (Multi-Head Latent Attention).*
 
 DSA is made of two main components:
 
@@ -120,7 +123,6 @@ They didn't train this model from scratch. They cleverly adapted an existing, po
 #### Stage 2: Post-Training
 After the pre-training was done, they fine-tuned the model for specific tasks (like coding, math, reasoning, and following instructions) using Reinforcement Learning (RL). Crucially, they used the **exact same data and methods** as they did for the original DeepSeek-V3.1-Terminus model. This ensures a fair comparison between the dense and sparse models.
 
-![Attention Architecture](/content/deepseek-sparse-attention/Attention-architecture.png)
 
 ---
 
