@@ -1,8 +1,6 @@
-# DeepSeek Sparse Attention
-
 Prerequisites: Attention Mechanism
 
-**📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch this video: [https://youtu.be/TfEG0TwueTs](https://youtu.be/TfEG0TwueTs)
+**📺 Recommended Video Resource:** For a comprehensive understanding of attention mechanisms and DeepSeek's Multihead Latent Attention, watch this video: [DeeepSeek V3 From Scratch](https://youtu.be/TfEG0TwueTs)
 
 *   **If you're new to attention mechanisms:** Start from the beginning of the video
 *   **If you want to focus on DeepSeek's Multihead Latent Attention (MLA):** Jump to 38:53 or use this direct link: [https://youtu.be/TfEG0TwueTs?t=2333](https://youtu.be/TfEG0TwueTs?t=2333)

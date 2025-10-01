@@ -6,22 +6,6 @@ export interface LanguageContext {
   setLanguage: (lang: Language) => void;
 }
 
-// Simple IP-based language detection
-export async function detectLanguageFromIP(): Promise<Language> {
-  try {
-    // Use a free IP geolocation service
-    const response = await fetch('https://ipapi.co/json/');
-    const data = await response.json();
-    
-    // Check if user is from Hong Kong or other Chinese-speaking regions
-    const chineseRegions = ['HK', 'CN', 'TW', 'MO', 'SG'];
-    return chineseRegions.includes(data.country_code) ? 'zh' : 'en';
-  } catch {
-    console.log('Failed to detect language from IP, defaulting to English');
-    return 'en';
-  }
-}
-
 // Translations
 export const translations = {
   en: {
