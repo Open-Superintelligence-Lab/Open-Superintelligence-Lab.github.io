@@ -1,0 +1,73 @@
+/* Custom styling for LaTeX math formulas */
+.katex {
+  color: #60a5fa !important; /* Blue color for inline math */
+  background: rgba(96, 165, 250, 0.08);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  font-weight: 500;
+}
+
+.katex-display {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.katex-display .katex {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #c084fc !important; /* Purple color for display math */
+  font-size: 1.1em;
+}
+
+/* Style specific math elements */
+.katex .mord {
+  color: #34d399 !important; /* Green for variables and letters */
+}
+
+.katex .mbin {
+  color: #fbbf24 !important; /* Yellow for binary operators like +, -, ⋅ */
+}
+
+.katex .mrel {
+  color: #f472b6 !important; /* Pink for relations like =, ∈, ≤ */
+}
+
+.katex .mopen, .katex .mclose {
+  color: #94a3b8 !important; /* Gray for brackets and parentheses */
+}
+
+.katex .mfrac {
+  color: #fb7185 !important; /* Rose for fractions */
+}
+
+.katex .msqrt {
+  color: #a7f3d0 !important; /* Light green for square roots */
+}
+
+.katex .msubsup {
+  color: #a78bfa !important; /* Purple for superscripts and subscripts */
+}
+
+.katex .mtext {
+  color: #60a5fa !important; /* Blue for text functions like \text{ReLU} */
+}
+
+/* Hover effects */
+.katex:hover {
+  background: rgba(96, 165, 250, 0.15);
+  border-color: rgba(96, 165, 250, 0.4);
+  transition: all 0.2s ease;
+}
+
+.katex-display:hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
+  border-color: rgba(139, 92, 246, 0.5);
+  transition: all 0.2s ease;
+}

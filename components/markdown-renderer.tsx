@@ -8,6 +8,7 @@ import rehypeKatex from 'rehype-katex';
 import Image from 'next/image';
 import 'highlight.js/styles/github-dark.css';
 import 'katex/dist/katex.min.css';
+import '../styles/math-styles.css';
 
 interface MarkdownRendererProps {
   content: string;
@@ -183,9 +184,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             <hr className="my-12 border-gray-700" />
           ),
         }}
-      >
-        {content}
-      </ReactMarkdown>
+        >
+          {content}
+        </ReactMarkdown>
     </div>
   );
 }
