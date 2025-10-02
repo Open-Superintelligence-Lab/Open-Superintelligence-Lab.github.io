@@ -226,9 +226,9 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* NVFP4 4-Bit Training Project - HIDDEN */}
-            {/* <Link 
-              href="/blog/nvfp4-4bit-training"
+            {/* NVIDIA FP4 Training Project */}
+            <Link 
+              href="/blog/nvidia-fp4-training"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
@@ -240,10 +240,10 @@ export default function Home() {
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                  NVIDIA NVFP4 - 4-Bit LLM Training
+                  NVIDIA FP4 Training - 4-Bit Breakthrough
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
+                  NVIDIA&apos;s groundbreaking 4-bit training methodology achieving 75% memory reduction while maintaining full training performance
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">NVIDIA Research</span>
@@ -252,7 +252,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link> */}
+            </Link>
 
             {/* MobileLLM-R1 Project - HIDDEN */}
             {/* <Link 
