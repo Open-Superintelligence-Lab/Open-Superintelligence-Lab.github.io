@@ -1,201 +1,81 @@
 ---
 hero:
-  title: "NVIDIA's FP4 Training Breakthrough"
-  subtitle: "🎯 4-bit Training with Full Precision Performance"
+  title: "NVIDIA Details 4-Bit LLM Training at Scale with NVFP4"
+  subtitle: "Technical Breakdown of Pretraining a 12B Model on 10 Trillion Tokens"
   tags:
     - "⏱️ Technical Deep Dive"
     - "📄 Research Article"
+    - "⚙️ LLM Training"
 ---
 
-[Research Paper](https://arxiv.org/abs/XXXX.XXXXX) • [Model](https://huggingface.co/nvidia/fp4-training) • [GitHub](https://github.com/nvidia/fp4-training) • [Join open research on FP4 Training](https://github.com/Open-Superintelligence-Lab/fp4-training-research)
+[Research Paper](https://arxiv.org/abs/2509.25149) • [Code in Transformer Engine](https://github.com/NVIDIA/TransformerEngine) • [Join open research on FP4 Training](https://github.com/Open-Superintelligence-Lab/fp4-training-research)
 
 > **🚦 Prerequisite:**  
 > To get the most out of this article, you should have a basic understanding of **quantization** and **neural network training**.  
->  
-> _Not sure what that means? Scroll down to the **Recommended Video Resource** below and get up to speed!_
 
-NVIDIA's groundbreaking FP4 training methodology revolutionizes how we train large language models by reducing memory requirements from 16-bit to 4-bit precision while maintaining full training performance. This breakthrough enables training larger models on the same hardware or training the same models with significantly reduced memory footprint.
+As Large Language Models (LLMs) scale, the computational cost of training increases significantly. While 8-bit floating-point (FP8) training is standard for improving efficiency, 4-bit floating-point (FP4) presents the next step in reducing computational overhead.
+
+FP4 training offers substantial gains in computational speed and memory savings, but quantizing to such a low precision introduces challenges in training stability, convergence, and implementation.
+
+In a new technical report, NVIDIA introduces a method for effective FP4 training. They trained a 12-billion-parameter model on 10 trillion tokens, achieving results comparable to a standard FP8 baseline.
 
 ![Training Memory Comparison](/content/nvidia-fp4-training/memory-comparison.png)
 
-NVIDIA's FP4 training makes large-scale model training more accessible by reducing memory requirements while maintaining training stability and model quality.
+This article explains NVIDIA's methodology, the NVFP4 format, and the key techniques that enable stable and accurate 4-bit training at scale.
 
-> 🎯 **Heads Up for Developers:**  
-> This breakthrough is likely to become the new standard for training large language models, making advanced AI more accessible to researchers and organizations with limited computational resources.
+### The NVFP4 Format: A More Precise 4-bit Representation
 
-**📺 Recommended Video Resource:** For a comprehensive understanding of quantization and NVIDIA's FP4 training approach, watch our upcoming course: [NVIDIA FP4 Training From Scratch](https://youtu.be/placeholder)
+The core of this method is **NVFP4**, an enhanced 4-bit format that offers improved numerical properties over existing formats like MXFP4. It uses "microscaling," where blocks of numbers share a common scaling factor, but with several key improvements:
 
--  **If you're new to quantization:** Start from the beginning of the video to understand the fundamentals.
--  **If you understand quantization and want to focus on FP4 training:** Jump to the technical implementation section.
--  **Note:** We will explain FP4 training in detail in this article, but watching the video provides additional context.
+1.  **Smaller Block Size**: NVFP4 uses a block size of 16 elements, compared to 32 in MXFP4. This narrows the dynamic range within each block for a more accurate representation.
+2.  **More Precise Scaling Factors**: It stores block scale factors in E4M3 format, which provides more mantissa bits for precision than the power-of-two UE8M0 format in MXFP4.
+3.  **Two-Level Scaling**: NVFP4 uses a two-level scaling strategy: a fine-grained FP8 scale factor for each block, and a per-tensor FP32 scale factor. This allows NVFP4 to represent the largest value in each block with near-FP8 precision.
 
-💡 *We are also researching this topic - see our findings at the bottom of this article.*
-
-Traditional neural network training typically uses 16-bit (FP16) or 32-bit (FP32) floating-point precision for weights and activations. This provides high numerical precision but requires significant memory bandwidth and storage.
-
-For large language models with billions of parameters, this memory requirement becomes prohibitive. Training a 7B parameter model in FP16 requires approximately 14GB of GPU memory just for the model weights, not including optimizer states, activations, and gradients.
-
-NVIDIA's FP4 training approach reduces memory requirements by 75% while maintaining training stability through carefully designed quantization schemes and gradient scaling techniques.
+These design choices give NVFP4 an advantage in minimizing quantization errors and improving training performance, particularly on NVIDIA's Blackwell GPUs which provide native hardware support for NVFP4.
 
 ![FP4 Training Architecture](/content/nvidia-fp4-training/fp4-architecture.png)
+*A conceptual overview of the NVFP4 block structure, combining FP4 elements with a more precise FP8 scaling factor.*
 
-*Let's explore how NVIDIA's FP4 training works with dynamic quantization and gradient scaling.*
+### The Methodology: 4 Keys to Stable FP4 Training
 
-FP4 training consists of three main components:
+The data format alone is not sufficient. NVIDIA developed a training methodology to address the instabilities of low-precision training. Ablation studies showed that each of these components was necessary for the model's convergence over the 10T token horizon.
 
-The **dynamic quantization** system automatically adjusts quantization parameters during training to maintain numerical stability and prevent gradient vanishing or exploding.
+#### 1. Strategic Mixed Precision
+The researchers found that some layers, particularly the final few layers of the network, are more sensitive to quantization and can cause training to diverge if converted to FP4.
 
-#### Component 1: Dynamic Quantization
+**Solution**: Keep a small, strategic portion of the model in higher precision. For the 12B model, the first two and final eight blocks (~16% of linear layers) were kept in BF16. Other sensitive components like embeddings, normalization layers, and optimizer states were also kept in FP32 or BF16.
 
-This system continuously monitors the distribution of weights and activations during training and adjusts quantization parameters in real-time.
+#### 2. Random Hadamard Transforms (RHT) for Outliers
+Outliers—values with large magnitudes—can cause issues in low-bit formats. RHT is a technique that uses an orthogonal rotation to redistribute these outliers into a more manageable distribution.
 
-**How it works:** For each layer, the system calculates optimal quantization scales based on the current weight and activation distributions. This ensures that the 4-bit representation captures the most important information while minimizing quantization error.
+**Solution**: Apply 16x16 Random Hadamard Transforms to the inputs of the weight gradient (Wgrad) computation. This helps manage outlier values during the backward pass without adding overhead where it's not needed.
 
--  **Formula (1):** The quantization process uses dynamic scaling factors that adapt throughout training.
--  **Why it's "Dynamic":** Unlike static quantization, this approach adjusts to the changing distributions of weights and activations during training, maintaining numerical stability.
+#### 3. 2D Scaling for Consistency
+A critical issue in training is that tensors are transposed during the backward pass. This can cause scaling to be applied differently in the forward and backward passes, leading to two different quantized representations of the same weight tensor, which violates the chain rule and degrades model accuracy.
 
-### 1. The Formulas Explained (The "What")
+**Solution**: Use **two-dimensional (2D) block scaling** for weights. By grouping and scaling weights in 16x16 blocks, the quantized representation remains consistent between the forward and backward passes.
 
-The paper provides key formulas that describe the FP4 training process.
+#### 4. Stochastic Rounding for Unbiased Gradients
+Standard rounding methods (like "round-to-nearest-even") can introduce systematic bias during quantization, especially in gradients, which can impede convergence.
 
-#### **Formula (1): Dynamic Quantization**
+**Solution**: Use **stochastic rounding** for gradient tensors. This method rounds a value probabilistically to one of its two nearest representable numbers. This ensures that, on average, the quantization is unbiased, which was essential for the 12B model's convergence.
 
-$$
-Q(x) = \text{clamp}\left(\text{round}\left(\frac{x}{s}\right), -8, 7\right) \cdot s
-$$
+### Results: FP4 Matches FP8 at 10 Trillion Tokens
 
-Where:
-- $Q(x)$ is the quantized value
-- $s$ is the dynamic scale factor
-- The clamp function ensures values stay within the 4-bit range [-8, 7]
+This methodology was validated by training a **12-billion-parameter hybrid Mamba-Transformer model on 10 trillion tokens**.
 
-This formula quantizes floating-point values to 4-bit integers while maintaining the ability to represent the full dynamic range through scaling.
+The results show:
+-   **Training Loss**: The validation loss of the NVFP4 model closely tracked the FP8 baseline throughout the entire 10T token run.
+-   **Downstream Performance**: On a wide range of downstream tasks—including MMLU-pro, MATH, and GSM8k—the NVFP4 model achieved accuracy nearly identical to the FP8 model. For instance, it scored 62.58% on MMLU-pro, compared to the FP8 model's 62.62%.
 
-#### **Formula (2): Gradient Scaling**
+This demonstrates that with this methodology, 4-bit training does not compromise model quality at scale.
 
-$$
-\nabla W_{scaled} = \nabla W \cdot \alpha
-$$
+### NVFP4 vs. MXFP4
+In a direct comparison using an 8B parameter model, NVFP4 was more efficient. The model trained with NVFP4 converged to a better loss than the one trained with MXFP4. To match the final loss of the NVFP4 model, the MXFP4 model required **36% more training tokens**.
 
-Where:
-- $\nabla W$ is the original gradient
-- $\alpha$ is the scaling factor
-- $\nabla W_{scaled}$ is the scaled gradient used for weight updates
+### Conclusion and Future Directions
+NVIDIA's work provides the first public evidence of successful, sustained 4-bit pretraining of a large language model at a multi-trillion-token scale. The combination of the NVFP4 format and the described training methodology makes large-scale training more efficient without sacrificing accuracy.
 
-This scaling ensures that gradients remain in the appropriate range for 4-bit weight updates.
+This is a significant improvement in making the training of large models more accessible. NVFP4 training is supported in Transformer Engine for Blackwell GPUs.
 
-#### Component 2: Gradient Scaling
-
-This component ensures that weight updates remain numerically stable in the 4-bit regime.
-
--  **Function:** It acts as a stabilizer, preventing gradient underflow or overflow during the weight update process.
-
-The final weight update is calculated using the scaled gradients, maintaining training stability while operating in reduced precision.
-
-### Step 3: How The Model Was Trained
-
-NVIDIA's FP4 training methodology was developed through extensive experimentation with various quantization schemes and training strategies.
-
-#### Phase 1: Quantization Scheme Development
-
-The first phase focused on developing robust quantization schemes that could handle the dynamic nature of neural network training.
-
-**Dynamic Range Adaptation**
-
-> **Goal:** To create a quantization system that automatically adapts to changing weight and activation distributions during training.
-
-This involved developing algorithms that could monitor and adjust quantization parameters in real-time without disrupting the training process.
-
--   **Method:** A **dynamic scaling** approach was used to continuously adjust quantization parameters based on the current distribution of values.
--   **Key Innovation:** The system maintains separate scaling factors for weights and activations, allowing for optimal quantization of each component.
-
-**Gradient Scaling Strategy**
-
-> **Goal:** To ensure that weight updates remain numerically stable in the 4-bit regime.
-
-This phase involved developing gradient scaling techniques that prevent numerical instability while maintaining training effectiveness.
-
--   **Method:** Adaptive gradient scaling was implemented to ensure gradients remain in the appropriate range for 4-bit weight updates.
--   **Key Innovation:** The scaling factors are learned during training, automatically adapting to the model's learning dynamics.
-
-#### Phase 2: Training Stability Validation
-
-To ensure rigorous validation, the training pipeline was tested across multiple model architectures and datasets.
-
-**Multi-Scale Validation**
-
-The system was validated across different model sizes, from small language models to large-scale transformers, demonstrating consistent performance improvements.
-
-**Benchmark Comparison**
-
-Finally, the FP4 training approach was compared against standard FP16 training across multiple benchmarks, showing equivalent or superior performance while using significantly less memory.
-
----
-
-*We are actively doing research on this ourselves - [contribute here](https://github.com/Open-Superintelligence-Lab/fp4-training-research)*
-
-### Research Questions
-
-Our experiments aimed to answer:
-
-1. **Does FP4 training maintain model quality compared to FP16 training?**
-2. **What are the memory savings achieved with FP4 training?**
-3. **How does FP4 training scale across different model architectures?**
-
-**Limited training time**: Only 1000-2000 steps (10-20 minutes on 1 x Nvidia 4090) per experiment.
-
-### Experiment 1: Memory Usage Comparison
-
-| Model Size | FP16 Memory | FP4 Memory | Memory Savings | Training Speed |
-|------------|-------------|------------|----------------|----------------|
-| 1B         | 2.1GB       | **0.5GB**  | **76%**        | 95% of FP16    |
-| 3B         | 6.2GB       | **1.5GB**  | **76%**        | 92% of FP16    |
-| 7B         | 14.1GB      | **3.5GB**  | **75%**        | 90% of FP16    |
-
-**Key Finding**: FP4 training achieves consistent 75% memory savings across all model sizes
-
-### Experiment 2: Training Quality Comparison
-
-| Metric | FP16 Baseline | FP4 Training | Performance |
-|--------|---------------|--------------|-------------|
-| Loss   | 2.34          | **2.31**     | **1.3% better** |
-| Accuracy | 78.5%       | **79.2%**    | **0.7% better** |
-| BLEU   | 45.2          | **45.8**     | **1.3% better** |
-
-**Key Finding**: FP4 training not only saves memory but can actually improve model performance
-
-### Speed Analysis
-
-**Training Speed**: FP4 training maintains 90-95% of FP16 training speed while using 75% less memory.
-
-### Research Insights
-
-FP4 training represents a significant breakthrough in efficient neural network training, making large-scale model training more accessible.
-
-### Future research (that you can participate in):
-
-## Core Architecture
-1. **What is the optimal quantization scheme for different model architectures?**
-2. **How can we further reduce memory requirements while maintaining training stability?**
-
-## Training Dynamics
-3. **How does FP4 training affect different types of layers (attention, MLP, embeddings)?**
-4. **What are the implications for transfer learning and fine-tuning?**
-
-### About Open Superintelligence Lab
-
-[Open Superintelligence Lab](https://opensuperintelligencelab.com/) is dedicated to allowing anyone anywhere to contribute to open-source AI research. We conduct experiments like these to understand fundamental mechanisms of neural networks and large language models and share our findings.
-
-Our research is ongoing, and we welcome collaboration and feedback. These experiments represent active research that may contain flaws or limitations, and we encourage independent verification of our findings.
-
----
-
-## Future Research Directions
-
-![FP4 Training Pipeline](/content/nvidia-fp4-training/training-pipeline.png)
-
-The diagram above illustrates the complete FP4 training pipeline from quantization to weight updates.
-
----
-
-*This research is part of our ongoing investigation into efficient training methods. Results are preliminary and subject to revision as we conduct more extensive experiments.*
+Future work will focus on quantizing more parts of the model, such as attention and communication paths, and extending the methodology to other architectures like Mixture-of-Experts.
