@@ -172,7 +172,7 @@ export default function Home() {
       {/* Main Projects Section */}
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Road to AI Researcher Project */}
             <div className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 opacity-75 cursor-not-allowed">
               <div className="absolute top-4 left-4">
@@ -226,9 +226,9 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* NVFP4 4-Bit Training Project */}
+            {/* Pretrain LLM with NVFP4 Project */}
             <Link 
-              href="/blog/nvfp4-4bit-training"
+              href="/blog/pretrain-llm-with-nvfp4"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
@@ -240,7 +240,7 @@ export default function Home() {
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                  NVIDIA NVFP4 - 4-Bit LLM Training
+                  Pretrain LLM with NVFP4
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                   NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality

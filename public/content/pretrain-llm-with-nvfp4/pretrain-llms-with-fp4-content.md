@@ -1,3 +1,13 @@
+---
+hero:
+  title: "Pretrain LLM with NVFP4"
+  subtitle: "⚡ NVFP4: 2-3x Faster Training, 50% Less Memory"
+  tags:
+    - "⏱️ Technical Deep Dive"
+    - "📄 Research Article"
+---
+
+[Research Paper](https://arxiv.org/pdf/2509.25149) • [Implementation PR](https://github.com/NVIDIA/TransformerEngine/pull/2177)
 
 # A Technical Guide to LLM Pretraining with NVFP4
 
@@ -33,7 +43,7 @@ Transitioning from FP8 to FP4 can yield a 2-3x increase in **arithmetic performa
 
 *   **Two-Level Scaling for High-Precision Representation:** In short, there are two scaling factors: one that applies to an entire tensor (like weights or activations, often millions of values), and a second that applies to each 16-element block within that tensor.
 
-![NVFP4 Matrix Storage Format](/images/NVFP4_matrix_storage_format.png)
+![NVFP4 Matrix Storage Format](/content/pretrain-llm-with-nvfp4/images/NVFP4_matrix_storage_format.png)
 *Figure 1: A 16x32 matrix stored in NVFP4 format. Each block contains sixteen contiguous FP4 elements (gray and green) along with a single FP8 scale factor (yellow). The element with the largest magnitude in each block (green) is scaled to the FP4 maximum representable value and can be recovered using the block scale factor. A per-tensor FP32 scale factor (not shown) is also applied.*
 
 
@@ -51,7 +61,7 @@ NVFP4 uses two distinct scaling factors, which is its most critical feature. To 
 *   **Reduced Block Size for Better Dynamic Range:** NVFP4 uses a smaller micro-block size of 16 elements. This is crucial for **capturing the local dynamic range**. In simpler terms, if a block of numbers contains one large outlier, only the other 15 numbers in that small block are affected during scaling. In a larger block (e.g., 32 elements), that same outlier would force a less precise scaling for all 31 other numbers, potentially causing more information loss. The smaller block size isolates the impact of outliers.
 *   **Native Hardware Support:** The NVIDIA Blackwell GPU architecture includes Tensor Cores with native support for NVFP4, enabling significant hardware acceleration for GEMM operations.
 
-![NVIDIA Blackwell Tensor Cores](/images/NVIDIA_Blackwell_Tensor_Cores.png)
+![NVIDIA Blackwell Tensor Cores](/content/pretrain-llm-with-nvfp4/images/NVIDIA_Blackwell_Tensor_Cores.png)
 *Table 1: NVIDIA Blackwell Tensor Cores. This table shows the speedup of NVFP4 and other formats compared to BF16 on GB200 and GB300 GPUs.*
 
 
@@ -61,7 +71,7 @@ These design choices allow NVFP4 to provide the efficiency of 4-bit precision wh
 
 Achieving training outcomes comparable to FP8 requires a specific set of techniques. The following methodology is recommended for stable and accurate pretraining with NVFP4.
 
-![Combining NVFP4 Training Techniques](/images/combining_NVFP4_training_techniques.png)
+![Combining NVFP4 Training Techniques](/content/pretrain-llm-with-nvfp4/images/combining_NVFP4_training_techniques.png)
 *Figure 8: Combining NVFP4 training techniques: linear layers in last four blocks in BF16, 2D weight scaling, Random Hadamard transforms on Wgrad, and stochastic rounding on gradients. Plot shows relative difference in validation loss for a 1.2B model trained on 1T tokens.*
 
 
@@ -69,7 +79,7 @@ Achieving training outcomes comparable to FP8 requires a specific set of techniq
 
 Quantizing the entire model to FP4 can lead to divergence (model stops learning). A mixed-precision approach is crucial for stability.
 
-![NVFP4 Quantized Linear Layer Compute Flow](/images/NVFP4_quantized_linear_layer_compute_flow.png)
+![NVFP4 Quantized Linear Layer Compute Flow](/content/pretrain-llm-with-nvfp4/images/NVFP4_quantized_linear_layer_compute_flow.png)
 *Figure 5: Illustration of compute flow for a NVFP4 quantized linear layer. All GEMM operations quantize their inputs to NVFP4.*
 
 
@@ -77,12 +87,12 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
 *   Use NVFP4 for the majority of GEMM operations within the linear (fully-connected) layers.
 *   Maintain a small percentage of numerically sensitive linear layers (approx. 15%) in a higher precision format like BF16. The paper found that the **final layers** of the network are the most sensitive, as they require a greater dynamic range and more precision than FP4 can provide. Keeping the first and last few blocks of the model in a higher format is often sufficient to ensure stable training.
 
-![NVFP4 BF16 Precision Switching](/images/NVFP4_BF16_precision_switching.png)
+![NVFP4 BF16 Precision Switching](/content/pretrain-llm-with-nvfp4/images/NVFP4_BF16_precision_switching.png)
 *Figure 7: Switching to higher precision towards end of training. Plot shows relative difference in validation loss for a 12B model trained on 10T tokens. NVFP4 uses the method specified in Section 4 during all of the training period (Green). The precision for tensors in forward and backward pass (Blue), tensors only in the forward pass (Orange), and tensors only in the backward pass (Purple) are switched from NVFP4 to BF16 at 8.2T tokens until remainder of training. A run where the switch to high precision occurs around 10T tokens is also shown (Red). 1D weight scaling is used when switching precision for the backward pass, since doing so is marginally better than 2D weight scaling in such a setup.*
 
 *   Keep other critical components in their original precision (BF16 or FP32) to ensure numerical stability. This includes embeddings, the output projection head, normalization layers, non-linearities, and most parts of the attention mechanism (softmax, etc.). Only the large GEMM operations in the transformer blocks are targeted for FP4 quantization.
 
-![Linear Layer Sensitivity to Quantization](/images/linear_layer_sensitivity_to_quantization.png)
+![Linear Layer Sensitivity to Quantization](/content/pretrain-llm-with-nvfp4/images/linear_layer_sensitivity_to_quantization.png)
 *Figure 9: Sensitivity of linear layers to quantization. NVFP4 for all linear layers except in a few of the first and last blocks in the model. Plot shows validation loss for a 1.2B model trained on 1T tokens.*
 
   
@@ -118,12 +128,12 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
   
   *   **Target the Right Operation:** RHT is not applied everywhere. The paper found it was most critical for stability when applied to the **weight gradient (`Wgrad`) calculation**. This is the part of the backward pass where the model calculates the updates for its weights. Applying it elsewhere (like the forward pass) provided no benefit and could even hurt performance.
 
-![Hadamard Transform Impact on Validation Loss](/images/hadamard_transform_impact_on_validation_loss.png)
+![Hadamard Transform Impact on Validation Loss](/content/pretrain-llm-with-nvfp4/images/hadamard_transform_impact_on_validation_loss.png)
 *Figure 11: Impact of applying Random Hadamard Transforms (RHT) to different GEMMs (Fprop, Dgrad and Wgrad) during training, compared to no RHT. For RHT runs, each transform uses a fixed random seed across the entire training. NVFP4 quantization is applied to all linear layers except in the last four blocks. The plot shows the relative change in validation loss compared to the BF16 baseline for a 1.2B-parameter model trained on 1T tokens.*
 
   *   **Choose an Effective Matrix Size:** The transform is performed by multiplying the data with a "Hadamard Matrix." A larger matrix spreads outliers more effectively but is more computationally expensive. The paper found that a **16x16 matrix** provides the best trade-off for large models, offering strong outlier mitigation without too much compute overhead.
 
-![Hadamard Matrix Size Effect](/images/hadamard_matrix_size_effect.png)
+![Hadamard Matrix Size Effect](/content/pretrain-llm-with-nvfp4/images/hadamard_matrix_size_effect.png)
 *Figure 12: Effect of varying Hadamard Matrix Size. Wgrad tensors use 16 × 16 transforms for the first 3.4T tokens, then switch to 4 × 4 or 128 × 128 for the remainder of training. Plot shows relative difference in training loss for the 12B model trained on 4T tokens. NVFP4 is applied on linear layers using the methodology specified in Section 4.*
 
   *   **Use Randomization to Fix "Structural Alignment":** The "Random" in RHT is a simple fix for a rare but critical failure case. The issue, called **structural alignment**, occurs when a block of data, by pure chance, has a sign pattern that perfectly mirrors a pattern in the fixed Hadamard matrix. This alignment causes the transform to fail and *create* a new outlier instead of removing one.
@@ -131,7 +141,7 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
       *   **The Fix in Action:** Randomization fixes this by randomly flipping the signs of the transform's rows, changing the pattern to something like `[+, -, +, -]`. When this new, misaligned pattern is applied to the same data, the values now cancel each other out (`10 - 8 - 12 + 9 = -1`), preventing the creation of a new outlier.
       *   **Practical Takeaway:** To prevent this, the Hadamard matrix itself is randomized. The paper found that creating a single random matrix once and reusing it for the entire training run was sufficient.
 
-![Hadamard Transform Randomization Effect](/images/hadamard_transform_randomization_effect.png)
+![Hadamard Transform Randomization Effect](/content/pretrain-llm-with-nvfp4/images/hadamard_transform_randomization_effect.png)
 *Figure 13: Effect of randomization for the Hadamard transform. A single fixed seed is used for all transforms during the first 3.4 tokens and switched to one of the following randomization options for the remainder of training: a single fixed seed for all layers, a unique seed for every transform, and not using a random sign vector. Plot shows relative difference in training loss from the FP8 baseline for a 12B model trained on 4T tokens. NVFP4 training uses the training methodology specified in Section 4.*
 
   
@@ -152,7 +162,7 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
   
   **Practical Takeaway:** The paper applies this principle using larger 16x16 blocks. Use 16x16 2D block scaling for weight tensors to ensure consistency. For activations and gradients, standard 1D scaling is sufficient, as training is less sensitive to inconsistencies in those tensors.
 
-![Tensor Consistency Effect](/images/tensor_consistency_effect.png)
+![Tensor Consistency Effect](/content/pretrain-llm-with-nvfp4/images/tensor_consistency_effect.png)
 *Figure 14: Effect of consistency in tensors. Relative difference in validation loss from the BF16 baseline for a 1.2B model trained on 1T tokens. NVFP4 is applied on either weights or activations. Different choices of scaling factors are applied: 1 × 16 block scales along the same dimension, 1 × 16 block scales along different dimensions, and 16 × 16 block scales, along with a global FP32 per-tensor scale.*
 
   
@@ -181,10 +191,10 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
   
   **Practical Takeaway:** The paper found it was essential to apply **stochastic rounding** when quantizing gradient tensors. However, for weights and activations in the forward pass, standard **round-to-nearest-even** is better, as the noise from stochastic rounding can be harmful there.
 
-![Ablations on 12B model](/images/ablations_on_12B_model.png)
+![Ablations on 12B model](/content/pretrain-llm-with-nvfp4/images/ablations_on_12B_model.png)
 *Figure 4: Ablations on the 12B model trained for 10T tokens. Ablation studies start from the model trained up to 3.43T tokens using NVFP4 except in the first two and last eight blocks, and systematically remove one methodology component at a time: stochastic rounding (SR), Random Hadamard Transforms (RHT), two-dimensional scaling (2D), and fewer blocks in BF16. Relative difference is defined as (FP8 - experiment) / FP8, where a negative difference means the experiment is worse.*
 
-![Stochastic Rounding on Different Tensors](/images/stochastic_rounding_on_different_tensors.png)
+![Stochastic Rounding on Different Tensors](/content/pretrain-llm-with-nvfp4/images/stochastic_rounding_on_different_tensors.png)
 *Figure 10: Stochastic rounding applied to different tensors: gradients, activations, weights, and backward-pass tensors. NVFP4 is applied on all linear layers except in the last four blocks. Plot shows validation loss for a 1.2B model trained on 1T tokens.*
 
   
@@ -195,12 +205,12 @@ Quantizing the entire model to FP4 can lead to divergence (model stops learning)
 **Results:**
 *   **Training Loss:** The validation loss for the NVFP4-trained model closely matched the FP8 baseline throughout the 10T token run.
 
-![NVFP4 vs FP8](/images/NVFP4_vs_FP8.png)
+![NVFP4 vs FP8](/content/pretrain-llm-with-nvfp4/images/NVFP4_vs_FP8.png)
 *Figure 2: Validation loss of NVFP4 and FP8 pretraining for the 12B model using 10T tokens.*
 
 *   **Downstream Task Accuracy:** The NVFP4 model achieved accuracies comparable to the FP8 baseline across a diverse set of downstream tasks, including reasoning, mathematics, and code generation. For example, the NVFP4 model achieved an MMLU-pro accuracy of 62.58%, nearly identical to the FP8 model's 62.62%.
 
-![Task Accuracy NVFP4 vs FP8](/images/task_accuracy_nvfp4_vs_fp8.png)
+![Task Accuracy NVFP4 vs FP8](/content/pretrain-llm-with-nvfp4/images/task_accuracy_nvfp4_vs_fp8.png)
 *Figure 3: Task accuracy of NVFP4 versus FP8 measured throughout 10T tokens of pretraining.*
 
 
@@ -210,7 +220,7 @@ This result constitutes the longest publicly documented 4-bit training run and d
 
 In a direct comparison using an 8B parameter model, NVFP4 demonstrated superior convergence over the MXFP4 format.
 
-![NVFP4 vs MXFP4 Comparisons](/images/NVFP4_vs_MXFP4_comparisons.png)
+![NVFP4 vs MXFP4 Comparisons](/content/pretrain-llm-with-nvfp4/images/NVFP4_vs_MXFP4_comparisons.png)
 *Figure 6: NVFP4 vs MXFP4 comparisons: (a) training-loss difference; (b) validation perplexity across token budgets.*
 
 
