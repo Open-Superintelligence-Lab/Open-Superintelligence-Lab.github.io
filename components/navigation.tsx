@@ -39,7 +39,7 @@ export function Navigation({ }: NavigationProps) {
               {language === 'en' ? 'Discord' : 'Discord'}
             </a>
             <Link 
-              href="/contribute" 
+              href="/research" 
               className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
             >
               {language === 'en' ? 'Research' : '研究'}
