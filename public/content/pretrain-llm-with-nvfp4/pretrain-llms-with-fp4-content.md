@@ -15,6 +15,8 @@ tags:
 
 The growing scale of Large Language Models (LLMs) necessitates more efficient training methods. While 8-bit floating point (FP8) training is widely adopted, 4-bit floating point (FP4) formats offer further improvements in computational speed and memory usage. This guide provides a technical summary of **NVFP4**, a 4-bit format from NVIDIA, and the methodology required for its successful implementation in LLM pretraining.
 
+**Architecture Note:** This guide is based on experiments with the **Mamba-Transformer** architecture, which combines Mamba state-space models and Transformer components.
+
 ## Background: Key Concepts in Numerical Precision
 
 Before diving into NVFP4, it's essential to understand a few foundational concepts.
@@ -80,7 +82,7 @@ Achieving training outcomes comparable to FP8 requires a specific set of techniq
 Quantizing the entire model to FP4 can lead to divergence (model stops learning). A mixed-precision approach is crucial for stability.
 
 ![NVFP4 Quantized Linear Layer Compute Flow](/content/pretrain-llm-with-nvfp4/images/NVFP4_quantized_linear_layer_compute_flow.png)
-*Figure 5: Illustration of compute flow for a NVFP4 quantized linear layer. All GEMM operations quantize their inputs to NVFP4.*
+*Figure 5: Illustration of compute flow for a NVFP4 quantized linear layer. All GEMM operations quantize their inputs to NVFP4.* - understanding this image will require deeper analysis and detailed understanding of the paper
 
 
 **Implementation:**
