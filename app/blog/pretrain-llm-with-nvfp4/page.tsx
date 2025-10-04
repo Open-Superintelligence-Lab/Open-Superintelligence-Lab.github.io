@@ -263,6 +263,20 @@ export default function NVFP4Project() {
                       allowFullScreen
                     ></iframe>
                   </div>
+                  <div className="mt-4 text-center">
+                    <p className="text-slate-400 text-sm mb-2">Also available on:</p>
+                    <a 
+                      href="https://www.bilibili.com/video/BV1WJxtzeEo4/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg transition-colors text-sm font-medium"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.182 5.656C22.874 4.67 22.04 3.836 21.054 3.528 19.29 3 12 3 12 3S4.71 3 2.946 3.528C1.96 3.836 1.126 4.67.818 5.656.29 7.42.29 12 .29 12S.29 16.58.818 18.344C1.126 19.33 1.96 20.164 2.946 20.472C4.71 21 12 21 12 21S19.29 21 21.054 20.472C22.04 20.164 22.874 19.33 23.182 18.344C23.71 16.58 23.71 12 23.71 12S23.71 7.42 23.182 5.656ZM9.955 15.465V8.535L15.818 12L9.955 15.465Z"/>
+                      </svg>
+                      Watch on Bilibili
+                    </a>
+                  </div>
                 </div>
                 <div className="prose prose-lg prose-invert max-w-none">
                   <MarkdownRenderer content={markdownContent} />
