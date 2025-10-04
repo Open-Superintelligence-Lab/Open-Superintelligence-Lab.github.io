@@ -121,8 +121,8 @@ This will have the same result as `Activations × Weights` but it will reduce is
 
 The transform is a matrix-vector multiplication. For the 4-number block in the example, the calculation uses a normalized 4x4 Hadamard matrix (`H`):
 ```
-        [ 0.5,  0.5,  0.5,  0.5 ]
-H =       [ 0.5, -0.5,  0.5, -0.5 ]
+       [ 0.5,  0.5,  0.5,  0.5 ]
+H =     [ 0.5, -0.5,  0.5, -0.5 ]
         [ 0.5,  0.5, -0.5, -0.5 ]
         [ 0.5, -0.5, -0.5,  0.5 ]
 ```
