@@ -43,10 +43,10 @@ export function Footer() {
               {t.github}
             </a>
             <Link 
-              href="/contribute" 
+              href="/research" 
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
-              {language === 'en' ? 'Contribute' : '贡献'}
+              {language === 'en' ? 'Research' : '研究'}
             </Link>
             <Link 
               href="/learn" 
