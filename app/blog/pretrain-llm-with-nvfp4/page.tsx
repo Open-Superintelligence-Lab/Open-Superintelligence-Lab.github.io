@@ -21,7 +21,10 @@ export default function NVFP4Project() {
   useEffect(() => {
     const fetchMarkdownContent = async () => {
       try {
-        const response = await fetch(`/content/pretrain-llm-with-nvfp4/pretrain-llms-with-fp4-content.md`);
+        const filename = language === 'zh' 
+          ? 'pretrain-llms-with-fp4-content-zh.md' 
+          : 'pretrain-llms-with-fp4-content.md';
+        const response = await fetch(`/content/pretrain-llm-with-nvfp4/${filename}`);
         const content = await response.text();
         
         // Parse frontmatter
@@ -101,7 +104,10 @@ export default function NVFP4Project() {
   const handleCopyArticle = async () => {
     try {
       // Get the raw markdown content without frontmatter
-      const response = await fetch(`/content/pretrain-llm-with-nvfp4/pretrain-llms-with-fp4-content.md`);
+      const filename = language === 'zh' 
+        ? 'pretrain-llms-with-fp4-content-zh.md' 
+        : 'pretrain-llms-with-fp4-content.md';
+      const response = await fetch(`/content/pretrain-llm-with-nvfp4/${filename}`);
       const content = await response.text();
       
       // Remove frontmatter if present
