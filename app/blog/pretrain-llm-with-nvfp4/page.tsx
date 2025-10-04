@@ -297,7 +297,7 @@ export default function NVFP4Project() {
                       </div>
                     </div>
                     
-                    <a href="https://twitter.com/intent/tweet?text=Learn%20how%20NVIDIA's%20NVFP4%20enables%20efficient%204-bit%20LLM%20training%20with%202-3x%20speedup%20and%2050%%20memory%20reduction%20%E2%9A%A1%EF%B8%8F&url=https://opensuperintelligencelab.com/blog/nvfp4-4bit-training/" 
+                    <a href="https://x.com/intent/tweet?text=I%20wrote%20an%20article%20about%20NVIDIA%27s%20NVFP4%20-%20how%20to%20train%20LLMs%20with%204-bit%20precision%20%F0%9F%9A%80%0A%0A2-3x%20faster%20training%2C%2050%25%20less%20memory.%20Covers%20architecture%2C%20implementation%2C%20and%20benchmarks.%0A%0A%23AI%20%23MachineLearning%20%23DeepLearning&url=https://opensuperintelligencelab.com/blog/pretrain-llm-with-nvfp4/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-green-400 transition-colors">
@@ -305,7 +305,7 @@ export default function NVFP4Project() {
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/nvfp4-4bit-training/" 
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/pretrain-llm-with-nvfp4/&title=I%20wrote%20an%20article%20about%20NVIDIA%20NVFP4%3A%204-Bit%20LLM%20Training&summary=I%20wrote%20a%20technical%20article%20about%20NVIDIA%27s%20NVFP4%20for%204-bit%20LLM%20training.%20Achieves%202-3x%20faster%20training%20speeds%20and%2050%25%20memory%20reduction.%20Includes%20architecture%20details%2C%20implementation%20guide%2C%20and%20benchmarks." 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-green-400 transition-colors">
