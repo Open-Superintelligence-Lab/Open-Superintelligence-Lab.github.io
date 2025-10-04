@@ -7,7 +7,7 @@ tags:
 - "📄 Research Article"
 ---
 
-[Research Paper](https://arxiv.org/pdf/2509.25149) • [Implementation PR](https://github.com/NVIDIA/TransformerEngine/pull/2177)
+[📄 Research Paper](https://arxiv.org/pdf/2509.25149) • [⚙️ Implementation PR](https://github.com/NVIDIA/TransformerEngine/pull/2177) • [🧪 Code Exercises](https://colab.research.google.com/gist/vukrosic/2c0117344dd269263adf0b6e5382889f/excercise.ipynb)
 
 # A Technical Guide to LLM Pretraining with NVFP4
 
@@ -231,6 +231,12 @@ To achieve the same final training loss as the model trained with NVFP4, the mod
 ## Conclusion
 
 NVFP4, when combined with the specified training methodology, enables stable and accurate pretraining of large-scale language models in 4-bit precision. This approach offers significant efficiency gains in terms of computational throughput and memory usage without compromising model performance. Full support for NVFP4 is available in NVIDIA's Transformer Engine.
+
+## Code Exercises
+
+To deepen your understanding of NVFP4 concepts and implementation, we've prepared hands-on exercises that demonstrate the key techniques discussed in this article:
+
+**[🧪 NVFP4 Implementation Exercises](https://colab.research.google.com/gist/vukrosic/2c0117344dd269263adf0b6e5382889f/excercise.ipynb)**
 
 ---
 
