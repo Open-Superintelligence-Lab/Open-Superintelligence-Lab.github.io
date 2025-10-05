@@ -183,6 +183,37 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           hr: () => (
             <hr className="my-12 border-gray-700" />
           ),
+          // Custom iframe handling for video embeds
+          iframe: ({ src, title, ...props }) => {
+            if (!src) return null;
+            
+            // Handle YouTube embeds
+            if (src.includes('youtube.com/embed') || src.includes('youtu.be')) {
+              return (
+                <div className="my-8 rounded-lg overflow-hidden border border-gray-700 bg-slate-900">
+                  <iframe
+                    src={src}
+                    title={title || 'Video'}
+                    className="w-full aspect-video"
+                    allowFullScreen
+                    {...props}
+                  />
+                </div>
+              );
+            }
+            
+            // Handle other iframes
+            return (
+              <div className="my-8 rounded-lg overflow-hidden border border-gray-700 bg-slate-900">
+                <iframe
+                  src={src}
+                  title={title || 'Embedded Content'}
+                  className="w-full aspect-video"
+                  {...props}
+                />
+              </div>
+            );
+          },
         }}
         >
           {content}
