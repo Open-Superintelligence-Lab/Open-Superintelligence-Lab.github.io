@@ -254,6 +254,34 @@ export default function Home() {
               </div>
             </Link>
 
+            {/* AI Automated AI Research Project */}
+            <Link 
+              href="/blog/ai-automated-research"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Future Tech</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                  AI Automated AI Research
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  The future of self-improving artificial intelligence systems - AI that can research and improve itself autonomously
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                    Explore →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
             {/* MobileLLM-R1 Project - HIDDEN */}
             {/* <Link 
               href="/blog/mobilellm-r1"
