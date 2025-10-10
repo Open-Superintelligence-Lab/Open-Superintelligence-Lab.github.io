@@ -41,7 +41,7 @@ This notation means "start at the origin (0,0), move x units along the horizonta
 
 - `u = [-2, 1]` represents an arrow pointing to the coordinate (-2, 1).
 
-![Simple Vector](simple-vector.png)
+![Simple Vector](/content/learn/math/vectors/simple-vector.png)
 
 
 
@@ -100,7 +100,7 @@ If `u = [x₁, y₁]` and `v = [x₂, y₂]`, then:
 u + v = [x₁ + x₂, y₁ + y₂]
 ```
 
-![Vector Addition](vector-addition.png)
+![Vector Addition](/content/learn/math/vectors/vector-addition.png)
 
 ### Scalar Multiplication
 
@@ -120,7 +120,7 @@ k  v = [kx, k*y]
 
 - `-1 * v` flips the vector to point in the opposite direction.
 
-![Scalar Multiplication](scalar-multiplication.png)
+![Scalar Multiplication](/content/learn/math/vectors/scalar-multiplication.png)
 
 
 
@@ -162,7 +162,7 @@ cos(θ) = (u · v) / (||u|| * ||v||)
 
 This is an incredibly useful property, allowing us to calculate angles in any number of dimensions.
 
-![Vector Angle](vector-angle.png)
+![Vector Angle](/content/learn/math/vectors/vector-angle.png)
 
 ## Step 5: Neural Networks:
 

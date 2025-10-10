@@ -47,13 +47,13 @@ Here we have linearly growing function.
 
 Derivative is always 3 for any `x` value, which means that in the original function, growth of `y` at any point is 3x (if you increase `x` by 1, `y` will increase by 3, check it).
 
-![Linear Function Derivative](linear-function-derivative.png)
+![Linear Function Derivative](/content/learn/math/derivatives/linear-function-derivative.png)
 
 Here you can see that as `y` grows faster and faster in original function (square functions grow very fast).
 
 Derivative shows this accelerating growth, you can notice that derivative is increasing (linearly) - which means the growth is accelerating.
 
-![Quadratic Function Derivative](quadratic-function-derivative.png)
+![Quadratic Function Derivative](/content/learn/math/derivatives/quadratic-function-derivative.png)
 
 In previous example derivative was always 3, which meant that function is always consistantly growing by 3 times `x`.
 
@@ -369,7 +369,7 @@ If `f(x) = g(h(x))`, then `f'(x) = g'(h(x))·h'(x)`
 
 ### 1. Sigmoid Function
 
-![Sigmoid Formula](sigmoid-formula.png)
+![Sigmoid Formula](/content/learn/math/derivatives/sigmoid-formula.png)
 
 ```
 f(x) = 1 / (1 + e^(-x))

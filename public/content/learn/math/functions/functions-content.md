@@ -21,7 +21,7 @@ In simple terms, function is like a machine that takes something in and gives so
 
 This is a function that takes any number x and returns 2x + 3.
 
-![Linear Function](linear-function.png)
+![Linear Function](/content/learn/math/functions/linear-function.png)
 
 Let's calculate f(x) for different values step by step:
 
@@ -57,7 +57,7 @@ Now image a function that takes in "Cat sat on a" and returns "mat" - that funct
 
 ### Example 2: Quadratic Function f(x) = x² + 2x + 1
 
-![Quadratic Function](quadratic-function.png)
+![Quadratic Function](/content/learn/math/functions/quadratic-function.png)
 
 Let's calculate f(x) for different values step by step:
 
@@ -151,7 +151,7 @@ Where:
 
 Let's draw it
 
-![Linear Functions Comparison](linear-functions-comparison.png)
+![Linear Functions Comparison](/content/learn/math/functions/linear-functions-comparison.png)
 
 Blue line: 2x + 1
 
@@ -304,7 +304,7 @@ def quartic_function(x):
     return x**4 - 4*x**2 + 3
 ```
 
-![Cubic and Quartic Functions](cubic-quartic-functions.png)
+![Cubic and Quartic Functions](/content/learn/math/functions/cubic-quartic-functions.png)
 
 Just look at it - it seems interesting, no need to master it yet.
 
@@ -321,13 +321,13 @@ def exponential_e(x):
     return np.exp(x)
 ```
 
-![Exponential Functions](exponential-functions.png)
+![Exponential Functions](/content/learn/math/functions/exponential-functions.png)
 
 Careful! The y axis is exponential.
 
 If we make it linear, it looks like this:
 
-![Exponential Functions Linear Scale](exponential-functions-log-scale.png)
+![Exponential Functions Linear Scale](/content/learn/math/functions/exponential-functions-log-scale.png)
 
 
 
@@ -346,7 +346,7 @@ def cosine_function(x):
     return np.cos(x)
 ```
 
-![Trigonometric Functions](trigonometric-functions.png)
+![Trigonometric Functions](/content/learn/math/functions/trigonometric-functions.png)
 
 This is used in Rotory Positional Embeddings (RoPE) - LLM is using it to know the order of words (tokens) in the text.
 
@@ -362,7 +362,7 @@ You don't need to learn them yet, just check them out.
 
 ### 1. Sigmoid Function
 
-![Sigmoid Formula](sigmoid-formula.png)
+![Sigmoid Formula](/content/learn/math/functions/sigmoid-formula.png)
 
 **e** is a famous constant (Euler's number) used in math everywhere, it's value is approximately 2.718
 
@@ -377,7 +377,7 @@ def sigmoid_derivative(x):
     return s * (1 - s)
 ```
 
-![Sigmoid Function and Derivative](sigmoid-function-derivative.png)
+![Sigmoid Function and Derivative](/content/learn/math/functions/sigmoid-function-derivative.png)
 
 We will learn derivativers in the next lesson, but I included the images here - derivative tells you how fast the function is changing - you see that when sigmoid function is growing fastest (in the middle), the derivative value is spiking.
 
@@ -395,11 +395,11 @@ def relu_derivative(x):
     return (x > 0).astype(float)
 ```
 
-![ReLU Function and Derivative](relu-function-derivative.png)
+![ReLU Function and Derivative](/content/learn/math/functions/relu-function-derivative.png)
 
 ### 3. Tanh Function
 
-![Tanh Formula](tanh-formula.png)
+![Tanh Formula](/content/learn/math/functions/tanh-formula.png)
 
 **f(x) = tanh(x) = (e^x - e^(-x)) / (e^x + e^(-x))**
 
@@ -411,6 +411,6 @@ def tanh_derivative(x):
     return 1 - np.tanh(x)**2
 ```
 
-![Tanh Function and Derivative](tanh-function-derivative.png)
+![Tanh Function and Derivative](/content/learn/math/functions/tanh-function-derivative.png)
 
 **Congratulations! You finished functions for neural networks lesson!**

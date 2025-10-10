@@ -17,7 +17,7 @@ hero:
 
 A matrix is a rectangular array of numbers arranged in rows and columns. We write an `(m x n)` matrix as:
 
-![Matrix Notation](matrix-notation.png)
+![Matrix Notation](/content/learn/math/matrices/matrix-notation.png)
 
 
 
@@ -41,7 +41,7 @@ If `(m=n)` the matrix is **square**.
 
 We will use these 2 matrices below.
 
-![Matrix Example](matrix-example.png)
+![Matrix Example](/content/learn/math/matrices/matrix-example.png)
 
 ## 3. Step-by-step matrix operations
 
@@ -51,13 +51,13 @@ Only for matrices of the same size. Add corresponding elements.
 
 **Example:** `(A+B)`
 
-![Matrix Addition](matrix-addition.png)
+![Matrix Addition](/content/learn/math/matrices/matrix-addition.png)
 
 ### 3.2 Scalar multiplication
 
 Multiply each element by the scalar. For `(2A)`:
 
-![Scalar Multiplication Matrix](scalar-multiplication-matrix.png)
+![Scalar Multiplication Matrix](/content/learn/math/matrices/scalar-multiplication-matrix.png)
 
 ### 3.3 Matrix multiplication
 
@@ -67,7 +67,7 @@ If `(A)` is `(m x p)` and `(B)` is `(p x n)`, then `(AB)` is `(m x n)`. Multiply
 
 **Example:** multiply the two 2×2 matrices above.
 
-![Matrix Multiplication Steps](matrix-multiplication-steps.png)
+![Matrix Multiplication Steps](/content/learn/math/matrices/matrix-multiplication-steps.png)
 
 **Important:** Matrix multiplication is generally **not commutative**: `(AB is not equal to BA)` in general.
 
@@ -75,15 +75,15 @@ If `(A)` is `(m x p)` and `(B)` is `(p x n)`, then `(AB)` is `(m x n)`. Multiply
 
 ### 4.1 Transpose
 
-![Matrix Transpose](matrix-transpose.png)
+![Matrix Transpose](/content/learn/math/matrices/matrix-transpose.png)
 
 ### 4.2 Determinant (square matrices)
 
-![Matrix Determinant](matrix-determinant.png)
+![Matrix Determinant](/content/learn/math/matrices/matrix-determinant.png)
 
 ### 4.3 Inverse (when it exists)
 
-![Matrix Inverse Formula](matrix-inverse-formula.png)
+![Matrix Inverse Formula](/content/learn/math/matrices/matrix-inverse-formula.png)
 
 ### 4.4 Rank
 
@@ -91,7 +91,7 @@ The **rank** is the dimension of the column space (or row space). If rank = n fo
 
 ### 4.5 Special matrices (common types)
 
-![Special Matrices](special-matrices.png)
+![Special Matrices](/content/learn/math/matrices/special-matrices.png)
 
 ## 5. Common pitfalls and tips
 

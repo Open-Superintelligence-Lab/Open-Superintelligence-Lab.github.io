@@ -29,7 +29,7 @@ Notice that I say "if you increase x by a bit, `f(x) = x²` will increase by 6" 
 
 On this image you can see that the red slope at `x=3` is smaller than thes green slope at `x=4`.
 
-![Derivatives with Tangent Lines](derivatives-tangent-lines.png)
+![Derivatives with Tangent Lines](/content/learn/math/gradients/derivatives-tangent-lines.png)
 
 In this case, if you increase `x=3` by 1, derivative will go from 6 to 8. So that's why we say "if you increase `x=3` by a tiny bit, `f(x) = x²` will increase by 6".
 
@@ -41,7 +41,7 @@ But what if our function has multiple inputs, like `f(x, y) = x² + y²`?
 
 This function doesn't describe a line; it describes a 3D surface, like a bowl landscape. If you're standing at any point `(x, y)` on this surface, what is "the" slope?
 
-![Gradient Surface Plot](gradient-surface-plot.png)
+![Gradient Surface Plot](/content/learn/math/gradients/gradient-surface-plot.png)
 
 There isn't just one. There's a slope if you take a step in the x-direction, a different slope if you step in the y-direction, and another for every other direction in between.
 
