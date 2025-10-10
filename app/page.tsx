@@ -156,7 +156,7 @@ export default function Home() {
                 className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
               >
                 <span className="flex items-center gap-2">
-                  Explore Articles
+                  Participate
                   <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
@@ -261,6 +261,34 @@ export default function Home() {
                   <span className="text-xs text-gray-500">NVIDIA Research</span>
                   <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
                     Explore →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* The Most Difficult Project In Human History */}
+            <Link 
+              href="/blog/the-most-difficult-project-in-human-history"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Vision</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-amber-500/20 text-amber-400 text-xs px-2 py-1 rounded-md">New</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent group-hover:from-amber-200 group-hover:via-orange-300 group-hover:to-rose-300 transition-all">
+                  The Most Difficult Project In Human History
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Building superintelligence - the ultimate challenge facing humanity. Why this endeavor requires global cooperation, scientific excellence, and ethical wisdom
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                  <span className="text-amber-400 text-sm group-hover:text-amber-300 transition-colors">
+                    Read More →
                   </span>
                 </div>
               </div>
