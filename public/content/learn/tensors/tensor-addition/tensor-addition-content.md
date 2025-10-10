@@ -157,8 +157,6 @@ This works because adding the same number to every position makes sense!
 
 ## Addition Rules
 
-![Addition Rules](/content/learn/tensors/tensor-addition/addition-rules.png)
-
 ### ✓ Rule 1: Same Shapes Work
 
 Tensors must have the **same shape** to be added:
