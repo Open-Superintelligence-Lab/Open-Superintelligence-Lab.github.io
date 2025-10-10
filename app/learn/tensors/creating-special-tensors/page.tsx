@@ -5,7 +5,7 @@ export default function CreatingSpecialTensorsPage() {
     <LessonPage
       contentPath="tensors/creating-special-tensors"
       prevLink={{ href: "/learn/tensors/concatenating-tensors", label: "← Previous: Concatenating Tensors" }}
-      nextLink={{ href: "/learn/neural-networks/introduction", label: "Next: Neural Networks →" }}
+      nextLink={{ href: "/learn/neuron-from-scratch/what-is-a-neuron", label: "Next: What is a Neuron →" }}
     />
   );
 }

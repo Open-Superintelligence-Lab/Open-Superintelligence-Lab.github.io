@@ -322,6 +322,160 @@ export default function LearnPage() {
               </div>
             </div>
 
+            {/* Neuron From Scratch Module */}
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white">
+                    {language === 'en' ? 'Neuron From Scratch' : '从零开始构建神经元'}
+                  </h2>
+                  <p className="text-slate-400">
+                    {language === 'en' ? 'Understanding the fundamental unit of neural networks' : '理解神经网络的基本单元'}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link 
+                  href="/learn/neuron-from-scratch/what-is-a-neuron"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-yellow-500/50 hover:shadow-xl hover:shadow-yellow-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-yellow-400 transition-colors">
+                      <span className="mr-2">1.</span>{language === 'en' ? 'What is a Neuron' : '什么是神经元'}
+                    </h3>
+                    <svg className="w-5 h-5 text-yellow-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'The basic building block of neural networks'
+                      : '神经网络的基本构建块'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/the-linear-step"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-amber-400 transition-colors">
+                      <span className="mr-2">2.</span>{language === 'en' ? 'The Linear Step' : '线性步骤'}
+                    </h3>
+                    <svg className="w-5 h-5 text-amber-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Weighted sums and bias in neurons'
+                      : '神经元中的加权和和偏置'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/the-activation-function"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-orange-400 transition-colors">
+                      <span className="mr-2">3.</span>{language === 'en' ? 'The Activation Function' : '激活函数'}
+                    </h3>
+                    <svg className="w-5 h-5 text-orange-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Introducing non-linearity to neurons'
+                      : '为神经元引入非线性'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/building-a-neuron-in-python"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-red-400 transition-colors">
+                      <span className="mr-2">4.</span>{language === 'en' ? 'Building a Neuron in Python' : '用Python构建神经元'}
+                    </h3>
+                    <svg className="w-5 h-5 text-red-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Implementing a single neuron from scratch'
+                      : '从零开始实现单个神经元'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/making-a-prediction"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-pink-400 transition-colors">
+                      <span className="mr-2">5.</span>{language === 'en' ? 'Making a Prediction' : '进行预测'}
+                    </h3>
+                    <svg className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'How a neuron processes input to output'
+                      : '神经元如何处理输入到输出'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/the-concept-of-loss"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-rose-400 transition-colors">
+                      <span className="mr-2">6.</span>{language === 'en' ? 'The Concept of Loss' : '损失概念'}
+                    </h3>
+                    <svg className="w-5 h-5 text-rose-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Measuring prediction error'
+                      : '测量预测误差'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neuron-from-scratch/the-concept-of-learning"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-fuchsia-500/50 hover:shadow-xl hover:shadow-fuchsia-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-fuchsia-400 transition-colors">
+                      <span className="mr-2">7.</span>{language === 'en' ? 'The Concept of Learning' : '学习概念'}
+                    </h3>
+                    <svg className="w-5 h-5 text-fuchsia-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'How neurons adjust their parameters'
+                      : '神经元如何调整其参数'}
+                  </p>
+                </Link>
+              </div>
+            </div>
+
             {/* Neural Networks Module */}
             <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8">
               <div className="flex items-center gap-4 mb-6">
