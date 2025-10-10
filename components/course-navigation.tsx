@@ -61,8 +61,8 @@ export function CourseNavigation() {
       ]
     },
     {
-      title: "Tensors in Practice",
-      titleZh: "张量实践",
+      title: "PyTorch Fundamentals",
+      titleZh: "PyTorch基础",
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -169,7 +169,7 @@ export function CourseNavigation() {
             <ul className="space-y-1 ml-7">
               {module.lessons.map((lesson, lessonIndex) => {
                 const isActive = pathname === lesson.href;
-                const globalLessonNumber = moduleIndex === 0 ? lessonIndex + 1 : modules[0].lessons.length + lessonIndex + 1;
+                const lessonNumber = lessonIndex + 1;
                 return (
                   <li key={lessonIndex}>
                     <Link
@@ -183,7 +183,7 @@ export function CourseNavigation() {
                         }
                       `}
                     >
-                      <span className="font-semibold mr-2">{globalLessonNumber}.</span>
+                      <span className="font-semibold mr-2">{lessonNumber}.</span>
                       {language === 'en' ? lesson.title : lesson.titleZh}
                     </Link>
                   </li>

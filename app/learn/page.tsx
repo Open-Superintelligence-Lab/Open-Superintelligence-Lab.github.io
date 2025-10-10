@@ -149,7 +149,7 @@ export default function LearnPage() {
               </div>
             </div>
 
-            {/* Tensors Module */}
+            {/* PyTorch Fundamentals Module */}
             <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
@@ -159,10 +159,10 @@ export default function LearnPage() {
                 </div>
                 <div>
                   <h2 className="text-3xl font-bold text-white">
-                    {language === 'en' ? 'Tensors in Practice' : '张量实践'}
+                    {language === 'en' ? 'PyTorch Fundamentals' : 'PyTorch基础'}
                   </h2>
                   <p className="text-slate-400">
-                    {language === 'en' ? 'Working with multi-dimensional arrays' : '操作多维数组'}
+                    {language === 'en' ? 'Working with tensors and PyTorch basics' : '使用张量和PyTorch基础'}
                   </p>
                 </div>
               </div>
@@ -174,7 +174,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-green-400 transition-colors">
-                      <span className="mr-2">6.</span>{language === 'en' ? 'Creating Tensors' : '创建张量'}
+                      <span className="mr-2">1.</span>{language === 'en' ? 'Creating Tensors' : '创建张量'}
                     </h3>
                     <svg className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -193,7 +193,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-lime-400 transition-colors">
-                      <span className="mr-2">7.</span>{language === 'en' ? 'Tensor Addition' : '张量加法'}
+                      <span className="mr-2">2.</span>{language === 'en' ? 'Tensor Addition' : '张量加法'}
                     </h3>
                     <svg className="w-5 h-5 text-lime-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -212,7 +212,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors">
-                      <span className="mr-2">8.</span>{language === 'en' ? 'Matrix Multiplication' : '矩阵乘法'}
+                      <span className="mr-2">3.</span>{language === 'en' ? 'Matrix Multiplication' : '矩阵乘法'}
                     </h3>
                     <svg className="w-5 h-5 text-emerald-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -231,7 +231,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-teal-400 transition-colors">
-                      <span className="mr-2">9.</span>{language === 'en' ? 'Transposing Tensors' : '张量转置'}
+                      <span className="mr-2">4.</span>{language === 'en' ? 'Transposing Tensors' : '张量转置'}
                     </h3>
                     <svg className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -250,7 +250,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
-                      <span className="mr-2">10.</span>{language === 'en' ? 'Reshaping Tensors' : '张量重塑'}
+                      <span className="mr-2">5.</span>{language === 'en' ? 'Reshaping Tensors' : '张量重塑'}
                     </h3>
                     <svg className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -269,7 +269,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-sky-400 transition-colors">
-                      <span className="mr-2">11.</span>{language === 'en' ? 'Indexing and Slicing' : '索引和切片'}
+                      <span className="mr-2">6.</span>{language === 'en' ? 'Indexing and Slicing' : '索引和切片'}
                     </h3>
                     <svg className="w-5 h-5 text-sky-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -288,7 +288,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-colors">
-                      <span className="mr-2">12.</span>{language === 'en' ? 'Concatenating Tensors' : '张量拼接'}
+                      <span className="mr-2">7.</span>{language === 'en' ? 'Concatenating Tensors' : '张量拼接'}
                     </h3>
                     <svg className="w-5 h-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -307,7 +307,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-violet-400 transition-colors">
-                      <span className="mr-2">13.</span>{language === 'en' ? 'Creating Special Tensors' : '创建特殊张量'}
+                      <span className="mr-2">8.</span>{language === 'en' ? 'Creating Special Tensors' : '创建特殊张量'}
                     </h3>
                     <svg className="w-5 h-5 text-violet-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -347,7 +347,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">
-                      <span className="mr-2">14.</span>{language === 'en' ? 'Introduction' : '简介'}
+                      <span className="mr-2">1.</span>{language === 'en' ? 'Introduction' : '简介'}
                     </h3>
                     <svg className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -366,7 +366,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-pink-400 transition-colors">
-                      <span className="mr-2">15.</span>{language === 'en' ? 'Forward Propagation' : '前向传播'}
+                      <span className="mr-2">2.</span>{language === 'en' ? 'Forward Propagation' : '前向传播'}
                     </h3>
                     <svg className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -385,7 +385,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-colors">
-                      <span className="mr-2">16.</span>{language === 'en' ? 'Backpropagation' : '反向传播'}
+                      <span className="mr-2">3.</span>{language === 'en' ? 'Backpropagation' : '反向传播'}
                     </h3>
                     <svg className="w-5 h-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -404,7 +404,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-rose-400 transition-colors">
-                      <span className="mr-2">17.</span>{language === 'en' ? 'Training & Optimization' : '训练与优化'}
+                      <span className="mr-2">4.</span>{language === 'en' ? 'Training & Optimization' : '训练与优化'}
                     </h3>
                     <svg className="w-5 h-5 text-rose-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
