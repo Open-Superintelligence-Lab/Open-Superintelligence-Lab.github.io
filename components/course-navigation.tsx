@@ -208,24 +208,39 @@ export function CourseNavigation() {
       ),
       lessons: [
         {
-          title: "Introduction",
-          titleZh: "简介",
-          href: "/learn/neural-networks/introduction"
+          title: "Architecture of a Network",
+          titleZh: "网络架构",
+          href: "/learn/neural-networks/architecture-of-a-network"
         },
         {
-          title: "Forward Propagation",
-          titleZh: "前向传播",
-          href: "/learn/neural-networks/forward-propagation"
+          title: "Building a Layer",
+          titleZh: "构建层",
+          href: "/learn/neural-networks/building-a-layer"
         },
         {
-          title: "Backpropagation",
-          titleZh: "反向传播",
-          href: "/learn/neural-networks/backpropagation"
+          title: "Implementing a Network",
+          titleZh: "实现网络",
+          href: "/learn/neural-networks/implementing-a-network"
         },
         {
-          title: "Training & Optimization",
-          titleZh: "训练与优化",
-          href: "/learn/neural-networks/training"
+          title: "The Chain Rule",
+          titleZh: "链式法则",
+          href: "/learn/neural-networks/the-chain-rule"
+        },
+        {
+          title: "Calculating Gradients",
+          titleZh: "计算梯度",
+          href: "/learn/neural-networks/calculating-gradients"
+        },
+        {
+          title: "Backpropagation in Action",
+          titleZh: "反向传播实战",
+          href: "/learn/neural-networks/backpropagation-in-action"
+        },
+        {
+          title: "Implementing Backpropagation",
+          titleZh: "实现反向传播",
+          href: "/learn/neural-networks/implementing-backpropagation"
         }
       ]
     }

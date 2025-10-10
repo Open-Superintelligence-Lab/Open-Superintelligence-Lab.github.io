@@ -631,12 +631,12 @@ export default function LearnPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Link 
-                  href="/learn/neural-networks/introduction"
+                  href="/learn/neural-networks/architecture-of-a-network"
                   className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">
-                      <span className="mr-2">1.</span>{language === 'en' ? 'Introduction' : '简介'}
+                      <span className="mr-2">1.</span>{language === 'en' ? 'Architecture of a Network' : '网络架构'}
                     </h3>
                     <svg className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -644,18 +644,18 @@ export default function LearnPage() {
                   </div>
                   <p className="text-slate-400 text-sm">
                     {language === 'en' 
-                      ? 'What are neural networks and how do they work?'
-                      : '什么是神经网络以及它们如何工作？'}
+                      ? 'Understanding neural network structure and design'
+                      : '理解神经网络结构和设计'}
                   </p>
                 </Link>
 
                 <Link 
-                  href="/learn/neural-networks/forward-propagation"
+                  href="/learn/neural-networks/building-a-layer"
                   className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-pink-400 transition-colors">
-                      <span className="mr-2">2.</span>{language === 'en' ? 'Forward Propagation' : '前向传播'}
+                      <span className="mr-2">2.</span>{language === 'en' ? 'Building a Layer' : '构建层'}
                     </h3>
                     <svg className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -663,18 +663,18 @@ export default function LearnPage() {
                   </div>
                   <p className="text-slate-400 text-sm">
                     {language === 'en' 
-                      ? 'Computing outputs from inputs through the network'
-                      : '通过网络从输入计算输出'}
+                      ? 'Constructing individual network layers'
+                      : '构建单个网络层'}
                   </p>
                 </Link>
 
                 <Link 
-                  href="/learn/neural-networks/backpropagation"
+                  href="/learn/neural-networks/implementing-a-network"
                   className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-colors">
-                      <span className="mr-2">3.</span>{language === 'en' ? 'Backpropagation' : '反向传播'}
+                      <span className="mr-2">3.</span>{language === 'en' ? 'Implementing a Network' : '实现网络'}
                     </h3>
                     <svg className="w-5 h-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -682,18 +682,18 @@ export default function LearnPage() {
                   </div>
                   <p className="text-slate-400 text-sm">
                     {language === 'en' 
-                      ? 'The algorithm that enables learning in neural networks'
-                      : '使神经网络能够学习的算法'}
+                      ? 'Putting together a complete neural network'
+                      : '组装完整的神经网络'}
                   </p>
                 </Link>
 
                 <Link 
-                  href="/learn/neural-networks/training"
+                  href="/learn/neural-networks/the-chain-rule"
                   className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-rose-500/50 hover:shadow-xl hover:shadow-rose-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-rose-400 transition-colors">
-                      <span className="mr-2">4.</span>{language === 'en' ? 'Training & Optimization' : '训练与优化'}
+                      <span className="mr-2">4.</span>{language === 'en' ? 'The Chain Rule' : '链式法则'}
                     </h3>
                     <svg className="w-5 h-5 text-rose-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -701,8 +701,65 @@ export default function LearnPage() {
                   </div>
                   <p className="text-slate-400 text-sm">
                     {language === 'en' 
-                      ? 'Gradient descent and optimization techniques'
-                      : '梯度下降和优化技术'}
+                      ? 'Mathematical foundation of backpropagation'
+                      : '反向传播的数学基础'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neural-networks/calculating-gradients"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                      <span className="mr-2">5.</span>{language === 'en' ? 'Calculating Gradients' : '计算梯度'}
+                    </h3>
+                    <svg className="w-5 h-5 text-blue-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Computing derivatives for network training'
+                      : '计算网络训练的导数'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neural-networks/backpropagation-in-action"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                      <span className="mr-2">6.</span>{language === 'en' ? 'Backpropagation in Action' : '反向传播实战'}
+                    </h3>
+                    <svg className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Understanding the backpropagation algorithm'
+                      : '理解反向传播算法'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/neural-networks/implementing-backpropagation"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-teal-400 transition-colors">
+                      <span className="mr-2">7.</span>{language === 'en' ? 'Implementing Backpropagation' : '实现反向传播'}
+                    </h3>
+                    <svg className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Coding the backpropagation algorithm from scratch'
+                      : '从零开始编写反向传播算法'}
                   </p>
                 </Link>
               </div>
