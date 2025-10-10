@@ -245,36 +245,6 @@ output = X @ W_stored.T  # (2, 3) @ (3, 2) = (2, 2)
 print(output)  # Same result!
 ```
 
-## Double Transpose
-
-Transposing twice brings you back to the original:
-
-![Double Transpose](/content/learn/tensors/transposing-tensors/double-transpose.png)
-
-**Example:**
-
-```python
-import torch
-
-A = torch.tensor([[1, 2, 3],
-                  [4, 5, 6]])
-
-A_T = A.T      # First transpose
-A_T_T = A_T.T  # Second transpose
-
-print(torch.equal(A, A_T_T))  # True - back to original!
-```
-
-**Why this matters:**
-
-```yaml
-Original:  (2, 3)
-.T:        (3, 2)  ← Different
-.T.T:      (2, 3)  ← Back to original!
-
-Pattern: A.T.T = A
-```
-
 ## Practical Examples
 
 ### Example 1: Computing Dot Products
@@ -395,8 +365,6 @@ A_T_copy[0, 0] = 42
 ✓ **Transpose swaps rows and columns:** `[i, j]` → `[j, i]`
 
 ✓ **Shape flips:** `(m, n)` → `(n, m)`
-
-✓ **Double transpose returns original:** `A.T.T = A`
 
 ✓ **Main use:** Making shapes compatible for matrix multiplication
 
