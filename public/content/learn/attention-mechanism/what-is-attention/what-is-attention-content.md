@@ -9,6 +9,8 @@ hero:
 
 Attention lets the model **focus on relevant parts** of the input, just like how you focus on important words when reading!
 
+![Attention Concept](/content/learn/attention-mechanism/what-is-attention/attention-concept.png)
+
 ## The Core Idea
 
 **Attention = Weighted average based on relevance**
@@ -54,6 +56,8 @@ print(output)
 ```
 
 ## Query, Key, Value
+
+![QKV Mechanism](/content/learn/attention-mechanism/what-is-attention/qkv-mechanism.png)
 
 Attention uses three concepts:
 

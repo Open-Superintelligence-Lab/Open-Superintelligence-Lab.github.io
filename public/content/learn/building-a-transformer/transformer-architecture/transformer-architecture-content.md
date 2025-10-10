@@ -9,6 +9,8 @@ hero:
 
 The Transformer is the architecture behind GPT, BERT, and modern LLMs. It's built entirely on attention!
 
+![Transformer Diagram](/content/learn/building-a-transformer/transformer-architecture/transformer-diagram.png)
+
 ## The Big Picture
 
 **Transformer = Encoder + Decoder (or just one)**

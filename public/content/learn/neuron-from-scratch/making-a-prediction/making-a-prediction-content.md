@@ -9,6 +9,8 @@ hero:
 
 Now that we understand neurons, let's use one to **make predictions**! This is called the **forward pass**.
 
+![Prediction Flow](/content/learn/neuron-from-scratch/making-a-prediction/prediction-flow.png)
+
 ## The Forward Pass
 
 **Forward pass = Input → Linear → Activation → Output**

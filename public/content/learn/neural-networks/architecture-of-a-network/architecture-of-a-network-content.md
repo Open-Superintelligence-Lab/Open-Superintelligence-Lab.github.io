@@ -9,6 +9,8 @@ hero:
 
 A neural network's **architecture** is its structure - how many layers, how many neurons, and how they connect!
 
+![Network Layers](/content/learn/neural-networks/architecture-of-a-network/network-layers.png)
+
 ## Basic Architecture
 
 **Typical neural network has three parts:**

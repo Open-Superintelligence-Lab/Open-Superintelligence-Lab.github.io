@@ -9,6 +9,8 @@ hero:
 
 The linear step is where the **magic begins** - it's how a neuron combines its inputs using weights!
 
+![Linear Step Visual](/content/learn/neuron-from-scratch/the-linear-step/linear-step-visual.png)
+
 ## The Formula
 
 **z = w₁x₁ + w₂x₂ + w₃x₃ + ... + b**

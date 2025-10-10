@@ -9,6 +9,8 @@ hero:
 
 A transformer block is the **repeatable unit** that makes transformers work!
 
+![Block Diagram](/content/learn/building-a-transformer/building-a-transformer-block/block-diagram.png)
+
 ## The Structure
 
 **Transformer Block = Attention + FFN + Normalization + Residuals**

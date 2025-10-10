@@ -9,6 +9,8 @@ hero:
 
 The activation function is what makes neural networks **powerful**. Without it, you'd just have fancy linear regression!
 
+![Activation Comparison](/content/learn/neuron-from-scratch/the-activation-function/activation-comparison.png)
+
 ## Why We Need Activation Functions
 
 **Without activation:** No matter how many layers, it's still just linear!

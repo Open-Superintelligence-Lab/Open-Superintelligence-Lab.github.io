@@ -9,6 +9,8 @@ hero:
 
 Multi-head attention runs **multiple attention mechanisms in parallel**, each focusing on different aspects!
 
+![Multi-Head Visual](/content/learn/attention-mechanism/multi-head-attention/multi-head-visual.png)
+
 ## The Idea
 
 Instead of one attention:

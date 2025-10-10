@@ -9,6 +9,8 @@ hero:
 
 Let's build a complete, working neuron from scratch using pure Python and PyTorch!
 
+![Neuron Code](/content/learn/neuron-from-scratch/building-a-neuron-in-python/neuron-code.png)
+
 ## Simple Neuron Class
 
 **Example:**

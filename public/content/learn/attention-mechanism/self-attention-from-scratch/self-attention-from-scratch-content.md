@@ -9,6 +9,8 @@ hero:
 
 Let's build self-attention from scratch - the core of transformers!
 
+![Self-Attention Concept](/content/learn/attention-mechanism/self-attention-from-scratch/self-attention-concept.png)
+
 ## Complete Implementation
 
 ```python

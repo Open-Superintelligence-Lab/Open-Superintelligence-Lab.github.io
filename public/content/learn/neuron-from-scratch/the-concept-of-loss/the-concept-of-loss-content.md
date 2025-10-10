@@ -9,6 +9,8 @@ hero:
 
 Loss tells you **how wrong** your model's predictions are. Lower loss = better model!
 
+![Loss Function](/content/learn/neuron-from-scratch/the-concept-of-loss/loss-function.png)
+
 ## What is Loss?
 
 **Loss = Difference between prediction and actual answer**

@@ -9,6 +9,8 @@ hero:
 
 Attention scores measure **how much each position should attend to every other position**!
 
+![Attention Matrix](/content/learn/attention-mechanism/calculating-attention-scores/attention-matrix.png)
+
 ## The Formula
 
 **Score = Q × Kᵀ / √d**

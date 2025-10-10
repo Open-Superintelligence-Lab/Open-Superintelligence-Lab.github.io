@@ -9,6 +9,8 @@ hero:
 
 A layer is a collection of neurons that process inputs together. It's the fundamental unit of neural networks!
 
+![Layer Structure](/content/learn/neural-networks/building-a-layer/layer-structure.png)
+
 ## What is a Layer?
 
 **Layer = Multiple neurons working in parallel**

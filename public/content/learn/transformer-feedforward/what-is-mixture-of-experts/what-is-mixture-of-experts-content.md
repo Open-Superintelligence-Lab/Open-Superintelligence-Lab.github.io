@@ -9,6 +9,8 @@ hero:
 
 Mixture of Experts (MoE) uses **multiple specialized sub-networks (experts)** and routes inputs to the most relevant ones!
 
+![MoE Routing](/content/learn/transformer-feedforward/what-is-mixture-of-experts/moe-routing.png)
+
 ## The Core Idea
 
 Instead of one big feedforward network:

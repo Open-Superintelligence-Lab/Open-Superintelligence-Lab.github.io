@@ -9,6 +9,8 @@ hero:
 
 Learning is the process of **adjusting weights to reduce loss**. The neuron literally learns from mistakes!
 
+![Learning Process](/content/learn/neuron-from-scratch/the-concept-of-learning/learning-process.png)
+
 ## What Does "Learning" Mean?
 
 **Learning = Automatically adjusting weights to make better predictions**
