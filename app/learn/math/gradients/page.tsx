@@ -5,7 +5,7 @@ export default function GradientsPage() {
     <LessonPage
       contentPath="math/gradients"
       prevLink={{ href: "/learn/math/matrices", label: "← Previous: Matrices" }}
-      nextLink={{ href: "/learn/neural-networks/introduction", label: "Next: Neural Networks →" }}
+      nextLink={{ href: "/learn/tensors/creating-tensors", label: "Next: Creating Tensors →" }}
     />
   );
 }

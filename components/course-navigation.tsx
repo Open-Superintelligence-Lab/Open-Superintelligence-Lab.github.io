@@ -61,6 +61,57 @@ export function CourseNavigation() {
       ]
     },
     {
+      title: "Tensors in Practice",
+      titleZh: "张量实践",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+      ),
+      lessons: [
+        {
+          title: "Creating Tensors",
+          titleZh: "创建张量",
+          href: "/learn/tensors/creating-tensors"
+        },
+        {
+          title: "Tensor Addition",
+          titleZh: "张量加法",
+          href: "/learn/tensors/tensor-addition"
+        },
+        {
+          title: "Matrix Multiplication",
+          titleZh: "矩阵乘法",
+          href: "/learn/tensors/matrix-multiplication"
+        },
+        {
+          title: "Transposing Tensors",
+          titleZh: "张量转置",
+          href: "/learn/tensors/transposing-tensors"
+        },
+        {
+          title: "Reshaping Tensors",
+          titleZh: "张量重塑",
+          href: "/learn/tensors/reshaping-tensors"
+        },
+        {
+          title: "Indexing and Slicing",
+          titleZh: "索引和切片",
+          href: "/learn/tensors/indexing-and-slicing"
+        },
+        {
+          title: "Concatenating Tensors",
+          titleZh: "张量拼接",
+          href: "/learn/tensors/concatenating-tensors"
+        },
+        {
+          title: "Creating Special Tensors",
+          titleZh: "创建特殊张量",
+          href: "/learn/tensors/creating-special-tensors"
+        }
+      ]
+    },
+    {
       title: "Neural Networks from Scratch",
       titleZh: "从零开始的神经网络",
       icon: (
