@@ -476,6 +476,141 @@ export default function LearnPage() {
               </div>
             </div>
 
+            {/* Activation Functions Module */}
+            <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-white">
+                    {language === 'en' ? 'Activation Functions' : '激活函数'}
+                  </h2>
+                  <p className="text-slate-400">
+                    {language === 'en' ? 'Understanding different activation functions' : '理解不同的激活函数'}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link 
+                  href="/learn/activation-functions/relu"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-colors">
+                      <span className="mr-2">1.</span>{language === 'en' ? 'ReLU' : 'ReLU'}
+                    </h3>
+                    <svg className="w-5 h-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Rectified Linear Unit - The most popular activation function'
+                      : '修正线性单元 - 最流行的激活函数'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/activation-functions/sigmoid"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">
+                      <span className="mr-2">2.</span>{language === 'en' ? 'Sigmoid' : 'Sigmoid'}
+                    </h3>
+                    <svg className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'The classic S-shaped activation function'
+                      : '经典的S形激活函数'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/activation-functions/tanh"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-violet-500/50 hover:shadow-xl hover:shadow-violet-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-violet-400 transition-colors">
+                      <span className="mr-2">3.</span>{language === 'en' ? 'Tanh' : 'Tanh'}
+                    </h3>
+                    <svg className="w-5 h-5 text-violet-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Hyperbolic tangent - Zero-centered activation'
+                      : '双曲正切 - 零中心激活'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/activation-functions/silu"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                      <span className="mr-2">4.</span>{language === 'en' ? 'SiLU' : 'SiLU'}
+                    </h3>
+                    <svg className="w-5 h-5 text-blue-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Sigmoid Linear Unit - The Swish activation'
+                      : 'Sigmoid线性单元 - Swish激活'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/activation-functions/swiglu"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                      <span className="mr-2">5.</span>{language === 'en' ? 'SwiGLU' : 'SwiGLU'}
+                    </h3>
+                    <svg className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Swish-Gated Linear Unit - Advanced activation'
+                      : 'Swish门控线性单元 - 高级激活'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/activation-functions/softmax"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-teal-400 transition-colors">
+                      <span className="mr-2">6.</span>{language === 'en' ? 'Softmax' : 'Softmax'}
+                    </h3>
+                    <svg className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Multi-class classification activation function'
+                      : '多类分类激活函数'}
+                  </p>
+                </Link>
+              </div>
+            </div>
+
             {/* Neural Networks Module */}
             <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-2xl p-8">
               <div className="flex items-center gap-4 mb-6">
