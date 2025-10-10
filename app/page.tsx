@@ -73,14 +73,12 @@ export default function Home() {
                     {language === 'en' ? (
                       <>
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Open</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Superintelligence</span>
-                        <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Lab</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Superintelligence</span>
                       </>
                     ) : (
                       <>
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">开放</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">超级智能</span>
-                        <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">实验室</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">超级智能</span>
                       </>
                     )}
                   </h1>
@@ -90,16 +88,27 @@ export default function Home() {
                     {language === 'en' ? (
                       <>
                         <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">Open</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">Superintelligence</span>
-                        <span className="bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-blue-400/20 bg-clip-text text-transparent">Lab</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">Superintelligence</span>
                       </>
                     ) : (
                       <>
                         <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">开放</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">超级智能</span>
-                        <span className="bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-blue-400/20 bg-clip-text text-transparent">实验室</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">超级智能</span>
                       </>
                     )}
+                  </div>
+                </div>
+                
+                {/* Subtitle */}
+                <div className="relative mt-1 pb-12">
+                  <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-loose">
+                    The Most Difficult Project In Human History
+                  </h2>
+                  {/* Glow effect for subtitle */}
+                  <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-loose">
+                    <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
+                      The Most Difficult Project In Human History
+                    </span>
                   </div>
                 </div>
               </div>
