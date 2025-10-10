@@ -126,19 +126,11 @@ Think of it like putting a single marble in a special container - the marble is 
 **More Examples:**
 
 ```python
-# Different scalar values
 temperature = torch.tensor(36.5)     # Body temperature
 score = torch.tensor(95)             # Test score  
-is_valid = torch.tensor(1)           # Boolean as number (1 = True)
 
-print(temperature)    # Output: tensor(36.5000)
-print(score)          # Output: tensor(95)
-print(is_valid)       # Output: tensor(1)
-
-# All have the same properties
 print(temperature.ndim)  # Output: 0
 print(score.ndim)        # Output: 0
-print(is_valid.ndim)     # Output: 0
 ```
 
 ### 1D Tensor (Vector)
@@ -177,22 +169,6 @@ One opening and one closing bracket = 1D tensor
 ```
 
 **Think of it like:** A row of 5 boxes, each holding one number.
-
-**More bracket examples:**
-```python
-# Short vector
-short = torch.tensor([10, 20])
-print(short.shape)      # Output: torch.Size([2])
-
-# Longer vector  
-long = torch.tensor([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-print(long.shape)       # Output: torch.Size([10])
-
-# Vector with floats
-floats = torch.tensor([1.5, 2.5, 3.5])
-print(floats)           # Output: tensor([1.5000, 2.5000, 3.5000])
-print(floats.shape)     # Output: torch.Size([3])
-```
 
 **Example 2:** Accessing elements
 
@@ -262,27 +238,7 @@ Two levels of brackets = 2D tensor
 
 **Think of it like:** A table with 3 rows and 4 columns, like a spreadsheet.
 
-**More bracket examples:**
-```python
-# Small 2x2 matrix
-small = torch.tensor([[1, 2],
-                      [3, 4]])
-print(small.shape)      # Output: torch.Size([2, 2])
-
-# Tall matrix (more rows than columns)
-tall = torch.tensor([[1, 2],
-                     [3, 4],
-                     [5, 6],
-                     [7, 8]])
-print(tall.shape)       # Output: torch.Size([4, 2]) - 4 rows, 2 columns
-
-# Wide matrix (more columns than rows)
-wide = torch.tensor([[1, 2, 3, 4, 5],
-                     [6, 7, 8, 9, 10]])
-print(wide.shape)       # Output: torch.Size([2, 5]) - 2 rows, 5 columns
-
-# Remember: Shape is always [ROWS, COLUMNS]
-```
+**Remember:** Shape is always `[ROWS, COLUMNS]`
 
 **Example 2:** Accessing rows and columns
 
@@ -364,30 +320,7 @@ Three levels of brackets = 3D tensor
 
 **Think of it like:** A stack of 2 pages, where each page is a table (matrix) with 3 rows and 4 columns.
 
-**Simpler 3D example:**
-```python
-# A tiny 3D tensor: 2 matrices, each 2×2
-tiny_3d = torch.tensor([[[1, 2],
-                         [3, 4]],
-                        
-                        [[5, 6],
-                         [7, 8]]])
-
-print(tiny_3d.shape)    # Output: torch.Size([2, 2, 2])
-# ↑ 2 matrices
-#   ↑ each has 2 rows  
-#     ↑ each row has 2 columns
-
-print(tiny_3d)
-# Output:
-# tensor([[[1, 2],      ← Matrix 0
-#          [3, 4]],
-#
-#         [[5, 6],      ← Matrix 1
-#          [7, 8]]])
-```
-
-**Example 2:** Understanding shape (2, 3, 4)
+**Understanding shape (2, 3, 4):**
 
 - **First dimension (2)**: Number of matrices (or "depth")
 - **Second dimension (3)**: Number of rows in each matrix
@@ -604,14 +537,6 @@ print(int_tensor.dtype)  # Output: torch.int64
 float_tensor = int_tensor.float()
 print(float_tensor)      # Output: tensor([1., 2., 3.])
 print(float_tensor.dtype)  # Output: torch.float32
-
-# Convert back to int
-back_to_int = float_tensor.int()
-print(back_to_int.dtype)   # Output: torch.int32
-
-# Alternative syntax
-also_float = int_tensor.to(torch.float32)
-print(also_float.dtype)    # Output: torch.float32
 ```
 
 **Example 4:** Why data type matters
@@ -630,156 +555,58 @@ print(f"int32 tensor: {large_int32.element_size() * large_int32.nelement() / 1e6
 # int32 uses half the memory!
 ```
 
-## Step-by-Step Tensor Creation Examples
+## Practical Examples
 
-Let's walk through complete examples from start to finish.
-
-### Example 1: Creating a Temperature Dataset
-
-Imagine you recorded temperatures for 7 days.
-
-```python
-import torch
-
-# Step 1: Your raw data (in Celsius)
-temperatures = [20, 22, 19, 21, 23, 25, 24]
-
-# Step 2: Convert to tensor
-temp_tensor = torch.tensor(temperatures, dtype=torch.float32)
-
-print("Temperatures:", temp_tensor)
-# Output: Temperatures: tensor([20., 22., 19., 21., 23., 25., 24.])
-
-print("Shape:", temp_tensor.shape)
-# Output: Shape: torch.Size([7])
-
-print("Data type:", temp_tensor.dtype)
-# Output: Data type: torch.float32
-
-# Step 3: Calculate average temperature
-average_temp = temp_tensor.mean()
-print(f"Average temperature: {average_temp:.2f}°C")
-# Output: Average temperature: 22.00°C
-```
-
-### Example 2: Creating a Grayscale Image
-
-A small 3x3 grayscale image where each pixel has a value from 0 (black) to 255 (white).
-
-```python
-import torch
-
-# Step 1: Define pixel values (3x3 image)
-# Values: 0 = black, 255 = white
-image_data = [[0, 128, 255],      # Top row: black, gray, white
-              [64, 128, 192],      # Middle row
-              [255, 128, 0]]       # Bottom row: white, gray, black
-
-# Step 2: Create 2D tensor
-image_tensor = torch.tensor(image_data, dtype=torch.float32)
-
-print("Image tensor:")
-print(image_tensor)
-# Output:
-# tensor([[  0., 128., 255.],
-#         [ 64., 128., 192.],
-#         [255., 128.,   0.]])
-
-print("\nShape:", image_tensor.shape)
-# Output: Shape: torch.Size([3, 3])
-
-# Step 3: Access specific pixels
-top_left_pixel = image_tensor[0, 0]
-center_pixel = image_tensor[1, 1]
-
-print(f"\nTop-left pixel value: {top_left_pixel}")
-# Output: Top-left pixel value: 0.0 (black)
-
-print(f"Center pixel value: {center_pixel}")
-# Output: Center pixel value: 128.0 (gray)
-```
-
-### Example 3: Creating a Batch of Vectors
+### Example 1: Creating a Batch of Data
 
 In deep learning, we often process multiple examples at once (a "batch").
 
 ```python
 import torch
 
-# Step 1: Create 4 examples, each with 3 features
+# Create 3 examples, each with 3 features
 # Example: [height, weight, age]
-person_1 = [170, 65, 25]  # 170cm, 65kg, 25 years
-person_2 = [180, 80, 30]
-person_3 = [165, 55, 22]
-person_4 = [175, 70, 28]
-
-# Step 2: Stack them into a batch (2D tensor)
-batch = torch.tensor([person_1, person_2, person_3, person_4], 
+batch = torch.tensor([[170, 65, 25],
+                      [180, 80, 30],
+                      [165, 55, 22]], 
                      dtype=torch.float32)
 
-print("Batch of data:")
-print(batch)
-# Output:
-# tensor([[170.,  65.,  25.],
-#         [180.,  80.,  30.],
-#         [165.,  55.,  22.],
-#         [175.,  70.,  28.]])
+print("Batch shape:", batch.shape)
+# Output: Batch shape: torch.Size([3, 3])
+# 3 people, 3 features each
 
-print("\nShape:", batch.shape)
-# Output: Shape: torch.Size([4, 3])
-# 4 people, 3 features each
+# Access all heights (first column)
+all_heights = batch[:, 0]
+print(f"Heights: {all_heights}")
+# Output: Heights: tensor([170., 180., 165.])
 
-# Step 3: Access data
-all_heights = batch[:, 0]    # All heights (first column)
-all_weights = batch[:, 1]    # All weights (second column)
-all_ages = batch[:, 2]       # All ages (third column)
-
-print(f"\nAll heights: {all_heights}")
-# Output: All heights: tensor([170., 180., 165., 175.])
-
-print(f"Average height: {all_heights.mean():.2f}cm")
-# Output: Average height: 172.50cm
-
-print(f"Average weight: {all_weights.mean():.2f}kg")
-# Output: Average weight: 67.50kg
+print(f"Average height: {all_heights.mean():.1f}cm")
+# Output: Average height: 171.7cm
 ```
 
-### Example 4: Creating RGB Image Data
+### Example 2: Creating RGB Image Data
 
 A tiny 2x2 RGB color image (3 color channels).
 
 ```python
 import torch
 
-# Step 1: Define a 2x2 RGB image
-# Shape will be: (height=2, width=2, channels=3)
-# Each pixel has [Red, Green, Blue] values from 0-255
-
+# Define a 2x2 RGB image
+# Each pixel has [Red, Green, Blue] values
 image_rgb = [
-    # Row 1
-    [[255, 0, 0],    [0, 255, 0]],    # Red pixel, Green pixel
-    # Row 2  
-    [[0, 0, 255],    [255, 255, 0]]   # Blue pixel, Yellow pixel
+    [[255, 0, 0],    [0, 255, 0]],    # Red, Green pixels
+    [[0, 0, 255],    [255, 255, 0]]   # Blue, Yellow pixels
 ]
 
-# Step 2: Create 3D tensor
 rgb_tensor = torch.tensor(image_rgb, dtype=torch.float32)
 
-print("RGB Image tensor:")
-print(rgb_tensor)
-
-print("\nShape:", rgb_tensor.shape)
+print("Shape:", rgb_tensor.shape)
 # Output: Shape: torch.Size([2, 2, 3])
 # 2 height, 2 width, 3 color channels
 
-# Step 3: Access specific pixels and channels
-top_left_pixel = rgb_tensor[0, 0]
-print(f"\nTop-left pixel (Red): {top_left_pixel}")
-# Output: tensor([255.,   0.,   0.])
-
-# Access just the red channel of all pixels
+# Access the red channel of all pixels
 red_channel = rgb_tensor[:, :, 0]
-print(f"\nRed channel:\n{red_channel}")
+print(f"Red channel:\n{red_channel}")
 # Output:
 # tensor([[255.,   0.],
 #         [  0., 255.]])
@@ -803,22 +630,7 @@ correct_tensor = torch.tensor([[1, 2, 3],
 print(correct_tensor.shape)  # Output: torch.Size([2, 3])
 ```
 
-### Mistake 2: Mixing Data Types Unintentionally
-
-```python
-# ❌ Be careful with integer division
-int_tensor = torch.tensor([10, 20, 30])
-result = int_tensor / 3
-print(result)  # Output: tensor([3.3333, 6.6667, 10.0000])
-print(result.dtype)  # Output: torch.float32 (changed to float!)
-
-# ✅ If you want to keep integers, use integer division
-int_result = int_tensor // 3
-print(int_result)  # Output: tensor([3, 6, 10])
-print(int_result.dtype)  # Output: torch.int64
-```
-
-### Mistake 3: Forgetting Dimension Order
+### Mistake 2: Forgetting Dimension Order
 
 ```python
 # For images, be careful about dimension order!
@@ -886,11 +698,6 @@ batch_of_images = torch.rand(32, 3, 224, 224)
 
 print(f"Batch shape: {batch_of_images.shape}")
 # Output: Batch shape: torch.Size([32, 3, 224, 224])
-
-print(f"Total numbers in this batch: {batch_of_images.numel():,}")
-# Output: Total numbers in this batch: 4,816,896
 ```
 
 **Congratulations! You now understand how to create and work with tensors!** 🎉
-
-In the next lessons, we'll learn how to create special tensors (zeros, ones, random values) and perform operations on them.
