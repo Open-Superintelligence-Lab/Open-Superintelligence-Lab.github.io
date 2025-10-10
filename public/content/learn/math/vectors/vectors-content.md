@@ -41,6 +41,8 @@ This notation means "start at the origin (0,0), move x units along the horizonta
 
 - `u = [-2, 1]` represents an arrow pointing to the coordinate (-2, 1).
 
+![Simple Vector](simple-vector.png)
+
 
 
 ## Step 2: The Two Core Properties: Magnitude and Direction
@@ -98,6 +100,8 @@ If `u = [x₁, y₁]` and `v = [x₂, y₂]`, then:
 u + v = [x₁ + x₂, y₁ + y₂]
 ```
 
+![Vector Addition](vector-addition.png)
+
 ### Scalar Multiplication
 
 Multiplying a vector by a regular number (a **scalar**) changes its magnitude but not its direction (unless the scalar is negative, in which case the direction is reversed).
@@ -115,6 +119,8 @@ k  v = [kx, k*y]
 - `0.5 * v` halves the vector's length.
 
 - `-1 * v` flips the vector to point in the opposite direction.
+
+![Scalar Multiplication](scalar-multiplication.png)
 
 
 
@@ -155,6 +161,8 @@ cos(θ) = (u · v) / (||u|| * ||v||)
 ```
 
 This is an incredibly useful property, allowing us to calculate angles in any number of dimensions.
+
+![Vector Angle](vector-angle.png)
 
 ## Step 5: Neural Networks:
 
