@@ -1,3 +1,12 @@
+---
+hero:
+  title: "Gradients"
+  subtitle: "How Neural Networks Learn Through Gradient Descent"
+  tags:
+    - "📐 Mathematics"
+    - "⏱️ 14 min read"
+---
+
 **[video coming soon]**
 
 Welcome! This guide will walk you through the concept of gradients. We'll start with the familiar idea of a derivative and build up to understanding how gradients make neural networks learn.

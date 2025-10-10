@@ -1,3 +1,12 @@
+---
+hero:
+  title: "Vectors"
+  subtitle: "Magnitude, Direction, and Vector Operations"
+  tags:
+    - "📐 Mathematics"
+    - "⏱️ 15 min read"
+---
+
 **[video comingn soon]**
 
 Welcome! This guide will introduce you to vectors, which are fundamental objects in mathematics, physics, and computer science. We'll explore what they are and how to work with them, focusing on the concepts, not the code.

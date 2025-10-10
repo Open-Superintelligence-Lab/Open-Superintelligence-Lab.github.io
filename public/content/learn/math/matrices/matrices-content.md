@@ -1,3 +1,12 @@
+---
+hero:
+  title: "Matrices"
+  subtitle: "Operations and Transformations for Neural Networks"
+  tags:
+    - "📐 Mathematics"
+    - "⏱️ 12 min read"
+---
+
 **[video coming soon]**
 
 **Level:** Beginner → Intermediate.
