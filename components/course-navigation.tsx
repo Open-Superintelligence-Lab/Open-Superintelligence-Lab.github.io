@@ -34,14 +34,29 @@ export function CourseNavigation() {
       ),
       lessons: [
         {
+          title: "Functions",
+          titleZh: "函数",
+          href: "/learn/math/functions"
+        },
+        {
           title: "Derivatives",
           titleZh: "导数",
           href: "/learn/math/derivatives"
         },
         {
-          title: "Functions",
-          titleZh: "函数",
-          href: "/learn/math/functions"
+          title: "Vectors",
+          titleZh: "向量",
+          href: "/learn/math/vectors"
+        },
+        {
+          title: "Matrices",
+          titleZh: "矩阵",
+          href: "/learn/math/matrices"
+        },
+        {
+          title: "Gradients",
+          titleZh: "梯度",
+          href: "/learn/math/gradients"
         }
       ]
     },
@@ -103,6 +118,7 @@ export function CourseNavigation() {
             <ul className="space-y-1 ml-7">
               {module.lessons.map((lesson, lessonIndex) => {
                 const isActive = pathname === lesson.href;
+                const globalLessonNumber = moduleIndex === 0 ? lessonIndex + 1 : modules[0].lessons.length + lessonIndex + 1;
                 return (
                   <li key={lessonIndex}>
                     <Link
@@ -116,6 +132,7 @@ export function CourseNavigation() {
                         }
                       `}
                     >
+                      <span className="font-semibold mr-2">{globalLessonNumber}.</span>
                       {language === 'en' ? lesson.title : lesson.titleZh}
                     </Link>
                   </li>

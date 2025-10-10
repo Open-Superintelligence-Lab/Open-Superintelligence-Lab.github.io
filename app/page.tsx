@@ -174,16 +174,19 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
-            <div className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 opacity-75 cursor-not-allowed">
+            <Link 
+              href="/learn"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
               <div className="absolute top-4 left-4">
                 <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Learning Path</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">Coming Soon</span>
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
               </div>
               
               <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 text-slate-300">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
                   Zero To AI Researcher - Full Course
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
@@ -191,12 +194,12 @@ export default function Home() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                  <span className="text-orange-400 text-sm">
-                    Coming Soon →
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                    Start Learning →
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* DeepSeek Sparse Attention Project */}
             <Link 

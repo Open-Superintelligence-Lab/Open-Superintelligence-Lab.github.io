@@ -53,12 +53,31 @@ export default function LearnPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Link 
+                  href="/learn/math/functions"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                      <span className="mr-2">1.</span>{language === 'en' ? 'Functions' : '函数'}
+                    </h3>
+                    <svg className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Linear, quadratic, and activation functions'
+                      : '线性、二次和激活函数'}
+                  </p>
+                </Link>
+
+                <Link 
                   href="/learn/math/derivatives"
                   className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                      {language === 'en' ? 'Derivatives' : '导数'}
+                      <span className="mr-2">2.</span>{language === 'en' ? 'Derivatives' : '导数'}
                     </h3>
                     <svg className="w-5 h-5 text-blue-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -72,21 +91,59 @@ export default function LearnPage() {
                 </Link>
 
                 <Link 
-                  href="/learn/math/functions"
-                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300"
+                  href="/learn/math/vectors"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-violet-500/50 hover:shadow-xl hover:shadow-violet-500/10 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition-colors">
-                      {language === 'en' ? 'Functions' : '函数'}
+                    <h3 className="text-xl font-semibold text-white group-hover:text-violet-400 transition-colors">
+                      <span className="mr-2">3.</span>{language === 'en' ? 'Vectors' : '向量'}
                     </h3>
-                    <svg className="w-5 h-5 text-cyan-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-violet-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
                   <p className="text-slate-400 text-sm">
                     {language === 'en' 
-                      ? 'Linear, quadratic, and activation functions'
-                      : '线性、二次和激活函数'}
+                      ? 'Understanding magnitude, direction, and vector operations'
+                      : '理解大小、方向和向量运算'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/math/matrices"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-teal-500/50 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-teal-400 transition-colors">
+                      <span className="mr-2">4.</span>{language === 'en' ? 'Matrices' : '矩阵'}
+                    </h3>
+                    <svg className="w-5 h-5 text-teal-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Matrix operations and transformations'
+                      : '矩阵运算和变换'}
+                  </p>
+                </Link>
+
+                <Link 
+                  href="/learn/math/gradients"
+                  className="group bg-slate-800/50 border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-semibold text-white group-hover:text-orange-400 transition-colors">
+                      <span className="mr-2">5.</span>{language === 'en' ? 'Gradients' : '梯度'}
+                    </h3>
+                    <svg className="w-5 h-5 text-orange-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                  <p className="text-slate-400 text-sm">
+                    {language === 'en' 
+                      ? 'Partial derivatives and gradient descent'
+                      : '偏导数和梯度下降'}
                   </p>
                 </Link>
               </div>
@@ -117,7 +174,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-purple-400 transition-colors">
-                      {language === 'en' ? 'Introduction' : '简介'}
+                      <span className="mr-2">6.</span>{language === 'en' ? 'Introduction' : '简介'}
                     </h3>
                     <svg className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -136,7 +193,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-pink-400 transition-colors">
-                      {language === 'en' ? 'Forward Propagation' : '前向传播'}
+                      <span className="mr-2">7.</span>{language === 'en' ? 'Forward Propagation' : '前向传播'}
                     </h3>
                     <svg className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -155,7 +212,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-colors">
-                      {language === 'en' ? 'Backpropagation' : '反向传播'}
+                      <span className="mr-2">8.</span>{language === 'en' ? 'Backpropagation' : '反向传播'}
                     </h3>
                     <svg className="w-5 h-5 text-indigo-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -174,7 +231,7 @@ export default function LearnPage() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors">
-                      {language === 'en' ? 'Training & Optimization' : '训练与优化'}
+                      <span className="mr-2">9.</span>{language === 'en' ? 'Training & Optimization' : '训练与优化'}
                     </h3>
                     <svg className="w-5 h-5 text-emerald-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

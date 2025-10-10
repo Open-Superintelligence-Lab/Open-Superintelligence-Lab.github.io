@@ -4,8 +4,8 @@ export default function FunctionsPage() {
   return (
     <LessonPage
       contentPath="math/functions"
-      prevLink={{ href: "/learn/math/derivatives", label: "← Previous: Derivatives" }}
-      nextLink={{ href: "/learn/neural-networks/introduction", label: "Next: Neural Networks →" }}
+      prevLink={{ href: "/learn", label: "← Back to Course" }}
+      nextLink={{ href: "/learn/math/derivatives", label: "Next: Derivatives →" }}
     />
   );
 }

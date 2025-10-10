@@ -10,13 +10,22 @@ The learning course has been reorganized to use **markdown files** stored in the
 public/content/learn/
 ├── README.md                    # Documentation for content management
 ├── math/
+│   ├── functions/
+│   │   ├── functions-content.md
+│   │   └── [add your images here]
 │   ├── derivatives/
 │   │   ├── derivatives-content.md
-│   │   ├── derivative-graph.png      (placeholder - add your image)
-│   │   └── tangent-line.png          (placeholder - add your image)
-│   └── functions/
-│       ├── functions-content.md
-│       └── [add your images here]
+│   │   ├── derivative-graph.png
+│   │   └── tangent-line.png
+│   ├── vectors/
+│   │   ├── vectors-content.md
+│   │   └── [images included]
+│   ├── matrices/
+│   │   ├── matrices-content.md
+│   │   └── [images included]
+│   └── gradients/
+│       ├── gradients-content.md
+│       └── [images included]
 └── neural-networks/
     ├── introduction/
     │   ├── introduction-content.md
@@ -36,17 +45,35 @@ public/content/learn/
 
 ### Module 1: Mathematics Fundamentals
 
-1. **Derivatives** (`/learn/math/derivatives`)
+1. **Functions** (`/learn/math/functions`)
+   - Linear functions
+   - Activation functions (Sigmoid, ReLU, Tanh)
+   - Loss functions
+   - Why non-linearity matters
+
+2. **Derivatives** (`/learn/math/derivatives`)
    - What derivatives are
    - Why they matter in AI
    - Common derivative rules
    - Practical examples with loss functions
 
-2. **Functions** (`/learn/math/functions`)
-   - Linear functions
-   - Activation functions (Sigmoid, ReLU, Tanh)
-   - Loss functions
-   - Why non-linearity matters
+3. **Vectors** (`/learn/math/vectors`)
+   - What vectors are (magnitude and direction)
+   - Vector components and representation
+   - Vector operations (addition, scalar multiplication)
+   - Applications in machine learning
+
+4. **Matrices** (`/learn/math/matrices`)
+   - Matrix fundamentals
+   - Matrix operations (multiplication, transpose)
+   - Matrix transformations
+   - Role in neural networks
+
+5. **Gradients** (`/learn/math/gradients`)
+   - Understanding gradients
+   - Partial derivatives
+   - Gradient computation
+   - Gradient descent in optimization
 
 ### Module 2: Neural Networks from Scratch
 
@@ -214,13 +241,13 @@ hero:
 
 ## 📋 Summary
 
-✅ Course structure created with 6 lessons  
+✅ Course structure created with 9 lessons (5 math + 4 neural networks)  
 ✅ Markdown files in `public/content/learn/`  
 ✅ Reusable `LessonPage` component  
-✅ Image placeholders ready for your graphics  
+✅ Images ready for math lessons (vectors, matrices, gradients)  
 ✅ Navigation between lessons  
 ✅ Frontmatter support for hero sections  
 ✅ README documentation in content folder  
 
-Your course is ready - just add your images and you're good to go! 🎉
+Your course is ready with comprehensive math fundamentals! 🎉
 
