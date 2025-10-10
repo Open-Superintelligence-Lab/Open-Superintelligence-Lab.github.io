@@ -29,12 +29,30 @@ export function CourseNavigation() {
 
   // Auto-scroll to active lesson on mount and pathname change
   useEffect(() => {
-    if (activeLinkRef.current) {
-      activeLinkRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-      });
+    // Only scroll if we're on a lesson page (pathname starts with /learn/)
+    if (!pathname?.startsWith('/learn/')) {
+      return;
     }
+
+    // Use a small delay to ensure the DOM is fully rendered
+    const timer = setTimeout(() => {
+      if (activeLinkRef.current) {
+        try {
+          activeLinkRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+          });
+          console.log('Scrolled to active lesson:', pathname);
+        } catch (error) {
+          console.error('Error scrolling to active lesson:', error);
+        }
+      } else {
+        console.log('Active link ref not found for:', pathname);
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   const NavigationContent = () => (
@@ -63,6 +81,12 @@ export function CourseNavigation() {
               {module.lessons.map((lesson, lessonIndex) => {
                 const isActive = pathname === lesson.href;
                 const lessonNumber = lessonIndex + 1;
+                
+                // Debug log
+                if (isActive) {
+                  console.log('Active lesson found:', lesson.title, 'at', lesson.href);
+                }
+                
                 return (
                   <li key={lessonIndex}>
                     <Link

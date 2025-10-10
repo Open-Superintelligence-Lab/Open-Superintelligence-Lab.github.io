@@ -16,7 +16,7 @@ export default function LearnPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                {language === 'en' ? 'Learn AI from Scratch' : '从零开始学习AI'}
+                {language === 'en' ? 'Learn Everything You Need To Be An AI Researcher' : '从零开始学习AI'}
               </span>
             </h1>
             <p className="text-xl text-slate-300 mb-8">
@@ -24,6 +24,13 @@ export default function LearnPage() {
                 ? 'Master the fundamentals and build your own neural networks'
                 : '掌握基础知识，构建你自己的神经网络'}
             </p>
+            <div className="max-w-3xl mx-auto bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 mb-8">
+              <p className="text-amber-200 text-sm leading-relaxed">
+                {language === 'en'
+                  ? 'Under active development, some parts are AI generated and not reviewed yet. In the end everything will be carefully reviewed and rewritten by humans to the highest quality'
+                  : '正在积极开发中，部分内容由AI生成尚未审核。最终所有内容都将由人工仔细审核和重写，确保最高质量'}
+              </p>
+            </div>
           </div>
         </div>
       </section>
