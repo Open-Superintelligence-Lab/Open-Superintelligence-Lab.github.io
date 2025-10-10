@@ -136,7 +136,7 @@ print(result)  # Output: tensor([15, 25, 35])
 
 PyTorch automatically expands `5` to `[5, 5, 5]` and then adds:
 
-```
+```yaml
 [10, 20, 30] + 5
     ↓
 [10, 20, 30] + [5, 5, 5]  (automatic broadcast)
@@ -145,7 +145,7 @@ PyTorch automatically expands `5` to `[5, 5, 5]` and then adds:
 ```
 
 **Manual calculation:**
-```
+```yaml
 10 + 5 = 15
 20 + 5 = 25
 30 + 5 = 35
@@ -156,6 +156,30 @@ Result: [15, 25, 35]
 This works because adding the same number to every position makes sense!
 
 ## Addition Rules
+
+### Quick Reminder: What is Shape?
+
+- **Shape** tells you the dimensions and size of your tensor
+- Written as `(rows, columns)` for 2D, or `(size,)` for 1D
+
+**Examples:**
+```
+5             → Shape: ()         (scalar - no dimensions)
+[1, 2, 3]     → Shape: (3,)       (1D - 3 elements)
+[[1, 2],      → Shape: (3, 2)     (2D - 3 rows, 2 columns) - last shape number is the inner most tensor dimension
+ [3, 4],
+ [5, 6]]
+[[[...],      → Shape: (2, 3, 5)  (3D - 2 matrices, 3 rows, 5 columns)
+  [...],
+  [...]],
+ [[...],
+  [...],
+  [...]]]
+
+...and so on for higher dimensions
+```
+
+Now let's use this to understand addition rules!
 
 ### ✓ Rule 1: Same Shapes Work
 
