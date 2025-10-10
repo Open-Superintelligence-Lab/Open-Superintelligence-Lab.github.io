@@ -13,12 +13,80 @@ Tensors are the fundamental data structure in deep learning. Everything you work
 
 A **tensor** is a multi-dimensional array of numbers. Think of it as a container that can hold data in different dimensions:
 
-- **0D Tensor (Scalar)**: A single number
-- **1D Tensor (Vector)**: An array of numbers
-- **2D Tensor (Matrix)**: A table of numbers
-- **3D+ Tensor**: Multiple matrices stacked together
+- **0D Tensor (Scalar)**: A single number → `5`
+- **1D Tensor (Vector)**: An array of numbers → `[1, 2, 3, 4]`
+- **2D Tensor (Matrix)**: A table of numbers → `[[1, 2], [3, 4], [5, 6]]`
+- **3D+ Tensor**: Multiple matrices stacked together → `[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]`
+
+Let me show you exactly what these look like:
+
+**0D Tensor (Scalar)** - Just a number, no brackets needed:
+```
+5
+```
+
+**1D Tensor (Vector)** - One set of brackets `[ ]`:
+```
+[1, 2, 3, 4, 5]
+```
+
+**2D Tensor (Matrix)** - Two sets of brackets `[[ ]]`, one for each row:
+```
+[[1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9]]
+```
+
+**3D Tensor** - Three sets of brackets `[[[ ]]]`, multiple matrices:
+```
+[[[1, 2],     [[[5, 6],
+  [3, 4]],      [7, 8]]]
+```
 
 In PyTorch and other deep learning frameworks, tensors are similar to NumPy arrays but with superpowers - they can run on GPUs and automatically compute gradients!
+
+## The Bracket Rule: How to Count Dimensions
+
+**Simple Rule:** Count the number of opening brackets `[` at the start of your data!
+
+**Examples:**
+
+```python
+# 0D Tensor (Scalar) - NO brackets
+5                    # 0 dimensions
+
+# 1D Tensor (Vector) - ONE opening bracket [
+[1, 2, 3]            # 1 dimension
+
+# 2D Tensor (Matrix) - TWO opening brackets [[
+[[1, 2],             # 2 dimensions
+ [3, 4]]
+
+# 3D Tensor - THREE opening brackets [[[
+[[[1, 2],            # 3 dimensions
+  [3, 4]],
+ [[5, 6],
+  [7, 8]]]
+```
+
+**Pro Tip:** When you create a tensor, look at the left edge of your data. Count the `[` symbols stacked up - that's your number of dimensions!
+
+```python
+import torch
+
+# Let's verify this rule
+scalar = torch.tensor(5)                    # 0 brackets → ndim = 0
+print(scalar.ndim)  # Output: 0
+
+vector = torch.tensor([1, 2, 3])            # 1 bracket → ndim = 1
+print(vector.ndim)  # Output: 1
+
+matrix = torch.tensor([[1, 2], [3, 4]])     # 2 brackets → ndim = 2
+print(matrix.ndim)  # Output: 2
+
+tensor_3d = torch.tensor([[[1, 2]], [[3, 4]]])  # 3 brackets → ndim = 3
+print(tensor_3d.ndim)  # Output: 3
+```
 
 ![Tensor Dimensions](/content/learn/tensors/creating-tensors/tensor-dimensions.png)
 
@@ -43,7 +111,35 @@ print(scalar.shape)     # Output: torch.Size([])
 print(scalar.ndim)      # Output: 0 (zero dimensions)
 ```
 
+**What happens here?**
+
+When you write `torch.tensor(5)`:
+1. You pass the number `5` to PyTorch
+2. PyTorch creates a tensor object that holds this single value
+3. The shape is `[]` (empty brackets) because there are no dimensions
+4. `ndim` is `0` because it's just a single number, not an array
+
+Think of it like putting a single marble in a special container - the marble is your number `5`, and the container is the tensor.
+
 **Real-world use:** Learning rate, loss value, accuracy score
+
+**More Examples:**
+
+```python
+# Different scalar values
+temperature = torch.tensor(36.5)     # Body temperature
+score = torch.tensor(95)             # Test score  
+is_valid = torch.tensor(1)           # Boolean as number (1 = True)
+
+print(temperature)    # Output: tensor(36.5000)
+print(score)          # Output: tensor(95)
+print(is_valid)       # Output: tensor(1)
+
+# All have the same properties
+print(temperature.ndim)  # Output: 0
+print(score.ndim)        # Output: 0
+print(is_valid.ndim)     # Output: 0
+```
 
 ### 1D Tensor (Vector)
 
@@ -62,6 +158,40 @@ vector = torch.tensor([1, 2, 3, 4, 5])
 print(vector)           # Output: tensor([1, 2, 3, 4, 5])
 print(vector.shape)     # Output: torch.Size([5])
 print(vector.ndim)      # Output: 1
+```
+
+**What happens here?**
+
+When you write `torch.tensor([1, 2, 3, 4, 5])`:
+1. You pass a **Python list** (notice the square brackets `[ ]`) to PyTorch
+2. PyTorch sees the list has 5 numbers
+3. It creates a 1D tensor with 5 elements in a row
+4. The shape is `[5]` meaning "one dimension with 5 elements"
+5. `ndim` is `1` because there's one dimension (length)
+
+**Visual breakdown of the brackets:**
+```python
+[1, 2, 3, 4, 5]
+↑             ↑
+One opening and one closing bracket = 1D tensor
+```
+
+**Think of it like:** A row of 5 boxes, each holding one number.
+
+**More bracket examples:**
+```python
+# Short vector
+short = torch.tensor([10, 20])
+print(short.shape)      # Output: torch.Size([2])
+
+# Longer vector  
+long = torch.tensor([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+print(long.shape)       # Output: torch.Size([10])
+
+# Vector with floats
+floats = torch.tensor([1.5, 2.5, 3.5])
+print(floats)           # Output: tensor([1.5000, 2.5000, 3.5000])
+print(floats.shape)     # Output: torch.Size([3])
 ```
 
 **Example 2:** Accessing elements
@@ -105,6 +235,53 @@ print(matrix)
 print(matrix.shape)     # Output: torch.Size([3, 4])
                         # 3 rows, 4 columns
 print(matrix.ndim)      # Output: 2
+```
+
+**What happens here?**
+
+When you write `torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])`:
+1. You pass a **nested Python list** (list inside a list!)
+2. The outer brackets `[ ]` represent the matrix itself
+3. Each inner bracket `[ ]` represents one row
+4. PyTorch counts: 3 inner lists = 3 rows, each has 4 numbers = 4 columns
+5. The shape is `[3, 4]` meaning "3 rows, 4 columns"
+6. `ndim` is `2` because there are two dimensions (rows and columns)
+
+**Visual breakdown of the brackets:**
+```python
+[[1, 2, 3, 4],    ← Row 0 (first row)
+ [5, 6, 7, 8],    ← Row 1 (second row)  
+ [9, 10, 11, 12]] ← Row 2 (third row)
+↑↑          ↑ ↑
+││          │ └─ Inner closing bracket (end of row)
+│└──────────┴─── Outer opening bracket (start of matrix)
+└────────────────Outer closing bracket (end of matrix)
+
+Two levels of brackets = 2D tensor
+```
+
+**Think of it like:** A table with 3 rows and 4 columns, like a spreadsheet.
+
+**More bracket examples:**
+```python
+# Small 2x2 matrix
+small = torch.tensor([[1, 2],
+                      [3, 4]])
+print(small.shape)      # Output: torch.Size([2, 2])
+
+# Tall matrix (more rows than columns)
+tall = torch.tensor([[1, 2],
+                     [3, 4],
+                     [5, 6],
+                     [7, 8]])
+print(tall.shape)       # Output: torch.Size([4, 2]) - 4 rows, 2 columns
+
+# Wide matrix (more columns than rows)
+wide = torch.tensor([[1, 2, 3, 4, 5],
+                     [6, 7, 8, 9, 10]])
+print(wide.shape)       # Output: torch.Size([2, 5]) - 2 rows, 5 columns
+
+# Remember: Shape is always [ROWS, COLUMNS]
 ```
 
 **Example 2:** Accessing rows and columns
@@ -153,6 +330,61 @@ tensor_3d = torch.tensor([[[1, 2, 3, 4],
 print(tensor_3d.shape)  # Output: torch.Size([2, 3, 4])
                         # 2 matrices, each with 3 rows and 4 columns
 print(tensor_3d.ndim)   # Output: 3
+```
+
+**What happens here?**
+
+When you write `torch.tensor([[[...], [...]], [[...], [...]]])`:
+1. You have **three levels of nested lists** (lists inside lists inside lists!)
+2. The outermost brackets `[ ]` represent the whole 3D tensor
+3. Each middle-level bracket `[ ]` represents one matrix
+4. Each innermost bracket `[ ]` represents one row in a matrix
+5. PyTorch counts: 2 middle lists = 2 matrices, each has 3 inner lists = 3 rows, each row has 4 numbers = 4 columns
+6. The shape is `[2, 3, 4]` meaning "2 matrices, each 3 rows × 4 columns"
+7. `ndim` is `3` because there are three dimensions
+
+**Visual breakdown of the brackets:**
+```python
+[  ← Outermost opening (start of 3D tensor)
+  [  ← First matrix opening
+    [1, 2, 3, 4],     ← Row 0 of matrix 0
+    [5, 6, 7, 8],     ← Row 1 of matrix 0
+    [9, 10, 11, 12]   ← Row 2 of matrix 0
+  ],  ← First matrix closing
+  
+  [  ← Second matrix opening
+    [13, 14, 15, 16],  ← Row 0 of matrix 1
+    [17, 18, 19, 20],  ← Row 1 of matrix 1
+    [21, 22, 23, 24]   ← Row 2 of matrix 1
+  ]  ← Second matrix closing
+]  ← Outermost closing (end of 3D tensor)
+
+Three levels of brackets = 3D tensor
+```
+
+**Think of it like:** A stack of 2 pages, where each page is a table (matrix) with 3 rows and 4 columns.
+
+**Simpler 3D example:**
+```python
+# A tiny 3D tensor: 2 matrices, each 2×2
+tiny_3d = torch.tensor([[[1, 2],
+                         [3, 4]],
+                        
+                        [[5, 6],
+                         [7, 8]]])
+
+print(tiny_3d.shape)    # Output: torch.Size([2, 2, 2])
+# ↑ 2 matrices
+#   ↑ each has 2 rows  
+#     ↑ each row has 2 columns
+
+print(tiny_3d)
+# Output:
+# tensor([[[1, 2],      ← Matrix 0
+#          [3, 4]],
+#
+#         [[5, 6],      ← Matrix 1
+#          [7, 8]]])
 ```
 
 **Example 2:** Understanding shape (2, 3, 4)
