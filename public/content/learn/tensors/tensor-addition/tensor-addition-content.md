@@ -37,7 +37,7 @@ print(result)  # Output: tensor(8)
 ```
 
 **Manual calculation:**
-```
+```yaml
 5 + 3 = 8
 ```
 
@@ -62,7 +62,7 @@ print(result)  # Output: tensor([15, 35, 55])
 ```
 
 **Manual calculation:**
-```
+```yaml
 Position 0: 10 + 5  = 15
 Position 1: 20 + 15 = 35
 Position 2: 30 + 25 = 55
@@ -100,7 +100,7 @@ print(result)
 ```
 
 **Manual calculation:**
-```
+```yaml
 Position [0, 0]: 10 + 5  = 15
 Position [0, 1]: 20 + 10 = 30
 Position [0, 2]: 30 + 15 = 45
@@ -163,7 +163,7 @@ This works because adding the same number to every position makes sense!
 - Written as `(rows, columns)` for 2D, or `(size,)` for 1D
 
 **Examples:**
-```
+```yaml
 5             → Shape: ()         (scalar - no dimensions)
 [1, 2, 3]     → Shape: (3,)       (1D - 3 elements)
 [[1, 2],      → Shape: (3, 2)     (2D - 3 rows, 2 columns) - last shape number is the inner most tensor dimension
@@ -250,7 +250,7 @@ print(brighter_image)
 ```
 
 **Manual calculation:**
-```
+```yaml
 Original:     Add 50:      Result:
 [[100, 150]   +  50    →   [[150, 200]
  [120, 180]]                 [170, 230]]
