@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
+import { CourseNavigation } from "@/components/course-navigation";
 import { useEffect, useState } from "react";
 
 interface HeroData {
@@ -115,12 +116,17 @@ export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps)
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
-        
-        <div className="relative container mx-auto px-6 pt-24 pb-12">
-          <div className="max-w-4xl mx-auto">
+      {/* Course Navigation Sidebar */}
+      <CourseNavigation />
+
+      {/* Main Content with Sidebar Offset */}
+      <div className="lg:ml-80">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
+          
+          <div className="relative container mx-auto px-6 pt-24 pb-12">
+            <div className="max-w-4xl mx-auto">
             {/* Back to Course */}
             <Link 
               href="/learn"
@@ -209,6 +215,7 @@ export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps)
           </article>
         </div>
       </main>
+      </div>
     </>
   );
 }
