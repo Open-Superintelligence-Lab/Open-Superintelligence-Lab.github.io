@@ -243,6 +243,140 @@ export function CourseNavigation() {
           href: "/learn/neural-networks/implementing-backpropagation"
         }
       ]
+    },
+    {
+      title: "Attention Mechanism",
+      titleZh: "注意力机制",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      ),
+      lessons: [
+        {
+          title: "What is Attention",
+          titleZh: "什么是注意力",
+          href: "/learn/attention-mechanism/what-is-attention"
+        },
+        {
+          title: "Self Attention from Scratch",
+          titleZh: "从零开始自注意力",
+          href: "/learn/attention-mechanism/self-attention-from-scratch"
+        },
+        {
+          title: "Calculating Attention Scores",
+          titleZh: "计算注意力分数",
+          href: "/learn/attention-mechanism/calculating-attention-scores"
+        },
+        {
+          title: "Applying Attention Weights",
+          titleZh: "应用注意力权重",
+          href: "/learn/attention-mechanism/applying-attention-weights"
+        },
+        {
+          title: "Multi Head Attention",
+          titleZh: "多头注意力",
+          href: "/learn/attention-mechanism/multi-head-attention"
+        },
+        {
+          title: "Attention in Code",
+          titleZh: "注意力代码实现",
+          href: "/learn/attention-mechanism/attention-in-code"
+        }
+      ]
+    },
+    {
+      title: "Transformer Feedforward",
+      titleZh: "Transformer前馈网络",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+      lessons: [
+        {
+          title: "The Feedforward Layer",
+          titleZh: "前馈层",
+          href: "/learn/transformer-feedforward/the-feedforward-layer"
+        },
+        {
+          title: "What is Mixture of Experts",
+          titleZh: "什么是专家混合",
+          href: "/learn/transformer-feedforward/what-is-mixture-of-experts"
+        },
+        {
+          title: "The Expert",
+          titleZh: "专家",
+          href: "/learn/transformer-feedforward/the-expert"
+        },
+        {
+          title: "The Gate",
+          titleZh: "门控",
+          href: "/learn/transformer-feedforward/the-gate"
+        },
+        {
+          title: "Combining Experts",
+          titleZh: "组合专家",
+          href: "/learn/transformer-feedforward/combining-experts"
+        },
+        {
+          title: "MoE in a Transformer",
+          titleZh: "Transformer中的MoE",
+          href: "/learn/transformer-feedforward/moe-in-a-transformer"
+        },
+        {
+          title: "MoE in Code",
+          titleZh: "MoE代码实现",
+          href: "/learn/transformer-feedforward/moe-in-code"
+        },
+        {
+          title: "The DeepSeek MLP",
+          titleZh: "DeepSeek MLP",
+          href: "/learn/transformer-feedforward/the-deepseek-mlp"
+        }
+      ]
+    },
+    {
+      title: "Building a Transformer",
+      titleZh: "构建Transformer",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+      ),
+      lessons: [
+        {
+          title: "Transformer Architecture",
+          titleZh: "Transformer架构",
+          href: "/learn/building-a-transformer/transformer-architecture"
+        },
+        {
+          title: "RoPE Positional Encoding",
+          titleZh: "RoPE位置编码",
+          href: "/learn/building-a-transformer/rope-positional-encoding"
+        },
+        {
+          title: "Building a Transformer Block",
+          titleZh: "构建Transformer块",
+          href: "/learn/building-a-transformer/building-a-transformer-block"
+        },
+        {
+          title: "The Final Linear Layer",
+          titleZh: "最终线性层",
+          href: "/learn/building-a-transformer/the-final-linear-layer"
+        },
+        {
+          title: "Full Transformer in Code",
+          titleZh: "完整Transformer代码",
+          href: "/learn/building-a-transformer/full-transformer-in-code"
+        },
+        {
+          title: "Training a Transformer",
+          titleZh: "训练Transformer",
+          href: "/learn/building-a-transformer/training-a-transformer"
+        }
+      ]
     }
   ];
 
