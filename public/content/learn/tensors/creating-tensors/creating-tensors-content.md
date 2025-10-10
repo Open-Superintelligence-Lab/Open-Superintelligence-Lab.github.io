@@ -1,0 +1,703 @@
+---
+hero:
+  title: "Creating Tensors"
+  subtitle: "Building Blocks of Deep Learning"
+  tags:
+    - "🔢 Tensors"
+    - "⏱️ 15 min read"
+---
+
+Tensors are the fundamental data structure in deep learning. Everything you work with in neural networks - images, text, audio, weights, gradients - is represented as tensors.
+
+## What is a Tensor?
+
+A **tensor** is a multi-dimensional array of numbers. Think of it as a container that can hold data in different dimensions:
+
+- **0D Tensor (Scalar)**: A single number → `5`
+- **1D Tensor (Vector)**: An array of numbers → `[1, 2, 3, 4]`
+- **2D Tensor (Matrix)**: A table of numbers → `[[1, 2], [3, 4], [5, 6]]`
+- **3D+ Tensor**: Multiple matrices stacked together → `[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]`
+
+Let me show you exactly what these look like:
+
+**0D Tensor (Scalar)** - Just a number, no brackets needed:
+```
+5
+```
+
+**1D Tensor (Vector)** - One set of brackets `[ ]`:
+```
+[1, 2, 3, 4, 5]
+```
+
+**2D Tensor (Matrix)** - Two sets of brackets `[[ ]]`, one for each row:
+```
+[[1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9]]
+```
+
+**3D Tensor** - Three sets of brackets `[[[ ]]]`, multiple matrices:
+```
+[[[1, 2],     [[[5, 6],
+  [3, 4]],      [7, 8]]]
+```
+
+In PyTorch and other deep learning frameworks, tensors are similar to NumPy arrays but with superpowers - they can run on GPUs and automatically compute gradients!
+
+## The Bracket Rule: How to Count Dimensions
+
+**Simple Rule:** Count the number of opening brackets `[` at the start of your data!
+
+**Examples:**
+
+```python
+# 0D Tensor (Scalar) - NO brackets
+5                    # 0 dimensions
+
+# 1D Tensor (Vector) - ONE opening bracket [
+[1, 2, 3]            # 1 dimension
+
+# 2D Tensor (Matrix) - TWO opening brackets [[
+[[1, 2],             # 2 dimensions
+ [3, 4]]
+
+# 3D Tensor - THREE opening brackets [[[
+[[[1, 2],            # 3 dimensions
+  [3, 4]],
+ [[5, 6],
+  [7, 8]]]
+```
+
+**Pro Tip:** When you create a tensor, look at the left edge of your data. Count the `[` symbols stacked up - that's your number of dimensions!
+
+```python
+import torch
+
+# Let's verify this rule
+scalar = torch.tensor(5)                    # 0 brackets → ndim = 0
+print(scalar.ndim)  # Output: 0
+
+vector = torch.tensor([1, 2, 3])            # 1 bracket → ndim = 1
+print(vector.ndim)  # Output: 1
+
+matrix = torch.tensor([[1, 2], [3, 4]])     # 2 brackets → ndim = 2
+print(matrix.ndim)  # Output: 2
+
+tensor_3d = torch.tensor([[[1, 2]], [[3, 4]]])  # 3 brackets → ndim = 3
+print(tensor_3d.ndim)  # Output: 3
+```
+
+![Tensor Dimensions](/content/learn/tensors/creating-tensors/tensor-dimensions.png)
+
+## Understanding Tensor Dimensions
+
+### 0D Tensor (Scalar)
+
+A scalar is just a single number.
+
+![Scalar Tensor](/content/learn/tensors/creating-tensors/scalar-tensor.png)
+
+**Example:**
+
+```python
+import torch
+
+# Creating a scalar tensor
+scalar = torch.tensor(5)
+
+print(scalar)           # Output: tensor(5)
+print(scalar.shape)     # Output: torch.Size([])
+print(scalar.ndim)      # Output: 0 (zero dimensions)
+```
+
+**What happens here?**
+
+When you write `torch.tensor(5)`:
+1. You pass the number `5` to PyTorch
+2. PyTorch creates a tensor object that holds this single value
+3. The shape is `[]` (empty brackets) because there are no dimensions
+4. `ndim` is `0` because it's just a single number, not an array
+
+Think of it like putting a single marble in a special container - the marble is your number `5`, and the container is the tensor.
+
+**Real-world use:** Learning rate, loss value, accuracy score
+
+**More Examples:**
+
+```python
+temperature = torch.tensor(36.5)     # Body temperature
+score = torch.tensor(95)             # Test score  
+
+print(temperature.ndim)  # Output: 0
+print(score.ndim)        # Output: 0
+```
+
+### 1D Tensor (Vector)
+
+A vector is an array of numbers, like a list.
+
+![Vector Tensor](/content/learn/tensors/creating-tensors/vector-tensor.png)
+
+**Example 1:** Simple vector
+
+```python
+import torch
+
+# Creating a 1D tensor (vector)
+vector = torch.tensor([1, 2, 3, 4, 5])
+
+print(vector)           # Output: tensor([1, 2, 3, 4, 5])
+print(vector.shape)     # Output: torch.Size([5])
+print(vector.ndim)      # Output: 1
+```
+
+**What happens here?**
+
+When you write `torch.tensor([1, 2, 3, 4, 5])`:
+1. You pass a **Python list** (notice the square brackets `[ ]`) to PyTorch
+2. PyTorch sees the list has 5 numbers
+3. It creates a 1D tensor with 5 elements in a row
+4. The shape is `[5]` meaning "one dimension with 5 elements"
+5. `ndim` is `1` because there's one dimension (length)
+
+**Visual breakdown of the brackets:**
+```python
+[1, 2, 3, 4, 5]
+↑             ↑
+One opening and one closing bracket = 1D tensor
+```
+
+**Think of it like:** A row of 5 boxes, each holding one number.
+
+**Example 2:** Accessing elements
+
+```python
+vector = torch.tensor([10, 20, 30, 40, 50])
+
+# Access individual elements (0-indexed)
+print(vector[0])        # Output: tensor(10)
+print(vector[2])        # Output: tensor(30)
+print(vector[-1])       # Output: tensor(50) (last element)
+
+# Access a slice
+print(vector[1:4])      # Output: tensor([20, 30, 40])
+```
+
+**Real-world use:** Word embeddings, feature vectors, time series data
+
+### 2D Tensor (Matrix)
+
+A matrix is a table of numbers with rows and columns.
+
+![Matrix Tensor](/content/learn/tensors/creating-tensors/matrix-tensor.png)
+
+**Example 1:** Creating a matrix
+
+```python
+import torch
+
+# Creating a 2D tensor (matrix)
+matrix = torch.tensor([[1, 2, 3, 4],
+                       [5, 6, 7, 8],
+                       [9, 10, 11, 12]])
+
+print(matrix)
+# Output: 
+# tensor([[ 1,  2,  3,  4],
+#         [ 5,  6,  7,  8],
+#         [ 9, 10, 11, 12]])
+
+print(matrix.shape)     # Output: torch.Size([3, 4])
+                        # 3 rows, 4 columns
+print(matrix.ndim)      # Output: 2
+```
+
+**What happens here?**
+
+When you write `torch.tensor([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])`:
+1. You pass a **nested Python list** (list inside a list!)
+2. The outer brackets `[ ]` represent the matrix itself
+3. Each inner bracket `[ ]` represents one row
+4. PyTorch counts: 3 inner lists = 3 rows, each has 4 numbers = 4 columns
+5. The shape is `[3, 4]` meaning "3 rows, 4 columns"
+6. `ndim` is `2` because there are two dimensions (rows and columns)
+
+**Visual breakdown of the brackets:**
+```python
+[[1, 2, 3, 4],    ← Row 0 (first row)
+ [5, 6, 7, 8],    ← Row 1 (second row)  
+ [9, 10, 11, 12]] ← Row 2 (third row)
+↑↑          ↑ ↑
+││          │ └─ Inner closing bracket (end of row)
+│└──────────┴─── Outer opening bracket (start of matrix)
+└────────────────Outer closing bracket (end of matrix)
+
+Two levels of brackets = 2D tensor
+```
+
+**Think of it like:** A table with 3 rows and 4 columns, like a spreadsheet.
+
+**Remember:** Shape is always `[ROWS, COLUMNS]`
+
+**Example 2:** Accessing rows and columns
+
+```python
+matrix = torch.tensor([[1, 2, 3],
+                       [4, 5, 6],
+                       [7, 8, 9]])
+
+# Access a single element [row, column]
+print(matrix[0, 0])     # Output: tensor(1)
+print(matrix[1, 2])     # Output: tensor(6)
+print(matrix[2, 1])     # Output: tensor(8)
+
+# Access entire row
+print(matrix[0])        # Output: tensor([1, 2, 3])
+print(matrix[1])        # Output: tensor([4, 5, 6])
+
+# Access entire column
+print(matrix[:, 0])     # Output: tensor([1, 4, 7])
+print(matrix[:, 1])     # Output: tensor([2, 5, 8])
+```
+
+**Real-world use:** Grayscale images, batch of word embeddings, weight matrices
+
+### 3D Tensor
+
+A 3D tensor is multiple matrices stacked together. Think of it as a cube of numbers.
+
+![3D Tensor](/content/learn/tensors/creating-tensors/3d-tensor.png)
+
+**Example 1:** Creating a 3D tensor
+
+```python
+import torch
+
+# Creating a 3D tensor (2 matrices, each 3x4)
+tensor_3d = torch.tensor([[[1, 2, 3, 4],
+                           [5, 6, 7, 8],
+                           [9, 10, 11, 12]],
+                          
+                          [[13, 14, 15, 16],
+                           [17, 18, 19, 20],
+                           [21, 22, 23, 24]]])
+
+print(tensor_3d.shape)  # Output: torch.Size([2, 3, 4])
+                        # 2 matrices, each with 3 rows and 4 columns
+print(tensor_3d.ndim)   # Output: 3
+```
+
+**What happens here?**
+
+When you write `torch.tensor([[[...], [...]], [[...], [...]]])`:
+1. You have **three levels of nested lists** (lists inside lists inside lists!)
+2. The outermost brackets `[ ]` represent the whole 3D tensor
+3. Each middle-level bracket `[ ]` represents one matrix
+4. Each innermost bracket `[ ]` represents one row in a matrix
+5. PyTorch counts: 2 middle lists = 2 matrices, each has 3 inner lists = 3 rows, each row has 4 numbers = 4 columns
+6. The shape is `[2, 3, 4]` meaning "2 matrices, each 3 rows × 4 columns"
+7. `ndim` is `3` because there are three dimensions
+
+**Visual breakdown of the brackets:**
+```python
+[  ← Outermost opening (start of 3D tensor)
+  [  ← First matrix opening
+    [1, 2, 3, 4],     ← Row 0 of matrix 0
+    [5, 6, 7, 8],     ← Row 1 of matrix 0
+    [9, 10, 11, 12]   ← Row 2 of matrix 0
+  ],  ← First matrix closing
+  
+  [  ← Second matrix opening
+    [13, 14, 15, 16],  ← Row 0 of matrix 1
+    [17, 18, 19, 20],  ← Row 1 of matrix 1
+    [21, 22, 23, 24]   ← Row 2 of matrix 1
+  ]  ← Second matrix closing
+]  ← Outermost closing (end of 3D tensor)
+
+Three levels of brackets = 3D tensor
+```
+
+**Think of it like:** A stack of 2 pages, where each page is a table (matrix) with 3 rows and 4 columns.
+
+**Understanding shape (2, 3, 4):**
+
+- **First dimension (2)**: Number of matrices (or "depth")
+- **Second dimension (3)**: Number of rows in each matrix
+- **Third dimension (4)**: Number of columns in each matrix
+
+```python
+# Access the first matrix
+print(tensor_3d[0])
+# Output:
+# tensor([[ 1,  2,  3,  4],
+#         [ 5,  6,  7,  8],
+#         [ 9, 10, 11, 12]])
+
+# Access the second matrix
+print(tensor_3d[1])
+# Output:
+# tensor([[13, 14, 15, 16],
+#         [17, 18, 19, 20],
+#         [21, 22, 23, 24]])
+
+# Access specific element [matrix, row, column]
+print(tensor_3d[0, 1, 2])  # Output: tensor(7)
+print(tensor_3d[1, 2, 3])  # Output: tensor(24)
+```
+
+**Real-world use:** RGB images (height, width, 3 color channels), video frames, batch of images
+
+## Creating Tensors from Different Data Types
+
+PyTorch provides multiple ways to create tensors from existing data.
+
+![Creating from Data](/content/learn/tensors/creating-tensors/creating-from-data.png)
+
+### From Python Lists
+
+**Example 1:** 1D tensor from list
+
+```python
+import torch
+
+# Create from Python list
+python_list = [1, 2, 3, 4, 5]
+tensor = torch.tensor(python_list)
+
+print(tensor)           # Output: tensor([1, 2, 3, 4, 5])
+print(type(tensor))     # Output: <class 'torch.Tensor'>
+```
+
+**Example 2:** 2D tensor from nested lists
+
+```python
+# Create 2D tensor from nested list
+nested_list = [[1, 2, 3],
+               [4, 5, 6],
+               [7, 8, 9]]
+
+tensor_2d = torch.tensor(nested_list)
+
+print(tensor_2d)
+# Output:
+# tensor([[1, 2, 3],
+#         [4, 5, 6],
+#         [7, 8, 9]])
+
+print(tensor_2d.shape)  # Output: torch.Size([3, 3])
+```
+
+**Example 3:** 3D tensor from deeply nested lists
+
+```python
+# Create 3D tensor (2 matrices, each 2x3)
+deep_list = [[[1, 2, 3],
+              [4, 5, 6]],
+             
+             [[7, 8, 9],
+              [10, 11, 12]]]
+
+tensor_3d = torch.tensor(deep_list)
+
+print(tensor_3d.shape)  # Output: torch.Size([2, 2, 3])
+```
+
+### From NumPy Arrays
+
+If you're working with NumPy arrays, you can easily convert them to tensors.
+
+**Example 1:** Converting NumPy array to tensor
+
+```python
+import torch
+import numpy as np
+
+# Create NumPy array
+np_array = np.array([1, 2, 3, 4, 5])
+
+# Convert to PyTorch tensor
+tensor = torch.from_numpy(np_array)
+
+print(np_array)         # Output: [1 2 3 4 5]
+print(tensor)           # Output: tensor([1, 2, 3, 4, 5])
+```
+
+**Example 2:** 2D NumPy array to tensor
+
+```python
+# Create 2D NumPy array
+np_matrix = np.array([[1, 2, 3],
+                      [4, 5, 6]])
+
+# Convert to tensor
+tensor_from_np = torch.from_numpy(np_matrix)
+
+print(tensor_from_np)
+# Output:
+# tensor([[1, 2, 3],
+#         [4, 5, 6]])
+
+print(tensor_from_np.shape)  # Output: torch.Size([2, 3])
+```
+
+**Important Note:** `torch.from_numpy()` shares memory with the original NumPy array, so changes to one affect the other!
+
+```python
+np_array = np.array([1, 2, 3])
+tensor = torch.from_numpy(np_array)
+
+# Modify NumPy array
+np_array[0] = 999
+
+print(np_array)         # Output: [999   2   3]
+print(tensor)           # Output: tensor([999,   2,   3])
+# They share memory!
+```
+
+### From Other Tensors
+
+**Example:** Creating a new tensor with the same shape
+
+```python
+# Create original tensor
+x = torch.tensor([[1, 2],
+                  [3, 4]])
+
+# Create new tensor with same shape (but different values)
+y = torch.tensor([[5, 6],
+                  [7, 8]])
+
+print(x.shape)          # Output: torch.Size([2, 2])
+print(y.shape)          # Output: torch.Size([2, 2])
+```
+
+## Specifying Data Types
+
+Tensors can hold different types of numbers. Choosing the right data type is important for memory efficiency and computation speed.
+
+![Data Types](/content/learn/tensors/creating-tensors/data-types.png)
+
+### Common Data Types
+
+- `torch.int32` or `torch.int`: 32-bit integers (4 bytes per number)
+- `torch.int64` or `torch.long`: 64-bit integers (8 bytes per number)
+- `torch.float32` or `torch.float`: 32-bit floating point (4 bytes per number) **[Most Common]**
+- `torch.float64` or `torch.double`: 64-bit floating point (8 bytes per number)
+- `torch.bool`: Boolean values (True/False)
+
+**Example 1:** Creating tensors with specific data types
+
+```python
+import torch
+
+# Integer tensor (int32)
+int_tensor = torch.tensor([1, 2, 3], dtype=torch.int32)
+print(int_tensor)       # Output: tensor([1, 2, 3], dtype=torch.int32)
+print(int_tensor.dtype) # Output: torch.int32
+
+# Float tensor (float32) - Most common for neural networks!
+float_tensor = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float32)
+print(float_tensor)     # Output: tensor([1., 2., 3.])
+print(float_tensor.dtype)  # Output: torch.float32
+
+# Boolean tensor
+bool_tensor = torch.tensor([True, False, True], dtype=torch.bool)
+print(bool_tensor)      # Output: tensor([ True, False,  True])
+print(bool_tensor.dtype)   # Output: torch.bool
+```
+
+**Example 2:** Default data type behavior
+
+```python
+# PyTorch infers the data type from your input
+
+# Integers → int64 (by default)
+x = torch.tensor([1, 2, 3])
+print(x.dtype)          # Output: torch.int64
+
+# Floats → float32 (by default)
+y = torch.tensor([1.0, 2.0, 3.0])
+print(y.dtype)          # Output: torch.float32
+
+# Mixed integers and floats → float32
+z = torch.tensor([1, 2.0, 3])
+print(z)                # Output: tensor([1., 2., 3.])
+print(z.dtype)          # Output: torch.float32
+```
+
+**Example 3:** Converting between data types
+
+```python
+# Create integer tensor
+int_tensor = torch.tensor([1, 2, 3])
+print(int_tensor.dtype)  # Output: torch.int64
+
+# Convert to float
+float_tensor = int_tensor.float()
+print(float_tensor)      # Output: tensor([1., 2., 3.])
+print(float_tensor.dtype)  # Output: torch.float32
+```
+
+**Example 4:** Why data type matters
+
+```python
+# Memory usage comparison
+large_int64 = torch.ones(1000000, dtype=torch.int64)
+large_int32 = torch.ones(1000000, dtype=torch.int32)
+
+print(f"int64 tensor: {large_int64.element_size() * large_int64.nelement() / 1e6} MB")
+# Output: 8.0 MB (8 bytes per element)
+
+print(f"int32 tensor: {large_int32.element_size() * large_int32.nelement() / 1e6} MB")
+# Output: 4.0 MB (4 bytes per element)
+
+# int32 uses half the memory!
+```
+
+## Practical Examples
+
+### Example 1: Creating a Batch of Data
+
+In deep learning, we often process multiple examples at once (a "batch").
+
+```python
+import torch
+
+# Create 3 examples, each with 3 features
+# Example: [height, weight, age]
+batch = torch.tensor([[170, 65, 25],
+                      [180, 80, 30],
+                      [165, 55, 22]], 
+                     dtype=torch.float32)
+
+print("Batch shape:", batch.shape)
+# Output: Batch shape: torch.Size([3, 3])
+# 3 people, 3 features each
+
+# Access all heights (first column)
+all_heights = batch[:, 0]
+print(f"Heights: {all_heights}")
+# Output: Heights: tensor([170., 180., 165.])
+
+print(f"Average height: {all_heights.mean():.1f}cm")
+# Output: Average height: 171.7cm
+```
+
+### Example 2: Creating RGB Image Data
+
+A tiny 2x2 RGB color image (3 color channels).
+
+```python
+import torch
+
+# Define a 2x2 RGB image
+# Each pixel has [Red, Green, Blue] values
+image_rgb = [
+    [[255, 0, 0],    [0, 255, 0]],    # Red, Green pixels
+    [[0, 0, 255],    [255, 255, 0]]   # Blue, Yellow pixels
+]
+
+rgb_tensor = torch.tensor(image_rgb, dtype=torch.float32)
+
+print("Shape:", rgb_tensor.shape)
+# Output: Shape: torch.Size([2, 2, 3])
+# 2 height, 2 width, 3 color channels
+
+# Access the red channel of all pixels
+red_channel = rgb_tensor[:, :, 0]
+print(f"Red channel:\n{red_channel}")
+# Output:
+# tensor([[255.,   0.],
+#         [  0., 255.]])
+```
+
+## Common Mistakes and How to Fix Them
+
+### Mistake 1: Shape Mismatch
+
+```python
+# ❌ Wrong: Inconsistent row lengths
+try:
+    wrong_tensor = torch.tensor([[1, 2, 3],
+                                 [4, 5]])  # Second row too short!
+except:
+    print("Error: All rows must have the same length")
+
+# ✅ Correct: All rows same length
+correct_tensor = torch.tensor([[1, 2, 3],
+                               [4, 5, 6]])
+print(correct_tensor.shape)  # Output: torch.Size([2, 3])
+```
+
+### Mistake 2: Forgetting Dimension Order
+
+```python
+# For images, be careful about dimension order!
+
+# ❌ Wrong order: (channels, height, width)
+# This might cause errors in some operations
+wrong_order = torch.rand(3, 224, 224)  
+
+# ✅ PyTorch usually expects: (batch, channels, height, width)
+correct_batch = torch.rand(1, 3, 224, 224)  # 1 image, 3 channels, 224x224
+
+# ✅ For a single image: (channels, height, width)
+single_image = torch.rand(3, 224, 224)
+```
+
+## Quick Reference
+
+### Creating Tensors
+
+```python
+# From list
+torch.tensor([1, 2, 3])
+
+# From NumPy
+torch.from_numpy(np_array)
+
+# With specific dtype
+torch.tensor([1, 2], dtype=torch.float32)
+```
+
+### Checking Tensor Properties
+
+```python
+tensor = torch.tensor([[1, 2], [3, 4]])
+
+tensor.shape      # Shape: torch.Size([2, 2])
+tensor.size()     # Same as .shape
+tensor.ndim       # Number of dimensions: 2
+tensor.dtype      # Data type: torch.int64
+tensor.numel()    # Total number of elements: 4
+```
+
+### Data Type Conversion
+
+```python
+tensor.float()    # Convert to float32
+tensor.int()      # Convert to int32
+tensor.long()     # Convert to int64
+tensor.double()   # Convert to float64
+tensor.bool()     # Convert to boolean
+```
+
+## Why Tensors Matter for Neural Networks
+
+- **Images**: RGB images are 3D tensors (height × width × 3 channels)
+- **Batches**: Neural networks process multiple examples at once (batch dimension)
+- **Text**: Word embeddings are 2D tensors (sequence length × embedding dimension)
+- **Weights**: Model parameters are tensors that get updated during training
+
+**Example: A batch of images**
+```python
+# Shape: (batch_size, channels, height, width)
+batch_of_images = torch.rand(32, 3, 224, 224)
+# 32 images, 3 color channels (RGB), 224×224 pixels
+
+print(f"Batch shape: {batch_of_images.shape}")
+# Output: Batch shape: torch.Size([32, 3, 224, 224])
+```
+
+**Congratulations! You now understand how to create and work with tensors!** 🎉

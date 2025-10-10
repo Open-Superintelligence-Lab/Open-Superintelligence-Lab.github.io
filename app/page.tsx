@@ -73,14 +73,12 @@ export default function Home() {
                     {language === 'en' ? (
                       <>
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Open</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Superintelligence</span>
-                        <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">Lab</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Superintelligence</span>
                       </>
                     ) : (
                       <>
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">开放</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">超级智能</span>
-                        <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">实验室</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">超级智能</span>
                       </>
                     )}
                   </h1>
@@ -90,16 +88,27 @@ export default function Home() {
                     {language === 'en' ? (
                       <>
                         <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">Open</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">Superintelligence</span>
-                        <span className="bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-blue-400/20 bg-clip-text text-transparent">Lab</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">Superintelligence</span>
                       </>
                     ) : (
                       <>
                         <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">开放</span>
-                        <span className="mx-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">超级智能</span>
-                        <span className="bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-blue-400/20 bg-clip-text text-transparent">实验室</span>
+                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">超级智能</span>
                       </>
                     )}
+                  </div>
+                </div>
+                
+                {/* Subtitle */}
+                <div className="relative mt-1 pb-12">
+                  <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-loose">
+                    The Most Difficult Project In Human History
+                  </h2>
+                  {/* Glow effect for subtitle */}
+                  <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-loose">
+                    <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
+                      The Most Difficult Project In Human History
+                    </span>
                   </div>
                 </div>
               </div>
@@ -174,16 +183,19 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
-            <div className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 opacity-75 cursor-not-allowed">
+            <Link 
+              href="/learn"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
               <div className="absolute top-4 left-4">
                 <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Learning Path</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">Coming Soon</span>
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
               </div>
               
               <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 text-slate-300">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
                   Zero To AI Researcher - Full Course
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
@@ -191,12 +203,12 @@ export default function Home() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                  <span className="text-orange-400 text-sm">
-                    Coming Soon →
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                    Start Learning →
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* DeepSeek Sparse Attention Project */}
             <Link 

@@ -30,6 +30,12 @@ export function Navigation({ }: NavigationProps) {
             </div>
           </Link>
           <div className="flex gap-2 items-center">
+            <Link 
+              href="/learn" 
+              className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
+            >
+              {language === 'en' ? 'Learn' : '学习'}
+            </Link>
             <a 
               href="https://discord.com/invite/6AbXGpKTwN" 
               className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
