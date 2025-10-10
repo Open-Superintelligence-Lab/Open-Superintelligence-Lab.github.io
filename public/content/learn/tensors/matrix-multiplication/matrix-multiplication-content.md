@@ -52,6 +52,8 @@ Result: 20
 
 **Key insight:** Dot product = multiply pairs, then sum everything.
 
+![Dot Product Steps](/content/learn/tensors/matrix-multiplication/dot-product-steps.png)
+
 ## Step 2: Matrix @ Matrix
 
 Matrix multiplication uses dot products repeatedly! The `@` operator means "matrix multiply":
@@ -142,6 +144,8 @@ Result[1, 1] = 50
 [[19, 22],
  [43, 50]]
 ```
+
+![All Positions](/content/learn/tensors/matrix-multiplication/all-positions.png)
 
 ## The Shape Rule
 
@@ -279,6 +283,8 @@ Shape: (2, 3) @ (3, 4) = (2, 4)
 
 Each of the 2 input samples got transformed into 4 output values. This is how neural networks transform data!
 
+![Neural Network Layer](/content/learn/tensors/matrix-multiplication/neural-network.png)
+
 ## Matrix @ Vector
 
 You can also multiply matrix @ vector (different from vector @ matrix):
@@ -325,6 +331,10 @@ print("Right:", right)
 # tensor([[19, 22],
 #         [43, 50]])
 ```
+
+**Visual comparison:**
+
+![Element-wise vs Matrix Multiplication](/content/learn/tensors/matrix-multiplication/elementwise-vs-matmul.png)
 
 ### ❌ Mistake 2: Wrong shape order
 
