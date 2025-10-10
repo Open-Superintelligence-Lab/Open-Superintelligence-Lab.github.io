@@ -100,7 +100,7 @@ export default function Home() {
                 </div>
                 
                 {/* Subtitle */}
-                <div className="relative mt-1 pb-12">
+                <div className="relative mt-1 pb-4">
                   <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-loose">
                     The Most Difficult Project In Human History
                   </h2>
@@ -134,7 +134,7 @@ export default function Home() {
             </div>
             
             {/* Tags */}
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mt-8 mb-12">
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mt-4 mb-8">
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
                 {language === 'en' ? 'Open Source' : '开源'}
