@@ -21,13 +21,13 @@ export default function LearnPage() {
             </h1>
             <p className="text-xl text-slate-300 mb-8">
               {language === 'en' 
-                ? 'Master the fundamentals and build your own neural networks'
+                ? 'Master the fundamentals and publish your own papers'
                 : '掌握基础知识，构建你自己的神经网络'}
             </p>
             <div className="max-w-3xl mx-auto bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 mb-8">
               <p className="text-amber-200 text-sm leading-relaxed">
                 {language === 'en'
-                  ? 'Under active development, some parts are AI generated and not reviewed yet. In the end everything will be carefully reviewed and rewritten by humans to the highest quality'
+                  ? 'Under active development, some parts are AI generated and not reviewed yet. In the end everything will be carefully reviewed and rewritten by humans to the highest quality.'
                   : '正在积极开发中，部分内容由AI生成尚未审核。最终所有内容都将由人工仔细审核和重写，确保最高质量'}
               </p>
             </div>
