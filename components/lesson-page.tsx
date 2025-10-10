@@ -1,10 +1,12 @@
 'use client';
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/components/providers/language-provider";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { CourseNavigation } from "@/components/course-navigation";
 import { useEffect, useState } from "react";
+import { getAdjacentLessons } from "@/lib/course-structure";
 
 interface HeroData {
   title: string;
@@ -20,9 +22,22 @@ interface LessonPageProps {
 
 export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps) {
   const { language } = useLanguage();
+  const pathname = usePathname();
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Auto-determine next/prev links from course structure if not provided
+  const adjacentLessons = getAdjacentLessons(pathname);
+  const effectivePrevLink = prevLink || (adjacentLessons.prev ? {
+    href: adjacentLessons.prev.href,
+    label: `← ${language === 'en' ? 'Previous' : '上一课'}: ${language === 'en' ? adjacentLessons.prev.title : adjacentLessons.prev.titleZh}`
+  } : undefined);
+  
+  const effectiveNextLink = nextLink || (adjacentLessons.next ? {
+    href: adjacentLessons.next.href,
+    label: `${language === 'en' ? 'Next' : '下一课'}: ${language === 'en' ? adjacentLessons.next.title : adjacentLessons.next.titleZh} →`
+  } : undefined);
 
   useEffect(() => {
     const fetchMarkdownContent = async () => {
@@ -176,26 +191,26 @@ export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps)
 
             {/* Navigation */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-              {prevLink ? (
+              {effectivePrevLink ? (
                 <Link 
-                  href={prevLink.href}
+                  href={effectivePrevLink.href}
                   className="group flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 text-slate-300 hover:text-blue-400 font-medium rounded-xl transition-all duration-300"
                 >
                   <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
-                  {prevLink.label}
+                  {effectivePrevLink.label}
                 </Link>
               ) : (
                 <div></div>
               )}
               
-              {nextLink ? (
+              {effectiveNextLink ? (
                 <Link 
-                  href={nextLink.href}
+                  href={effectiveNextLink.href}
                   className="group flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-all duration-300"
                 >
-                  {nextLink.label}
+                  {effectiveNextLink.label}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -205,9 +220,9 @@ export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps)
                   href="/learn"
                   className="group flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-all duration-300"
                 >
-                  {language === 'en' ? 'Back to Course' : '返回课程'}
+                  {language === 'en' ? 'Course Complete! 🎉' : '课程完成！🎉'}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </Link>
               )}
