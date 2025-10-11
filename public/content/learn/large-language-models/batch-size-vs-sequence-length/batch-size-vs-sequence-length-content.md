@@ -128,7 +128,7 @@ In a recent ablation study on MoE transformers, three strategies were tested wit
 1. **Balanced approach won** on validation loss metrics
 2. **Large batch trained fastest** per-step but achieved higher final loss
 3. **Long sequence** showed promise but didn't win on short-term metrics
-
+   
 ### Important Caveat ⚠️
 
 **Validation loss doesn't tell the whole story!**
@@ -138,6 +138,18 @@ While large batch size showed faster convergence in validation loss, longer sequ
 For applications requiring deep contextual understanding, such as analyzing long documents or multi-turn dialogues, longer sequence lengths are more valuable, even at the cost of a higher validation loss.
 
 **In practice**, sequence length is often between 1024 and 4096, with extension training later.
+
+### Here is our experiment
+
+![Validation Loss vs Time - Part 2](/content/learn/large-language-models/batch-size-vs-sequence-length/part2_val_loss_vs_time.png)
+
+It seems like batch size trains faster, but sequence length learns more. Selecting best sequence length depends on the task. 4096 is good for big LLMs with context extension later, 512 or 1024 is good for smaller LLMs.
+
+![Validation Loss vs Tokens - Part 2](/content/learn/large-language-models/batch-size-vs-sequence-length/part2_val_loss_vs_tokens.png)
+
+![Validation Accuracy vs Time](/content/learn/large-language-models/batch-size-vs-sequence-length/part2_val_accuracy_vs_time.png)
+
+
 
 ---
 
