@@ -266,6 +266,34 @@ export default function Home() {
               </div>
             </Link>
 
+            {/* The Most Difficult Project in Human History */}
+            <Link 
+              href="/blog/the-most-difficult-project-in-human-history"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Mission</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">New</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
+                  The Most Difficult Project in Human History
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Learn to implement all latest AI tech (Mamba, Gated DeltaNet, RWKV) and become an expert at fast experimentation and research
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                  <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
+                    Start Journey →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
             {/* MobileLLM-R1 Project - HIDDEN */}
             {/* <Link 
               href="/blog/mobilellm-r1"
