@@ -44,6 +44,14 @@ export function Navigation({ }: NavigationProps) {
             >
               {language === 'en' ? 'Discord' : 'Discord'}
             </a>
+            <a 
+              href="https://www.youtube.com/channel/UC7XJj9pv_11a11FUxCMz15g" 
+              className="px-3 py-2 text-sm hover:text-red-500 transition-colors" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              {language === 'en' ? 'YouTube' : 'YouTube'}
+            </a>
             <Link 
               href="/research" 
               className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
