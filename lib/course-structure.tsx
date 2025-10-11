@@ -367,8 +367,8 @@ export const getCourseModules = (): ModuleData[] => [
     ]
   },
   {
-    title: "LLM Training Fundamentals",
-    titleZh: "LLM训练基础",
+    title: "Large Language Models",
+    titleZh: "大型语言模型",
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
@@ -378,7 +378,7 @@ export const getCourseModules = (): ModuleData[] => [
       {
         title: "Batch Size vs Sequence Length",
         titleZh: "批量大小与序列长度",
-        href: "/learn/llm-fundamentals/batch-size-vs-sequence-length"
+        href: "/learn/large-language-models/batch-size-vs-sequence-length"
       }
     ]
   }

@@ -3,7 +3,7 @@ import { LessonPage } from "@/components/lesson-page";
 export default function BatchSizeVsSequenceLengthPage() {
   return (
     <LessonPage
-      contentPath="llm-fundamentals/batch-size-vs-sequence-length"
+      contentPath="large-language-models/batch-size-vs-sequence-length"
       prevLink={{ href: "/learn", label: "← Back to Course" }}
       nextLink={{ href: "/learn", label: "Continue Learning →" }}
     />
