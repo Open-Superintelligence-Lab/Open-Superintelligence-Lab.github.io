@@ -15,6 +15,8 @@ When training large language models (LLMs), two of the most important hyperparam
 
 **Batch size** is the number of independent training examples your model processes in parallel before updating its weights.
 
+> 💡 **Want to implement this yourself?** [Join our Skool AI research community](https://www.skool.com/become-ai-researcher-2669/classroom/ac563ec1?md=8cfa7e9235b34608a5b5f66033b2839b) for step-by-step tutorials and accelerate your journey to becoming an AI researcher.
+
 ### How It Works
 
 Think of batch size as "how many different conversations" your model reads simultaneously:
@@ -136,3 +138,15 @@ While large batch size showed faster convergence in validation loss, longer sequ
 For applications requiring deep contextual understanding, such as analyzing long documents or multi-turn dialogues, longer sequence lengths are more valuable, even at the cost of a higher validation loss.
 
 **In practice**, sequence length is often between 1024 and 4096, with extension training later.
+
+---
+
+## Take Your Learning Further
+
+Understanding these concepts is just the beginning. [Learn To Code This Experiment](https://www.skool.com/become-ai-researcher-2669/classroom/ac563ec1?md=8cfa7e9235b34608a5b5f66033b2839b) in our Skool AI research community where you'll get:
+- 📚 Step-by-step tutorials to code these experiments yourself
+- 🤝 A supportive community of aspiring AI researchers
+- 🎯 Guidance on your path from learner to AI researcher
+- 🔬 Hands-on practice with real experiments
+
+Start your 7-day free trial and accelerate your AI research journey today!
