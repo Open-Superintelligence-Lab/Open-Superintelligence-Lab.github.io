@@ -6,6 +6,7 @@ export default function BatchSizeVsSequenceLengthPage() {
       contentPath="large-language-models/batch-size-vs-sequence-length"
       prevLink={{ href: "/learn", label: "← Back to Course" }}
       nextLink={{ href: "/learn", label: "Continue Learning →" }}
+      youtubeVideoId="bu5dhaLmr7E"
     />
   );
 }

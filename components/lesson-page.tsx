@@ -18,9 +18,10 @@ interface LessonPageProps {
   contentPath: string;
   prevLink?: { href: string; label: string };
   nextLink?: { href: string; label: string };
+  youtubeVideoId?: string;
 }
 
-export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps) {
+export function LessonPage({ contentPath, prevLink, nextLink, youtubeVideoId }: LessonPageProps) {
   const { language } = useLanguage();
   const pathname = usePathname();
   const [markdownContent, setMarkdownContent] = useState<string>('');
@@ -184,6 +185,20 @@ export function LessonPage({ contentPath, prevLink, nextLink }: LessonPageProps)
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
           <article className="max-w-4xl mx-auto">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8 sm:p-12">
+              {youtubeVideoId && (
+                <div className="mb-8">
+                  <div className="relative" style={{ paddingTop: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+                      src={`https://www.youtube.com/embed/${youtubeVideoId}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+              )}
               <div className="prose prose-lg prose-invert max-w-none">
                 <MarkdownRenderer content={markdownContent} />
               </div>
