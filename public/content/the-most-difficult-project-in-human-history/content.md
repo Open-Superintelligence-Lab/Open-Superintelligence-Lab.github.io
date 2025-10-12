@@ -9,19 +9,13 @@ hero:
 
 # The Most Difficult Project in Human History
 
-Welcome to what might be humanity's most ambitious endeavor: building **Open Superintelligence**. This isn't just another AI project—this is a complete transformation from beginner to cutting-edge AI researcher.
-
-## Our Mission: Two Parallel Paths to Excellence
-
-### Path 1: Master All Latest AI Technologies 🔬
-
-We're not here to learn yesterday's techniques. Our goal is to **implement and deeply understand** every breakthrough in modern AI research:
-
-#### Advanced Architectures
 - **Mamba**: State-space models that challenge the transformer paradigm
 - **Gated DeltaNet**: Linear attention mechanisms with competitive performance
 - **RWKV**: Recurrent architectures making a powerful comeback
 - **Sparse Attention**: From DeepSeek's lightning indexer to efficient O(Lk) complexity
+
+- JEPA?
+- Small reasoning model?
 
 #### Cutting-Edge Research Areas
 - **Efficient Training**: NV-FP4, gradient compression, distributed optimization
