@@ -11,11 +11,40 @@ Loss tells you **how wrong** your model's predictions are. Lower loss = better m
 
 ![Loss Function](/content/learn/neuron-from-scratch/the-concept-of-loss/loss-function.png)
 
+## The Mathematical Purpose
+
+Loss functions serve as the **optimization objective** in machine learning. They:
+1. Quantify model performance with a single number
+2. Provide gradients for updating parameters
+3. Enable comparison between different models
+4. Guide the learning process toward better predictions
+
+**Mathematical definition:**
+```
+Loss: L(ŷ, y) → ℝ⁺
+
+Where:
+  ŷ (y-hat) = model's prediction
+  y = true target value
+  L = loss function
+  ℝ⁺ = positive real numbers
+```
+
 ## What is Loss?
 
 **Loss = Difference between prediction and actual answer**
 
 Think of it like a score in golf - **lower is better**!
+
+### Properties of Good Loss Functions
+
+A good loss function must be:
+
+1. **Non-negative**: L(ŷ, y) ≥ 0 for all ŷ, y
+2. **Zero at perfection**: L(y, y) = 0
+3. **Differentiable**: ∂L/∂ŷ exists (for gradient descent)
+4. **Monotonic**: Larger errors → larger loss
+5. **Smooth**: No sudden jumps (enables stable optimization)
 
 **Example:**
 
@@ -57,9 +86,33 @@ Loss: 0.0025 ← Much better!
 
 ## Common Loss Functions
 
+Each loss function has specific mathematical properties that make it suitable for different tasks.
+
 ### Mean Squared Error (MSE)
 
-For regression (predicting numbers):
+For regression (predicting numbers).
+
+**Mathematical definition:**
+```
+MSE = (1/n)Σᵢ(ŷᵢ - yᵢ)²
+
+Where:
+  n = number of samples
+  ŷᵢ = prediction for sample i
+  yᵢ = true value for sample i
+  (ŷᵢ - yᵢ)² = squared error
+```
+
+**Why squared?**
+1. Always positive (errors don't cancel)
+2. Penalizes large errors more heavily
+3. Mathematically convenient (smooth derivative)
+4. Corresponds to Gaussian likelihood
+
+**Derivative (for backprop):**
+```
+∂MSE/∂ŷᵢ = 2(ŷᵢ - yᵢ)/n
+```
 
 ```python
 import torch
@@ -83,7 +136,39 @@ print(loss)
 
 ### Binary Cross Entropy (BCE)
 
-For binary classification (yes/no):
+For binary classification (yes/no).
+
+**Mathematical definition:**
+```
+BCE = -(1/n)Σᵢ[yᵢ log(ŷᵢ) + (1-yᵢ) log(1-ŷᵢ)]
+
+Where:
+  yᵢ ∈ {0, 1} = true label
+  ŷᵢ ∈ (0, 1) = predicted probability
+```
+
+**Why this formula?**
+
+This comes from **maximum likelihood estimation** under Bernoulli distribution:
+
+```
+P(y|ŷ) = ŷʸ(1-ŷ)^(1-y)
+
+Negative log-likelihood: -log P(y|ŷ) = -[y log(ŷ) + (1-y) log(1-ŷ)]
+```
+
+**Intuition:**
+- If y=1 (true class), loss = -log(ŷ)
+  - ŷ→1: loss→0 (good!)
+  - ŷ→0: loss→∞ (bad!)
+- If y=0 (false class), loss = -log(1-ŷ)
+  - ŷ→0: loss→0 (good!)
+  - ŷ→1: loss→∞ (bad!)
+
+**Derivative:**
+```
+∂BCE/∂ŷᵢ = -(yᵢ/ŷᵢ - (1-yᵢ)/(1-ŷᵢ))/n
+```
 
 ```python
 # Predictions (probabilities)
@@ -102,7 +187,35 @@ print(loss)
 
 ### Cross Entropy Loss
 
-For multi-class classification:
+For multi-class classification (choosing among K classes).
+
+**Mathematical definition:**
+```
+CE = -(1/n)Σᵢ Σₖ yᵢₖ log(ŷᵢₖ)
+
+Where:
+  K = number of classes
+  yᵢₖ = 1 if sample i is class k, else 0 (one-hot)
+  ŷᵢₖ = predicted probability for class k
+  Σₖ ŷᵢₖ = 1 (probabilities sum to 1)
+```
+
+**Simplification:** Since only one yᵢₖ = 1:
+```
+CE = -(1/n)Σᵢ log(ŷᵢ,true_class)
+```
+
+**Why log?**
+- Information theory: -log(p) is the "surprise" or information content
+- Probability theory: Negative log-likelihood
+- Optimization: Gradient scales with confidence
+
+**Relationship to softmax:**
+```
+Logits z → Softmax: ŷₖ = exp(zₖ)/Σⱼexp(zⱼ) → Cross Entropy Loss
+
+PyTorch's CrossEntropyLoss combines these!
+```
 
 ```python
 # Raw logits (before softmax)
