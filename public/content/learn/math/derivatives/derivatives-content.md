@@ -1,13 +1,11 @@
 ---
 hero:
-  title: "Understanding Derivatives"
+  title: "Derivatives"
   subtitle: "The Foundation of Neural Network Training"
   tags:
     - "📐 Mathematics"
     - "⏱️ 10 min read"
 ---
-
-**[video coming soon]**
 
 ## What are Derivatives?
 
