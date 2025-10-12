@@ -13,8 +13,6 @@ Indexing and slicing let you access and extract specific parts of tensors. Think
 
 **Important:** In Python and PyTorch, counting starts at **0**, not 1!
 
-![Basic Indexing](/content/learn/tensors/indexing-and-slicing/basic-indexing.png)
-
 **Example:**
 
 ```python
@@ -45,8 +43,6 @@ v[2] → 30
 
 You can count **backwards from the end** using negative indices:
 
-![Negative Indexing](/content/learn/tensors/indexing-and-slicing/negative-indexing.png)
-
 **Example:**
 
 ```python
@@ -76,8 +72,6 @@ v[-3] = 30  (third from last)
 ## Matrix Indexing (2D)
 
 For matrices, use `[row, column]`:
-
-![Matrix Indexing](/content/learn/tensors/indexing-and-slicing/matrix-indexing.png)
 
 **Example:**
 
@@ -111,8 +105,6 @@ A[0, 3] → Row 0, Column 3 → 40
 ## Slicing: Getting Multiple Elements
 
 Slicing uses the syntax `[start:end]` where **end is NOT included**!
-
-![Slicing Basics](/content/learn/tensors/indexing-and-slicing/slicing-basics.png)
 
 **Example:**
 
@@ -166,8 +158,6 @@ v[:]   → v[0:6]  → All elements (copy)
 ## Matrix Slicing
 
 Slicing works in 2D too!
-
-![Matrix Slicing](/content/learn/tensors/indexing-and-slicing/matrix-slicing.png)
 
 **Example:**
 
