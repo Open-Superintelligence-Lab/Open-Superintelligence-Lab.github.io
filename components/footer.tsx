@@ -22,7 +22,7 @@ export function Footer() {
             </div>
             <div className="text-sm text-slate-300">
               <div className="font-semibold text-white">Open Superintelligence Lab</div>
-              <div className="text-xs text-slate-400">开放超级智能实验室</div>
+              {/* <div className="text-xs text-slate-400">开放超级智能实验室</div> */}
             </div>
           </div>
 

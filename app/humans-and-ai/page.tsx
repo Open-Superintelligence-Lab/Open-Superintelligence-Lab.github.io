@@ -9,7 +9,7 @@ export default function HumansAndAI() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen flex flex-col">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         {/* Background effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"></div>
         <div className="absolute inset-0 opacity-30">
@@ -24,18 +24,18 @@ export default function HumansAndAI() {
           <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
         
-        <div className="relative container mx-auto px-6 pt-32 pb-24 flex-grow flex items-center">
-          <div className="text-center max-w-5xl mx-auto">
+        <div className="relative container mx-auto px-6 pt-32 pb-12">
+          <div className="text-center max-w-4xl mx-auto">
             {/* Title */}
             <div className="relative">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium mb-8 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
                   {language === 'en' ? 'Humans & AI' : '人类与AI'}
                 </span>
               </h1>
               
               {/* Glow effect */}
-              <div className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl font-medium leading-tight blur-sm">
+              <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
                   {language === 'en' ? 'Humans & AI' : '人类与AI'}
                 </span>
@@ -43,7 +43,7 @@ export default function HumansAndAI() {
             </div>
             
             {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-400 mb-8">
               {language === 'en' 
                 ? 'Reading and writing essays on great books to deeply understand human nature and how we can guide human use of AI toward benefiting humanity.'
                 : '阅读和撰写书籍评论，深入理解人性，以及如何引导人工智能的使用造福人类。'}
