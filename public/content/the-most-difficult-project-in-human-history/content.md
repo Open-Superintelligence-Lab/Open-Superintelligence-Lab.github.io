@@ -1,13 +1,15 @@
 ---
 hero:
   title: "The Most Difficult Project in Human History"
-  subtitle: "🚀 Building Open Superintelligence - From Zero to AI Research Expert"
+  subtitle: ""
   tags:
     - "🎯 Mission"
     - "🧠 Learning Journey"
 ---
 
 # The Most Difficult Project in Human History
+
+Artificial superintelligence is coming. We need to make it right.
 
 - **Mamba**: State-space models that challenge the transformer paradigm
 - **Gated DeltaNet**: Linear attention mechanisms with competitive performance

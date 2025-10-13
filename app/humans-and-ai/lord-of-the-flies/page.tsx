@@ -11,7 +11,7 @@ interface HeroData {
   tags: string[];
 }
 
-export default function MostDifficultProject() {
+export default function LordOfTheFlies() {
   const { language } = useLanguage();
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [heroData, setHeroData] = useState<HeroData | null>(null);
@@ -22,7 +22,7 @@ export default function MostDifficultProject() {
     const fetchMarkdownContent = async () => {
       try {
         const filename = language === 'zh' ? 'content-zh.md' : 'content.md';
-        const response = await fetch(`/content/the-most-difficult-project-in-human-history/${filename}`);
+        const response = await fetch(`/content/humans-and-ai/lord-of-the-flies/${filename}`);
         const content = await response.text();
         
         // Parse frontmatter
@@ -33,9 +33,9 @@ export default function MostDifficultProject() {
           
           // Parse YAML-like frontmatter (simple parsing for our use case)
           const heroData: HeroData = {
-            title: "The Most Difficult Project in Human History",
-            subtitle: "",
-            tags: ["🎯 Mission", "🧠 Learning Journey"]
+            title: "Lord of the Flies",
+            subtitle: "A novel by William Golding",
+            tags: ["📚 Classic Literature", "🎭 Allegory"]
           };
           
           // Extract values from frontmatter
@@ -103,7 +103,7 @@ export default function MostDifficultProject() {
     try {
       // Get the raw markdown content without frontmatter
       const filename = language === 'zh' ? 'content-zh.md' : 'content.md';
-      const response = await fetch(`/content/the-most-difficult-project-in-human-history/${filename}`);
+      const response = await fetch(`/content/humans-and-ai/lord-of-the-flies/${filename}`);
       const content = await response.text();
       
       // Remove frontmatter if present
@@ -153,15 +153,12 @@ export default function MostDifficultProject() {
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                  {heroData?.title || (language === 'en' ? 'The Most Difficult Project in Human History' : '人类历史上最困难的项目')}
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  {heroData?.title || 'Lord of the Flies'}
                 </span>
               </h1>
               <div className="text-lg md:text-xl text-slate-400 mb-8">
-                {heroData?.subtitle || (language === 'en' 
-                  ? ''
-                  : ''
-                )}
+                {heroData?.subtitle || 'A novel by William Golding'}
               </div>
               
               {/* Tags */}
@@ -171,17 +168,17 @@ export default function MostDifficultProject() {
                     <span key={index} className="flex items-center gap-2">
                       {index > 0 && <span className="text-slate-600">•</span>}
                       <span className="flex items-center gap-2">
-                        {tag.includes('🎯') && (
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                        )}
-                        {tag.includes('🧠') && (
+                        {tag.includes('📚') && (
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                           </svg>
                         )}
-                        {tag.replace(/[🎯🧠]/g, '').trim()}
+                        {tag.includes('🎭') && (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                          </svg>
+                        )}
+                        {tag.replace(/[📚🎭]/g, '').trim()}
                       </span>
                     </span>
                   ))}
@@ -190,8 +187,8 @@ export default function MostDifficultProject() {
               
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
-                <span className="bg-gradient-to-r from-amber-300/20 via-orange-400/20 to-rose-400/20 bg-clip-text text-transparent">
-                  {heroData?.title || (language === 'en' ? 'The Most Difficult Project in Human History' : '人类历史上最困难的项目')}
+                <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
+                  {heroData?.title || 'Lord of the Flies'}
                 </span>
               </div>
             </div>
@@ -239,8 +236,8 @@ export default function MostDifficultProject() {
                     {/* Tooltip */}
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
                       {language === 'en' 
-                        ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
-                        : '非常适合粘贴到AI聊天机器人进行自学！🤖'
+                        ? 'Copy essay for study and reflection 📖' 
+                        : '复制文章以供学习和反思 📖'
                       }
                       {/* Tooltip arrow */}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
@@ -262,9 +259,9 @@ export default function MostDifficultProject() {
                   <div className="flex items-center gap-3 text-sm text-slate-400">
                     <span className="flex items-center gap-2">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg>
-                      Open Superintelligence Lab
+                      Humans & AI
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
@@ -294,15 +291,15 @@ export default function MostDifficultProject() {
                       {/* Tooltip */}
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
                         {language === 'en' 
-                          ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
-                          : '非常适合粘贴到AI聊天机器人进行自学！🤖'
+                          ? 'Copy essay for study and reflection 📖' 
+                          : '复制文章以供学习和反思 📖'
                         }
                         {/* Tooltip arrow */}
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
                       </div>
                     </div>
                     
-                    <a href="https://twitter.com/intent/tweet?text=The%20Most%20Difficult%20Project%20in%20Human%20History%20-%20Building%20Open%20Superintelligence%20%F0%9F%9A%80&url=https://opensuperintelligencelab.com/blog/the-most-difficult-project-in-human-history/" 
+                    <a href="https://twitter.com/intent/tweet?text=Lord%20of%20the%20Flies%20-%20Understanding%20Human%20Nature%20for%20AI&url=https://opensuperintelligencelab.com/humans-and-ai/lord-of-the-flies/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
@@ -310,7 +307,7 @@ export default function MostDifficultProject() {
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/the-most-difficult-project-in-human-history/" 
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/humans-and-ai/lord-of-the-flies/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
@@ -326,13 +323,13 @@ export default function MostDifficultProject() {
             {/* Navigation */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link 
-              href="/"
+              href="/humans-and-ai"
                 className="group flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 text-slate-300 hover:text-blue-400 font-medium rounded-xl transition-all duration-300"
             >
                 <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              {language === 'en' ? 'Back to Home' : '返回首页'}
+              {language === 'en' ? 'Back to Humans & AI' : '返回人类与AI'}
             </Link>
               
               <div className="flex items-center gap-2 text-sm text-slate-500">

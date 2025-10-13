@@ -36,6 +36,12 @@ export function Navigation({ }: NavigationProps) {
             >
               {language === 'en' ? 'Learn' : '学习'}
             </Link>
+            <Link 
+              href="/humans-and-ai" 
+              className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
+            >
+              {language === 'en' ? 'Humans & AI' : '人类与AI'}
+            </Link>
             <a 
               href="https://discord.com/invite/6AbXGpKTwN" 
               className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
