@@ -7,33 +7,6 @@ hero:
     - "🎭 Allegory"
 ---
 
-society starting under a good leader and slowly getting pulled by a bad leader
-
-Explain the moments when they were chasing ralph and stumbled across an adult and their emotional reaction and what changed.
-
-Jack gaining unchecked control over AI.
-
-Jack the anthagonist getting unchecked control over AI, how that might come about and what human nature says.
-
-The island represent artificial intelligence.
-
-2 brothers having doubts their evil leader
-
-it's always the same, be it with AI or with any other time, the cycle always repeats.
-
-To think about:
-The novel warns that without ethical self-surveillance (conscience), external surveillance becomes tyranny—and without empathy, even democracy can collapse into mob rule. 
-
-Jack's rise to power through spreading fear and promising protection
-
-Peer-enforced conformity (tribal rituals)
-
-Mob Mentality and Group Think: The boys' collective descent into savagery shows the danger of mob mentality. AI systems amplifying these tendencies in social networks and digital platforms.
-
-he Fragility of Civilization: The rapid descent into savagery demonstrates how thin the veneer of civilization truly is
-
-
-
 # Lord of the Flies
 ## By William Golding (1954)
 
