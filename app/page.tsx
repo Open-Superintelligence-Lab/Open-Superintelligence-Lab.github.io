@@ -247,7 +247,7 @@ export default function Home() {
                 <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
               </div>
               
               <div className="mt-8">
@@ -255,7 +255,7 @@ export default function Home() {
                   Tiny Recursive Model
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  Exploring recursive architectures for efficient AI models
+                  How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">AI Research</span>

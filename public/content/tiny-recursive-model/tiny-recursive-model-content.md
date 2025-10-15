@@ -1,7 +1,7 @@
 ---
 hero:
   title: "Tiny Recursive Model"
-  subtitle: "Exploring recursive architectures for efficient AI models"
+  subtitle: "New recursive reasoning AI architecture"
   tags:
     - "⏱️ Technical Deep Dive"
     - "📄 Research Article"
@@ -14,6 +14,22 @@ hero:
 **The Tiny Reasoning Model (TRM)** uses a 2-layer transformer (7M parameters) that reuses the same layers hundreds of times to reason about problems recursively.
 
 It beats 100x bigger models in Sudoku-Extreme, Mazes, ARC-AGI and more.
+
+In this tutorial we will learn how TRM works and do our own experiments.
+
+---
+
+## TRM Architecture Overview
+
+![Tiny Recursive Model Architecture](/content/tiny-recursive-model/images/tiny-recursive-model-architecture.png)
+*Figure: The Tiny Recursive Model architecture showing the main processing block (4x transformer layers), input combination of question (x), answer (y), and reasoning (z), output processing for loss calculation, and the recursive update mechanism that iteratively refines the reasoning and prediction over up to 16 steps.*
+
+The diagram above illustrates the complete TRM architecture. The model processes three key components:
+- **Input (x)**: The question or problem to solve (e.g., maze layout)
+- **Prediction (y)**: The model's current answer attempt
+- **Latent (z)**: The model's internal reasoning state
+
+These are combined and processed through a 4-layer transformer stack, with the output used to compute cross-entropy loss. The key innovation is the recursive update mechanism at the bottom, which iteratively refines both the reasoning (z) and prediction (y) over multiple steps to progressively improve the solution.
 
 ---
 
