@@ -183,7 +183,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
-            <Link 
+            {/* <Link 
               href="/learn"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
             >
@@ -208,7 +208,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </Link> */}
 
             {/* DeepSeek Sparse Attention Project */}
             <Link 
@@ -295,7 +295,7 @@ export default function Home() {
             </Link>
 
             {/* The Most Difficult Project in Human History */}
-            <Link 
+            {/* <Link 
               href="/blog/the-most-difficult-project-in-human-history"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
             >
@@ -320,7 +320,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </Link> */}
 
             {/* MobileLLM-R1 Project - HIDDEN */}
             {/* <Link 
