@@ -181,10 +181,6 @@ print(t.reshape(-1))  # (12,)
 
 ## Squeeze & Unsqueeze
 
-These add or remove dimensions of size 1:
-
-![Squeeze Unsqueeze](/content/learn/tensors/reshaping-tensors/squeeze-unsqueeze.png)
-
 ### Unsqueeze: Add a Dimension
 
 ```python

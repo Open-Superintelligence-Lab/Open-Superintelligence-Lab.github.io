@@ -317,11 +317,6 @@ export const getCourseModules = (): ModuleData[] => [
         title: "MoE in Code",
         titleZh: "MoE代码实现",
         href: "/learn/transformer-feedforward/moe-in-code"
-      },
-      {
-        title: "The DeepSeek MLP",
-        titleZh: "DeepSeek MLP",
-        href: "/learn/transformer-feedforward/the-deepseek-mlp"
       }
     ]
   },

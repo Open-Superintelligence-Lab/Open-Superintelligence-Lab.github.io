@@ -129,7 +129,7 @@ public/content/learn/
 ```markdown
 ---
 hero:
-  title: "Understanding Derivatives"
+  title: "Derivatives"
   subtitle: "The Foundation of Neural Network Training"
   tags:
     - "📐 Mathematics"

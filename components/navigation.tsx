@@ -31,10 +31,22 @@ export function Navigation({ }: NavigationProps) {
           </Link>
           <div className="flex gap-2 items-center">
             <Link 
+              href="/" 
+              className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
+            >
+              {language === 'en' ? 'Home' : '首页'}
+            </Link>
+            <Link 
               href="/learn" 
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
               {language === 'en' ? 'Learn' : '学习'}
+            </Link>
+            <Link 
+              href="/humans-and-ai" 
+              className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
+            >
+              {language === 'en' ? 'Humans & AI' : '人类与AI'}
             </Link>
             <a 
               href="https://discord.com/invite/6AbXGpKTwN" 
@@ -52,12 +64,6 @@ export function Navigation({ }: NavigationProps) {
             >
               {language === 'en' ? 'YouTube' : 'YouTube'}
             </a>
-            <Link 
-              href="/research" 
-              className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
-            >
-              {language === 'en' ? 'Research' : '研究'}
-            </Link>
             <button
               onClick={toggleLanguage}
               className="text-sm px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg hover:border-blue-500/50 hover:bg-slate-700/50 transition-all duration-200"

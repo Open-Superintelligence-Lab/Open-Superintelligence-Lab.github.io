@@ -1,13 +1,11 @@
 ---
 hero:
-  title: "Understanding Derivatives"
+  title: "Derivatives"
   subtitle: "The Foundation of Neural Network Training"
   tags:
     - "📐 Mathematics"
     - "⏱️ 10 min read"
 ---
-
-**[video coming soon]**
 
 ## What are Derivatives?
 
@@ -39,6 +37,24 @@ The derivative of `f(x)` at point `x` is:
 f'(x) = lim[h→0] (f(x+h) - f(x)) / h
 ```
 
+Let's break down what each part means:
+
+The derivative takes the average rate of change (slope) between two points, then makes the distance between those points infinitesimally small (h→0), giving us the instantaneous rate of change at exactly point `x`.
+
+- **`f'(x)`** - This is the derivative of function `f` at point `x`. It tells us the instantaneous rate of change at that specific point.
+
+- **`lim[h→0]`** - This is the "limit as h approaches 0". It means we're looking at what happens when `h` gets infinitely close to zero (but never actually equals zero). This is what makes it an *instantaneous* rate of change rather than an average.
+
+- **`f(x+h)`** - This evaluates the function at a point slightly ahead of `x`. The `h` represents a tiny step forward from our current position `x`.
+
+- **`f(x)`** - This evaluates the function at our current point `x`.
+
+- **`f(x+h) - f(x)`** - This is the **change in the function's output** (the rise). It measures how much the function value changed as we moved from `x` to `x+h`.
+
+- **`h`** - This is the **change in the input** (the run). It's the size of our step along the x-axis.
+
+- **`(f(x+h) - f(x)) / h`** - This is the **average rate of change** over the interval from `x` to `x+h`. It's like calculating the slope of a line between two points: rise over run.
+
 ### Visual Representation
 
 
@@ -49,7 +65,7 @@ Derivative is always 3 for any `x` value, which means that in the original funct
 
 ![Linear Function Derivative](/content/learn/math/derivatives/linear-function-derivative.png)
 
-Here you can see that as `y` grows faster and faster in original function (square functions grow very fast).
+In the next image you can see that as `y` grows faster and faster in original function (square functions grow very fast).
 
 Derivative shows this accelerating growth, you can notice that derivative is increasing (linearly) - which means the growth is accelerating.
 
@@ -377,9 +393,9 @@ f(x) = 1 / (1 + e^(-x))
 
 #### Step-by-Step Derivative Calculation
 
-To find the derivative of sigmoid, we'll use the quotient rule and chain rule.
-
 Usually you will ChatGPT sigmoid derivative, but let's see how it's derived.
+
+To find the derivative of sigmoid, we'll use the quotient rule and chain rule.
 
 **Step 1:** Rewrite the function
 

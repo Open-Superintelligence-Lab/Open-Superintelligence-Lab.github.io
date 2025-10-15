@@ -7,8 +7,6 @@ hero:
     - "⏱️ 12 min read"
 ---
 
-**[video coming soon]**
-
 **Level:** Beginner → Intermediate.
 
 ---

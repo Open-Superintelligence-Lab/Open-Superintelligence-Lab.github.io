@@ -100,12 +100,12 @@ export default function Home() {
                 </div>
                 
                 {/* Subtitle */}
-                <div className="relative mt-1 pb-4">
-                  <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-loose">
+                <div className="relative mt-1 pb-6">
+                  <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-relaxed">
                     The Most Difficult Project In Human History
                   </h2>
                   {/* Glow effect for subtitle */}
-                  <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-loose">
+                  <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-relaxed">
                     <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
                       The Most Difficult Project In Human History
                     </span>
@@ -183,7 +183,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Road to AI Researcher Project */}
-            <Link 
+            {/* <Link 
               href="/learn"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
             >
@@ -208,7 +208,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </Link>
+            </Link> */}
 
             {/* DeepSeek Sparse Attention Project */}
             <Link 
@@ -232,6 +232,34 @@ export default function Home() {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">DeepSeek Research</span>
                   <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
+                    Learn More →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Tiny Recursive Model Project */}
+            <Link 
+              href="/blog/tiny-recursive-model"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                  Tiny Recursive Model
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">AI Research</span>
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
                     Learn More →
                   </span>
                 </div>
@@ -265,6 +293,34 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            {/* The Most Difficult Project in Human History */}
+            {/* <Link 
+              href="/blog/the-most-difficult-project-in-human-history"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Mission</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">New</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
+                  The Most Difficult Project in Human History
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Learn to implement all latest AI tech (Mamba, Gated DeltaNet, RWKV) and become an expert at fast experimentation and research
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
+                  <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
+                    Start Journey →
+                  </span>
+                </div>
+              </div>
+            </Link> */}
 
             {/* MobileLLM-R1 Project - HIDDEN */}
             {/* <Link 

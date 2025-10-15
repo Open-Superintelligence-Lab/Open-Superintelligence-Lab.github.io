@@ -1,6 +1,6 @@
 ---
 hero:
-  title: "Mathematical Functions"
+  title: "Functions"
   subtitle: "Building Blocks of Neural Networks"
   tags:
     - "📐 Mathematics"
