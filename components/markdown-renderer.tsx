@@ -107,7 +107,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             if (!src) return null;
             
             // Check if this is the architecture diagram that should be smaller
-            const isArchitectureDiagram = alt?.includes('Architecture') || src?.includes('architecture');
+            const isArchitectureDiagram = alt?.includes('Architecture') || (typeof src === 'string' && src.includes('architecture'));
             const imageClassName = isArchitectureDiagram ? "w-1/2 h-auto mx-auto" : "w-full h-auto";
             
             // Handle external images

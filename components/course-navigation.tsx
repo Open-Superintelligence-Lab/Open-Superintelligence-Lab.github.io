@@ -12,13 +12,6 @@ interface LessonItem {
   href: string;
 }
 
-interface ModuleData {
-  title: string;
-  titleZh: string;
-  icon: React.ReactNode;
-  lessons: LessonItem[];
-}
-
 export function CourseNavigation() {
   const { language } = useLanguage();
   const pathname = usePathname();
