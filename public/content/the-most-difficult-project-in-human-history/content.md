@@ -18,6 +18,9 @@ Artificial superintelligence is coming. We need to make it right.
 
 - JEPA?
 - Small reasoning model?
+- Continuous Thought Machine
+- Flow matching
+- Energy based transformer
 
 #### Cutting-Edge Research Areas
 - **Efficient Training**: NV-FP4, gradient compression, distributed optimization
