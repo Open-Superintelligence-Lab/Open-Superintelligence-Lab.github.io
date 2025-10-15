@@ -186,7 +186,7 @@ export default function TinyRecursiveModelProject() {
               )}
 
               {/* Links to Paper and GitHub */}
-              <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <div className="relative z-10 flex flex-wrap items-center justify-center gap-4 mb-8">
                 <a 
                   href="https://arxiv.org/pdf/2510.04871v1"
                   target="_blank"
@@ -218,7 +218,7 @@ export default function TinyRecursiveModelProject() {
               </div>
               
               {/* Glow effect for the title */}
-              <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
+              <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm pointer-events-none">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
                   {heroData?.title || 'Tiny Recursive Model'}
                 </span>
@@ -280,6 +280,18 @@ export default function TinyRecursiveModelProject() {
 
               {/* Article Body */}
               <div className="px-8 sm:px-12 pb-20">
+                <div className="mb-8">
+                  <div className="relative" style={{ paddingTop: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+                      src="https://www.youtube.com/embed/51uVH-sEvk0"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
                 <div className="prose prose-lg prose-invert max-w-none">
                   <MarkdownRenderer content={markdownContent} />
                 </div>

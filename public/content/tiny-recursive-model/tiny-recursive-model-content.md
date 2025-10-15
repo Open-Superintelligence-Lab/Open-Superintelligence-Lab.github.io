@@ -9,7 +9,7 @@ hero:
 
 ## The New AI Reasoning Architecture 
 
-#### How a 7M Model Beats 1T Models at Sudoku, Mazes, ARC-AGI
+How a 7M Model Beats 1T Models at Sudoku, Mazes, ARC-AGI
 
 **The Tiny Reasoning Model (TRM)** uses a 2-layer transformer (7M parameters) that reuses the same layers hundreds of times to reason about problems recursively.
 
