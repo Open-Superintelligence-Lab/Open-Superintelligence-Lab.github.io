@@ -238,6 +238,34 @@ export default function Home() {
               </div>
             </Link>
 
+            {/* Tiny Recursive Model Project */}
+            <Link 
+              href="/blog/tiny-recursive-model"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+                  Tiny Recursive Model
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  Exploring recursive architectures for efficient AI models
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">AI Research</span>
+                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
+                    Learn More →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
             {/* Pretrain LLM with NVFP4 Project */}
             <Link 
               href="/blog/pretrain-llm-with-nvfp4"
