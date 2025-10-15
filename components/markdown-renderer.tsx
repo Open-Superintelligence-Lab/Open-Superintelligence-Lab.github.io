@@ -106,6 +106,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           img: ({ src, alt }) => {
             if (!src) return null;
             
+            // Check if this is the architecture diagram that should be smaller
+            const isArchitectureDiagram = alt?.includes('Architecture') || src?.includes('architecture');
+            const imageClassName = isArchitectureDiagram ? "w-1/2 h-auto mx-auto" : "w-full h-auto";
+            
             // Handle external images
             if (typeof src === 'string' && src.startsWith('http')) {
               return (
@@ -115,7 +119,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                     alt={alt || ''}
                     width={800}
                     height={400}
-                    className="w-full h-auto"
+                    className={imageClassName}
                     loading="lazy"
                   />
                   {alt && (
@@ -135,7 +139,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   alt={alt || ''}
                   width={800}
                   height={400}
-                  className="w-full h-auto"
+                  className={imageClassName}
                   priority={false}
                 />
                 {alt && (
