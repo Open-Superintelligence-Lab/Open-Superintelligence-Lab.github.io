@@ -1,5 +1,5 @@
 // lib/language-detection.ts
-export type Language = 'en' | 'zh';
+export type Language = 'en' | 'zh' | 'sr';
 
 export interface LanguageContext {
   language: Language;
@@ -63,5 +63,33 @@ export const translations = {
     gptOssQuestions: '研究问题',
     gptOssContributions: '如何贡献',
     gptOssOpenSource: '开源研究'
+  },
+  sr: {
+    title: 'Laboratorija Otvorene Superinteligencije',
+    subtitle: 'Open Superintelligence Lab',
+    description: 'Unapređivanje istraživanja i razvoja AI kroz inovativne pristupe veštačkoj inteligenciji.',
+    about: 'O nama',
+    github: 'GitHub',
+    toggleLanguage: 'Prevedi',
+    projects: 'Istraživački Projekti',
+    deepseekTitle: 'DeepSeek-V3.2-Exp Istraživanje',
+    deepseekDescription: 'Istraživanje otvorenog koda o DeepSeek retkoj pažnji (DSA) i poboljšanjima efikasnosti dugog konteksta',
+    deepseekStatus: 'Aktivno Istraživanje',
+    gptOssTitle: 'GPT-OSS Istraživanje',
+    gptOssDescription: 'OpenAI jezički modeli MoE otvorenog koda sa naprednim sposobnostima rasuđivanja i bezbednosnim karakteristikama',
+    gptOssStatus: 'Otvoreni Kod',
+    learnMore: 'Saznaj Više',
+    researchPath: 'Istraživački Put',
+    researchQuestions: 'Istraživačka Pitanja',
+    contributions: 'Kako Doprineti',
+    openSource: 'Istraživanje Otvorenog Koda',
+    deepseekResearchPath: 'Istraživački Put',
+    deepseekQuestions: 'Istraživačka Pitanja',
+    deepseekContributions: 'Kako Doprineti',
+    deepseekOpenSource: 'Istraživanje Otvorenog Koda',
+    gptOssResearchPath: 'Istraživački Put',
+    gptOssQuestions: 'Istraživačka Pitanja',
+    gptOssContributions: 'Kako Doprineti',
+    gptOssOpenSource: 'Istraživanje Otvorenog Koda'
   }
 };
