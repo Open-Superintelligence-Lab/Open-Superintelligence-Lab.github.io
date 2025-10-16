@@ -20,12 +20,6 @@ export function CourseNavigation() {
 
   const modules = getCourseModules();
 
-  const getCourseText = (en: string, zh: string, sr: string) => {
-    if (language === 'zh') return zh;
-    if (language === 'sr') return sr;
-    return en;
-  };
-
   // Auto-scroll to active lesson on mount and pathname change
   useEffect(() => {
     // Only scroll if we're on a lesson page (pathname starts with /learn/)
@@ -58,10 +52,10 @@ export function CourseNavigation() {
     <>
       <div className="mb-6">
         <h3 className="text-lg font-bold text-white mb-2">
-          {getCourseText('Course Contents', '课程目录', 'Sadržaj Kursa')}
+          {language === 'en' ? 'Course Contents' : '课程目录'}
         </h3>
         <p className="text-xs text-slate-400">
-          {getCourseText('Navigate through the lessons', '浏览课程内容', 'Pretraži lekcije')}
+          {language === 'en' ? 'Navigate through the lessons' : '浏览课程内容'}
         </p>
       </div>
 
@@ -119,7 +113,7 @@ export function CourseNavigation() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
-          {getCourseText('Course Home', '课程首页', 'Početna Kursa')}
+          {language === 'en' ? 'Course Home' : '课程首页'}
         </Link>
       </div>
     </>

@@ -6,10 +6,8 @@ import { useLanguage } from "@/components/providers/language-provider";
 export default function Home() {
   const { language } = useLanguage();
 
-  const getText = (en: string, zh: string, sr: string) => {
-    if (language === 'zh') return zh;
-    if (language === 'sr') return sr;
-    return en;
+  const getText = (en: string, zh: string) => {
+    return language === 'zh' ? zh : en;
   };
 
   return (
@@ -71,20 +69,20 @@ export default function Home() {
                 <div className="relative text-center">
                   <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium mb-8 leading-tight">
                     <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                      {getText('Open', '开放', 'Otvorena')}
+                      {getText('Open', '开放')}
                     </span>
                     <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                      {getText('Superintelligence', '超级智能', 'Superinteligencija')}
+                      {getText('Superintelligence', '超级智能')}
                     </span>
                   </h1>
                   
                   {/* Glow effect for the entire title */}
                   <div className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-tight blur-sm">
                     <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                      {getText('Open', '开放', 'Otvorena')}
+                      {getText('Open', '开放')}
                     </span>
                     <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
-                      {getText('Superintelligence', '超级智能', 'Superinteligencija')}
+                      {getText('Superintelligence', '超级智能')}
                     </span>
                   </div>
                 </div>
@@ -92,12 +90,12 @@ export default function Home() {
                 {/* Subtitle */}
                 <div className="relative mt-1 pb-6">
                   <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-relaxed">
-                    {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目', 'Najteži Projekat u Istoriji Čovečanstva')}
+                    {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目')}
                   </h2>
                   {/* Glow effect for subtitle */}
                   <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-relaxed">
                     <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                      {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目', 'Najteži Projekat u Istoriji Čovečanstva')}
+                      {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目')}
                     </span>
                   </div>
                 </div>
@@ -127,15 +125,15 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mt-4 mb-8">
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                {getText('Open Source', '开源', 'Otvoreni Kod')}
+                {getText('Open Source', '开源')}
               </span>
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-300"></div>
-                {getText('LLM Research', '大模型研究', 'LLM Istraživanje')}
+                {getText('LLM Research', '大模型研究')}
               </span>
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-700"></div>
-                {getText('Innovation', '创新', 'Inovacija')}
+                {getText('Innovation', '创新')}
               </span>
             </div>
             
@@ -146,7 +144,7 @@ export default function Home() {
                 className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
               >
                 <span className="flex items-center gap-2">
-                  {getText('Explore & Participate', '探索并参与', 'Istraži i Učestvuj')}
+                  {getText('Explore & Participate', '探索并参与')}
                   <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
@@ -157,7 +155,7 @@ export default function Home() {
                 className="group px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
               >
                 <span className="flex items-center gap-2">
-                  {getText('Learn More', '了解更多', 'Saznaj Više')}
+                  {getText('Learn More', '了解更多')}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -178,10 +176,10 @@ export default function Home() {
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究', 'Istraživanje')}</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选', 'Istaknuto')}</span>
+                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选')}</span>
               </div>
               
               <div className="mt-8">
@@ -191,14 +189,13 @@ export default function Home() {
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                   {getText(
                     'Advanced research on DeepSeek\'s innovative sparse attention mechanisms for efficient long-context processing and memory optimization',
-                    'DeepSeek创新稀疏注意力机制的高级研究，用于高效长上下文处理和内存优化',
-                    'Napredna istraživanja o DeepSeek inovativnim mehanizmima retke pažnje za efikasnu obradu dugog konteksta i optimizaciju memorije'
+                    'DeepSeek创新稀疏注意力机制的高级研究，用于高效长上下文处理和内存优化'
                   )}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">DeepSeek Research</span>
                   <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
-                    {getText('Learn More', '了解更多', 'Saznaj Više')} →
+                    {getText('Learn More', '了解更多')} →
                   </span>
                 </div>
               </div>
@@ -210,27 +207,26 @@ export default function Home() {
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究', 'Istraživanje')}</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">{getText('Latest', '最新', 'Najnovije')}</span>
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">{getText('Latest', '最新')}</span>
               </div>
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                  {getText('Tiny Recursive Model', '微型递归模型', 'Sitni Rekurzivni Model')}
+                  {getText('Tiny Recursive Model', '微型递归模型')}
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                   {getText(
                     'How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer',
-                    '7M参数模型如何使用2层transformer的递归推理在数独、迷宫和ARC-AGI上击败100倍大的模型',
-                    'Kako model od 7M parametara pobedi 100x veće modele u Sudoku, Lavirintima i ARC-AGI koristeći rekurzivno rasuđivanje sa 2-slojnim transformerom'
+                    '7M参数模型如何使用2层transformer的递归推理在数独、迷宫和ARC-AGI上击败100倍大的模型'
                   )}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">{getText('AI Research', 'AI研究', 'AI Istraživanje')}</span>
+                  <span className="text-xs text-gray-500">{getText('AI Research', 'AI研究')}</span>
                   <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                    {getText('Learn More', '了解更多', 'Saznaj Više')} →
+                    {getText('Learn More', '了解更多')} →
                   </span>
                 </div>
               </div>
@@ -242,27 +238,26 @@ export default function Home() {
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究', 'Istraživanje')}</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选', 'Istaknuto')}</span>
+                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选')}</span>
               </div>
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                  {getText('Pretrain LLM with NVFP4', '用NVFP4预训练LLM', 'Pretreniranje LLM sa NVFP4')}
+                  {getText('Pretrain LLM with NVFP4', '用NVFP4预训练LLM')}
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
                   {getText(
                     'NVIDIA\'s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality',
-                    'NVIDIA突破性4位训练方法实现2-3倍加速和50%内存减少，同时不牺牲模型质量',
-                    'NVIDIA-ina revolucionarna 4-bitna metodologija treniranja koja postiže 2-3x ubrzanje i 50% smanjenje memorije bez žrtvovanja kvaliteta modela'
+                    'NVIDIA突破性4位训练方法实现2-3倍加速和50%内存减少，同时不牺牲模型质量'
                   )}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">NVIDIA Research</span>
                   <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
-                    {getText('Explore', '探索', 'Istraži')} →
+                    {getText('Explore', '探索')} →
                   </span>
                 </div>
               </div>

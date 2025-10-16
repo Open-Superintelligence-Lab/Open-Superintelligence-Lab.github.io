@@ -12,22 +12,8 @@ export function Navigation({ }: NavigationProps) {
   const { language, setLanguage } = useLanguage();
   const t = translations[language];
 
-  const getNavText = (en: string, zh: string, sr: string) => {
-    if (language === 'zh') return zh;
-    if (language === 'sr') return sr;
-    return en;
-  };
-
-  const getLanguageButtonText = () => {
-    if (language === 'en') return '中文 / Prevedi';
-    if (language === 'zh') return 'English / Prevedi';
-    return 'English / 中文';
-  };
-
-  const cycleLanguage = () => {
-    if (language === 'en') setLanguage('zh');
-    else if (language === 'zh') setLanguage('sr');
-    else setLanguage('en');
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'zh' : 'en');
   };
 
   return (
@@ -48,19 +34,19 @@ export function Navigation({ }: NavigationProps) {
               href="/" 
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
-              {getNavText('Home', '首页', 'Početna')}
+              {language === 'en' ? 'Home' : '首页'}
             </Link>
             <Link 
               href="/learn" 
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
-              {getNavText('Learn', '学习', 'Uči')}
+              {language === 'en' ? 'Learn' : '学习'}
             </Link>
             <Link 
               href="/humans-and-ai" 
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
-              {getNavText('Humans & AI', '人类与AI', 'Ljudi i AI')}
+              {language === 'en' ? 'Humans & AI' : '人类与AI'}
             </Link>
             <a 
               href="https://discord.com/invite/6AbXGpKTwN" 
@@ -68,7 +54,7 @@ export function Navigation({ }: NavigationProps) {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              Discord
+              {language === 'en' ? 'Discord' : 'Discord'}
             </a>
             <a 
               href="https://www.youtube.com/channel/UC7XJj9pv_11a11FUxCMz15g" 
@@ -76,13 +62,13 @@ export function Navigation({ }: NavigationProps) {
               target="_blank" 
               rel="noopener noreferrer"
             >
-              YouTube
+              {language === 'en' ? 'YouTube' : 'YouTube'}
             </a>
             <button
-              onClick={cycleLanguage}
+              onClick={toggleLanguage}
               className="text-sm px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg hover:border-blue-500/50 hover:bg-slate-700/50 transition-all duration-200"
             >
-              {getLanguageButtonText()}
+              {t.toggleLanguage}
             </button>
           </div>
         </nav>

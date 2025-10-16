@@ -21,12 +21,7 @@ export default function TinyRecursiveModelProject() {
   useEffect(() => {
     const fetchMarkdownContent = async () => {
       try {
-        let filename = 'tiny-recursive-model-content.md';
-        if (language === 'zh') {
-          filename = 'tiny-recursive-model-content-zh.md';
-        } else if (language === 'sr') {
-          filename = 'tiny-recursive-model-content-sr.md';
-        }
+        const filename = language === 'zh' ? 'tiny-recursive-model-content-zh.md' : 'tiny-recursive-model-content.md';
         const response = await fetch(`/content/tiny-recursive-model/${filename}`);
         const content = await response.text();
         
@@ -107,12 +102,7 @@ export default function TinyRecursiveModelProject() {
   const handleCopyArticle = async () => {
     try {
       // Get the raw markdown content without frontmatter
-      let filename = 'tiny-recursive-model-content.md';
-      if (language === 'zh') {
-        filename = 'tiny-recursive-model-content-zh.md';
-      } else if (language === 'sr') {
-        filename = 'tiny-recursive-model-content-sr.md';
-      }
+      const filename = language === 'zh' ? 'tiny-recursive-model-content-zh.md' : 'tiny-recursive-model-content.md';
       const response = await fetch(`/content/tiny-recursive-model/${filename}`);
       const content = await response.text();
       
@@ -263,7 +253,7 @@ export default function TinyRecursiveModelProject() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                           <span className="text-sm font-medium">
-                            {language === 'zh' ? '已复制!' : language === 'sr' ? 'Kopirano!' : 'Copied!'}
+                            {language === 'en' ? 'Copied!' : '已复制!'}
                           </span>
                         </>
                       ) : (
@@ -277,11 +267,9 @@ export default function TinyRecursiveModelProject() {
                     
                     {/* Tooltip */}
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
-                      {language === 'zh' 
-                        ? '非常适合粘贴到AI聊天机器人进行自学！🤖' 
-                        : language === 'sr'
-                        ? 'Savršeno za lepljenje u AI chatbotove za samostalno učenje! 🤖'
-                        : 'Perfect for pasting into AI chatbots for self-studying! 🤖'
+                      {language === 'en' 
+                        ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
+                        : '非常适合粘贴到AI聊天机器人进行自学！🤖'
                       }
                       {/* Tooltip arrow */}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
@@ -346,11 +334,9 @@ export default function TinyRecursiveModelProject() {
                       
                       {/* Tooltip */}
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
-                        {language === 'zh' 
-                          ? '非常适合粘贴到AI聊天机器人进行自学！🤖' 
-                          : language === 'sr'
-                          ? 'Savršeno za lepljenje u AI chatbotove za samostalno učenje! 🤖'
-                          : 'Perfect for pasting into AI chatbots for self-studying! 🤖'
+                        {language === 'en' 
+                          ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
+                          : '非常适合粘贴到AI聊天机器人进行自学！🤖'
                         }
                         {/* Tooltip arrow */}
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
@@ -387,7 +373,7 @@ export default function TinyRecursiveModelProject() {
                 <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              {language === 'zh' ? '返回首页' : language === 'sr' ? 'Nazad na Početnu' : 'Back to Home'}
+              {language === 'en' ? 'Back to Home' : '返回首页'}
             </Link>
               
               <div className="flex items-center gap-2 text-sm text-slate-500">

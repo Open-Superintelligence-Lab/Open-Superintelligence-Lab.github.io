@@ -8,12 +8,6 @@ export function Footer() {
   const { language } = useLanguage();
   const t = translations[language];
 
-  const getFooterText = (en: string, zh: string, sr: string) => {
-    if (language === 'zh') return zh;
-    if (language === 'sr') return sr;
-    return en;
-  };
-
   return (
     <footer className="bg-slate-900/50 border-t border-slate-700/50 backdrop-blur-sm">
       <div className="container mx-auto px-6 py-8">
@@ -52,13 +46,13 @@ export function Footer() {
               href="/research" 
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
-              {getFooterText('Research', '研究', 'Istraživanje')}
+              {language === 'en' ? 'Research' : '研究'}
             </Link>
             <Link 
               href="/learn" 
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
-              {getFooterText('Learn', '学习', 'Uči')}
+              Learn
             </Link>
           </div>
         </div>
@@ -66,7 +60,7 @@ export function Footer() {
         {/* Bottom section */}
         <div className="mt-6 pt-6 border-t border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <div>
-            © 2025 Open Superintelligence Lab. {getFooterText('All rights reserved.', '保留所有权利。', 'Sva prava zadržana.')}
+            © 2025 Open Superintelligence Lab. {language === 'en' ? 'All rights reserved.' : '保留所有权利。'}
           </div>
           <div className="flex gap-4">
             <a 
@@ -79,7 +73,7 @@ export function Footer() {
             </a>
             <span className="text-slate-600">•</span>
             <span>
-              {getFooterText('Advancing AI research and development', '推进AI研究和开发', 'Unapređivanje AI istraživanja i razvoja')}
+              {language === 'en' ? 'Advancing AI research and development' : '推进AI研究和开发'}
             </span>
           </div>
         </div>
