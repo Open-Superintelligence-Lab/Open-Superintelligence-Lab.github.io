@@ -34,6 +34,9 @@ For years, the go-to choice has been the **VAE from Stable Diffusion (SD-VAE)**.
 
 This bottleneck means that even if you improve the main diffusion model, its final output quality is capped by what the VAE can represent and reconstruct.
 
+![SD-VAE vs RAE Comparison](/content/diffusion-transformer-representation-autoencoder/images/architecture-comparison.png)
+*Figure 2: Comparison of SD-VAE and RAE (DINOv2-B) architectures. The SD-VAE uses U-Net-like convolutional components with aggressive downsampling to a 4-dimensional latent space, requiring 135 GFlops for encoding and 310 GFlops for decoding. The RAE uses ViT blocks without compression to a 768-dimensional latent space, requiring only 22 GFlops for encoding and 106 GFlops for decoding - making it approximately 6x more efficient for encoding and 3x more efficient for decoding.*
+
 ---
 
 ### Step 2: The Proposed Solution: The "New Way" with RAEs

@@ -106,9 +106,19 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           img: ({ src, alt }) => {
             if (!src) return null;
             
-            // Check if this is the architecture diagram that should be smaller
+            // Check if this is the architecture comparison diagram that should be larger
+            const isArchitectureComparison = alt?.includes('SD-VAE vs RAE') || (typeof src === 'string' && src.includes('architecture-comparison'));
+            // Check if this is other architecture diagrams that should be smaller
             const isArchitectureDiagram = alt?.includes('Architecture') || (typeof src === 'string' && src.includes('architecture'));
-            const imageClassName = isArchitectureDiagram ? "w-1/2 h-auto mx-auto" : "w-full h-auto";
+            
+            let imageClassName;
+            if (isArchitectureComparison) {
+              imageClassName = "w-full h-auto"; // Full width for comparison diagrams
+            } else if (isArchitectureDiagram) {
+              imageClassName = "w-1/2 h-auto mx-auto"; // Half width for other architecture diagrams
+            } else {
+              imageClassName = "w-full h-auto"; // Default full width
+            }
             
             // Handle external images
             if (typeof src === 'string' && src.startsWith('http')) {
