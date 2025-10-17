@@ -57,7 +57,7 @@ QeRL is built on three main pillars to be both efficient and effective.
 
 #### a) High-Performance Quantization (NVFP4 + Marlin Kernel)
 
-Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with hardware support on both NVIDIA Hopper (H100) and Blackwell (B200) GPUs. All experiments in the paper were conducted on H100 GPUs.
+Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with hardware support on Blackwell (B200) GPUs. All experiments in the paper were conducted on H100 GPUs.
 
 *   **Speed:** Combined with optimized kernels like **Marlin**, NVFP4 allows for matrix multiplication to be performed directly on the 4-bit weights without slow de-quantization steps. The hardware support enables these operations to run efficiently, which is what makes the rollout phase **faster** than standard 16-bit training.
 *   **Memory:** It still provides the massive memory savings of 4-bit quantization, reducing the model's memory footprint by about 75%.

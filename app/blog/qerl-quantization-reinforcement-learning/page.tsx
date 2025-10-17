@@ -31,11 +31,11 @@ export default function QeRLProject() {
           const frontmatterContent = frontmatterMatch[1];
           const markdownBody = frontmatterMatch[2];
           
-          // Parse YAML-like frontmatter (simple parsing for our use case)
+          // Parse YAML-like frontmatter
           const heroData: HeroData = {
-            title: "QeRL: Beyond Efficiency",
-            subtitle: "Quantization-enhanced Reinforcement Learning for LLMs",
-            tags: ["⏱️ Technical Deep Dive", "📄 Research Article"]
+            title: "",
+            subtitle: "",
+            tags: []
           };
           
           // Extract values from frontmatter
@@ -47,16 +47,24 @@ export default function QeRLProject() {
             const trimmedLine = line.trim();
             if (trimmedLine.startsWith('hero:')) continue;
             
-            if (trimmedLine.includes(':')) {
-              const [key, ...valueParts] = trimmedLine.split(':');
-              const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+            if (trimmedLine.includes(':') && !trimmedLine.startsWith('-')) {
+              // Save previous array if exists
+              if (currentKey === 'tags' && currentArray.length > 0) {
+                heroData.tags = currentArray;
+              }
               
-              switch (key.trim()) {
+              const colonIndex = trimmedLine.indexOf(':');
+              const key = trimmedLine.substring(0, colonIndex).trim();
+              const value = trimmedLine.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+              
+              switch (key) {
                 case 'title':
                   heroData.title = value;
+                  currentKey = '';
                   break;
                 case 'subtitle':
                   heroData.subtitle = value;
+                  currentKey = '';
                   break;
                 case 'tags':
                   currentKey = 'tags';
@@ -65,20 +73,14 @@ export default function QeRLProject() {
               }
             } else if (trimmedLine.startsWith('- ')) {
               if (currentKey === 'tags') {
-                const tagValue = trimmedLine.substring(2).replace(/^["']|["']$/g, '');
+                const tagValue = trimmedLine.substring(2).trim().replace(/^["']|["']$/g, '');
                 currentArray.push(tagValue);
-              }
-            } else if (trimmedLine === '' && currentArray.length > 0) {
-              if (currentKey === 'tags') {
-                heroData.tags = currentArray;
-                currentArray = [];
-                currentKey = '';
               }
             }
           }
           
           // Handle final array
-          if (currentArray.length > 0 && currentKey === 'tags') {
+          if (currentKey === 'tags' && currentArray.length > 0) {
             heroData.tags = currentArray;
           }
           
@@ -154,11 +156,11 @@ export default function QeRLProject() {
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  {heroData?.title || 'QeRL: Beyond Efficiency'}
+                  {heroData?.title || 'Train 32B LLM Reasoning On 1 GPU - H100 80GB - QeRL'}
                 </span>
               </h1>
               <div className="text-lg md:text-xl text-slate-400 mb-8">
-                {heroData?.subtitle || 'Quantization-enhanced Reinforcement Learning for LLMs'}
+                {heroData?.subtitle || 'LLM Reinforcement Learning With 4Bit Quantization'}
               </div>
               
               {/* Tags */}
@@ -220,7 +222,7 @@ export default function QeRLProject() {
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm pointer-events-none">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
-                  {heroData?.title || 'QeRL: Beyond Efficiency'}
+                  {heroData?.title || 'Train 32B LLM Reasoning On 1 GPU - H100 80GB - QeRL'}
                 </span>
               </div>
             </div>
