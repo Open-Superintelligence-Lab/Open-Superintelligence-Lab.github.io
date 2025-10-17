@@ -188,7 +188,7 @@ export default function DiffusionTransformerRAEProject() {
               {/* Links to Paper and GitHub */}
               <div className="relative z-10 flex flex-wrap items-center justify-center gap-4 mb-8">
                 <a 
-                  href="https://arxiv.org/abs/2412.17814"
+                  href="https://arxiv.org/pdf/2510.11690"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 hover:from-blue-600/30 hover:to-purple-600/30 border border-blue-500/30 hover:border-blue-400/50 text-blue-300 hover:text-blue-200 font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-blue-500/25"
@@ -202,7 +202,7 @@ export default function DiffusionTransformerRAEProject() {
                   </svg>
                 </a>
                 <a 
-                  href="https://github.com/mit-han-lab/efficientvit"
+                  href="https://github.com/vukrosic/RAE-learn"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/30 hover:to-pink-600/30 border border-purple-500/30 hover:border-purple-400/50 text-purple-300 hover:text-purple-200 font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
