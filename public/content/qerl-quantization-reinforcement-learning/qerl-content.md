@@ -113,44 +113,8 @@ The paper demonstrates QeRL's superiority through extensive experiments on mathe
 ![7B Model Results](/content/qerl-quantization-reinforcement-learning/images/7b-results.png)
 *Figure 9: Performance comparison on Qwen2.5-7B across multiple mathematical reasoning benchmarks (GSM8K, MATH 500, AIME 24, AMC 23). QeRL consistently outperforms other parameter-efficient methods.*
 
-![32B Model Results](/content/qerl-quantization-reinforcement-learning/images/32b-results.png)
-*Figure 10: Results on Qwen2.5-32B showing that QeRL's advantages scale to larger models, maintaining superior performance while enabling single-GPU training.*
 
-### 6. Ablation Studies: What Makes QeRL Work?
-
-The paper includes comprehensive ablation studies to validate each design choice:
-
-#### Effect of LoRA Rank
-
-![Rank Ablation](/content/qerl-quantization-reinforcement-learning/images/rank-ablation.png)
-*Figure 11: Performance vs LoRA rank (r16, r32, r64, r128) showing that higher ranks improve accuracy but reduce speed. QeRL benefits more from higher ranks than standard LoRA.*
-
-![Rank Speed Tradeoff](/content/qerl-quantization-reinforcement-learning/images/rank-speed.png)
-*Figure 12: Throughput analysis across different LoRA ranks. While higher ranks slow down both methods, QeRL maintains its speed advantage over BF16 at all rank levels.*
-
-#### Effect of Noise Schedule
-
-![Scheduler Ablation](/content/qerl-quantization-reinforcement-learning/images/scheduler-ablation.png)
-*Figure 13: Comparison of different AQN schedules. Exponential decay (0.95) performs best, balancing exploration and exploitation optimally.*
-
-#### Learning Rate Stability
-
-One remarkable finding: QeRL is more stable at higher learning rates, enabling faster convergence.
-
-![LoRA Learning Rate](/content/qerl-quantization-reinforcement-learning/images/lr-lora-comparison.png)
-*Figure 14: 16-bit LoRA becomes unstable at higher learning rates (3e-5), often experiencing training collapse or divergence.*
-
-![QeRL Learning Rate](/content/qerl-quantization-reinforcement-learning/images/lr-qerl-comparison.png)
-*Figure 15: QeRL remains stable at higher learning rates thanks to implicit regularization from quantization noise, achieving nearly 2× faster reward growth without instability.*
-
-This stability comes from the quantization noise acting as implicit regularization, allowing:
-- Higher learning rates (up to 2× faster convergence)
-- More stable training (fewer divergences)
-- Better final performance
-
----
-
-### 7. Conclusion & Significance
+### 6. Conclusion & Significance
 
 **QeRL is a significant advancement for training LLMs with Reinforcement Learning.**
 
@@ -172,4 +136,4 @@ This stability comes from the quantization noise acting as implicit regularizati
 **Resources:**
 - 📄 [Read the Paper](https://arxiv.org/pdf/2510.11696)
 - 💻 [GitHub Repository](https://github.com/NVlabs/QeRL)
-- 🏢 Research by NVIDIA, MIT, HKU, and THU
+- 🏢 Research by NVIDIA, MIT, The University of Hong Kong (HKU), and Tsinghua University (THU)
