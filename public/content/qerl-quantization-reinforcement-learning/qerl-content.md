@@ -44,7 +44,7 @@ The authors of QeRL discovered something surprising. The small errors, or "noise
 This turns the conventional wisdom on its head. In SFT, quantization noise is usually seen as a negative side effect to be minimized. In RL, QeRL shows it can be harnessed as a **computationally free exploration mechanism**.
 
 ![Entropy and Exploration](/content/qerl-quantization-reinforcement-learning/images/entropy-exploration.png)
-*Figure 3: Quantization noise increases policy entropy early in training, leading to better exploration and faster reward growth. The higher initial entropy helps the model discover superior reasoning strategies.*
+*Figure 3: Quantization noise increases policy entropy early in training, leading to better exploration and faster reward growth. The higher initial entropy helps the model discover superior reasoning strategies. LoRA (Low-Rank Adaptation) works by decomposing weight updates into two smaller matrices with rank r (e.g., r=16, r=32, r=64). The rank controls the expressiveness of the adapter: higher ranks can capture more complex updates but require more memory and computation. In the experiments, "r32" means the LoRA rank is set to 32.*
 
 ![Reward Growth Comparison](/content/qerl-quantization-reinforcement-learning/images/reward-growth.png)
 *Figure 4: Training curves showing QeRL achieves faster reward growth than 16-bit LoRA and QLoRA across multiple model sizes, demonstrating the benefit of quantization-enhanced exploration.*
@@ -57,7 +57,7 @@ QeRL is built on three main pillars to be both efficient and effective.
 
 #### a) High-Performance Quantization (NVFP4 + Marlin Kernel)
 
-Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with direct hardware support on recent NVIDIA GPUs (like the H100).
+Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with direct hardware support on recent NVIDIA GPUs (like the B200).
 
 *   **Speed:** Combined with optimized kernels like **Marlin**, NVFP4 allows for matrix multiplication to be performed directly on the 4-bit weights without slow de-quantization steps. This is what makes the rollout phase **faster** than standard 16-bit training.
 *   **Memory:** It still provides the massive memory savings of 4-bit quantization, reducing the model's memory footprint by about 75%.
@@ -119,7 +119,7 @@ The paper includes comprehensive ablation studies to validate each design choice
 #### Effect of LoRA Rank
 
 ![Rank Ablation](/content/qerl-quantization-reinforcement-learning/images/rank-ablation.png)
-*Figure 11: Performance vs LoRA rank showing that higher ranks improve accuracy but reduce speed. QeRL benefits more from higher ranks than standard LoRA.*
+*Figure 11: Performance vs LoRA rank (r16, r32, r64, r128) showing that higher ranks improve accuracy but reduce speed. QeRL benefits more from higher ranks than standard LoRA.*
 
 ![Rank Speed Tradeoff](/content/qerl-quantization-reinforcement-learning/images/rank-speed.png)
 *Figure 12: Throughput analysis across different LoRA ranks. While higher ranks slow down both methods, QeRL maintains its speed advantage over BF16 at all rank levels.*
