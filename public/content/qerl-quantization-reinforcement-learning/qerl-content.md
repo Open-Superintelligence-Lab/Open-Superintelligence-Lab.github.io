@@ -82,7 +82,9 @@ To solve this, QeRL introduces **Adaptive Quantization Noise (AQN)**:
 
 #### c) Zero-Overhead Noise Merging
 
-Adding noise vectors for every layer would consume extra memory and slow things down. QeRL uses a clever trick to avoid this. It **merges the noise vector into the scaling parameters of the Layer Normalization (RMSNorm) layers** that are already part of the LLM architecture. This achieves the same effect as adding noise directly to the weights but requires **zero extra parameters and minimal computational overhead**.
+Adding noise vectors for every layer would consume extra memory and slow things down. QeRL uses a clever trick to avoid this. It **merges the noise vector into the scaling parameters of the RMSNorm (Root Mean Square Normalization) layers** that are already part of the LLM architecture. 
+
+**How it works:** RMSNorm has a learnable scaling parameter `w`. Instead of adding noise to weights directly, QeRL simply adds the noise to this parameter: `w_noise = w + Z_noise`. Since the normalized activations are multiplied by this scaling factor before being fed to the quantized weights, adding noise to `w` has the same exploration effect as adding noise to the weights themselves. This achieves the same effect but requires **zero extra parameters and minimal computational overhead**.
 
 ![Noise Merge Diagram](/content/qerl-quantization-reinforcement-learning/images/noise-merge-diagram.png)
 *Figure 6: Implementation detail showing how quantization noise is merged into layer normalization for zero-parameter overhead. This clever optimization maintains the benefits without additional memory cost.*
