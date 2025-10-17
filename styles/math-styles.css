@@ -71,3 +71,58 @@
   border-color: rgba(139, 92, 246, 0.5);
   transition: all 0.2s ease;
 }
+
+/* Custom syntax highlighting for code blocks */
+.hljs {
+  background: #1e293b !important; /* slate-800 */
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+.hljs-keyword {
+  color: #c084fc !important; /* purple-300 */
+}
+
+.hljs-string {
+  color: #34d399 !important; /* emerald-400 */
+}
+
+.hljs-comment {
+  color: #64748b !important; /* slate-500 */
+  font-style: italic;
+}
+
+.hljs-number {
+  color: #fbbf24 !important; /* amber-400 */
+}
+
+.hljs-function {
+  color: #60a5fa !important; /* blue-400 */
+}
+
+.hljs-variable {
+  color: #f472b6 !important; /* pink-400 */
+}
+
+.hljs-type {
+  color: #fb7185 !important; /* rose-400 */
+}
+
+.hljs-built_in {
+  color: #a78bfa !important; /* violet-400 */
+}
+
+.hljs-title {
+  color: #60a5fa !important; /* blue-400 */
+}
+
+.hljs-params {
+  color: #e2e8f0 !important; /* slate-200 */
+}
+
+.hljs-attr {
+  color: #34d399 !important; /* emerald-400 */
+}
+
+.hljs-value {
+  color: #fbbf24 !important; /* amber-400 */
+}

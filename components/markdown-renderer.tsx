@@ -6,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
 import Image from 'next/image';
-import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/atom-one-dark.css';
 import 'katex/dist/katex.min.css';
 import '../styles/math-styles.css';
 
@@ -92,8 +92,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           pre: ({ children }) => (
-            <pre className="bg-slate-900 border border-gray-700 rounded-lg p-6 overflow-x-auto mb-10 text-sm">
-              {children}
+            <pre className="bg-slate-900 border border-gray-700 rounded-lg p-6 overflow-x-auto mb-10 text-sm font-mono leading-relaxed text-gray-200">
+              <code className="text-gray-200">
+                {children}
+              </code>
             </pre>
           ),
           // Custom blockquote styles
