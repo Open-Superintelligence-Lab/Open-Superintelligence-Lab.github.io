@@ -1,7 +1,7 @@
 ---
 hero:
-  title: "QeRL: Beyond Efficiency"
-  subtitle: "Quantization-enhanced Reinforcement Learning for LLMs"
+  title: "Train 32B LLM Reasoning On 1 GPU - H100 80GB - QeRL"
+  subtitle: "LLM Reinforcement Learning With 4Bit Quantization"
   tags:
     - "⏱️ Technical Deep Dive"
     - "📄 Research Article"
@@ -100,10 +100,10 @@ The paper demonstrates QeRL's superiority through extensive experiments on mathe
     *   It drastically reduces memory usage, enabling the **training of a 32B parameter model on a single 80GB H100 GPU**, a feat impossible with standard LoRA.
 
 ![Memory Comparison](/content/qerl-quantization-reinforcement-learning/images/memory-comparison.png)
-*Figure 7: Memory consumption comparison across model sizes. QeRL reduces memory usage by approximately 3× (e.g., 62GB → 20GB for 32B models), enabling large-scale RL training on single GPUs.*
+*Figure 7: Training curves comparing QeRL (NVFP4-LoRA) with full-parameter training and 16-bit LoRA. QeRL achieves the same final reward as full-parameter training, which 16-bit LoRA fails to reach. While QeRL requires more training steps than full training to converge, each QeRL step is significantly faster, making it more efficient overall in wall-clock time.*
 
 ![Speed Comparison](/content/qerl-quantization-reinforcement-learning/images/speed-comparison.png)
-*Figure 8: Throughput comparison showing QeRL's increasing speed advantage with model size. The 32B model achieves up to 2× speedup in rollout phase.*
+*Figure 8: Adding  AQN (Adaptive Quantization Noise) helps model learn faster.*
 
 *   **Performance and Accuracy:**
     *   **Faster Reward Growth:** QeRL models achieve higher rewards much faster than 16-bit LoRA and QLoRA, thanks to the enhanced exploration.
