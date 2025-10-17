@@ -293,6 +293,37 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            {/* QeRL Project */}
+            <Link 
+              href="/blog/qerl-quantization-reinforcement-learning"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">{getText('Latest', '最新')}</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
+                  {getText('QeRL: Beyond Efficiency', 'QeRL：超越效率')}
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  {getText(
+                    'Quantization-enhanced Reinforcement Learning for LLMs achieves 1.5x speedup and enables RL training of 32B models on a single H100 80GB GPU',
+                    '量化增强强化学习在单个H100 80GB GPU上实现1.5倍加速并支持32B模型的强化学习训练'
+                  )}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">{getText('MIT-Han Lab', 'MIT韩松实验室')}</span>
+                  <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
+                    {getText('Learn More', '了解更多')} →
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
