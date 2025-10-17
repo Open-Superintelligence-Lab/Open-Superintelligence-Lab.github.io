@@ -324,6 +324,37 @@ export default function Home() {
                 </div>
               </div>
             </Link>
+
+            {/* Art of Scaling RL Project */}
+            <Link 
+              href="/blog/art-of-scaling-rl"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-violet-500/50 hover:shadow-2xl hover:shadow-violet-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-violet-500/20 text-violet-400 text-xs px-2 py-1 rounded-md">{getText('New', '新')}</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-violet-400 transition-colors">
+                  {getText('The Art of Scaling RL', '扩展强化学习的艺术')}
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  {getText(
+                    'First systematic study of RL scaling for LLMs with predictive performance curves - 400,000 GPU-hours establishing ScaleRL best practices',
+                    '首个LLM强化学习扩展的系统性研究，提供预测性能曲线 - 400,000 GPU小时确立ScaleRL最佳实践'
+                  )}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">{getText('Scaling Laws', '扩展定律')}</span>
+                  <span className="text-violet-400 text-sm group-hover:text-violet-300 transition-colors">
+                    {getText('Learn More', '了解更多')} →
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </main>
