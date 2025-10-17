@@ -57,9 +57,9 @@ QeRL is built on three main pillars to be both efficient and effective.
 
 #### a) High-Performance Quantization (NVFP4 + Marlin Kernel)
 
-Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with direct hardware support on recent NVIDIA GPUs (like the B200).
+Instead of the slow NF4 format from QLoRA, QeRL uses **NVFP4**, a modern 4-bit floating-point format with hardware support on both NVIDIA Hopper (H100) and Blackwell (B200) GPUs. All experiments in the paper were conducted on H100 GPUs.
 
-*   **Speed:** Combined with optimized kernels like **Marlin**, NVFP4 allows for matrix multiplication to be performed directly on the 4-bit weights without slow de-quantization steps. This is what makes the rollout phase **faster** than standard 16-bit training.
+*   **Speed:** Combined with optimized kernels like **Marlin**, NVFP4 allows for matrix multiplication to be performed directly on the 4-bit weights without slow de-quantization steps. The hardware support enables these operations to run efficiently, which is what makes the rollout phase **faster** than standard 16-bit training.
 *   **Memory:** It still provides the massive memory savings of 4-bit quantization, reducing the model's memory footprint by about 75%.
 
 This combination solves the efficiency problem: you get both memory savings *and* a speedup.
@@ -70,10 +70,12 @@ The inherent noise from quantization is **static**—it doesn't change during tr
 
 To solve this, QeRL introduces **Adaptive Quantization Noise (AQN)**:
 
-1.  **Dynamic Noise Injection:** QeRL periodically injects a small amount of additional, random noise into the model's parameters during training.
-2.  **Noise Scheduler:** This extra noise is not constant. It follows a decay schedule (e.g., exponential decay). It starts high to encourage broad exploration and gradually decreases, allowing the model to converge on the best policies it has discovered.
+1.  **Dynamic Noise Injection:** QeRL periodically injects a small amount of additional, random noise into the model's parameters during training. This is added **on top of** the inherent quantization noise that is always present.
+2.  **Noise Scheduler:** This extra noise is not constant. It follows a decay schedule (e.g., exponential decay). It starts high to encourage broad exploration and gradually decreases over training steps, approaching zero by the end.
 
-This transforms the static quantization noise into a controllable, dynamic exploration tool perfectly suited for RL.
+**Important:** At the end of training, the additional injected noise becomes negligible, but the **base quantization noise remains** (since the model is still quantized). This means QeRL always has more noise than standard 16-bit training, but less than the high-noise exploration phase at the start. This transforms the static quantization noise into a controllable, dynamic exploration tool perfectly suited for RL.
+
+**Doesn't the noise hurt final performance?** Surprisingly, no! The paper shows that QeRL achieves **better** final accuracy than 16-bit LoRA (90.8% vs 88.1% on GSM8K) and even matches full-parameter fine-tuning (91.2%). The reason: the exploration benefits during training help the model discover superior reasoning strategies. Once these better strategies are learned through RL updates, they persist even with the remaining quantization noise. The small amount of noise at the end doesn't prevent the model from being confident in the good solutions it discovered—it just prevents overconfidence in suboptimal ones during training.
 
 ![Noise Schedule](/content/qerl-quantization-reinforcement-learning/images/noise-schedule.png)
 *Figure 5: The Adaptive Quantization Noise (AQN) scheduler uses exponential decay to gradually reduce exploration noise during training, balancing exploration early on with exploitation later.*
