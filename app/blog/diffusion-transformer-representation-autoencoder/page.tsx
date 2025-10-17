@@ -280,6 +280,18 @@ export default function DiffusionTransformerRAEProject() {
 
               {/* Article Body */}
               <div className="px-8 sm:px-12 pb-20">
+                <div className="mb-8">
+                  <div className="relative" style={{ paddingTop: '56.25%' }}>
+                    <iframe
+                      className="absolute top-0 left-0 w-full h-full rounded-lg shadow-2xl"
+                      src="https://www.youtube.com/embed/P4NnRDlYKHM"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
                 <div className="prose prose-lg prose-invert max-w-none">
                   <MarkdownRenderer content={markdownContent} />
                 </div>
