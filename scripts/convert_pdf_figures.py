@@ -282,3 +282,4 @@ For batch conversion, import the script as a module and use convert_figures().
 if __name__ == "__main__":
     main()
 
+
