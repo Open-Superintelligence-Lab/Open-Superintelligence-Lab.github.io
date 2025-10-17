@@ -364,96 +364,27 @@ We fine-tuned two decoder versions on 500 CIFAR-10 images for 15 epochs to test 
 
 ### Step 4: A More Efficient Architecture: DiT DH
 
-Making the entire DiT backbone wide enough to handle RAEs is computationally expensive. To solve this, the authors propose an architectural improvement called **DiT DH** (Diffusion Transformer with a DDT Head).
+Instead of making the entire DiT wider, make just the last few layers wider. It also takes the initial noised latent together with the output from the previous layer.
 
-The idea is to attach a **shallow but very wide** transformer module, the **DDT head**, to a standard-sized DiT. This design lets the main, deep part of the network handle the core processing, while the specialized wide head efficiently handles the high-dimensional denoising task. It provides the necessary width without the quadratic increase in computational cost.
+We've established that a DiT needs to be *wide* to handle the rich, high-dimensional tokens from an RAE. But making the entire transformer network wide is incredibly expensive due to the quadratic cost of attention mechanisms. This creates a dilemma: how can we get the necessary width without a massive computational budget?
 
-The `DiTwDDTHead` module implements this by defining separate hidden sizes and depths for the main body and the head.
+To solve this, the authors propose a clever architectural improvement called **DiT DH** (Diffusion Transformer with a DDT Head).
 
-```python:src/stage2/models/DDT.py
-class DiTwDDTHead(nn.Module):
-    def __init__(
-            self,
-            # ...
-            # [Standard Body Width, Wide Head Width]
-            hidden_size=[1152, 2048], 
-            # [Deeper Body Depth, Shallow Head Depth]
-            depth=[28, 2],
-            # ...
-    ):
-        super().__init__()
-        self.encoder_hidden_size = hidden_size[0] # Main DiT body (1152-dim)
-        self.decoder_hidden_size = hidden_size[1] # Wide DDT head (2048-dim)
-        self.num_encoder_blocks = depth[0] # Deeper body (28 layers)
-        self.num_decoder_blocks = depth[1] # Shallow head (2 layers)
+The core idea is to split the DiT into two specialized parts, creating a "best of both worlds" design:
 
-        self.blocks = nn.ModuleList([
-            # Use different block widths depending on the layer index
-            LightningDDTBlock(
-                self.encoder_hidden_size if i < self.num_encoder_blocks 
-                else self.decoder_hidden_size,
-                #...
-            ) for i in range(self.num_blocks)
-        ])
-```
+1.  **The Body (Deep & Narrow):** The first part of the network is a standard, deep DiT with a *narrow* hidden dimension (e.g., 768). This is the workhorse of the model. Its many layers are responsible for the complex, core processing: understanding the image's semantics, learning relationships between features, and performing the bulk of the denoising steps. Because it's narrow, it does this work very efficiently.
+
+2.  **The Head (Shallow & Wide):** At the very end of the network, they attach a **DDT Head**—a small number of transformer layers (e.g., 2) that are exceptionally *wide* (e.g., 2048). This head has one job: take the highly processed features from the deep body and perform the crucial final steps of the **reverse diffusion (denoising) process**. It's an active transformer module, not just a simple projection layer, that handles the final prediction in the high-dimensional RAE latent space. It provides the critical width needed to avoid the information bottleneck we discussed in Step 3, but only for the last few steps where it's absolutely necessary.
+3.  Different Inputs: This is the most critical distinction. A standard Transformer block in the DiT backbone takes the output of the immediately preceding block as its main input. The DDT head, however, takes two distinct inputs:
+The original noisy latent xt.
+The processed representation zt from the entire main DiT backbone (M).
+
+This design gives the model the width it needs to handle RAE's high-dimensional space without making the entire network wide. It's like having a specialized, high-bandwidth output port attached to an efficient processing core.
 
 ---
-
-#### 🔬 Experimental Validation: DiT DH Efficiency
-
-**The Question:** Does DiT DH actually save computation while maintaining quality?
-
-We benchmarked two architectures on the same latent diffusion task (50 training steps):
-
-**Model A - Standard DiT:**
-- Width: 1152 throughout all 28 layers
-- Parameters: 677M
-
-**Model B - DiT DH:**
-- Body: width=768, depth=28 (deep & narrow)
-- Head: width=1152, depth=2 (shallow & wide)
-- Parameters: 353M
-
-**Results:**
-
-| Metric | Standard DiT | DiT DH | Improvement |
-|--------|-------------|--------|-------------|
-| **Parameters** | 677M | 353M | **-47.8%** ✅ |
-| **Training Speed** | 7.04 steps/sec | 9.19 steps/sec | **+30.4%** ✅ |
-| **Memory Usage** | 15.1 GB | 8.8 GB | **-41.8%** ✅ |
-| **Final Loss** | 1.1579 | 1.1496 | -0.008 (comparable) ✅ |
-
-**Key Findings:**
-
-1. **Massive efficiency gains:** DiT DH uses **48% fewer parameters** and **42% less memory**
-2. **Faster training:** **30% speedup** due to the narrower body processing most layers efficiently
-3. **No quality loss:** Final loss is essentially identical (actually 0.008 better!)
-4. **The design works:** A narrow deep body handles semantic processing, while a wide shallow head handles high-dimensional output
-
-> 💡 **Key Takeaway:** DiT DH achieves the "best of both worlds" - it provides the width needed for high-dimensional RAE latents (in the head) without the computational cost of making the entire model wide. This architectural innovation makes RAE-based diffusion practical at scale.
-
----
-
-### Step 5: Key Results and Contributions
-
-By combining RAEs with these carefully designed solutions, the authors achieve state-of-the-art results in image generation.
-
-**1. Faster and More Efficient Training**
-
-Training a DiT on an RAE latent space is significantly more efficient. The model learns much faster because the latent space is already rich with meaning. The authors achieve better results in just **80 epochs** than previous models did in over 1400 epochs. This represents a massive reduction in the computational cost required to train world-class generative models.
-
-**2. State-of-the-Art Image Quality**
-
-The final model, **DiT DH-XL trained on a DINOv2-based RAE**, sets a new record for image generation quality on the standard ImageNet benchmark.
-
-*   It achieves a **Fréchet Inception Distance (FID) of 1.51** without guidance.
-*   With classifier-free guidance, it reaches an **FID of 1.13** at both 256x256 and 512x512 resolutions. (Lower FID is better).
-
-These results significantly outperform previous leading models, demonstrating the power of the RAE-based approach.
-
-**3. A New Foundation for Generative Models**
 
 The paper makes a strong case that the VAE bottleneck is real and that RAEs are the solution. By effectively bridging the gap between state-of-the-art representation learning and generative modeling, RAEs offer clear advantages and should be considered the **new default foundation** for training future diffusion models.
 
 ---
 
+Thank you for reading tihs tutorial and see you in the next one.
