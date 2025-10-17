@@ -202,7 +202,7 @@ export default function DiffusionTransformerRAEProject() {
                   </svg>
                 </a>
                 <a 
-                  href="https://github.com/vukrosic/RAE-learn"
+                  href="https://github.com/bytetriper/RAE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/30 hover:to-pink-600/30 border border-purple-500/30 hover:border-purple-400/50 text-purple-300 hover:text-purple-200 font-medium rounded-xl transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
