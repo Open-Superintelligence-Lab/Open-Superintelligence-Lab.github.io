@@ -157,6 +157,9 @@ To verify this theory, we replicated the paper's single-image overfitting experi
 | 768       | 0.197     | ✅ (768 = 768) | Good, recognizable | **Success** |
 | 896       | 0.135     | ✅ (896 > 768) | **"Almost perfect"** | **Success** |
 
+![Overfitting to a single sample](/content/diffusion-transformer-representation-autoencoder/images/overfitting-to-single-image-dimension-vs-loss.png)
+*Figure 3: Overfitting to a single sample. Left: increasing model width leads to lower loss and better sample quality; Right: changing model depth has marginal effect on overfitting results.*
+
 **Visual Evidence:**
 
 ![Cat Reconstructions with 1200 training steps](/content/diffusion-transformer-representation-autoencoder/images/cat_reconstructions_1200steps.png)
