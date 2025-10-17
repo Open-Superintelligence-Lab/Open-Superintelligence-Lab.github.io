@@ -6,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
 import Image from 'next/image';
-import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/atom-one-dark.css';
 import 'katex/dist/katex.min.css';
 import '../styles/math-styles.css';
 
@@ -92,8 +92,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           pre: ({ children }) => (
-            <pre className="bg-slate-900 border border-gray-700 rounded-lg p-6 overflow-x-auto mb-10 text-sm">
-              {children}
+            <pre className="bg-slate-900 border border-gray-700 rounded-lg p-6 overflow-x-auto mb-10 text-sm font-mono leading-relaxed text-gray-200">
+              <code className="text-gray-200">
+                {children}
+              </code>
             </pre>
           ),
           // Custom blockquote styles
@@ -106,9 +108,19 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           img: ({ src, alt }) => {
             if (!src) return null;
             
-            // Check if this is the architecture diagram that should be smaller
+            // Check if this is the architecture comparison diagram that should be larger
+            const isArchitectureComparison = alt?.includes('SD-VAE vs RAE') || (typeof src === 'string' && src.includes('architecture-comparison'));
+            // Check if this is other architecture diagrams that should be smaller
             const isArchitectureDiagram = alt?.includes('Architecture') || (typeof src === 'string' && src.includes('architecture'));
-            const imageClassName = isArchitectureDiagram ? "w-1/2 h-auto mx-auto" : "w-full h-auto";
+            
+            let imageClassName;
+            if (isArchitectureComparison) {
+              imageClassName = "w-full h-auto"; // Full width for comparison diagrams
+            } else if (isArchitectureDiagram) {
+              imageClassName = "w-1/2 h-auto mx-auto"; // Half width for other architecture diagrams
+            } else {
+              imageClassName = "w-full h-auto"; // Default full width
+            }
             
             // Handle external images
             if (typeof src === 'string' && src.startsWith('http')) {

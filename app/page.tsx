@@ -2,15 +2,13 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/components/providers/language-provider";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const { language } = useLanguage();
-  const [isLocalhost, setIsLocalhost] = useState(false);
 
-  useEffect(() => {
-    setIsLocalhost(window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  }, []);
+  const getText = (en: string, zh: string) => {
+    return language === 'zh' ? zh : en;
+  };
 
   return (
     <>
@@ -70,44 +68,34 @@ export default function Home() {
               <div className="flex flex-col items-center">
                 <div className="relative text-center">
                   <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium mb-8 leading-tight">
-                    {language === 'en' ? (
-                      <>
-                        <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Open</span>
-                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">Superintelligence</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">开放</span>
-                        <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">超级智能</span>
-                      </>
-                    )}
+                    <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+                      {getText('Open', '开放')}
+                    </span>
+                    <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                      {getText('Superintelligence', '超级智能')}
+                    </span>
                   </h1>
                   
                   {/* Glow effect for the entire title */}
                   <div className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-tight blur-sm">
-                    {language === 'en' ? (
-                      <>
-                        <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">Open</span>
-                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">Superintelligence</span>
-                      </>
-                    ) : (
-                      <>
-                        <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">开放</span>
-                        <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">超级智能</span>
-                      </>
-                    )}
+                    <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
+                      {getText('Open', '开放')}
+                    </span>
+                    <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
+                      {getText('Superintelligence', '超级智能')}
+                    </span>
                   </div>
                 </div>
                 
                 {/* Subtitle */}
                 <div className="relative mt-1 pb-6">
                   <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-relaxed">
-                    The Most Difficult Project In Human History
+                    {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目')}
                   </h2>
                   {/* Glow effect for subtitle */}
                   <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-relaxed">
                     <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                      The Most Difficult Project In Human History
+                      {getText('The Most Difficult Project In Human History', '人类历史上最困难的项目')}
                     </span>
                   </div>
                 </div>
@@ -137,15 +125,15 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mt-4 mb-8">
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                {language === 'en' ? 'Open Source' : '开源'}
+                {getText('Open Source', '开源')}
               </span>
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-300"></div>
-                {language === 'en' ? 'LLM Research' : '大模型研究'}
+                {getText('LLM Research', '大模型研究')}
               </span>
               <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-700"></div>
-                {language === 'en' ? 'Innovation' : '创新'}
+                {getText('Innovation', '创新')}
               </span>
             </div>
             
@@ -156,7 +144,7 @@ export default function Home() {
                 className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
               >
                 <span className="flex items-center gap-2">
-                  Explore & Participate
+                  {getText('Explore & Participate', '探索并参与')}
                   <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
@@ -167,7 +155,7 @@ export default function Home() {
                 className="group px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
               >
                 <span className="flex items-center gap-2">
-                  Learn More
+                  {getText('Learn More', '了解更多')}
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -182,44 +170,16 @@ export default function Home() {
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Road to AI Researcher Project */}
-            {/* <Link 
-              href="/learn"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
-            >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Learning Path</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">New</span>
-              </div>
-              
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                  Zero To AI Researcher - Full Course
-                </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  A comprehensive journey into becoming an AI researcher, covering everything from foundational concepts to cutting-edge research methodologies
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                    Start Learning →
-                  </span>
-                </div>
-              </div>
-            </Link> */}
-
             {/* DeepSeek Sparse Attention Project */}
             <Link 
               href="/blog/deepseek-sparse-attention"
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">Featured</span>
+                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选')}</span>
               </div>
               
               <div className="mt-8">
@@ -227,12 +187,15 @@ export default function Home() {
                   DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
+                  {getText(
+                    'Advanced research on DeepSeek\'s innovative sparse attention mechanisms for efficient long-context processing and memory optimization',
+                    'DeepSeek创新稀疏注意力机制的高级研究，用于高效长上下文处理和内存优化'
+                  )}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">DeepSeek Research</span>
                   <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
-                    Learn More →
+                    {getText('Learn More', '了解更多')} →
                   </span>
                 </div>
               </div>
@@ -244,23 +207,26 @@ export default function Home() {
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
+                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">{getText('Latest', '最新')}</span>
               </div>
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                  Tiny Recursive Model
+                  {getText('Tiny Recursive Model', '微型递归模型')}
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer
+                  {getText(
+                    'How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer',
+                    '7M参数模型如何使用2层transformer的递归推理在数独、迷宫和ARC-AGI上击败100倍大的模型'
+                  )}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">AI Research</span>
+                  <span className="text-xs text-gray-500">{getText('AI Research', 'AI研究')}</span>
                   <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                    Learn More →
+                    {getText('Learn More', '了解更多')} →
                   </span>
                 </div>
               </div>
@@ -272,380 +238,64 @@ export default function Home() {
               className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">Featured</span>
+                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">{getText('Featured', '精选')}</span>
               </div>
               
               <div className="mt-8">
                 <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
-                  Pretrain LLM with NVFP4
+                  {getText('Pretrain LLM with NVFP4', '用NVFP4预训练LLM')}
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
+                  {getText(
+                    'NVIDIA\'s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality',
+                    'NVIDIA突破性4位训练方法实现2-3倍加速和50%内存减少，同时不牺牲模型质量'
+                  )}
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-500">NVIDIA Research</span>
                   <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
-                    Explore →
+                    {getText('Explore', '探索')} →
                   </span>
                 </div>
               </div>
             </Link>
 
-            {/* The Most Difficult Project in Human History */}
-            {/* <Link 
-              href="/blog/the-most-difficult-project-in-human-history"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+            {/* Diffusion Transformer RAE Project */}
+            <Link 
+              href="/blog/diffusion-transformer-representation-autoencoder"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300"
             >
               <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Mission</span>
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Research', '研究')}</span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">New</span>
+                <span className="bg-cyan-500/20 text-cyan-400 text-xs px-2 py-1 rounded-md">{getText('New', '新')}</span>
               </div>
               
               <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
-                  The Most Difficult Project in Human History
+                <h4 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
+                  {getText('47x Faster Image Generation Training', '图像生成训练加速47倍')}
                 </h4>
                 <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  Learn to implement all latest AI tech (Mamba, Gated DeltaNet, RWKV) and become an expert at fast experimentation and research
+                  {getText(
+                    'Diffusion Transformers with Representation Autoencoders achieve state-of-the-art FID 1.13 on ImageNet while training 47x faster (80 vs 1400 epochs)',
+                    '扩散变换器与表示自编码器在ImageNet上实现最先进的FID 1.13，同时训练速度提升47倍（80轮对比1400轮）'
+                  )}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Open Superintelligence Lab</span>
-                  <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
-                    Start Journey →
+                  <span className="text-xs text-gray-500">{getText('MIT-Han Lab', 'MIT韩松实验室')}</span>
+                  <span className="text-cyan-400 text-sm group-hover:text-cyan-300 transition-colors">
+                    {getText('Learn More', '了解更多')} →
                   </span>
                 </div>
               </div>
-            </Link> */}
-
-            {/* MobileLLM-R1 Project - HIDDEN */}
-            {/* <Link 
-              href="/blog/mobilellm-r1"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
-            >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
-              </div>
-              
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
-                  MobileLLM-R1 - Sub-Billion Reasoning
-                </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  Meta&apos;s breakthrough in small-scale reasoning: 950M parameter model achieving AIME 15.5 with only 2T high-quality tokens
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Meta AI Research</span>
-                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                    Learn More →
-                  </span>
-                </div>
-              </div>
-            </Link> */}
+            </Link>
           </div>
         </div>
       </main>
-
-      {/* Ideas Section - Only visible on localhost */}
-      {isLocalhost && (
-        <section className="bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800 py-12">
-          <div className="container mx-auto px-6">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-8 text-slate-300">
-                {language === 'en' ? 'Research Ideas & Concepts' : '研究想法与概念'}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* GLM4-MoE Project */}
-                <a 
-                  href="https://github.com/THUDM/GLM-4"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
-                >
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <span className="bg-purple-500/20 text-purple-300 text-xs px-2 py-1 rounded">MoE</span>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold mb-2 group-hover:text-purple-300 transition-colors">
-                      GLM4-MoE
-                    </h4>
-                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                      Advanced Mixture of Experts implementation with GLM4 architecture
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">THUDM Research</span>
-                      <span className="text-purple-300 text-xs group-hover:text-purple-200 transition-colors">
-                        Explore →
-                      </span>
-                    </div>
-                  </div>
-                </a>
-
-                {/* DeepSeek Attention + GLM4-MoE Project */}
-                <a 
-                  href="https://github.com/Open-Superintelligence-Lab/deepseek-attention-glm4-moe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all duration-300"
-                >
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <span className="bg-cyan-500/20 text-cyan-300 text-xs px-2 py-1 rounded">Hybrid</span>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold mb-2 group-hover:text-cyan-300 transition-colors">
-                      DeepSeek Attention + GLM4-MoE
-                    </h4>
-                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                      Combination of DeepSeek&apos;s sparse attention with GLM4&apos;s MoE
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">Open Superintelligence Lab</span>
-                      <span className="text-cyan-300 text-xs group-hover:text-cyan-200 transition-colors">
-                        Learn More →
-                      </span>
-                    </div>
-                  </div>
-                </a>
-
-                {/* SLA Sparse-Linear Attention Project */}
-                <Link 
-                  href="/blog/sla-sparse-linear-attention"
-                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-orange-500/50 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-300"
-                >
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <span className="bg-orange-500/20 text-orange-300 text-xs px-2 py-1 rounded">New</span>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold mb-2 group-hover:text-orange-300 transition-colors">
-                      SLA: Sparse-Linear Attention
-                    </h4>
-                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                      20x speedup with minimal quality loss in diffusion transformers
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">Tsinghua University</span>
-                      <span className="text-orange-300 text-xs group-hover:text-orange-200 transition-colors">
-                        Learn More →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* SDLM Sequential Diffusion Language Model Project */}
-                <Link 
-                  href="/blog/sdlm-sequential-diffusion-language-model"
-                  className="group relative bg-gradient-to-br from-slate-700/50 to-slate-600/50 backdrop-blur-sm border border-slate-500/50 rounded-lg p-4 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300"
-                >
-                  <div className="absolute top-2 left-2">
-                    <span className="bg-slate-500/50 text-slate-200 text-xs px-2 py-1 rounded">Research</span>
-                  </div>
-                  <div className="absolute top-2 right-2">
-                    <span className="bg-purple-500/20 text-purple-300 text-xs px-2 py-1 rounded">Latest</span>
-                  </div>
-                  
-                  <div className="mt-6">
-                    <h4 className="text-lg font-semibold mb-2 group-hover:text-purple-300 transition-colors">
-                      SDLM: Sequential Diffusion Language Model
-                    </h4>
-                    <p className="text-gray-300 text-xs mb-3 leading-relaxed">
-                      Adaptive generation length with 2x speedup and KV-cache compatibility
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-400">OpenGVLab</span>
-                      <span className="text-purple-300 text-xs group-hover:text-purple-200 transition-colors">
-                        Learn More →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Localhost Todos Section - Only visible on localhost */}
-      {isLocalhost && (
-        <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
-          <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-8 text-slate-300">
-                {language === 'en' ? 'Development Todos' : '开发待办事项'}
-              </h2>
-              
-              {/* Dream-Coder 7B Todo */}
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-4 h-4 border-2 border-blue-400 rounded-full bg-blue-400/20"></div>
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="text-lg font-semibold text-blue-400 mb-2">
-                      Dream-Coder 7B Exploration
-                    </h3>
-                    <p className="text-slate-300 text-sm mb-4">
-                      Explore Dream-Coder 7B - diffusion LLM for code generation with 21.4% pass@1 on LiveCodeBench
-                    </p>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Review GitHub repository: https://github.com/DreamLM/Dream-Coder</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Understand diffusion LLM architecture for code</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Test code generation capabilities</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Experiment with flexible generation patterns</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Install dependencies: transformers==4.46.2 and torch==2.5.1</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-slate-600/50">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <div className="w-2 h-2 bg-blue-400/30 rounded-full"></div>
-                        <span>Features: Emergent any-order generation, variable-length infilling, open-source trained</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* NVFP4 Research Todo */}
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-4 h-4 border-2 border-green-400 rounded-full bg-green-400/20"></div>
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="text-lg font-semibold text-green-400 mb-2">
-                      NVFP4 LLM Pretraining Research
-                    </h3>
-                    <p className="text-slate-300 text-sm mb-4">
-                      Research NVIDIA&apos;s NVFP4 (4-bit floating point) training methodology - 2-3x performance boost with 50% memory reduction
-                    </p>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Study paper: https://arxiv.org/pdf/2509.25149</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>https://github.com/NVIDIA/TransformerEngine/pull/2177/files - Code</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Learn Random Hadamard Transforms (RHT) for outlier bounding</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Study two-dimensional quantization scheme</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Research stochastic rounding for unbiased gradients</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Set up experimental environment for FP4 training</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Study TransformerEngine NVFP4 implementation (PR #2177)</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Test NVFP4 support with fusible operations</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-slate-600/50">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <div className="w-2 h-2 bg-green-400/30 rounded-full"></div>
-                        <span>Results: 12B model on 10T tokens, MMLU-pro 62.58% (vs 62.62% FP8) - first successful 4-bit billion-parameter training</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* MobileLLM-R1 Research Todo */}
-              <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 mb-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1">
-                    <div className="w-4 h-4 border-2 border-purple-400 rounded-full bg-purple-400/20"></div>
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="text-lg font-semibold text-purple-400 mb-2">
-                      MobileLLM-R1 Sub-Billion Reasoning Research
-                    </h3>
-                    <p className="text-slate-300 text-sm mb-4">
-                      Research Meta&apos;s MobileLLM-R1 - sub-billion parameter reasoning models with strong capabilities using only ~2T high-quality tokens
-                    </p>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Study paper: https://arxiv.org/pdf/2509.24945</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Understand data curation and resampling techniques (~2T tokens)</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Learn benchmark-free, self-evolving data optimization</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Study data-model co-evolution strategy for mid-training</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Analyze training recipe: 4.2T tokens from resampled ~2T tokens</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-slate-400">
-                        <div className="w-2 h-2 border border-slate-500 rounded-full"></div>
-                        <span>Test MobileLLM-R1-950M model capabilities</span>
-                      </div>
-                    </div>
-                    <div className="mt-4 pt-4 border-t border-slate-600/50">
-                      <div className="flex items-center gap-2 text-xs text-slate-500">
-                        <div className="w-2 h-2 bg-purple-400/30 rounded-full"></div>
-                        <span>Results: AIME 15.5 vs OLMo-2-1.48B (0.6), matches Qwen3-0.6B with only 11.7% of tokens (4.2T vs 36T)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
     </>
   );
 }
