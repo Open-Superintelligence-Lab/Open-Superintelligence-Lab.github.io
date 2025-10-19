@@ -153,7 +153,7 @@ export default function RoadmapToOpenSuperintelligence() {
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
                   {heroData?.title || 'Path To Open Superintelligence'}
                 </span>
               </h1>
@@ -192,7 +192,7 @@ export default function RoadmapToOpenSuperintelligence() {
               
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
-                <span className="bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-teal-400/20 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-300/20 via-orange-400/20 to-rose-400/20 bg-clip-text text-transparent">
                   {heroData?.title || 'Path To Open Superintelligence'}
                 </span>
               </div>
