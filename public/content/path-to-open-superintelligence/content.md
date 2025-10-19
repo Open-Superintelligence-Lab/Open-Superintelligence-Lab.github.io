@@ -1,7 +1,7 @@
 ---
 hero:
-  title: "Roadmap To Open Superintelligence"
-  subtitle: "A Strategic Path Forward for Building ASI Through Open Collaboration"
+  title: "The Most Difficult Project In Human History"
+  subtitle: "Path To Open Superintelligence"
   tags:
     - "🚀 Roadmap"
     - "🎯 Vision"

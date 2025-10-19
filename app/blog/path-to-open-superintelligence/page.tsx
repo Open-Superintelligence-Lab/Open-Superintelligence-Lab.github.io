@@ -22,7 +22,7 @@ export default function RoadmapToOpenSuperintelligence() {
     const fetchMarkdownContent = async () => {
       try {
         const filename = language === 'zh' ? 'content-zh.md' : 'content.md';
-        const response = await fetch(`/content/roadmap-to-open-superintelligence/${filename}`);
+        const response = await fetch(`/content/path-to-open-superintelligence/${filename}`);
         const content = await response.text();
         
         // Parse frontmatter
@@ -33,9 +33,9 @@ export default function RoadmapToOpenSuperintelligence() {
           
           // Parse YAML-like frontmatter (simple parsing for our use case)
           const heroData: HeroData = {
-            title: "Roadmap To Open Superintelligence",
+            title: "Path To Open Superintelligence",
             subtitle: "A Strategic Path Forward for Building AGI Through Open Collaboration",
-            tags: ["🚀 Roadmap", "🎯 Vision", "🔬 Research"]
+            tags: ["🚀 Path", "🎯 Vision", "🔬 Research"]
           };
           
           // Extract values from frontmatter
@@ -103,7 +103,7 @@ export default function RoadmapToOpenSuperintelligence() {
     try {
       // Get the raw markdown content without frontmatter
       const filename = language === 'zh' ? 'content-zh.md' : 'content.md';
-      const response = await fetch(`/content/roadmap-to-open-superintelligence/${filename}`);
+      const response = await fetch(`/content/path-to-open-superintelligence/${filename}`);
       const content = await response.text();
       
       // Remove frontmatter if present
@@ -154,7 +154,7 @@ export default function RoadmapToOpenSuperintelligence() {
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 bg-clip-text text-transparent">
-                  {heroData?.title || 'Roadmap To Open Superintelligence'}
+                  {heroData?.title || 'Path To Open Superintelligence'}
                 </span>
               </h1>
               <div className="text-lg md:text-xl text-slate-400 mb-8">
@@ -193,7 +193,7 @@ export default function RoadmapToOpenSuperintelligence() {
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-blue-400/20 via-cyan-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                  {heroData?.title || 'Roadmap To Open Superintelligence'}
+                  {heroData?.title || 'Path To Open Superintelligence'}
                 </span>
               </div>
             </div>
@@ -304,7 +304,7 @@ export default function RoadmapToOpenSuperintelligence() {
                       </div>
                     </div>
                     
-                    <a href="https://twitter.com/intent/tweet?text=Roadmap%20To%20Open%20Superintelligence%20%F0%9F%9A%80&url=https://opensuperintelligencelab.com/blog/roadmap-to-open-superintelligence/" 
+                    <a href="https://twitter.com/intent/tweet?text=Path%20To%20Open%20Superintelligence%20%F0%9F%9A%80&url=https://opensuperintelligencelab.com/blog/path-to-open-superintelligence/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
@@ -312,7 +312,7 @@ export default function RoadmapToOpenSuperintelligence() {
                         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                       </svg>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/roadmap-to-open-superintelligence/" 
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/path-to-open-superintelligence/" 
                        target="_blank" 
                        rel="noopener noreferrer"
                        className="text-slate-400 hover:text-blue-400 transition-colors">
