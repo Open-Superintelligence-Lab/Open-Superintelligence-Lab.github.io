@@ -73,7 +73,7 @@ export function Footer() {
             </a>
             <span className="text-slate-600">•</span>
             <span>
-              {language === 'en' ? 'Advancing AI research and development' : '推进AI研究和开发'}
+              Budapest
             </span>
           </div>
         </div>
