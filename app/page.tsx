@@ -170,6 +170,37 @@ export default function Home() {
       <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Path to Open Superintelligence */}
+            <Link 
+              href="/blog/path-to-open-superintelligence"
+              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-yellow-500/50 hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-300"
+            >
+              <div className="absolute top-4 left-4">
+                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">{getText('Vision', '愿景')}</span>
+              </div>
+              <div className="absolute top-4 right-4">
+                <span className="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-1 rounded-md">{getText('Strategic', '战略')}</span>
+              </div>
+              
+              <div className="mt-8">
+                <h4 className="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
+                  {getText('Path To Open Superintelligence', '开放超级智能之路')}
+                </h4>
+                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                  {getText(
+                    'A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward',
+                    '通过开放协作构建AGI的战略路线图，应对关键挑战并定义我们的前进道路'
+                  )}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-500">{getText('Strategic Vision', '战略愿景')}</span>
+                  <span className="text-yellow-400 text-sm group-hover:text-yellow-300 transition-colors">
+                    {getText('Read More', '阅读更多')} →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
             {/* DeepSeek Sparse Attention Project */}
             <Link 
               href="/blog/deepseek-sparse-attention"
