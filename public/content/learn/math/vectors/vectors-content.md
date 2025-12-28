@@ -106,7 +106,7 @@ Multiplying a vector by a regular number (a **scalar**) changes its magnitude bu
 
 If `k` is a scalar and `v = [x, y]`, then:
 ```
-k  v = [kx, k*y]
+k * v = [k * x, k * y]
 ```
 
 
@@ -142,14 +142,14 @@ The **dot product** is a way of multiplying two vectors that results in a single
 If `u = [x₁, y₁]` and `v = [x₂, y₂]`, the dot product `u · v` is:
 
 ```
-u · v = (x₁  x₂) + (y₁  y₂)
+u · v = (x₁ * x₂) + (y₁ * y₂)
 ```
 
 ### Geometric Meaning & Finding Angles
 The dot product also has a powerful geometric definition:
 
 ```
-u · v = ||u||  ||v||  cos(θ)
+u · v = ||u|| * ||v|| * cos(θ)
 ```
 
 where `θ` (theta) is the angle between the two vectors. We can rearrange this formula to find the angle between any two vectors!

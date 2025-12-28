@@ -166,7 +166,7 @@ def softmax(x):
 logits = torch.tensor([2.0, 1.0, 0.5])
 output = softmax(logits)
 print(output)
-# tensor([0.6364, 0.2341, 0.1295])
+# tensor([0.6285, 0.2312, 0.1402])
 print(output.sum())
 # tensor(1.0000) ← Sums to 1!
 ```
@@ -230,17 +230,17 @@ logits = torch.tensor([2.0, 1.0, 0.5])
 # Normal softmax (temperature = 1)
 probs_normal = torch.softmax(logits, dim=0)
 print(probs_normal)
-# tensor([0.6364, 0.2341, 0.1295])
+# tensor([0.6285, 0.2312, 0.1402])
 
 # Low temperature (sharper, more confident)
 probs_sharp = torch.softmax(logits / 0.5, dim=0)
 print(probs_sharp)
-# tensor([0.8360, 0.1131, 0.0508])
+# tensor([0.8360, 0.1131, 0.0509])
 
 # High temperature (softer, less confident)
 probs_soft = torch.softmax(logits / 2.0, dim=0)
 print(probs_soft)
-# tensor([0.4750, 0.3107, 0.2143])
+# tensor([0.4705, 0.3060, 0.2235])
 ```
 
 **Effect of temperature:**
@@ -316,8 +316,8 @@ logits = torch.tensor([[2.0, 1.0, 0.5],
 # Softmax across classes (dim=1)
 probs = torch.softmax(logits, dim=1)
 print(probs)
-# tensor([[0.6364, 0.2341, 0.1295],
-#         [0.1899, 0.6841, 0.1260]])
+# tensor([[0.6285, 0.2312, 0.1402],
+#         [0.1583, 0.5806, 0.2611]])
 
 print(probs.sum(dim=1))  # tensor([1., 1.])
 # Each row sums to 1!

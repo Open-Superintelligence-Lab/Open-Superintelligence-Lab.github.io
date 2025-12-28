@@ -61,7 +61,7 @@ The derivative takes the average rate of change (slope) between two points, then
 
 Here we have linearly growing function.
 
-Derivative is always 3 for any `x` value, which means that in the original function, growth of `y` at any point is 3x (if you increase `x` by 1, `y` will increase by 3, check it).
+Derivative is always 3 for any `x` value, which means that in the original function, the rate of growth of `y` is 3 (if you increase `x` by 1, `y` will increase by 3, check it).
 
 ![Linear Function Derivative](/content/learn/math/derivatives/linear-function-derivative.png)
 
@@ -71,7 +71,7 @@ Derivative shows this accelerating growth, you can notice that derivative is inc
 
 ![Quadratic Function Derivative](/content/learn/math/derivatives/quadratic-function-derivative.png)
 
-In previous example derivative was always 3, which meant that function is always consistantly growing by 3 times `x`.
+In previous example derivative was always 3, which meant that function is always consistantly growing by 3.
 
 Here, on the other hand, the growth is growing. 
 

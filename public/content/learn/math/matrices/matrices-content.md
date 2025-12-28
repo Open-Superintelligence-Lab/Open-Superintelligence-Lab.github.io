@@ -59,7 +59,7 @@ Multiply each element by the scalar. For `(2A)`:
 
 ### 3.3 Matrix multiplication
 
-You do a dot product of a row of th first matrix with the column of the second matrix and write result at the position where that row and column intercept.
+You do a dot product of a row of the first matrix with the column of the second matrix and write the result at the position where that row and column intersect.
 
 If `(A)` is `(m x p)` and `(B)` is `(p x n)`, then `(AB)` is `(m x n)`. Multiply rows of `(A)` by columns of `(B)` and sum.
 

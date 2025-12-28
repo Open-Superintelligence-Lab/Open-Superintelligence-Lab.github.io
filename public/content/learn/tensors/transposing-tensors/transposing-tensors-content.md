@@ -15,47 +15,51 @@ Transposing is like **flipping** a tensor - rows become columns, and columns bec
 
 Think of it like rotating a table 90 degrees. The first row becomes the first column, the second row becomes the second column, and so on.
 
-## Vector Transpose
-
-When you transpose a vector, you change it from horizontal to vertical (or vice versa):
-
-![Vector Transpose](/content/learn/tensors/transposing-tensors/vector-transpose.png)
+When you transpose a 1D tensor (a vector), it actually stays exactly the same in PyTorch! This is a common point of confusion.
 
 **Example:**
 
 ```python
 import torch
 
-# Horizontal vector (row)
+# 1D vector
 v = torch.tensor([1, 2, 3, 4])
 print(v.shape)  # torch.Size([4])
 
-# Transpose to vertical (column)
+# Transpose
 v_t = v.T
-print(v_t)
-# tensor([[1],
-#         [2],
-#         [3],
-#         [4]])
-print(v_t.shape)  # torch.Size([4, 1])
+print(v_t.shape)  # torch.Size([4]) - Still the same!
+print(torch.equal(v, v_t))  # True
+```
+
+To actually turn a 1D vector into a column vector (2D), you need to reshape it:
+
+```python
+# Change to column vector (4 rows, 1 column)
+v_col = v.reshape(4, 1) 
+print(v_col.shape)  # torch.Size([4, 1])
+
+# Now transposing works as expected
+v_row = v_col.T
+print(v_row.shape)  # torch.Size([1, 4])
 ```
 
 **Manual visualization:**
 
 ```yaml
-Before: [1, 2, 3, 4]  →  Shape: (4,)
+1D Vector: [1, 2, 3, 4]  →  Shape: (4,)
 
-After:  [[1],
-         [2],
-         [3],
-         [4]]          →  Shape: (4, 1)
+Column Vector (2D): [[1],
+                     [2],
+                     [3],
+                     [4]]  →  Shape: (4, 1)
+
+Row Vector (2D):    [[1, 2, 3, 4]] → Shape: (1, 4)
 ```
 
 ## Matrix Transpose
 
-This is where transpose really shines! Rows become columns, columns become rows:
-
-![Matrix Transpose](/content/learn/tensors/transposing-tensors/matrix-transpose.png)
+This is where transpose really shines! Rows become columns, and columns become rows:
 
 **Example:**
 
@@ -96,8 +100,6 @@ Transpose (3×2):
 
 Here's exactly what happens to each element during transpose:
 
-![Transpose Detailed](/content/learn/tensors/transposing-tensors/transpose-detailed.png)
-
 **The pattern:** Position `[i, j]` → Position `[j, i]`
 
 **Example tracking specific elements:**
@@ -118,8 +120,6 @@ Original position → Transposed position
 ## Square Matrix Transpose
 
 Square matrices (same number of rows and columns) have a special property:
-
-![Square Transpose](/content/learn/tensors/transposing-tensors/square-transpose.png)
 
 **Example:**
 
@@ -184,36 +184,22 @@ transposed_shape = (4, 4)  # Still square!
 
 The most common reason: **making shapes compatible for matrix multiplication!**
 
-![Why Transpose](/content/learn/tensors/transposing-tensors/why-transpose.png)
-
 **Example:**
 
 ```python
 import torch
 
 A = torch.randn(2, 3)  # Shape: (2, 3)
-B = torch.randn(2, 4)  # Shape: (2, 4)
+B = torch.randn(4, 3)  # Shape: (4, 3)
 
-# This WON'T work - shapes incompatible
-# result = A @ B  # Error! 3 ≠ 2
+# This WON'T work - shapes (2,3) and (4,3) are incompatible
+# result = A @ B  # Error! 3 != 4
 
 # Transpose B to make it work!
-B_T = B.T  # Shape: (4, 2)
+B_T = B.T  # Shape: (3, 4)
 
-# Now this works!
-result = A @ B_T  # (2, 3) @ (4, 2)? Wait, still wrong!
-
-# Actually, we need different dimensions
-# Let's try a real example:
-A = torch.randn(2, 3)
-B = torch.randn(4, 3)  # Same inner dimension as A's columns
-
-# Without transpose - doesn't work
-# result = A @ B  # Error! (2,3) @ (4,3) - 3 ≠ 4
-
-# With transpose - works!
-result = A @ B.T  # (2,3) @ (3,4) = (2,4) ✓
-
+# Now it works!
+result = A @ B_T  # (2, 3) @ (3, 4) -> (2, 4)
 print(result.shape)  # torch.Size([2, 4])
 ```
 

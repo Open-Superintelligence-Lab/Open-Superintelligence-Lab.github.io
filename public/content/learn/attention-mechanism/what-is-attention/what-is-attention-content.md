@@ -239,7 +239,7 @@ Higher score = more relevant!
 ```python
 weights = F.softmax(scores, dim=0)
 print("Weights:", weights)
-# tensor([0.5308, 0.0874, 0.3818])
+# tensor([0.5118, 0.0693, 0.4190])
 ```
 
 Softmax normalizes scores into probabilities:
@@ -256,14 +256,14 @@ for i, weight in enumerate(weights):
     output += weight * values[i]
 
 print("Output:", output)
-# tensor([28.1820, 38.1820])
+# tensor([28.1447, 38.1447])
 ```
 
 **Manual calculation:**
 ```
-output = 0.5308×[10, 20] + 0.0874×[30, 40] + 0.3818×[50, 60]
-       = [5.31, 10.62] + [2.62, 3.50] + [19.09, 22.91]
-       = [27.02, 37.03]
+output = 0.5118×[10, 20] + 0.0693×[30, 40] + 0.4190×[50, 60]
+       = [5.118, 10.236] + [2.079, 2.772] + [20.950, 25.140]
+       = [28.147, 38.148]
 ```
 
 The output is **mostly from position 0** (weight 53%) because it matched the query best!

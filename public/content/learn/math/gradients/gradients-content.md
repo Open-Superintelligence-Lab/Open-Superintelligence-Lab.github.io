@@ -15,9 +15,9 @@ Welcome! This guide will walk you through the concept of gradients. We'll start 
 
 ## Step 1: From Line Slope (Derivative) To Surface Slope (Gradient)
 
-Let's start with what you know. For a simple function like `f(x) = x²`, the derivative `f'(x) = 2x` gives you the slope of the curve at any point `x`. So for `x=3`, derivative is `2*3=6`. That means as you increase `x` but a tiny bit, `f(x) = x²` will increase by 6.
+Let's start with what you know. For a simple function like `f(x) = x²`, the derivative `f'(x) = 2x` gives you the slope of the curve at any point `x`. So for `x=3`, derivative is `2 * 3 = 6`. That means as you increase `x` by a tiny bit, `f(x) = x²` will increase by 6.
 
-At `x=4`, derivative is `2*4=8`, so at that point `f(x) = x²` is increasing by 8x.
+At `x=4`, derivative is `2 * 4 = 8`, so at that point `f(x) = x²` is increasing by 8.
 
 
 
@@ -25,7 +25,7 @@ At `x=4`, derivative is `2*4=8`, so at that point `f(x) = x²` is increasing by 
 
 Notice that I say "if you increase x by a bit, `f(x) = x²` will increase by 6" and I don't say "if you increase x by 1", because increasing x by 1 (from 3 to 4 in this case) is a lot and by that point derivative (rate of change) will go from 6 to 8.
 
-On this image you can see that the red slope at `x=3` is smaller than thes green slope at `x=4`.
+On this image you can see that the red slope at `x=3` is smaller than the green slope at `x=4`.
 
 ![Derivatives with Tangent Lines](/content/learn/math/gradients/derivatives-tangent-lines.png)
 
@@ -45,7 +45,7 @@ There isn't just one. There's a slope if you take a step in the x-direction, a d
 
 To handle this, we use **partial derivatives**.
 
-- **Partial Derivative with respect to x (∂f/∂x):** This is the slope if you only move in the x-direction. You treat y as a constant. For `f(x, y) = x² + y²`, the partial derivative `∂f/∂x = 2x` - remember the rule for a constant that stands alone, constants become 0 in the derivative, and since we treat y as a constant, `+ y²` will ecome `+ 0`.
+- **Partial Derivative with respect to x (∂f/∂x):** This is the slope if you only move in the x-direction. You treat y as a constant. For `f(x, y) = x² + y²`, the partial derivative `∂f/∂x = 2x` - remember the rule for a constant that stands alone, constants become 0 in the derivative, and since we treat y as a constant, `+ y²` will become `+ 0`.
 
 - **Partial Derivative with respect to y (∂f/∂y):** This is the slope if you only move in the y-direction. You treat x as a constant. For `f(x, y) = x² + y²`, the partial derivative `∂f/∂y = 2y`.
 
@@ -96,7 +96,7 @@ Let's go back to our bowl function, `f(x, y) = x² + y²`, and its gradient, `�
 Let's calculate the gradient at a specific point, say `(3, 1)`.
 
 ```
-∇f(3, 1) = [ 2  3, 2  1 ] = [6, 2]
+∇f(3, 1) = [ 2 * 3, 2 * 1 ] = [6, 2]
 ```
 
 This vector `[6, 2]` is an arrow that points "6 units in the x-direction and 2 units in the y-direction." This is an arrow pointing up and to the right, away from the minimum at `(0, 0)`. This makes perfect sense! From the point `(3, 1)`, the steepest way up the bowl is away from the bottom.
@@ -104,7 +104,7 @@ This vector `[6, 2]` is an arrow that points "6 units in the x-direction and 2 u
 What about the point `(-2, -2)`?
 
 ```
-∇f(-2, -2) = [ 2  -2, 2  -2 ] = [-4, -4]
+∇f(-2, -2) = [ 2 * -2, 2 * -2 ] = [-4, -4]
 ```
 
 This vector points down and to the left, again, away from the bottom of the bowl at `(0, 0)`.
