@@ -72,9 +72,9 @@ Think of values as the "payload" - the actual content we'll extract.
 output = attn_weights @ V
 
 print(output)
-# tensor([[2.2000, 3.2000],
-#         [2.8000, 3.8000],
-#         [2.6000, 3.6000]])
+# tensor([[2.4000, 3.4000],
+#         [3.2000, 4.2000],
+#         [2.8000, 3.8000]])
 ```
 
 **Shape transformation:**
@@ -96,7 +96,7 @@ Position 0 output:
   = [2.4, 3.4]
 ```
 
-**PyTorch output:** [2.2, 3.2] (small difference due to rounding in display)
+**PyTorch output:** [2.4, 3.4] (matches perfectly!)
 
 **What happened:**
 - Position 0 mostly retrieves from V[0] (weight 0.5)

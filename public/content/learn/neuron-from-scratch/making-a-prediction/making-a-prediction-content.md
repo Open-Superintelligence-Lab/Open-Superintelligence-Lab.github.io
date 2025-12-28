@@ -79,7 +79,7 @@ input_data = torch.tensor([[1.0, 2.0]])  # New data point
 prediction = neuron(input_data)
 
 print(prediction)
-# tensor([[0.8176]]) ← Prediction!
+# tensor([[0.8581]]) ← Prediction!
 ```
 
 **Manual calculation:**

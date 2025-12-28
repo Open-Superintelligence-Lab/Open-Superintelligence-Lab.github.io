@@ -202,8 +202,8 @@ print(attn_weights)
 **After softmax (each row sums to 1):**
 ```
          Pos0   Pos1   Pos2
-Query0 [0.576, 0.212, 0.212]  ← Mostly attends to position 0
-Query1 [0.212, 0.576, 0.212]  ← Mostly attends to position 1
+Query0 [0.506, 0.186, 0.308]  ← Mostly attends to position 0
+Query1 [0.186, 0.506, 0.308]  ← Mostly attends to position 1
 Query2 [0.333, 0.333, 0.333]  ← Attends equally to all
 ```
 
@@ -211,7 +211,7 @@ Query2 [0.333, 0.333, 0.333]  ← Attends equally to all
 
 **Position 0:** 
 - Query matched Key0 best (score 2.0 before scaling)
-- After softmax: 57.6% attention to position 0
+- After softmax: 50.6% attention to position 0
 
 **Position 2:**
 - Query matched all keys equally (scores all 1.0)

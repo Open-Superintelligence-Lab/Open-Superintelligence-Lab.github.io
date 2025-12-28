@@ -64,7 +64,7 @@ import torch
 import torch.nn as nn
 
 # Single-head attention: One attention pattern
-single_head = nn.MultiheadAttention(embed_dim=512, num_heads=1)
+single_head = nn.MultiheadAttention(embed_dim=512, num_heads=1, batch_first=True)
 ```
 
 **With 1 head:**
@@ -74,7 +74,7 @@ single_head = nn.MultiheadAttention(embed_dim=512, num_heads=1)
 
 ```python
 # Multi-head attention: 8 parallel attention patterns!
-multi_head = nn.MultiheadAttention(embed_dim=512, num_heads=8)
+multi_head = nn.MultiheadAttention(embed_dim=512, num_heads=8, batch_first=True)
 ```
 
 **With 8 heads:**
@@ -84,13 +84,13 @@ multi_head = nn.MultiheadAttention(embed_dim=512, num_heads=8)
 
 ```python
 # Test both
-x = torch.randn(10, 32, 512)  # (seq_len=10, batch=32, embed_dim=512)
+x = torch.randn(32, 10, 512)  # (batch=32, seq_len=10, embed_dim=512)
 
 single_output, _ = single_head(x, x, x)
 multi_output, _ = multi_head(x, x, x)
 
-print(f"Single head output: {single_output.shape}")  # torch.Size([10, 32, 512])
-print(f"Multi-head output: {multi_output.shape}")    # torch.Size([10, 32, 512])
+print(f"Single head output: {single_output.shape}")  # torch.Size([32, 10, 512])
+print(f"Multi-head output: {multi_output.shape}")    # torch.Size([32, 10, 512])
 ```
 
 **Same output shape!** But multi-head is more expressive.

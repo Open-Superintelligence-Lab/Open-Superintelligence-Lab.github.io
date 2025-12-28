@@ -77,7 +77,7 @@ z = torch.dot(w, x) + b
 # OR: z = (w * x).sum() + b
 
 print(z)
-# tensor(1.1000)
+# tensor(1.4000)
 ```
 
 **Manual calculation:**
@@ -367,12 +367,12 @@ with torch.no_grad():
 # Predict price
 predicted_price = price_neuron(house_features)
 print(predicted_price)
-# tensor([[540000.]]) ← $540,000 prediction
+# tensor([[590000.]]) ← $590,000 prediction
 
 # Manual calculation:
 # 2000×200 + 3×50000 + 10×(-1000) + 50000
 # = 400,000 + 150,000 - 10,000 + 50,000
-# = 590,000 (close to our result!)
+# = 590,000 (perfect match!)
 ```
 
 **What the weights learned:**

@@ -53,7 +53,7 @@ For x = -1:
 
 f(-1) = 2(-1) + 3 = -2 + 3 = 1
 
-Now image a function that takes in "Cat sat on a" and returns "mat" - that function would be a lot more difficult to create, but neural networks (LLMs) can learn it.
+Now imagine a function that takes in "The cat sat on a" and returns "mat" - that function would be a lot more difficult to create, but neural networks (LLMs) can learn it.
 
 ### Example 2: Quadratic Function f(x) = x² + 2x + 1
 
@@ -109,7 +109,7 @@ Previous quadratic function will always give 9 if x=2 and nothing else.
 
 ## Code Examples
 
-Our 2 functions coded in python, if you are unfamiliar with python you can skip the code, next module will focus on python.
+Our 2 functions coded in Python, if you are unfamiliar with Python you can skip the code, next module will focus on Python.
 
 ```python
 # Linear function: f(x) = 2x + 3
@@ -348,7 +348,7 @@ def cosine_function(x):
 
 ![Trigonometric Functions](/content/learn/math/functions/trigonometric-functions.png)
 
-This is used in Rotory Positional Embeddings (RoPE) - LLM is using it to know the order of words (tokens) in the text.
+This is used in Rotary Positional Embeddings (RoPE) - LLM is using it to know the order of words (tokens) in the text.
 
 
 
@@ -356,7 +356,7 @@ This is used in Rotory Positional Embeddings (RoPE) - LLM is using it to know th
 
 
 
-Functions are using in neural networks a lot: forward propagation, backward propagation, attention, activation functions, gradients, and many more.
+Functions are used in neural networks a lot: forward propagation, backward propagation, attention, activation functions, gradients, and many more.
 
 You don't need to learn them yet, just check them out.
 
@@ -364,7 +364,7 @@ You don't need to learn them yet, just check them out.
 
 ![Sigmoid Formula](/content/learn/math/functions/sigmoid-formula.png)
 
-**e** is a famous constant (Euler's number) used in math everywhere, it's value is approximately 2.718
+**e** is a famous constant (Euler's number) used in math everywhere, its value is approximately 2.718
 
 **f(x) = 1 / (1 + e^(-x))**
 
@@ -379,7 +379,7 @@ def sigmoid_derivative(x):
 
 ![Sigmoid Function and Derivative](/content/learn/math/functions/sigmoid-function-derivative.png)
 
-We will learn derivativers in the next lesson, but I included the images here - derivative tells you how fast the function is changing - you see that when sigmoid function is growing fastest (in the middle), the derivative value is spiking.
+We will learn derivatives in the next lesson, but I included the images here - derivative tells you how fast the function is changing - you see that when sigmoid function is growing fastest (in the middle), the derivative value is spiking.
 
 Just look at the slope of the function, if it's big (changing fast), the derivative will be big.
 
