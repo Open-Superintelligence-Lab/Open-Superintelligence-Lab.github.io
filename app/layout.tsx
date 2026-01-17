@@ -4,6 +4,7 @@ import "./globals.css";
 import "highlight.js/styles/github-dark.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { PaletteProvider } from "@/components/palette-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,11 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen text-white flex flex-col">
+        <PaletteProvider />
+        <div className="min-h-screen bg-background text-foreground flex flex-col">
           <Navigation />
           <main className="flex-1">
             {children}

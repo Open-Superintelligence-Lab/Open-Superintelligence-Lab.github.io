@@ -8,13 +8,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-screen flex flex-col pt-20">
         {/* Animated mesh gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end"></div>
 
         {/* Animated gradient mesh overlay */}
         <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-accent-1/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-accent-2/30 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-gradient-accent-3/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
         {/* Grid pattern overlay */}
@@ -40,7 +40,7 @@ export default function Home() {
             </div>
 
             {/* Subtitle with typing effect styling */}
-            <p className="text-lg md:text-xl lg:text-2xl text-slate-300 mb-8 font-medium">
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 font-medium">
               Do AI research with top tier AI researchers
             </p>
 
@@ -75,9 +75,9 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
                 onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25"
+                className="group relative px-8 py-4 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 text-primary-foreground font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gradient-accent-2/25"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-3 via-gradient-accent-1 to-gradient-accent-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="relative flex items-center gap-2">
                   Explore Research
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +88,7 @@ export default function Home() {
 
               <Link
                 href="/about"
-                className="group px-8 py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600/50 text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-800/80 hover:text-white transition-all duration-300"
+                className="group px-8 py-4 bg-card/50 backdrop-blur-sm border-2 border-border/50 text-muted-foreground font-semibold rounded-xl hover:border-gradient-accent-1/50 hover:bg-card/80 hover:text-foreground transition-all duration-300"
               >
                 <span className="flex items-center gap-2">
                   Learn More
@@ -101,7 +101,7 @@ export default function Home() {
 
             {/* Scroll indicator */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-              <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </div>
@@ -110,17 +110,17 @@ export default function Home() {
       </section>
 
       {/* Main Projects Section */}
-      <main id="research-projects" className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-24">
+      <main id="research-projects" className="relative bg-gradient-to-b from-gradient-start via-gradient-mid to-gradient-end py-24">
         {/* Background effects */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
         <div className="relative container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 bg-clip-text text-transparent">
               Research Projects
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Explore our cutting-edge AI research initiatives pushing the boundaries of what&apos;s possible
             </p>
           </div>
@@ -130,7 +130,7 @@ export default function Home() {
             {/* Path to Open Superintelligence - Featured */}
             <Link
               href="/blog/path-to-open-superintelligence"
-              className="group relative lg:col-span-2 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-amber-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative lg:col-span-2 bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-8 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               {/* Animated gradient border glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-rose-500/0 group-hover:from-amber-500/10 group-hover:via-orange-500/10 group-hover:to-rose-500/10 rounded-2xl transition-all duration-500"></div>
@@ -143,7 +143,7 @@ export default function Home() {
                   <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full border border-amber-500/30">
                     Strategic Vision
                   </span>
-                  <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-xs font-medium rounded-full">
+                  <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-full">
                     Featured
                   </span>
                 </div>
@@ -152,12 +152,12 @@ export default function Home() {
                   Path To Open Superintelligence
                 </h3>
 
-                <p className="text-slate-400 text-base mb-6 leading-relaxed">
+                <p className="text-muted-foreground text-base mb-6 leading-relaxed">
                   A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward to create transformative AI systems that benefit all of humanity.
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-slate-500">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -176,7 +176,7 @@ export default function Home() {
             {/* DeepSeek Sparse Attention Project */}
             <Link
               href="/blog/deepseek-sparse-attention"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-1/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -191,12 +191,12 @@ export default function Home() {
                   DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -212,7 +212,7 @@ export default function Home() {
             {/* Tiny Recursive Model Project */}
             <Link
               href="/blog/tiny-recursive-model"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-2/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -248,7 +248,7 @@ export default function Home() {
             {/* Pretrain LLM with NVFP4 Project */}
             <Link
               href="/blog/pretrain-llm-with-nvfp4"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-green-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -284,7 +284,7 @@ export default function Home() {
             {/* Diffusion Transformer RAE Project */}
             <Link
               href="/blog/diffusion-transformer-representation-autoencoder"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-cyan-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-3/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -320,7 +320,7 @@ export default function Home() {
             {/* QeRL Project */}
             <Link
               href="/blog/qerl-quantization-reinforcement-learning"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-orange-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 

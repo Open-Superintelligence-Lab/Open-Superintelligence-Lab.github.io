@@ -6,22 +6,22 @@ body {
   font-family: system-ui, sans-serif;
 }
 
-/* Custom scrollbar for dark theme */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1e293b;
+  background: hsl(var(--scrollbar-track));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: hsl(var(--scrollbar-thumb));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: hsl(var(--scrollbar-thumb-hover));
 }
 
 /* Smooth transitions for all interactive elements */
@@ -78,57 +78,59 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    /* Base theme colors - dark theme as default */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 217 91% 60%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    /* Scrollbar colors */
+    --scrollbar-track: 222 47% 11%;
+    --scrollbar-thumb: 217 32% 28%;
+    --scrollbar-thumb-hover: 215 20% 50%;
+    /* Math styling colors */
+    --math-primary: 213 94% 68%;
+    --math-secondary: 270 91% 65%;
+    --math-accent: 160 84% 39%;
+    --math-text: 45 93% 47%;
+    --math-relation: 330 81% 60%;
+    --math-bracket: 215 16% 47%;
+    /* Syntax highlighting colors */
+    --syntax-bg: 222 47% 11%;
+    --syntax-text: 213 27% 84%;
+    --syntax-keyword: 270 91% 65%;
+    --syntax-string: 160 84% 39%;
+    --syntax-comment: 215 16% 47%;
+    --syntax-number: 45 93% 47%;
+    --syntax-function: 213 94% 68%;
+    --syntax-variable: 330 81% 60%;
+    /* Gradient colors */
+    --gradient-start: 222 47% 11%;
+    --gradient-mid: 222 47% 17%;
+    --gradient-end: 222 47% 11%;
+    --gradient-accent-1: 217 91% 60%;
+    --gradient-accent-2: 270 91% 65%;
+    --gradient-accent-3: 187 85% 53%;
   }
 }
 
@@ -249,14 +251,14 @@ body {
 
 .chatbot-markdown .hljs-comment,
 .chatbot-markdown .hljs-quote {
-  color: #6a737d;
+  color: hsl(var(--syntax-comment));
   font-style: italic;
 }
 
 .chatbot-markdown .hljs-keyword,
 .chatbot-markdown .hljs-selector-tag,
 .chatbot-markdown .hljs-subst {
-  color: #d73a49;
+  color: hsl(var(--syntax-keyword));
   font-weight: bold;
 }
 
@@ -265,59 +267,59 @@ body {
 .chatbot-markdown .hljs-variable,
 .chatbot-markdown .hljs-template-variable,
 .chatbot-markdown .hljs-tag .hljs-attr {
-  color: #005cc5;
+  color: hsl(var(--syntax-function));
 }
 
 .chatbot-markdown .hljs-string,
 .chatbot-markdown .hljs-doctag {
-  color: #032f62;
+  color: hsl(var(--syntax-string));
 }
 
 .chatbot-markdown .hljs-title,
 .chatbot-markdown .hljs-section,
 .chatbot-markdown .hljs-selector-id {
-  color: #6f42c1;
+  color: hsl(var(--syntax-keyword));
   font-weight: bold;
 }
 
 .chatbot-markdown .hljs-type,
 .chatbot-markdown .hljs-class .hljs-title {
-  color: #d73a49;
+  color: hsl(var(--syntax-variable));
   font-weight: bold;
 }
 
 .chatbot-markdown .hljs-tag,
 .chatbot-markdown .hljs-name,
 .chatbot-markdown .hljs-attribute {
-  color: #22863a;
+  color: hsl(var(--syntax-string));
   font-weight: normal;
 }
 
 .chatbot-markdown .hljs-regexp,
 .chatbot-markdown .hljs-link {
-  color: #032f62;
+  color: hsl(var(--syntax-string));
 }
 
 .chatbot-markdown .hljs-symbol,
 .chatbot-markdown .hljs-bullet {
-  color: #e36209;
+  color: hsl(var(--syntax-number));
 }
 
 .chatbot-markdown .hljs-built_in,
 .chatbot-markdown .hljs-builtin-name {
-  color: #005cc5;
+  color: hsl(var(--syntax-function));
 }
 
 .chatbot-markdown .hljs-meta {
-  color: #6a737d;
+  color: hsl(var(--syntax-comment));
 }
 
 .chatbot-markdown .hljs-deletion {
-  background: #ffeef0;
+  background: hsl(var(--destructive) / 0.1);
 }
 
 .chatbot-markdown .hljs-addition {
-  background: #f0fff4;
+  background: hsl(var(--math-accent) / 0.1);
 }
 
 .chatbot-markdown .hljs-emphasis {
