@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import { useLanguage } from "@/components/providers/language-provider";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
 import { useEffect, useState } from "react";
 
@@ -12,7 +11,6 @@ interface HeroData {
 }
 
 export default function QeRLProject() {
-  const { language } = useLanguage();
   const [markdownContent, setMarkdownContent] = useState<string>('');
   const [heroData, setHeroData] = useState<HeroData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,42 +19,41 @@ export default function QeRLProject() {
   useEffect(() => {
     const fetchMarkdownContent = async () => {
       try {
-        const filename = language === 'zh' ? 'qerl-content-zh.md' : 'qerl-content.md';
-        const response = await fetch(`/content/qerl-quantization-reinforcement-learning/${filename}`);
+        const response = await fetch(`/content/qerl-quantization-reinforcement-learning/qerl-content.md`);
         const content = await response.text();
-        
+
         // Parse frontmatter
         const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
         if (frontmatterMatch) {
           const frontmatterContent = frontmatterMatch[1];
           const markdownBody = frontmatterMatch[2];
-          
+
           // Parse YAML-like frontmatter
           const heroData: HeroData = {
             title: "",
             subtitle: "",
             tags: []
           };
-          
+
           // Extract values from frontmatter
           const lines = frontmatterContent.split('\n');
           let currentKey = '';
           let currentArray: string[] = [];
-          
+
           for (const line of lines) {
             const trimmedLine = line.trim();
             if (trimmedLine.startsWith('hero:')) continue;
-            
+
             if (trimmedLine.includes(':') && !trimmedLine.startsWith('-')) {
               // Save previous array if exists
               if (currentKey === 'tags' && currentArray.length > 0) {
                 heroData.tags = currentArray;
               }
-              
+
               const colonIndex = trimmedLine.indexOf(':');
               const key = trimmedLine.substring(0, colonIndex).trim();
               const value = trimmedLine.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
-              
+
               switch (key) {
                 case 'title':
                   heroData.title = value;
@@ -78,12 +75,12 @@ export default function QeRLProject() {
               }
             }
           }
-          
+
           // Handle final array
           if (currentKey === 'tags' && currentArray.length > 0) {
             heroData.tags = currentArray;
           }
-          
+
           setHeroData(heroData);
           setMarkdownContent(markdownBody);
         } else {
@@ -99,21 +96,20 @@ export default function QeRLProject() {
     };
 
     fetchMarkdownContent();
-  }, [language]);
+  }, []);
 
   const handleCopyArticle = async () => {
     try {
       // Get the raw markdown content without frontmatter
-      const filename = language === 'zh' ? 'qerl-content-zh.md' : 'qerl-content.md';
-      const response = await fetch(`/content/qerl-quantization-reinforcement-learning/${filename}`);
+      const response = await fetch(`/content/qerl-quantization-reinforcement-learning/qerl-content.md`);
       const content = await response.text();
-      
+
       // Remove frontmatter if present
       let contentWithoutFrontmatter = content.replace(/^---\n[\s\S]*?\n---\n/, '');
-      
+
       // Remove image paths (markdown image syntax: ![alt text](image-path))
       contentWithoutFrontmatter = contentWithoutFrontmatter.replace(/!\[.*?\]\(.*?\)/g, '');
-      
+
       await navigator.clipboard.writeText(contentWithoutFrontmatter);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
@@ -142,7 +138,7 @@ export default function QeRLProject() {
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent"></div>
         </div>
-        
+
         {/* Animated background particles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full opacity-60 animate-pulse"></div>
@@ -150,7 +146,7 @@ export default function QeRLProject() {
           <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full opacity-40 animate-pulse delay-700"></div>
           <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
-        
+
         <div className="relative container mx-auto px-6 pt-32 pb-12">
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
@@ -162,7 +158,7 @@ export default function QeRLProject() {
               <div className="text-lg md:text-xl text-slate-400 mb-8">
                 {heroData?.subtitle || 'LLM Reinforcement Learning With 4Bit Quantization'}
               </div>
-              
+
               {/* Tags */}
               {heroData?.tags && heroData.tags.length > 0 && (
                 <div className="flex items-center justify-center gap-3 text-sm text-slate-400 mb-8">
@@ -189,7 +185,7 @@ export default function QeRLProject() {
 
               {/* Links to Paper and GitHub */}
               <div className="relative z-10 flex flex-wrap items-center justify-center gap-4 mb-8">
-                <a 
+                <a
                   href="https://arxiv.org/pdf/2510.11696"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -203,7 +199,7 @@ export default function QeRLProject() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
                 </a>
-                <a 
+                <a
                   href="https://github.com/NVlabs/QeRL"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -218,7 +214,7 @@ export default function QeRLProject() {
                   </svg>
                 </a>
               </div>
-              
+
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm pointer-events-none">
                 <span className="bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
@@ -243,11 +239,10 @@ export default function QeRLProject() {
                   <div className="relative inline-block group">
                     <button
                       onClick={handleCopyArticle}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                        copySuccess
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${copySuccess
                           ? 'text-green-400 bg-green-400/10 border border-green-400/20'
                           : 'text-slate-400 hover:text-blue-400 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50'
-                      }`}
+                        }`}
                     >
                       {copySuccess ? (
                         <>
@@ -255,7 +250,7 @@ export default function QeRLProject() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                           <span className="text-sm font-medium">
-                            {language === 'en' ? 'Copied!' : '已复制!'}
+                            Copied!
                           </span>
                         </>
                       ) : (
@@ -266,13 +261,10 @@ export default function QeRLProject() {
                         </>
                       )}
                     </button>
-                    
+
                     {/* Tooltip */}
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
-                      {language === 'en' 
-                        ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
-                        : '非常适合粘贴到AI聊天机器人进行自学！🤖'
-                      }
+                      Perfect for pasting into AI chatbots for self-studying! 🤖
                       {/* Tooltip arrow */}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
                     </div>
@@ -312,16 +304,15 @@ export default function QeRLProject() {
                   </div>
                   <div className="flex items-center gap-3">
                     <span className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Share</span>
-                    
+
                     {/* Copy Article Button */}
                     <div className="relative inline-block group">
                       <button
                         onClick={handleCopyArticle}
-                        className={`flex items-center justify-center p-2 rounded-lg transition-all duration-300 ${
-                          copySuccess
+                        className={`flex items-center justify-center p-2 rounded-lg transition-all duration-300 ${copySuccess
                             ? 'text-green-400'
                             : 'text-slate-400 hover:text-blue-400'
-                        }`}
+                          }`}
                       >
                         {copySuccess ? (
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -333,54 +324,51 @@ export default function QeRLProject() {
                           </svg>
                         )}
                       </button>
-                      
+
                       {/* Tooltip */}
                       <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 border border-slate-600">
-                        {language === 'en' 
-                          ? 'Perfect for pasting into AI chatbots for self-studying! 🤖' 
-                          : '非常适合粘贴到AI聊天机器人进行自学！🤖'
-                        }
+                        Perfect for pasting into AI chatbots for self-studying! 🤖
                         {/* Tooltip arrow */}
                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
                       </div>
                     </div>
-                    
-                    <a href="https://twitter.com/intent/tweet?text=Check%20out%20QeRL%20-%20Quantization-enhanced%20Reinforcement%20Learning%20for%20LLMs&url=https://opensuperintelligencelab.com/blog/qerl-quantization-reinforcement-learning/" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="text-slate-400 hover:text-blue-400 transition-colors">
+
+                    <a href="https://twitter.com/intent/tweet?text=Check%20out%20QeRL%20-%20Quantization-enhanced%20Reinforcement%20Learning%20for%20LLMs&url=https://opensuperintelligencelab.com/blog/qerl-quantization-reinforcement-learning/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-blue-400 transition-colors">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                       </svg>
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/qerl-quantization-reinforcement-learning/" 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       className="text-slate-400 hover:text-blue-400 transition-colors">
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://opensuperintelligencelab.com/blog/qerl-quantization-reinforcement-learning/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-blue-400 transition-colors">
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                       </svg>
                     </a>
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
 
             {/* Navigation */}
             <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <Link 
-              href="/"
+              <Link
+                href="/"
                 className="group flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/50 text-slate-300 hover:text-blue-400 font-medium rounded-xl transition-all duration-300"
-            >
+              >
                 <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              {language === 'en' ? 'Back to Home' : '返回首页'}
-            </Link>
-              
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Back to Home
+              </Link>
+
               <div className="flex items-center gap-2 text-sm text-slate-500">
                 <span className="hidden sm:inline">Scroll to</span>
-                <button 
+                <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="flex items-center gap-1 px-4 py-2 hover:text-blue-400 transition-colors"
                 >
@@ -390,7 +378,7 @@ export default function QeRLProject() {
                   Top
                 </button>
               </div>
-          </div>
+            </div>
           </article>
         </div>
       </main>

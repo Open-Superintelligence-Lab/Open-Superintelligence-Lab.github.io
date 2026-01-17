@@ -1,21 +1,12 @@
 'use client';
 
 import Link from "next/link";
-import { useLanguage } from "@/components/providers/language-provider";
-import { translations } from "@/lib/language-detection";
 
 interface NavigationProps {
   currentPath?: string;
 }
 
 export function Navigation({ }: NavigationProps) {
-  const { language, setLanguage } = useLanguage();
-  const t = translations[language];
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'zh' : 'en');
-  };
-
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-6 py-6">
@@ -30,46 +21,34 @@ export function Navigation({ }: NavigationProps) {
             </div>
           </Link>
           <div className="flex gap-2 items-center">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
-              {language === 'en' ? 'Home' : '首页'}
+              Home
             </Link>
-            <Link 
-              href="/learn" 
+            <Link
+              href="/learn"
               className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
             >
-              {language === 'en' ? 'Learn' : '学习'}
+              Learn
             </Link>
-            <Link 
-              href="/humans-and-ai" 
-              className="px-3 py-2 text-sm hover:text-purple-400 transition-colors"
-            >
-              {language === 'en' ? 'Humans & AI' : '人类与AI'}
-            </Link>
-            <a 
-              href="https://discord.com/invite/6AbXGpKTwN" 
-              className="px-3 py-2 text-sm hover:text-blue-400 transition-colors" 
-              target="_blank" 
+            <a
+              href="https://discord.com/invite/6AbXGpKTwN"
+              className="px-3 py-2 text-sm hover:text-blue-400 transition-colors"
+              target="_blank"
               rel="noopener noreferrer"
             >
-              {language === 'en' ? 'Discord' : 'Discord'}
+              Discord
             </a>
-            <a 
-              href="https://www.youtube.com/channel/UC7XJj9pv_11a11FUxCMz15g" 
-              className="px-3 py-2 text-sm hover:text-red-500 transition-colors" 
-              target="_blank" 
+            <a
+              href="https://www.youtube.com/channel/UC7XJj9pv_11a11FUxCMz15g"
+              className="px-3 py-2 text-sm hover:text-red-500 transition-colors"
+              target="_blank"
               rel="noopener noreferrer"
             >
-              {language === 'en' ? 'YouTube' : 'YouTube'}
+              YouTube
             </a>
-            <button
-              onClick={toggleLanguage}
-              className="text-sm px-4 py-2 bg-slate-800/50 border border-slate-600/50 rounded-lg hover:border-blue-500/50 hover:bg-slate-700/50 transition-all duration-200"
-            >
-              {t.toggleLanguage}
-            </button>
           </div>
         </nav>
       </div>

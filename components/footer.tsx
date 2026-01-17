@@ -1,13 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import { useLanguage } from "@/components/providers/language-provider";
-import { translations } from "@/lib/language-detection";
 
 export function Footer() {
-  const { language } = useLanguage();
-  const t = translations[language];
-
   return (
     <footer className="bg-slate-900/50 border-t border-slate-700/50 backdrop-blur-sm">
       <div className="container mx-auto px-6 py-8">
@@ -22,34 +17,33 @@ export function Footer() {
             </div>
             <div className="text-sm text-slate-300">
               <div className="font-semibold text-white">Open Superintelligence Lab</div>
-              {/* <div className="text-xs text-slate-400">开放超级智能实验室</div> */}
             </div>
           </div>
 
           {/* Navigation links */}
           <div className="flex gap-6 items-center">
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
-              {t.about}
+              About
             </Link>
-            <a 
-              href="https://github.com/open-superintelligence-lab" 
-              className="text-sm text-slate-300 hover:text-blue-400 transition-colors" 
-              target="_blank" 
+            <a
+              href="https://github.com/open-superintelligence-lab"
+              className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
+              target="_blank"
               rel="noopener noreferrer"
             >
-              {t.github}
+              GitHub
             </a>
-            <Link 
-              href="/research" 
+            <Link
+              href="/research"
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
-              {language === 'en' ? 'Research' : '研究'}
+              Research
             </Link>
-            <Link 
-              href="/learn" 
+            <Link
+              href="/learn"
               className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
             >
               Learn
@@ -60,13 +54,13 @@ export function Footer() {
         {/* Bottom section */}
         <div className="mt-6 pt-6 border-t border-slate-700/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <div>
-            © 2025 Open Superintelligence Lab. {language === 'en' ? 'All rights reserved.' : '保留所有权利。'}
+            © 2025 Open Superintelligence Lab. All rights reserved.
           </div>
           <div className="flex gap-4">
-            <a 
-              href="https://discord.com/invite/6AbXGpKTwN" 
-              className="hover:text-blue-400 transition-colors" 
-              target="_blank" 
+            <a
+              href="https://discord.com/invite/6AbXGpKTwN"
+              className="hover:text-blue-400 transition-colors"
+              target="_blank"
               rel="noopener noreferrer"
             >
               Discord

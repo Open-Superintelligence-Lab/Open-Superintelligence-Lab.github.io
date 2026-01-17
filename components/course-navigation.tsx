@@ -1,19 +1,9 @@
-'use client';
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLanguage } from "@/components/providers/language-provider";
 import { useState, useEffect, useRef } from "react";
 import { getCourseModules } from "@/lib/course-structure";
 
-interface LessonItem {
-  title: string;
-  titleZh: string;
-  href: string;
-}
-
 export function CourseNavigation() {
-  const { language } = useLanguage();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const activeLinkRef = useRef<HTMLAnchorElement>(null);
@@ -36,12 +26,9 @@ export function CourseNavigation() {
             block: 'center',
             inline: 'nearest'
           });
-          console.log('Scrolled to active lesson:', pathname);
         } catch (error) {
           console.error('Error scrolling to active lesson:', error);
         }
-      } else {
-        console.log('Active link ref not found for:', pathname);
       }
     }, 100);
 
@@ -52,10 +39,10 @@ export function CourseNavigation() {
     <>
       <div className="mb-6">
         <h3 className="text-lg font-bold text-white mb-2">
-          {language === 'en' ? 'Course Contents' : '课程目录'}
+          Course Contents
         </h3>
         <p className="text-xs text-slate-400">
-          {language === 'en' ? 'Navigate through the lessons' : '浏览课程内容'}
+          Navigate through the lessons
         </p>
       </div>
 
@@ -67,19 +54,14 @@ export function CourseNavigation() {
                 {module.icon}
               </div>
               <h4 className="text-sm font-semibold text-slate-300">
-                {language === 'en' ? module.title : module.titleZh}
+                {module.title}
               </h4>
             </div>
             <ul className="space-y-1 ml-7">
               {module.lessons.map((lesson, lessonIndex) => {
                 const isActive = pathname === lesson.href;
                 const lessonNumber = lessonIndex + 1;
-                
-                // Debug log
-                if (isActive) {
-                  console.log('Active lesson found:', lesson.title, 'at', lesson.href);
-                }
-                
+
                 return (
                   <li key={lessonIndex}>
                     <Link
@@ -88,14 +70,14 @@ export function CourseNavigation() {
                       onClick={() => setIsOpen(false)}
                       className={`
                         block px-3 py-2 rounded-lg text-sm transition-all duration-200
-                        ${isActive 
-                          ? 'bg-blue-600/20 text-blue-400 font-medium border-l-2 border-blue-400' 
+                        ${isActive
+                          ? 'bg-blue-600/20 text-blue-400 font-medium border-l-2 border-blue-400'
                           : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                         }
                       `}
                     >
                       <span className="font-semibold mr-2">{lessonNumber}.</span>
-                      {language === 'en' ? lesson.title : lesson.titleZh}
+                      {lesson.title}
                     </Link>
                   </li>
                 );
@@ -113,7 +95,7 @@ export function CourseNavigation() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
-          {language === 'en' ? 'Course Home' : '课程首页'}
+          Course Home
         </Link>
       </div>
     </>

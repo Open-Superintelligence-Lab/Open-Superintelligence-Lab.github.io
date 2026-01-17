@@ -1,11 +1,6 @@
-'use client';
-
 import Link from "next/link";
-import { useLanguage } from "@/components/providers/language-provider";
 
 export default function SLASparseLinearAttention() {
-  const { language } = useLanguage();
-
   return (
     <>
       {/* Hero Section */}
@@ -15,7 +10,7 @@ export default function SLASparseLinearAttention() {
         <div className="absolute inset-0 opacity-30">
           <div className="absolute inset-0 bg-gradient-to-br from-transparent via-orange-500/5 to-transparent"></div>
         </div>
-        
+
         {/* Animated background particles */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-60 animate-pulse"></div>
@@ -23,29 +18,26 @@ export default function SLASparseLinearAttention() {
           <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full opacity-40 animate-pulse delay-700"></div>
           <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-orange-400 to-red-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
         </div>
-        
+
         <div className="relative container mx-auto px-6 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
                 <span className="bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
-                  {language === 'en' ? 'SLA: Sparse-Linear Attention' : 'SLA: 稀疏线性注意力'}
+                  SLA: Sparse-Linear Attention
                 </span>
               </h1>
-              
+
               {/* Glow effect for the title */}
               <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
                 <span className="bg-gradient-to-r from-orange-400/20 via-red-400/20 to-pink-400/20 bg-clip-text text-transparent">
-                  {language === 'en' ? 'SLA: Sparse-Linear Attention' : 'SLA: 稀疏线性注意力'}
+                  SLA: Sparse-Linear Attention
                 </span>
               </div>
             </div>
-            
+
             <p className="text-xl text-slate-300 mb-12 leading-relaxed">
-              {language === 'en' 
-                ? 'Beyond Sparsity in Diffusion Transformers via Fine-Tunable Sparse-Linear Attention'
-                : '通过可微调稀疏线性注意力超越扩散变换器中的稀疏性'
-              }
+              Beyond Sparsity in Diffusion Transformers via Fine-Tunable Sparse-Linear Attention
             </p>
           </div>
         </div>
@@ -54,7 +46,7 @@ export default function SLASparseLinearAttention() {
       {/* Main Content */}
       <main className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
         <div className="container mx-auto px-6 max-w-6xl">
-          
+
           {/* Research Paper Section */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
             <div className="flex items-start gap-6">
@@ -67,16 +59,13 @@ export default function SLASparseLinearAttention() {
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-white mb-4">
-                  {language === 'en' ? 'Research Paper' : '研究论文'}
+                  Research Paper
                 </h2>
                 <p className="text-slate-300 mb-6 leading-relaxed">
-                  {language === 'en' 
-                    ? 'SLA (Sparse-Linear Attention) is a trainable attention method that fuses sparse and linear attention to accelerate diffusion models. It achieves a 20x reduction in attention computation with minimal quality loss.'
-                    : 'SLA（稀疏线性注意力）是一种可训练的注意力方法，融合稀疏注意力和线性注意力来加速扩散模型。它在最小质量损失的情况下实现了20倍的注意力计算减少。'
-                  }
+                  SLA (Sparse-Linear Attention) is a trainable attention method that fuses sparse and linear attention to accelerate diffusion models. It achieves a 20x reduction in attention computation with minimal quality loss.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a 
+                  <a
                     href="https://arxiv.org/abs/2509.24006"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -85,18 +74,18 @@ export default function SLASparseLinearAttention() {
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    {language === 'en' ? 'Read Paper' : '阅读论文'}
+                    Read Paper
                   </a>
-                  <a 
+                  <a
                     href="https://github.com/thu-ml/SLA"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-semibold rounded-xl hover:from-slate-700 hover:to-slate-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-slate-500/25"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                     </svg>
-                    {language === 'en' ? 'View Code' : '查看代码'}
+                    View Code
                   </a>
                 </div>
               </div>
@@ -113,14 +102,11 @@ export default function SLASparseLinearAttention() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-white">
-                  {language === 'en' ? '20x Speedup' : '20倍加速'}
+                  20x Speedup
                 </h3>
               </div>
               <p className="text-slate-300 text-sm leading-relaxed">
-                {language === 'en' 
-                  ? 'Achieves 20x reduction in attention computation with minimal quality loss in diffusion models.'
-                  : '在扩散模型中实现20倍的注意力计算减少，质量损失最小。'
-                }
+                Achieves 20x reduction in attention computation with minimal quality loss in diffusion models.
               </p>
             </div>
 
@@ -132,14 +118,11 @@ export default function SLASparseLinearAttention() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-white">
-                  {language === 'en' ? '95% Reduction' : '95%减少'}
+                  95% Reduction
                 </h3>
               </div>
               <p className="text-slate-300 text-sm leading-relaxed">
-                {language === 'en' 
-                  ? 'Reduces attention computation by 95% without degrading end-to-end generation quality.'
-                  : '在不降低端到端生成质量的情况下，将注意力计算减少95%。'
-                }
+                Reduces attention computation by 95% without degrading end-to-end generation quality.
               </p>
             </div>
 
@@ -151,14 +134,11 @@ export default function SLASparseLinearAttention() {
                   </svg>
                 </div>
                 <h3 className="text-lg font-semibold text-white">
-                  {language === 'en' ? 'GPU Kernel' : 'GPU内核'}
+                  GPU Kernel
                 </h3>
               </div>
               <p className="text-slate-300 text-sm leading-relaxed">
-                {language === 'en' 
-                  ? 'Efficient GPU kernel implementation yields 13.7x speedup in attention computation.'
-                  : '高效的GPU内核实现使注意力计算加速13.7倍。'
-                }
+                Efficient GPU kernel implementation yields 13.7x speedup in attention computation.
               </p>
             </div>
           </div>
@@ -166,9 +146,9 @@ export default function SLASparseLinearAttention() {
           {/* Technical Details */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
             <h2 className="text-2xl font-bold text-white mb-6">
-              {language === 'en' ? 'Technical Innovation' : '技术创新'}
+              Technical Innovation
             </h2>
-            
+
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
@@ -178,13 +158,10 @@ export default function SLASparseLinearAttention() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {language === 'en' ? 'Attention Weight Classification' : '注意力权重分类'}
+                    Attention Weight Classification
                   </h3>
                   <p className="text-slate-300 leading-relaxed">
-                    {language === 'en' 
-                      ? 'SLA classifies attention weights into critical, marginal, and negligible categories, applying O(N²) attention to critical weights, O(N) attention to marginal weights, and skipping negligible ones.'
-                      : 'SLA将注意力权重分为关键、边缘和可忽略三类，对关键权重应用O(N²)注意力，对边缘权重应用O(N)注意力，跳过可忽略的权重。'
-                    }
+                    SLA classifies attention weights into critical, marginal, and negligible categories, applying O(N²) attention to critical weights, O(N) attention to marginal weights, and skipping negligible ones.
                   </p>
                 </div>
               </div>
@@ -197,13 +174,10 @@ export default function SLASparseLinearAttention() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {language === 'en' ? 'Hybrid Approach' : '混合方法'}
+                    Hybrid Approach
                   </h3>
                   <p className="text-slate-300 leading-relaxed">
-                    {language === 'en' 
-                      ? 'Combines sparse acceleration for high-rank weights with low-rank acceleration for remaining weights, fusing both computations into a single GPU kernel.'
-                      : '将高秩权重的稀疏加速与剩余权重的低秩加速相结合，将两种计算融合到单个GPU内核中。'
-                    }
+                    Combines sparse acceleration for high-rank weights with low-rank acceleration for remaining weights, fusing both computations into a single GPU kernel.
                   </p>
                 </div>
               </div>
@@ -216,13 +190,10 @@ export default function SLASparseLinearAttention() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">
-                    {language === 'en' ? 'Video Generation Focus' : '视频生成重点'}
+                    Video Generation Focus
                   </h3>
                   <p className="text-slate-300 leading-relaxed">
-                    {language === 'en' 
-                      ? 'Specifically designed for Diffusion Transformer models in video generation, where attention latency is a major bottleneck due to long sequence lengths and quadratic complexity.'
-                      : '专门为视频生成中的扩散变换器模型设计，由于长序列长度和二次复杂度，注意力延迟是主要瓶颈。'
-                    }
+                    Specifically designed for Diffusion Transformer models in video generation, where attention latency is a major bottleneck due to long sequence lengths and quadratic complexity.
                   </p>
                 </div>
               </div>
@@ -232,22 +203,19 @@ export default function SLASparseLinearAttention() {
           {/* Performance Results */}
           <div className="bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-8 mb-8">
             <h2 className="text-2xl font-bold text-white mb-6">
-              {language === 'en' ? 'Performance Results' : '性能结果'}
+              Performance Results
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="text-center">
                 <div className="w-20 h-20 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl font-bold text-white">20x</span>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">
-                  {language === 'en' ? 'Attention Reduction' : '注意力减少'}
+                  Attention Reduction
                 </h3>
                 <p className="text-slate-300 text-sm">
-                  {language === 'en' 
-                    ? 'Reduction in attention computation'
-                    : '注意力计算减少'
-                  }
+                  Reduction in attention computation
                 </p>
               </div>
 
@@ -256,13 +224,10 @@ export default function SLASparseLinearAttention() {
                   <span className="text-2xl font-bold text-white">13.7x</span>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">
-                  {language === 'en' ? 'GPU Speedup' : 'GPU加速'}
+                  GPU Speedup
                 </h3>
                 <p className="text-slate-300 text-sm">
-                  {language === 'en' 
-                    ? 'Speedup in attention computation'
-                    : '注意力计算加速'
-                  }
+                  Speedup in attention computation
                 </p>
               </div>
 
@@ -271,13 +236,10 @@ export default function SLASparseLinearAttention() {
                   <span className="text-2xl font-bold text-white">2.2x</span>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">
-                  {language === 'en' ? 'End-to-End' : '端到端'}
+                  End-to-End
                 </h3>
                 <p className="text-slate-300 text-sm">
-                  {language === 'en' 
-                    ? 'Speedup in video generation'
-                    : '视频生成加速'
-                  }
+                  Speedup in video generation
                 </p>
               </div>
 
@@ -286,13 +248,10 @@ export default function SLASparseLinearAttention() {
                   <span className="text-2xl font-bold text-white">95%</span>
                 </div>
                 <h3 className="text-lg font-semibold text-white mb-2">
-                  {language === 'en' ? 'Computation Cut' : '计算削减'}
+                  Computation Cut
                 </h3>
                 <p className="text-slate-300 text-sm">
-                  {language === 'en' 
-                    ? 'Reduction without quality loss'
-                    : '无质量损失的减少'
-                  }
+                  Reduction without quality loss
                 </p>
               </div>
             </div>
@@ -300,14 +259,14 @@ export default function SLASparseLinearAttention() {
 
           {/* Back to Home */}
           <div className="text-center">
-            <Link 
+            <Link
               href="/"
               className="inline-flex items-center gap-2 px-6 py-3 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-orange-500 hover:text-orange-400 transition-all duration-300 transform hover:scale-105"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
-              {language === 'en' ? 'Back to Home' : '返回首页'}
+              Back to Home
             </Link>
           </div>
         </div>
