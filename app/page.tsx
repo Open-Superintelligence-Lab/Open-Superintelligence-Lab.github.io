@@ -17,8 +17,8 @@ export default function Home() {
           <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-gradient-accent-3/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+        {/* Grid pattern overlay - theme aware */}
+        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.02)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.02)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
 
         {/* Floating geometric shapes - Removed for cleaner look */}
         {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -33,7 +33,7 @@ export default function Home() {
             {/* Main Heading with modern gradient */}
             <div className="relative mb-8">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-                <span className="inline-block bg-gradient-to-b from-white via-white to-slate-400 bg-clip-text text-transparent">
+                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
                   Open Superintelligence Lab
                 </span>
               </h1>
@@ -111,8 +111,8 @@ export default function Home() {
 
       {/* Main Projects Section */}
       <main id="research-projects" className="relative bg-gradient-to-b from-gradient-start via-gradient-mid to-gradient-end py-24">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+        {/* Background effects - theme aware */}
+        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.01)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
         <div className="relative container mx-auto px-6">
           {/* Section Header */}

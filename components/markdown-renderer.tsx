@@ -23,28 +23,28 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         components={{
           // Custom heading styles
           h1: ({ children }) => (
-            <h1 className="text-4xl font-bold mb-8 mt-12 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl font-bold mb-8 mt-12 bg-gradient-to-r from-gradient-accent-1 to-gradient-accent-2 bg-clip-text text-transparent leading-tight">
               {children}
             </h1>
           ),
           h2: ({ children }) => (
-            <h2 className="text-3xl font-semibold mb-6 mt-10 text-gray-100 leading-tight">
+            <h2 className="text-3xl font-semibold mb-6 mt-10 text-foreground leading-tight">
               {children}
             </h2>
           ),
           h3: ({ children }) => (
-            <h3 className="text-2xl font-semibold mb-4 mt-8 text-gray-200 leading-tight">
+            <h3 className="text-2xl font-semibold mb-4 mt-8 text-foreground leading-tight">
               {children}
             </h3>
           ),
           h4: ({ children }) => (
-            <h4 className="text-xl font-semibold mb-3 mt-6 text-gray-300 leading-tight">
+            <h4 className="text-xl font-semibold mb-3 mt-6 text-muted-foreground leading-tight">
               {children}
             </h4>
           ),
           // Custom paragraph styles
           p: ({ children }) => (
-            <p className="text-gray-300 leading-relaxed mb-10 text-lg">
+            <p className="text-muted-foreground leading-relaxed mb-10 text-lg">
               {children}
             </p>
           ),
@@ -52,7 +52,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           a: ({ href, children }) => (
             <a
               href={href}
-              className="text-blue-400 hover:text-blue-300 underline transition-colors"
+              className="text-gradient-accent-1 hover:text-gradient-accent-2 underline transition-colors"
               target={href?.startsWith('http') ? '_blank' : undefined}
               rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
@@ -61,17 +61,17 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           ),
           // Custom list styles
           ul: ({ children }) => (
-            <ul className="list-disc list-outside mb-10 space-y-4 text-gray-300 text-lg pl-6">
+            <ul className="list-disc list-outside mb-10 space-y-4 text-muted-foreground text-lg pl-6">
               {children}
             </ul>
           ),
           ol: ({ children }) => (
-            <ol className="list-decimal list-outside mb-10 space-y-4 text-gray-300 text-lg pl-6">
+            <ol className="list-decimal list-outside mb-10 space-y-4 text-muted-foreground text-lg pl-6">
               {children}
             </ol>
           ),
           li: ({ children }) => (
-            <li className="text-gray-300 leading-relaxed">
+            <li className="text-muted-foreground leading-relaxed">
               {children}
             </li>
           ),
@@ -80,7 +80,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             const inline = !className;
             return inline ? (
               <code
-                className="bg-slate-800 text-orange-400 px-2 py-1 rounded text-sm font-mono"
+                className="bg-card text-orange-500 px-2 py-1 rounded text-sm font-mono"
                 {...props}
               >
                 {children}
@@ -92,15 +92,15 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             );
           },
           pre: ({ children }) => (
-            <pre className="bg-slate-900 border border-gray-700 rounded-lg p-6 overflow-x-auto mb-10 text-sm font-mono leading-relaxed text-gray-200">
-              <code className="text-gray-200">
+            <pre className="bg-card border border-border rounded-lg p-6 overflow-x-auto mb-10 text-sm font-mono leading-relaxed text-foreground">
+              <code className="text-foreground">
                 {children}
               </code>
             </pre>
           ),
           // Custom blockquote styles
           blockquote: ({ children }) => (
-            <blockquote className="border-l-4 border-blue-500 pl-6 italic text-gray-400 my-10 bg-slate-800/30 py-4 rounded-r-lg">
+            <blockquote className="border-l-4 border-gradient-accent-1 pl-6 italic text-muted-foreground my-10 bg-card/30 py-4 rounded-r-lg">
               {children}
             </blockquote>
           ),

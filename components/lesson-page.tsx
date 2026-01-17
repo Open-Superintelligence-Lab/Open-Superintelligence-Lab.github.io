@@ -119,10 +119,10 @@ export function LessonPage({ contentPath, prevLink, nextLink, youtubeVideoId }: 
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-400 mx-auto mb-4"></div>
-          <p className="text-slate-400">Loading lesson...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gradient-accent-1 mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading lesson...</p>
         </div>
       </div>
     );
@@ -136,15 +136,15 @@ export function LessonPage({ contentPath, prevLink, nextLink, youtubeVideoId }: 
       {/* Main Content with Sidebar Offset */}
       <div className="lg:ml-80">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
+        <section className="relative overflow-hidden bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end">
+          <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/10 via-gradient-accent-2/10 to-gradient-accent-1/10"></div>
 
           <div className="relative container mx-auto px-6 pt-24 pb-12">
             <div className="max-w-4xl mx-auto">
               {/* Back to Course */}
               <Link
                 href="/learn"
-                className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-8 transition-colors"
+                className="inline-flex items-center gap-2 text-gradient-accent-1 hover:text-gradient-accent-2 mb-8 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -154,20 +154,20 @@ export function LessonPage({ contentPath, prevLink, nextLink, youtubeVideoId }: 
 
               <div className="relative">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 bg-clip-text text-transparent">
                     {heroData?.title || 'Lesson'}
                   </span>
                 </h1>
-                <p className="text-xl text-slate-400 mb-6">
+                <p className="text-xl text-muted-foreground mb-6">
                   {heroData?.subtitle || ''}
                 </p>
 
                 {/* Tags */}
                 {heroData?.tags && heroData.tags.length > 0 && (
-                  <div className="flex items-center gap-3 text-sm text-slate-400">
+                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     {heroData.tags.map((tag, index) => (
                       <span key={index} className="flex items-center gap-2">
-                        {index > 0 && <span className="text-slate-600">•</span>}
+                        {index > 0 && <span className="text-muted">•</span>}
                         <span>{tag}</span>
                       </span>
                     ))}
@@ -179,10 +179,10 @@ export function LessonPage({ contentPath, prevLink, nextLink, youtubeVideoId }: 
         </section>
 
         {/* Main Content */}
-        <main className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen">
+        <main className="bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
             <article className="max-w-4xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-8 sm:p-12">
+              <div className="bg-card/50 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl p-8 sm:p-12">
                 {youtubeVideoId && (
                   <div className="mb-8">
                     <div className="relative" style={{ paddingTop: '56.25%' }}>
