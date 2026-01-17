@@ -6,186 +6,168 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen flex flex-col">
-        {/* Enhanced background effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"></div>
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-500/5 to-transparent"></div>
+      <section className="relative overflow-hidden min-h-screen flex flex-col pt-20">
+        {/* Animated mesh gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+
+        {/* Animated gradient mesh overlay */}
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
 
-        {/* Enhanced animated background particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large floating particles - some made more glowy and dreamy */}
-          <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-50 animate-pulse delay-300 shadow-lg shadow-purple-400/40"></div>
-          <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full opacity-40 animate-pulse delay-700 blur-sm shadow-lg shadow-emerald-400/30"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
-          <div className="absolute bottom-1/3 left-1/4 w-1.5 h-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-60 animate-pulse delay-500 blur-sm shadow-lg shadow-pink-400/35"></div>
-          <div className="absolute top-2/3 right-1/3 w-3.5 h-3.5 bg-gradient-to-r from-teal-400 to-emerald-400 rounded-full opacity-35 animate-pulse delay-1200 blur-sm shadow-lg shadow-teal-400/25"></div>
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
 
-          {/* Medium particles - enhanced with glow */}
-          <div className="absolute top-1/5 left-2/5 w-1 h-1 bg-blue-400/60 rounded-full animate-pulse delay-200 shadow-lg shadow-blue-400/50"></div>
-          <div className="absolute top-2/5 right-2/5 w-1.5 h-1.5 bg-purple-400/50 rounded-full animate-pulse delay-800 blur-sm shadow-lg shadow-purple-400/45"></div>
-          <div className="absolute bottom-2/5 left-3/5 w-1 h-1 bg-cyan-400/70 rounded-full animate-pulse delay-400"></div>
-          <div className="absolute bottom-1/5 right-1/5 w-1.5 h-1.5 bg-pink-400/45 rounded-full animate-pulse delay-900 blur-sm shadow-lg shadow-pink-400/40"></div>
-          <div className="absolute top-3/5 left-1/5 w-1 h-1 bg-emerald-400/65 rounded-full animate-pulse delay-600 shadow-lg shadow-emerald-400/55"></div>
+        {/* Floating geometric shapes - Removed for cleaner look */}
+        {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-20 h-20 border border-blue-500/20 rounded-2xl rotate-12 animate-float"></div>
+          <div className="absolute top-40 right-20 w-16 h-16 border border-purple-500/20 rounded-full animate-float-delayed"></div>
+          <div className="absolute bottom-40 left-1/4 w-24 h-24 border border-cyan-500/20 rotate-45 animate-float"></div>
+          <div className="absolute bottom-20 right-1/3 w-14 h-14 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg rotate-6 animate-float-delayed"></div>
+        </div> */}
 
-          {/* Small twinkling particles - some made more dreamy */}
-          <div className="absolute top-1/8 left-3/8 w-0.5 h-0.5 bg-white/80 rounded-full animate-pulse delay-150 blur-sm shadow-lg shadow-white/60"></div>
-          <div className="absolute top-1/7 right-3/8 w-0.5 h-0.5 bg-blue-300/90 rounded-full animate-pulse delay-750"></div>
-          <div className="absolute bottom-1/8 left-2/8 w-0.5 h-0.5 bg-purple-300/85 rounded-full animate-pulse delay-350 blur-sm shadow-lg shadow-purple-300/70"></div>
-          <div className="absolute bottom-1/7 right-2/8 w-0.5 h-0.5 bg-cyan-300/80 rounded-full animate-pulse delay-950"></div>
-          <div className="absolute top-4/5 left-4/8 w-0.5 h-0.5 bg-pink-300/75 rounded-full animate-pulse delay-550 blur-sm shadow-lg shadow-pink-300/65"></div>
-          <div className="absolute top-3/8 right-1/8 w-0.5 h-0.5 bg-emerald-300/85 rounded-full animate-pulse delay-1150"></div>
+        <div className="relative container mx-auto px-6 py-20 flex-grow flex items-center">
+          <div className="text-center max-w-6xl mx-auto">
+            {/* Main Heading with modern gradient */}
+            <div className="relative mb-8">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+                <span className="inline-block bg-gradient-to-b from-white via-white to-slate-400 bg-clip-text text-transparent">
+                  Open Superintelligence Lab
+                </span>
+              </h1>
+            </div>
 
-          {/* Floating geometric shapes - some made more ethereal */}
-          <div className="absolute top-1/6 right-1/8 w-2 h-2 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rotate-45 animate-pulse delay-250 blur-sm shadow-lg shadow-blue-500/25"></div>
-          <div className="absolute bottom-1/6 left-1/8 w-1.5 h-1.5 bg-gradient-to-r from-cyan-500/40 to-pink-500/40 rotate-12 animate-pulse delay-650"></div>
-          <div className="absolute top-1/2 right-1/6 w-1 h-3 bg-gradient-to-r from-emerald-500/35 to-teal-500/35 rotate-75 animate-pulse delay-850 blur-sm shadow-lg shadow-emerald-500/20"></div>
+            {/* Subtitle with typing effect styling */}
+            <p className="text-lg md:text-xl lg:text-2xl text-slate-300 mb-8 font-medium">
+              Do research with top tier AI researchers
+            </p>
 
-          {/* Enhanced glowing orbs - made more dreamy */}
-          <div className="absolute top-1/4 left-1/2 w-6 h-6 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-sm animate-pulse delay-450 shadow-lg shadow-blue-400/15"></div>
-          <div className="absolute bottom-1/4 right-1/2 w-4 h-4 bg-gradient-to-r from-cyan-400/25 to-pink-400/25 rounded-full blur-sm animate-pulse delay-1050 shadow-lg shadow-cyan-400/20"></div>
-          <div className="absolute top-1/2 left-1/3 w-5 h-5 bg-gradient-to-r from-emerald-400/15 to-teal-400/15 rounded-full blur-sm animate-pulse delay-750 shadow-lg shadow-emerald-400/12"></div>
+            {/* Description */}
+            {/* <p className="text-base md:text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Building AGI through open collaboration. Join researchers, engineers, and visionaries advancing AI research and development.
+            </p> */}
 
-          {/* Additional dreamy particles */}
-          <div className="absolute top-1/5 right-1/4 w-2 h-2 bg-gradient-to-r from-violet-400/30 to-fuchsia-400/30 rounded-full blur-sm animate-pulse delay-1100 shadow-lg shadow-violet-400/25"></div>
-          <div className="absolute bottom-1/5 left-2/5 w-1.5 h-1.5 bg-gradient-to-r from-amber-400/35 to-orange-400/35 rounded-full blur-sm animate-pulse delay-550 shadow-lg shadow-amber-400/30"></div>
-          <div className="absolute top-2/5 right-1/5 w-1 h-1 bg-gradient-to-r from-rose-400/40 to-pink-400/40 rounded-full blur-sm animate-pulse delay-850 shadow-lg shadow-rose-400/35"></div>
-        </div>
-
-        <div className="relative container mx-auto px-6 pt-32 pb-24 flex-grow flex items-center">
-          <div className="text-center max-w-5xl mx-auto">
-            {/* Enhanced title with more effects */}
-            <div className="relative">
-              <div className="flex flex-col items-center">
-                <div className="relative text-center">
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium mb-8 leading-tight">
-                    <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                      Open
-                    </span>
-                    <span className="ml-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                      Superintelligence
-                    </span>
-                  </h1>
-
-                  {/* Glow effect for the entire title */}
-                  <div className="absolute inset-0 text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium leading-tight blur-sm">
-                    <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                      Open
-                    </span>
-                    <span className="ml-4 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-text text-transparent">
-                      Superintelligence
+            {/* Feature Tags */}
+            {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
+              {[
+                { icon: '🌐', text: 'Open Source', color: 'blue' },
+                { icon: '🧠', text: 'LLM Research', color: 'purple' },
+                { icon: '⚡', text: 'Innovation', color: 'cyan' },
+                { icon: '🤝', text: 'Collaboration', color: 'pink' },
+              ].map((tag, i) => (
+                <div
+                  key={i}
+                  className={`group relative px-4 py-2 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-full hover:border-${tag.color}-500/50 transition-all duration-300 hover:scale-105`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{tag.icon}</span>
+                    <span className="text-sm font-medium text-slate-300 group-hover:text-white">
+                      {tag.text}
                     </span>
                   </div>
                 </div>
+              ))}
+            </div> */}
 
-                {/* Subtitle */}
-                <div className="relative mt-1 pb-6">
-                  <h2 className="relative z-10 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent animate-pulse leading-relaxed">
-                    The Most Difficult Project In Human History
-                  </h2>
-                  {/* Glow effect for subtitle */}
-                  <div className="absolute inset-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold blur-lg opacity-50 pointer-events-none leading-relaxed">
-                    <span className="bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400 bg-clip-text text-transparent">
-                      The Most Difficult Project In Human History
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Enhanced decorative elements */}
-              <div className="absolute -top-6 -left-6 w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-70 animate-bounce shadow-lg shadow-green-500/30"></div>
-              <div className="absolute top-1/2 -right-6 w-8 h-8 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full opacity-70 animate-bounce delay-500 shadow-lg shadow-purple-500/30"></div>
-              <div className="absolute -bottom-6 left-1/2 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full opacity-70 animate-bounce delay-1000 shadow-lg shadow-blue-500/30"></div>
-
-              {/* Additional floating elements */}
-              <div className="absolute top-1/4 -left-8 w-3 h-3 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full opacity-50 animate-pulse delay-300"></div>
-              <div className="absolute top-3/4 -right-8 w-4 h-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full opacity-60 animate-pulse delay-700"></div>
-              <div className="absolute -top-2 left-1/4 w-2 h-2 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full opacity-40 animate-pulse delay-900"></div>
-              <div className="absolute -bottom-2 right-1/4 w-2.5 h-2.5 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full opacity-55 animate-pulse delay-600"></div>
-
-              {/* Rotating geometric shapes */}
-              <div className="absolute top-1/6 -left-10 w-3 h-3 bg-gradient-to-r from-emerald-500/60 to-teal-500/60 rotate-45 animate-spin" style={{ animationDuration: '8s' }}></div>
-              <div className="absolute bottom-1/6 -right-10 w-2 h-4 bg-gradient-to-r from-purple-500/50 to-pink-500/50 rotate-12 animate-spin delay-1000" style={{ animationDuration: '6s' }}></div>
-
-              {/* Glowing rings */}
-              <div className="absolute top-1/3 left-1/3 w-12 h-12 border-2 border-blue-400/30 rounded-full animate-pulse delay-400"></div>
-              <div className="absolute bottom-1/3 right-1/3 w-8 h-8 border-2 border-purple-400/40 rounded-full animate-pulse delay-800"></div>
-            </div>
-
-            {/* Tags */}
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-slate-400 mt-4 mb-8">
-              <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                Open Source
-              </span>
-              <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
-                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-300"></div>
-                LLM Research
-              </span>
-              <span className="flex items-center gap-2 px-3 py-1 bg-slate-800/50 rounded-full">
-                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-700"></div>
-                Innovation
-              </span>
-            </div>
-
-            {/* Call to action buttons */}
+            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
                 onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl hover:shadow-blue-500/25"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
               >
-                <span className="flex items-center gap-2">
-                  Explore & Participate
-                  <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative flex items-center gap-2">
+                  Explore Research
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
               </button>
+
               <Link
                 href="/about"
-                className="group px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:border-blue-500 hover:text-blue-400 transition-all duration-300 transform hover:scale-105"
+                className="group px-8 py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600/50 text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-800/80 hover:text-white transition-all duration-300 hover:scale-105"
               >
                 <span className="flex items-center gap-2">
                   Learn More
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
               </Link>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+              <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Projects Section */}
-      <main id="research-projects" className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Path to Open Superintelligence */}
+      <main id="research-projects" className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-24">
+        {/* Background effects */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+
+        <div className="relative container mx-auto px-6">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Research Projects
+            </h2>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Explore our cutting-edge AI research initiatives pushing the boundaries of what's possible
+            </p>
+          </div>
+
+          {/* Projects Grid - Bento-style layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
+            {/* Path to Open Superintelligence - Featured */}
             <Link
               href="/blog/path-to-open-superintelligence"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-yellow-500/50 hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-300"
+              className="group relative lg:col-span-2 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-amber-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Vision</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-1 rounded-md">Strategic</span>
-              </div>
+              {/* Animated gradient border glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-rose-500/0 group-hover:from-amber-500/10 group-hover:via-orange-500/10 group-hover:to-rose-500/10 rounded-2xl transition-all duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-yellow-400 transition-colors">
+              {/* Glow effect on hover */}
+              <div className="absolute -inset-px bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
+
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full border border-amber-500/30">
+                    Strategic Vision
+                  </span>
+                  <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-xs font-medium rounded-full">
+                    Featured
+                  </span>
+                </div>
+
+                <h3 className="text-3xl font-bold mb-4 group-hover:text-amber-400 transition-colors">
                   Path To Open Superintelligence
-                </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
-                  A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward
+                </h3>
+
+                <p className="text-slate-400 text-base mb-6 leading-relaxed">
+                  A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward to create transformative AI systems that benefit all of humanity.
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">Strategic Vision</span>
-                  <span className="text-yellow-400 text-sm group-hover:text-yellow-300 transition-colors">
-                    Read More →
+                  <div className="flex items-center gap-2 text-sm text-slate-500">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Vision Document</span>
+                  </div>
+                  <span className="flex items-center gap-2 text-amber-400 text-sm font-medium group-hover:gap-3 transition-all">
+                    Read More
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                   </span>
                 </div>
               </div>
@@ -194,26 +176,34 @@ export default function Home() {
             {/* DeepSeek Sparse Attention Project */}
             <Link
               href="/blog/deepseek-sparse-attention"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-blue-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-blue-500/20 text-blue-400 text-xs px-2 py-1 rounded-md">Featured</span>
-              </div>
+              <div className="absolute -inset-px bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full border border-blue-500/30">
+                    DeepSeek Research
+                  </span>
+                </div>
+
+                <h4 className="text-2xl font-bold mb-3 group-hover:text-blue-400 transition-colors">
                   DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
                 </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
                   Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing and memory optimization
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">DeepSeek Research</span>
-                  <span className="text-blue-400 text-sm group-hover:text-blue-300 transition-colors">
-                    Learn More →
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Research Paper</span>
+                  </div>
+                  <span className="text-blue-400 text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+                    →
                   </span>
                 </div>
               </div>
@@ -222,26 +212,34 @@ export default function Home() {
             {/* Tiny Recursive Model Project */}
             <Link
               href="/blog/tiny-recursive-model"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-purple-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-purple-500/20 text-purple-400 text-xs px-2 py-1 rounded-md">Latest</span>
-              </div>
+              <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full border border-purple-500/30">
+                    Latest Research
+                  </span>
+                </div>
+
+                <h4 className="text-2xl font-bold mb-3 group-hover:text-purple-400 transition-colors">
                   Tiny Recursive Model
                 </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
                   How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">AI Research</span>
-                  <span className="text-purple-400 text-sm group-hover:text-purple-300 transition-colors">
-                    Learn More →
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                    </svg>
+                    <span>AI Architecture</span>
+                  </div>
+                  <span className="text-purple-400 text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+                    →
                   </span>
                 </div>
               </div>
@@ -250,26 +248,34 @@ export default function Home() {
             {/* Pretrain LLM with NVFP4 Project */}
             <Link
               href="/blog/pretrain-llm-with-nvfp4"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-green-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded-md">Featured</span>
-              </div>
+              <div className="absolute -inset-px bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full border border-green-500/30">
+                    NVIDIA Research
+                  </span>
+                </div>
+
+                <h4 className="text-2xl font-bold mb-3 group-hover:text-green-400 transition-colors">
                   Pretrain LLM with NVFP4
                 </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
                   NVIDIA's breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">NVIDIA Research</span>
-                  <span className="text-green-400 text-sm group-hover:text-green-300 transition-colors">
-                    Explore →
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Training Innovation</span>
+                  </div>
+                  <span className="text-green-400 text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+                    →
                   </span>
                 </div>
               </div>
@@ -278,26 +284,34 @@ export default function Home() {
             {/* Diffusion Transformer RAE Project */}
             <Link
               href="/blog/diffusion-transformer-representation-autoencoder"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-cyan-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-cyan-500/20 text-cyan-400 text-xs px-2 py-1 rounded-md">New</span>
-              </div>
+              <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-semibold rounded-full border border-cyan-500/30">
+                    MIT-Han Lab
+                  </span>
+                </div>
+
+                <h4 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
                   47x Faster Image Generation Training
                 </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
                   Diffusion Transformers with Representation Autoencoders achieve state-of-the-art FID 1.13 on ImageNet while training 47x faster (80 vs 1400 epochs)
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">MIT-Han Lab</span>
-                  <span className="text-cyan-400 text-sm group-hover:text-cyan-300 transition-colors">
-                    Learn More →
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Image Generation</span>
+                  </div>
+                  <span className="text-cyan-400 text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+                    →
                   </span>
                 </div>
               </div>
@@ -306,26 +320,34 @@ export default function Home() {
             {/* QeRL Project */}
             <Link
               href="/blog/qerl-quantization-reinforcement-learning"
-              className="group relative bg-gradient-to-br from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50 rounded-xl p-6 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/10 transition-all duration-300"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-orange-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
             >
-              <div className="absolute top-4 left-4">
-                <span className="bg-slate-600/50 text-slate-300 text-xs px-2 py-1 rounded-md">Research</span>
-              </div>
-              <div className="absolute top-4 right-4">
-                <span className="bg-orange-500/20 text-orange-400 text-xs px-2 py-1 rounded-md">Latest</span>
-              </div>
+              <div className="absolute -inset-px bg-gradient-to-r from-orange-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
-              <div className="mt-8">
-                <h4 className="text-xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
+              <div className="relative">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-semibold rounded-full border border-orange-500/30">
+                    MIT-Han Lab
+                  </span>
+                </div>
+
+                <h4 className="text-2xl font-bold mb-3 group-hover:text-orange-400 transition-colors">
                   QeRL: Beyond Efficiency
                 </h4>
-                <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+
+                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
                   Quantization-enhanced Reinforcement Learning for LLMs achieves 1.5x speedup and enables RL training of 32B models on a single H100 80GB GPU
                 </p>
+
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">MIT-Han Lab</span>
-                  <span className="text-orange-400 text-sm group-hover:text-orange-300 transition-colors">
-                    Learn More →
+                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span>Reinforcement Learning</span>
+                  </div>
+                  <span className="text-orange-400 text-sm font-medium group-hover:translate-x-1 transition-transform inline-block">
+                    →
                   </span>
                 </div>
               </div>
