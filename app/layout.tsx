@@ -5,6 +5,7 @@ import "highlight.js/styles/github-dark.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { PaletteProvider } from "@/components/palette-provider";
+import { PaletteSwitcher } from "@/components/palette-switcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <PaletteSwitcher />
         </div>
       </body>
     </html>
