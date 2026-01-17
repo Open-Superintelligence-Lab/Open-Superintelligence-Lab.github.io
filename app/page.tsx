@@ -41,7 +41,7 @@ export default function Home() {
 
             {/* Subtitle with typing effect styling */}
             <p className="text-lg md:text-xl lg:text-2xl text-slate-300 mb-8 font-medium">
-              Do research with top tier AI researchers
+              Do AI research with top tier AI researchers
             </p>
 
             {/* Description */}
@@ -75,7 +75,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button
                 onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25"
+                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="relative flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function Home() {
 
               <Link
                 href="/about"
-                className="group px-8 py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600/50 text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-800/80 hover:text-white transition-all duration-300 hover:scale-105"
+                className="group px-8 py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600/50 text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-800/80 hover:text-white transition-all duration-300"
               >
                 <span className="flex items-center gap-2">
                   Learn More
@@ -130,7 +130,7 @@ export default function Home() {
             {/* Path to Open Superintelligence - Featured */}
             <Link
               href="/blog/path-to-open-superintelligence"
-              className="group relative lg:col-span-2 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-amber-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative lg:col-span-2 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-amber-500/50 transition-all duration-500 overflow-hidden"
             >
               {/* Animated gradient border glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-rose-500/0 group-hover:from-amber-500/10 group-hover:via-orange-500/10 group-hover:to-rose-500/10 rounded-2xl transition-all duration-500"></div>
@@ -176,7 +176,7 @@ export default function Home() {
             {/* DeepSeek Sparse Attention Project */}
             <Link
               href="/blog/deepseek-sparse-attention"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-blue-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -212,7 +212,7 @@ export default function Home() {
             {/* Tiny Recursive Model Project */}
             <Link
               href="/blog/tiny-recursive-model"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-purple-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -248,7 +248,7 @@ export default function Home() {
             {/* Pretrain LLM with NVFP4 Project */}
             <Link
               href="/blog/pretrain-llm-with-nvfp4"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-green-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-green-500/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -284,7 +284,7 @@ export default function Home() {
             {/* Diffusion Transformer RAE Project */}
             <Link
               href="/blog/diffusion-transformer-representation-autoencoder"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-cyan-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-cyan-500/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -320,7 +320,7 @@ export default function Home() {
             {/* QeRL Project */}
             <Link
               href="/blog/qerl-quantization-reinforcement-learning"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-orange-500/50 transition-all duration-500 hover:scale-[1.02] overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-orange-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
