@@ -121,7 +121,7 @@ export default function Home() {
               Research Projects
             </h2>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Explore our cutting-edge AI research initiatives pushing the boundaries of what's possible
+              Explore our cutting-edge AI research initiatives pushing the boundaries of what&apos;s possible
             </p>
           </div>
 
@@ -192,7 +192,7 @@ export default function Home() {
                 </h4>
 
                 <p className="text-slate-400 text-sm mb-5 leading-relaxed">
-                  Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing and memory optimization
+                  Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
                 </p>
 
                 <div className="flex items-center justify-between">
@@ -264,7 +264,7 @@ export default function Home() {
                 </h4>
 
                 <p className="text-slate-400 text-sm mb-5 leading-relaxed">
-                  NVIDIA's breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
+                  NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
                 </p>
 
                 <div className="flex items-center justify-between">

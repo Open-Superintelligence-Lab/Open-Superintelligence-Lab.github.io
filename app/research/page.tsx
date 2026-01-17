@@ -105,7 +105,7 @@ export default function Research() {
                   </div>
 
                   <p className="text-slate-300 leading-relaxed mb-4">
-                    Our research on DeepSeek's sparse attention mechanism that reduces attention complexity from quadratic to near-linear scaling. We conducted experiments comparing standard attention vs sparse attention, showing up to 302% performance improvements on small LLMs.
+                    Our research on DeepSeek&apos;s sparse attention mechanism that reduces attention complexity from quadratic to near-linear scaling. We conducted experiments comparing standard attention vs sparse attention, showing up to 302% performance improvements on small LLMs.
                   </p>
 
                   <div className="flex items-center gap-4 text-sm text-slate-400">
@@ -156,7 +156,7 @@ export default function Research() {
                   </div>
 
                   <p className="text-slate-300 leading-relaxed mb-4">
-                    Our research on NVIDIA's NVFP4 breakthrough in 4-bit floating point training methodology. Through our experiments, we demonstrate 2-3x performance improvements with 50% memory reduction while maintaining model quality comparable to FP8 training on billion-parameter models.
+                    Our research on NVIDIA&apos;s NVFP4 breakthrough in 4-bit floating point training methodology. Through our experiments, we demonstrate 2-3x performance improvements with 50% memory reduction while maintaining model quality comparable to FP8 training on billion-parameter models.
                   </p>
 
                   <div className="flex items-center gap-4 text-sm text-slate-400">
@@ -216,7 +216,7 @@ export default function Research() {
                   Create GitHub Issues
                 </h3>
                 <p className="text-slate-300 text-sm leading-relaxed">
-                  Create issues to discuss ideas, bugs, improvements, or new research directions. We value meaningful contributions that advance our research goals, not trivial ones like "Fixed typo".
+                  Create issues to discuss ideas, bugs, improvements, or new research directions. We value meaningful contributions that advance our research goals, not trivial ones like &quot;Fixed typo&quot;.
                 </p>
               </div>
 

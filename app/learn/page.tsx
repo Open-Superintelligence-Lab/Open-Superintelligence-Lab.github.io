@@ -974,7 +974,7 @@ export default function LearnPage() {
                     </svg>
                   </div>
                   <p className="text-slate-400 text-sm">
-                    DeepSeek's advanced MLP architecture
+                    DeepSeek&apos;s advanced MLP architecture
                   </p>
                 </Link>
               </div>
