@@ -6,7 +6,8 @@ import { applyPalette } from '@/lib/palettes/loader';
 const AVAILABLE_PALETTES = [
   { name: 'default', label: 'Default (Dark)' },
   { name: 'ink-wash', label: 'Ink Wash (Light)' },
-  { name: 'vaporwave', label: 'Vaporwave (Dark)' },
+  { name: 'vaporwave', label: 'Vaporwave (Vibrant)' },
+  { name: 'slatewave', label: 'Slatewave (Original)' },
   { name: 'emerald-odyssey', label: 'Emerald Odyssey' },
   { name: 'harvest-moon', label: 'Harvest Moon' },
   { name: 'deep-ocean', label: 'Deep Ocean (Dark)' },
