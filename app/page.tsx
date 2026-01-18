@@ -19,19 +19,25 @@ export default function Home() {
           <div className="absolute bottom-20 right-1/3 w-14 h-14 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg rotate-6 animate-float-delayed"></div>
         </div> */}
 
-        <div className="relative z-10 container mx-auto px-6 mt-[42vh] pb-20">
+        <div className="relative z-10 container mx-auto px-6 mt-[49vh] pb-20">
           <div className="text-center max-w-6xl mx-auto">
             {/* Main Heading with modern gradient */}
-            <div className="relative mb-6 pb-4 overflow-visible">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.3] pb-2">
-                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent" style={{ paddingBottom: '0.125rem' }}>
+            <div className="relative mb-4 pb-3 overflow-visible">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.4] pb-4"
+                  style={{
+                    filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1))'
+                  }}>
+                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent" 
+                      style={{ 
+                        paddingBottom: '0.52rem'
+                      }}>
                   Open Superintelligence Lab
                 </span>
               </h1>
             </div>
 
             {/* Subtitle with embossed text shadow for readability */}
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-16 md:mb-20 font-medium"
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-16 md:mb-8 font-medium"
                style={{
                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1)'
                }}>
@@ -67,7 +73,7 @@ export default function Home() {
             </div>
 
             {/* Scroll indicator - below buttons */}
-            <div className="flex justify-center animate-bounce">
+            <div className="flex justify-center animate-bounce mt-[20vh] md:mt-[24vh]">
               <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
