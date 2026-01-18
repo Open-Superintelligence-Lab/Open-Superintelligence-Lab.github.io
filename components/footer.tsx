@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import { OSLLogo } from "./osl-logo";
 
 export function Footer() {
   return (
@@ -13,12 +14,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 rounded-2xl opacity-50 group-hover:opacity-75 blur transition-all duration-300"></div>
-                <div className="relative w-10 h-10 bg-gradient-to-br from-gradient-accent-1 to-gradient-accent-2 rounded-xl flex items-center justify-center shadow-xl">
-                  <span className="text-xl filter drop-shadow-lg">🔮</span>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center">
+                <OSLLogo />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 bg-clip-text text-transparent">
@@ -26,7 +24,7 @@ export function Footer() {
                 </span>
                 <span className="text-xs text-muted-foreground">Building the Future</span>
               </div>
-            </Link>
+            </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Advancing AI research and development through open collaboration.
             </p>
