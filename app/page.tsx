@@ -1,24 +1,15 @@
 'use client';
 
 import Link from "next/link";
+import VaporwaveGrid from "@/components/vaporwave-grid";
 
 export default function Home() {
   return (
     <>
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-screen flex flex-col pt-20">
-        {/* Animated mesh gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gradient-start via-gradient-mid to-gradient-end"></div>
-
-        {/* Animated gradient mesh overlay */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-accent-1/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-accent-2/30 rounded-full blur-3xl animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-gradient-accent-3/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        {/* Grid pattern overlay - theme aware */}
-        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.02)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.02)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+        {/* Vaporwave Grid Animation */}
+        <VaporwaveGrid />
 
         {/* Floating geometric shapes - Removed for cleaner look */}
         {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -28,7 +19,7 @@ export default function Home() {
           <div className="absolute bottom-20 right-1/3 w-14 h-14 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg rotate-6 animate-float-delayed"></div>
         </div> */}
 
-        <div className="relative container mx-auto px-6 py-20 flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-6 py-20 flex-grow flex items-center">
           <div className="text-center max-w-6xl mx-auto">
             {/* Main Heading with modern gradient */}
             <div className="relative mb-8">
