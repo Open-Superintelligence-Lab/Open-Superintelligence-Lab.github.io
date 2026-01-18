@@ -1,24 +1,52 @@
 'use client';
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import VaporwaveGrid from "@/components/vaporwave-grid";
 
 export default function Home() {
+  const [isLightTheme, setIsLightTheme] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const bgColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--background')
+        .trim();
+      
+      if (bgColor) {
+        // Parse HSL: "H S% L%"
+        const parts = bgColor.split(/\s+/);
+        const lightness = parseFloat(parts[2]?.replace('%', '') || '0');
+        setIsLightTheme(lightness > 50);
+      }
+    };
+
+    checkTheme();
+    // Check on palette changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Theme-aware shadow styles
+  const titleShadow = isLightTheme
+    ? 'drop-shadow(0 1px 3px rgba(0, 0, 0, 0.15)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.2))'
+    : 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1))';
+  
+  const subtitleShadow = isLightTheme
+    ? '0 1px 3px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.2)'
+    : '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1)';
+
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-screen flex flex-col pt-20">
-        {/* Animated mesh gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
-
-        {/* Animated gradient mesh overlay */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+      <section className="relative overflow-hidden min-h-screen flex flex-col">
+        {/* Vaporwave Grid Animation */}
+        <VaporwaveGrid />
 
         {/* Floating geometric shapes - Removed for cleaner look */}
         {/* <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -28,56 +56,38 @@ export default function Home() {
           <div className="absolute bottom-20 right-1/3 w-14 h-14 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg rotate-6 animate-float-delayed"></div>
         </div> */}
 
-        <div className="relative container mx-auto px-6 py-20 flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-6 mt-[49vh] pb-20">
           <div className="text-center max-w-6xl mx-auto">
             {/* Main Heading with modern gradient */}
-            <div className="relative mb-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-                <span className="inline-block bg-gradient-to-b from-white via-white to-slate-400 bg-clip-text text-transparent">
+            <div className="relative mb-4 pb-3 overflow-visible">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.4] pb-4"
+                  style={{
+                    filter: titleShadow
+                  }}>
+                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent" 
+                      style={{ 
+                        paddingBottom: '0.52rem'
+                      }}>
                   Open Superintelligence Lab
                 </span>
               </h1>
             </div>
 
-            {/* Subtitle with typing effect styling */}
-            <p className="text-lg md:text-xl lg:text-2xl text-slate-300 mb-8 font-medium">
+            {/* Subtitle with embossed text shadow for readability */}
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-16 md:mb-8 font-medium"
+               style={{
+                 textShadow: subtitleShadow
+               }}>
               Do AI research with top tier AI researchers
             </p>
 
-            {/* Description */}
-            {/* <p className="text-base md:text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Building AGI through open collaboration. Join researchers, engineers, and visionaries advancing AI research and development.
-            </p> */}
-
-            {/* Feature Tags */}
-            {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {[
-                { icon: '🌐', text: 'Open Source', color: 'blue' },
-                { icon: '🧠', text: 'LLM Research', color: 'purple' },
-                { icon: '⚡', text: 'Innovation', color: 'cyan' },
-                { icon: '🤝', text: 'Collaboration', color: 'pink' },
-              ].map((tag, i) => (
-                <div
-                  key={i}
-                  className={`group relative px-4 py-2 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-full hover:border-${tag.color}-500/50 transition-all duration-300 hover:scale-105`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{tag.icon}</span>
-                    <span className="text-sm font-medium text-slate-300 group-hover:text-white">
-                      {tag.text}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* CTA Buttons - properly centered with gap between them */}
+            <div className="flex flex-col sm:flex-row justify-center items-center mb-16" style={{ gap: '1rem', transform: 'translateX(-12.5px)' }}>
               <button
                 onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 text-white font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25"
+                className="group relative px-8 py-4 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 text-primary-foreground font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gradient-accent-2/25"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-3 via-gradient-accent-1 to-gradient-accent-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <span className="relative flex items-center gap-2">
                   Explore Research
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +98,7 @@ export default function Home() {
 
               <Link
                 href="/about"
-                className="group px-8 py-4 bg-slate-800/50 backdrop-blur-sm border-2 border-slate-600/50 text-slate-300 font-semibold rounded-xl hover:border-blue-500/50 hover:bg-slate-800/80 hover:text-white transition-all duration-300"
+                className="group px-8 py-4 bg-secondary/40 backdrop-blur-sm border-2 border-ring/60 text-foreground/90 font-semibold rounded-xl hover:border-gradient-accent-2/80 hover:bg-secondary/60 hover:text-foreground transition-all duration-300"
               >
                 <span className="flex items-center gap-2">
                   Learn More
@@ -99,9 +109,9 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-              <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Scroll indicator - below buttons */}
+            <div className="flex justify-center animate-bounce mt-[20vh] md:mt-[24vh]">
+              <svg className="w-6 h-6 text-foreground/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </div>
@@ -110,17 +120,17 @@ export default function Home() {
       </section>
 
       {/* Main Projects Section */}
-      <main id="research-projects" className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 py-24">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <main id="research-projects" className="relative bg-gradient-to-b from-gradient-start via-gradient-mid to-gradient-end py-24">
+        {/* Background effects - theme aware */}
+        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--foreground)/0.01)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--foreground)/0.01)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
         <div className="relative container mx-auto px-6">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 bg-clip-text text-transparent">
               Research Projects
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Explore our cutting-edge AI research initiatives pushing the boundaries of what&apos;s possible
             </p>
           </div>
@@ -130,7 +140,7 @@ export default function Home() {
             {/* Path to Open Superintelligence - Featured */}
             <Link
               href="/blog/path-to-open-superintelligence"
-              className="group relative lg:col-span-2 bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 hover:border-amber-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative lg:col-span-2 bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-8 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               {/* Animated gradient border glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-orange-500/0 to-rose-500/0 group-hover:from-amber-500/10 group-hover:via-orange-500/10 group-hover:to-rose-500/10 rounded-2xl transition-all duration-500"></div>
@@ -143,7 +153,7 @@ export default function Home() {
                   <span className="px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full border border-amber-500/30">
                     Strategic Vision
                   </span>
-                  <span className="px-3 py-1 bg-slate-700/50 text-slate-300 text-xs font-medium rounded-full">
+                  <span className="px-3 py-1 bg-muted/50 text-muted-foreground text-xs font-medium rounded-full">
                     Featured
                   </span>
                 </div>
@@ -152,12 +162,12 @@ export default function Home() {
                   Path To Open Superintelligence
                 </h3>
 
-                <p className="text-slate-400 text-base mb-6 leading-relaxed">
+                <p className="text-muted-foreground text-base mb-6 leading-relaxed">
                   A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward to create transformative AI systems that benefit all of humanity.
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-slate-500">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -176,7 +186,7 @@ export default function Home() {
             {/* DeepSeek Sparse Attention Project */}
             <Link
               href="/blog/deepseek-sparse-attention"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-1/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -191,12 +201,12 @@ export default function Home() {
                   DeepSeek Sparse Attention - DeepSeek-V3.2-Exp
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   Advanced research on DeepSeek&apos;s innovative sparse attention mechanisms for efficient long-context processing and memory optimization
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -212,7 +222,7 @@ export default function Home() {
             {/* Tiny Recursive Model Project */}
             <Link
               href="/blog/tiny-recursive-model"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-purple-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-2/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -227,12 +237,12 @@ export default function Home() {
                   Tiny Recursive Model
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   How a 7M parameter model beats 100x bigger models at Sudoku, Mazes, and ARC-AGI using recursive reasoning with a 2-layer transformer
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                     </svg>
@@ -248,7 +258,7 @@ export default function Home() {
             {/* Pretrain LLM with NVFP4 Project */}
             <Link
               href="/blog/pretrain-llm-with-nvfp4"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-green-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -263,12 +273,12 @@ export default function Home() {
                   Pretrain LLM with NVFP4
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   NVIDIA&apos;s breakthrough 4-bit training methodology achieving 2-3x speedup and 50% memory reduction without sacrificing model quality
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -284,7 +294,7 @@ export default function Home() {
             {/* Diffusion Transformer RAE Project */}
             <Link
               href="/blog/diffusion-transformer-representation-autoencoder"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-cyan-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-gradient-accent-3/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -299,12 +309,12 @@ export default function Home() {
                   47x Faster Image Generation Training
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   Diffusion Transformers with Representation Autoencoders achieve state-of-the-art FID 1.13 on ImageNet while training 47x faster (80 vs 1400 epochs)
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
@@ -320,7 +330,7 @@ export default function Home() {
             {/* QeRL Project */}
             <Link
               href="/blog/qerl-quantization-reinforcement-learning"
-              className="group relative bg-gradient-to-br from-slate-800/40 to-slate-900/40 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-7 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
+              className="group relative bg-gradient-to-br from-card/40 to-background/40 backdrop-blur-xl border border-border/50 rounded-2xl p-7 hover:border-accent/50 transition-all duration-500 overflow-hidden"
             >
               <div className="absolute -inset-px bg-gradient-to-r from-orange-500 to-rose-500 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500"></div>
 
@@ -335,12 +345,12 @@ export default function Home() {
                   QeRL: Beyond Efficiency
                 </h4>
 
-                <p className="text-slate-400 text-sm mb-5 leading-relaxed">
+                <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
                   Quantization-enhanced Reinforcement Learning for LLMs achieves 1.5x speedup and enables RL training of 32B models on a single H100 80GB GPU
                 </p>
 
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-xs text-slate-500">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>

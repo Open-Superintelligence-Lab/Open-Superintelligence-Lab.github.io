@@ -1,16 +1,16 @@
 /* Custom styling for LaTeX math formulas */
 .katex {
-  color: #60a5fa !important; /* Blue color for inline math */
-  background: rgba(96, 165, 250, 0.05);
+  color: hsl(var(--math-primary)) !important;
+  background: hsl(var(--math-primary) / 0.05);
   padding: 3px 3px;
   border-radius: 3px;
-  border: 1px solid rgba(96, 165, 250, 0.2);
+  border: 1px solid hsl(var(--math-primary) / 0.2);
   font-weight: 500;
 }
 
 .katex-display {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
-  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: linear-gradient(135deg, hsl(var(--math-secondary) / 0.1), hsl(var(--math-primary) / 0.1));
+  border: 1px solid hsl(var(--math-secondary) / 0.3);
   border-radius: 12px;
   padding: 20px;
   margin: 24px 0;
@@ -22,107 +22,107 @@
   background: transparent;
   border: none;
   padding: 0;
-  color: #c084fc !important; /* Purple color for display math */
+  color: hsl(var(--math-secondary)) !important;
   font-size: 1.1em;
 }
 
 /* Style specific math elements */
 .katex .mord {
-  color: #34d399 !important; /* Green for variables and letters */
+  color: hsl(var(--math-accent)) !important;
 }
 
 .katex .mbin {
-  color: #fbbf24 !important; /* Yellow for binary operators like +, -, ⋅ */
+  color: hsl(var(--math-text)) !important;
 }
 
 .katex .mrel {
-  color: #f472b6 !important; /* Pink for relations like =, ∈, ≤ */
+  color: hsl(var(--math-relation)) !important;
 }
 
 .katex .mopen, .katex .mclose {
-  color: #94a3b8 !important; /* Gray for brackets and parentheses */
+  color: hsl(var(--math-bracket)) !important;
 }
 
 .katex .mfrac {
-  color: #fb7185 !important; /* Rose for fractions */
+  color: hsl(var(--math-secondary)) !important;
 }
 
 .katex .msqrt {
-  color: #a7f3d0 !important; /* Light green for square roots */
+  color: hsl(var(--math-accent)) !important;
 }
 
 .katex .msubsup {
-  color: #a78bfa !important; /* Purple for superscripts and subscripts */
+  color: hsl(var(--math-secondary)) !important;
 }
 
 .katex .mtext {
-  color: #60a5fa !important; /* Blue for text functions like \text{ReLU} */
+  color: hsl(var(--math-primary)) !important;
 }
 
 /* Hover effects */
 .katex:hover {
-  background: rgba(96, 165, 250, 0.15);
-  border-color: rgba(96, 165, 250, 0.4);
+  background: hsl(var(--math-primary) / 0.15);
+  border-color: hsl(var(--math-primary) / 0.4);
   transition: all 0.2s ease;
 }
 
 .katex-display:hover {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(59, 130, 246, 0.15));
-  border-color: rgba(139, 92, 246, 0.5);
+  background: linear-gradient(135deg, hsl(var(--math-secondary) / 0.15), hsl(var(--math-primary) / 0.15));
+  border-color: hsl(var(--math-secondary) / 0.5);
   transition: all 0.2s ease;
 }
 
 /* Custom syntax highlighting for code blocks */
 .hljs {
-  background: #1e293b !important; /* slate-800 */
-  color: #e2e8f0 !important; /* slate-200 */
+  background: hsl(var(--syntax-bg)) !important;
+  color: hsl(var(--syntax-text)) !important;
 }
 
 .hljs-keyword {
-  color: #c084fc !important; /* purple-300 */
+  color: hsl(var(--syntax-keyword)) !important;
 }
 
 .hljs-string {
-  color: #34d399 !important; /* emerald-400 */
+  color: hsl(var(--syntax-string)) !important;
 }
 
 .hljs-comment {
-  color: #64748b !important; /* slate-500 */
+  color: hsl(var(--syntax-comment)) !important;
   font-style: italic;
 }
 
 .hljs-number {
-  color: #fbbf24 !important; /* amber-400 */
+  color: hsl(var(--syntax-number)) !important;
 }
 
 .hljs-function {
-  color: #60a5fa !important; /* blue-400 */
+  color: hsl(var(--syntax-function)) !important;
 }
 
 .hljs-variable {
-  color: #f472b6 !important; /* pink-400 */
+  color: hsl(var(--syntax-variable)) !important;
 }
 
 .hljs-type {
-  color: #fb7185 !important; /* rose-400 */
+  color: hsl(var(--syntax-variable)) !important;
 }
 
 .hljs-built_in {
-  color: #a78bfa !important; /* violet-400 */
+  color: hsl(var(--syntax-keyword)) !important;
 }
 
 .hljs-title {
-  color: #60a5fa !important; /* blue-400 */
+  color: hsl(var(--syntax-function)) !important;
 }
 
 .hljs-params {
-  color: #e2e8f0 !important; /* slate-200 */
+  color: hsl(var(--syntax-text)) !important;
 }
 
 .hljs-attr {
-  color: #34d399 !important; /* emerald-400 */
+  color: hsl(var(--syntax-string)) !important;
 }
 
 .hljs-value {
-  color: #fbbf24 !important; /* amber-400 */
+  color: hsl(var(--syntax-number)) !important;
 }

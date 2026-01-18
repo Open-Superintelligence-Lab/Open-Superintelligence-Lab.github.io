@@ -129,40 +129,29 @@ export default function NVFP4Project() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        {/* Background effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-green-600/20 via-emerald-600/20 to-teal-600/20"></div>
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-green-500/5 to-transparent"></div>
-        </div>
+      {/* Hero Section - Reduced */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-background via-card/50 to-background border-b border-border/30">
+        {/* Simplified background - single subtle gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/5 via-gradient-accent-2/5 to-gradient-accent-3/5"></div>
 
-        {/* Animated background particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/6 left-1/6 w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-60 animate-pulse"></div>
-          <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full opacity-50 animate-pulse delay-300"></div>
-          <div className="absolute top-1/3 left-1/8 w-4 h-4 bg-gradient-to-r from-teal-400 to-green-400 rounded-full opacity-40 animate-pulse delay-700"></div>
-          <div className="absolute bottom-1/4 right-1/6 w-2.5 h-2.5 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full opacity-55 animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="relative container mx-auto px-6 pt-32 pb-12">
-          <div className="text-center max-w-4xl mx-auto">
+        <div className="relative container mx-auto px-6 pt-24 pb-6">
+          <div className="text-left max-w-4xl mx-auto">
             <div className="relative">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-                <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 leading-tight">
+                <span className="text-foreground">
                   {heroData?.title || "NVIDIA's 4-Bit Revolution"}
                 </span>
               </h1>
-              <div className="text-lg md:text-xl text-slate-400 mb-8">
+              <div className="text-base md:text-lg text-muted-foreground mb-4">
                 {heroData?.subtitle || "⚡ NVFP4: 2-3x Faster Training, 50% Less Memory"}
               </div>
 
               {/* Tags */}
               {heroData?.tags && heroData.tags.length > 0 && (
-                <div className="flex items-center justify-center gap-3 text-sm text-slate-400 mb-8">
+                <div className="flex items-center gap-3 text-sm text-muted-foreground mb-4">
                   {heroData.tags.map((tag, index) => (
                     <span key={index} className="flex items-center gap-2">
-                      {index > 0 && <span className="text-slate-600">•</span>}
+                      {index > 0 && <span className="text-muted-foreground/40">•</span>}
                       <span className="flex items-center gap-2">
                         {tag.includes('⏱️') && (
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,13 +169,6 @@ export default function NVFP4Project() {
                   ))}
                 </div>
               )}
-
-              {/* Glow effect for the title */}
-              <div className="absolute inset-0 text-4xl md:text-5xl lg:text-6xl font-medium leading-tight blur-sm">
-                <span className="bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-teal-400/20 bg-clip-text text-transparent">
-                  {heroData?.title || "NVIDIA's 4-Bit Revolution"}
-                </span>
-              </div>
             </div>
           </div>
         </div>
