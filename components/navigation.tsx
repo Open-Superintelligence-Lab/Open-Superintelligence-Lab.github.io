@@ -10,7 +10,7 @@ export function Navigation({ }: NavigationProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Glassmorphism Navigation Bar */}
-      <div className="border-b border-border/20 bg-card/95 backdrop-blur-xl">
+      <div className="border-b border-border/50 bg-card/98 backdrop-blur-xl">
         <div className="container mx-auto px-6 py-4">
           <nav className="flex justify-between items-center">
             {/* Logo */}
@@ -38,7 +38,7 @@ export function Navigation({ }: NavigationProps) {
             <div className="flex gap-1 items-center">
               <Link
                 href="/"
-                className="group relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-300"
               >
                 <span className="relative z-10">Home</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/0 via-gradient-accent-2/0 to-gradient-accent-3/0 group-hover:from-gradient-accent-1/10 group-hover:via-gradient-accent-2/10 group-hover:to-gradient-accent-3/10 rounded-lg transition-all duration-300"></div>
@@ -46,7 +46,7 @@ export function Navigation({ }: NavigationProps) {
 
               <Link
                 href="/learn"
-                className="group relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-300"
               >
                 <span className="relative z-10">Learn</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/0 via-gradient-accent-2/0 to-gradient-accent-3/0 group-hover:from-gradient-accent-1/10 group-hover:via-gradient-accent-2/10 group-hover:to-gradient-accent-3/10 rounded-lg transition-all duration-300"></div>
@@ -55,7 +55,7 @@ export function Navigation({ }: NavigationProps) {
               {/* Social Links with Icons */}
               <a
                 href="https://discord.com/invite/6AbXGpKTwN"
-                className="group relative px-4 py-2 text-sm font-medium text-muted-foreground hover:text-gradient-accent-1 transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-foreground transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -65,7 +65,7 @@ export function Navigation({ }: NavigationProps) {
                   </svg>
                   <span className="hidden sm:inline">Discord</span>
                 </span>
-                <div className="absolute inset-0 bg-gradient-accent-1/0 group-hover:bg-gradient-accent-1/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/0 via-gradient-accent-2/0 to-gradient-accent-3/0 group-hover:from-gradient-accent-1/10 group-hover:via-gradient-accent-2/10 group-hover:to-gradient-accent-3/10 rounded-lg transition-all duration-300"></div>
               </a>
 
               <a
