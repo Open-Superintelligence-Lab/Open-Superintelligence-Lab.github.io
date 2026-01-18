@@ -6,6 +6,12 @@ import { applyPalette } from '@/lib/palettes/loader';
 const AVAILABLE_PALETTES = [
   { name: 'default', label: 'Default (Dark)' },
   { name: 'ink-wash', label: 'Ink Wash (Light)' },
+  { name: 'vaporwave', label: 'Vaporwave (Dark)' },
+  { name: 'emerald-odyssey', label: 'Emerald Odyssey' },
+  { name: 'harvest-moon', label: 'Harvest Moon' },
+  { name: 'deep-ocean', label: 'Deep Ocean (Dark)' },
+  { name: 'amber-glow', label: 'Amber Glow (Dark)' },
+  { name: 'terminal-green', label: 'Terminal Green (Dark)' },
 ];
 
 const STORAGE_KEY = 'palette-preference';
@@ -45,7 +51,7 @@ export function PaletteSwitcher() {
               onClick={() => setIsOpen(false)}
             />
             <div 
-              className="absolute bottom-full right-0 mb-2 w-48 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-50"
+              className="absolute bottom-full right-0 mb-2 w-60 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-50 max-h-[500px] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-2">
