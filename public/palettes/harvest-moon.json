@@ -1,6 +1,6 @@
 {
   "background": "#0D0604",
-  "foreground": "#FFD93D",
+  "foreground": "#FFFFFF",
   "card": "#2A1A15",
   "card-foreground": "#FFCE1B",
   "popover": "#2A1A15",
@@ -43,7 +43,7 @@
   "syntax-variable": "#BE5103",
   "gradient-start": "#1A0F0A",
   "gradient-mid": "#2A1A15",
-  "gradient-end": "#1A0F0A",
+  "gradient-end": "#FF9900",
   "gradient-accent-1": "#800020",
   "gradient-accent-2": "#FFCE1B",
   "gradient-accent-3": "#BE5103",

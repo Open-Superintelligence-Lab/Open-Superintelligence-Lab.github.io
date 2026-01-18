@@ -68,8 +68,8 @@ export default function VaporwaveGrid() {
       colorCache.SKY_MID = getCSSColor('--gradient-mid', '#CFC5FF');
       colorCache.SKY_BOT = getCSSColor('--gradient-end', '#C0AAFF');
       
-          // Get accent color for grid
-          const fgHsl = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+          // Get foreground color for grid
+          const fgHsl = getComputedStyle(document.documentElement).getPropertyValue('--foreground').trim();
       if (fgHsl) {
         const parts = fgHsl.split(/\s+/);
         const h = parseInt(parts[0]) / 360;
