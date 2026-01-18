@@ -98,7 +98,7 @@ export default function Home() {
 
               <Link
                 href="/about"
-                className="group px-8 py-4 bg-card/50 backdrop-blur-sm border-2 border-border/50 text-muted-foreground font-semibold rounded-xl hover:border-gradient-accent-1/50 hover:bg-card/80 hover:text-foreground transition-all duration-300"
+                className="group px-8 py-4 bg-secondary/40 backdrop-blur-sm border-2 border-ring/60 text-foreground/90 font-semibold rounded-xl hover:border-gradient-accent-2/80 hover:bg-secondary/60 hover:text-foreground transition-all duration-300"
               >
                 <span className="flex items-center gap-2">
                   Learn More
