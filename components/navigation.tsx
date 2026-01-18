@@ -56,13 +56,18 @@ export function Navigation({ }: NavigationProps) {
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Glassmorphism Navigation Bar */}
       <div className="border-b border-border/50 bg-card/98 backdrop-blur-xl">
-        <div className="container mx-auto px-6 py-4">
-          <nav className="flex justify-between items-center">
-            {/* Logo */}
-            <OSLLogo />
+        <div className="container mx-auto px-6 py-2">
+          <nav className="grid grid-cols-3 items-center">
+            {/* Left spacer to center the logo */}
+            <div></div>
 
-            {/* Hamburger Menu Button */}
-            <div className="relative">
+            {/* Logo - Centered */}
+            <div className="flex justify-center">
+              <OSLLogo />
+            </div>
+
+            {/* Hamburger Menu Button - Right aligned */}
+            <div className="flex justify-end relative">
               <button
                 ref={buttonRef}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
