@@ -74,7 +74,7 @@ export default function Home() {
 
             {/* Scroll indicator - below buttons */}
             <div className="flex justify-center animate-bounce mt-[20vh] md:mt-[24vh]">
-              <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-foreground/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </div>
