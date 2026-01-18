@@ -1,14 +1,10 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
     BookOpen,
     Code2,
-    Cpu,
-    GitPullRequest,
-    Lightbulb,
     ArrowUpRight,
     Sparkles,
     Layers,
@@ -203,7 +199,7 @@ export default function PublishPage() {
                     </div>
                     <div className="mt-12 pt-8 border-t border-white/5">
                         <p className="text-center text-slate-500 italic text-sm">
-                            "Author has total freedom to choose topics."
+                            &ldquo;Author has total freedom to choose topics.&rdquo;
                         </p>
                     </div>
                 </motion.div>

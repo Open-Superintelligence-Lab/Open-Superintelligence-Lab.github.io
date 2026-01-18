@@ -12,6 +12,7 @@
     "serve:out": "npx serve out"
   },
   "dependencies": {
+    "framer-motion": "^12.27.0",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.544.0",
     "next": "15.5.3",
