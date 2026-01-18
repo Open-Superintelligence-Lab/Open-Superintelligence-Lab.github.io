@@ -134,7 +134,7 @@ export default function TinyRecursiveModelProject() {
         {/* Simplified background - single subtle gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-gradient-accent-1/5 via-gradient-accent-2/5 to-gradient-accent-3/5"></div>
 
-        <div className="relative container mx-auto px-6 pt-16 pb-6">
+        <div className="relative container mx-auto px-6 pt-24 pb-6">
           <div className="text-left max-w-4xl mx-auto">
             <div className="relative">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 leading-tight">
