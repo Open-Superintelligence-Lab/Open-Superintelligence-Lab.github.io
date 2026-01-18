@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative overflow-hidden min-h-screen flex flex-col pt-20">
+      <section className="relative overflow-hidden min-h-screen flex flex-col">
         {/* Vaporwave Grid Animation */}
         <VaporwaveGrid />
 
@@ -19,51 +19,27 @@ export default function Home() {
           <div className="absolute bottom-20 right-1/3 w-14 h-14 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-lg rotate-6 animate-float-delayed"></div>
         </div> */}
 
-        <div className="relative z-10 container mx-auto px-6 py-20 flex-grow flex items-center">
+        <div className="relative z-10 container mx-auto px-6 mt-[42vh] pb-20">
           <div className="text-center max-w-6xl mx-auto">
             {/* Main Heading with modern gradient */}
-            <div className="relative mb-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
-                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
+            <div className="relative mb-6 pb-4 overflow-visible">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.3] pb-2">
+                <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent" style={{ paddingBottom: '0.125rem' }}>
                   Open Superintelligence Lab
                 </span>
               </h1>
             </div>
 
-            {/* Subtitle with typing effect styling */}
-            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-8 font-medium">
+            {/* Subtitle with embossed text shadow for readability */}
+            <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-16 md:mb-20 font-medium"
+               style={{
+                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1)'
+               }}>
               Do AI research with top tier AI researchers
             </p>
 
-            {/* Description */}
-            {/* <p className="text-base md:text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Building AGI through open collaboration. Join researchers, engineers, and visionaries advancing AI research and development.
-            </p> */}
-
-            {/* Feature Tags */}
-            {/* <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {[
-                { icon: '🌐', text: 'Open Source', color: 'blue' },
-                { icon: '🧠', text: 'LLM Research', color: 'purple' },
-                { icon: '⚡', text: 'Innovation', color: 'cyan' },
-                { icon: '🤝', text: 'Collaboration', color: 'pink' },
-              ].map((tag, i) => (
-                <div
-                  key={i}
-                  className={`group relative px-4 py-2 bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-full hover:border-${tag.color}-500/50 transition-all duration-300 hover:scale-105`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{tag.icon}</span>
-                    <span className="text-sm font-medium text-slate-300 group-hover:text-white">
-                      {tag.text}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* CTA Buttons - properly centered with gap between them */}
+            <div className="flex flex-col sm:flex-row justify-center items-center mb-16" style={{ gap: '1rem', transform: 'translateX(-12.5px)' }}>
               <button
                 onClick={() => document.getElementById('research-projects')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group relative px-8 py-4 bg-gradient-to-r from-gradient-accent-1 via-gradient-accent-2 to-gradient-accent-3 text-primary-foreground font-semibold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-gradient-accent-2/25"
@@ -90,8 +66,8 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            {/* Scroll indicator - below buttons */}
+            <div className="flex justify-center animate-bounce">
               <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>

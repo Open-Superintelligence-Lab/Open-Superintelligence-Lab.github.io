@@ -199,25 +199,32 @@ export default function VaporwaveGrid() {
     }
 
     function drawSunrise(horizon: number, w: number, h: number) {
-      let g = ctx.createLinearGradient(0, horizon - 90, 0, horizon + 110);
+      // Main gradient - extended and more gradual
+      let g = ctx.createLinearGradient(0, horizon - 180, 0, horizon + 220);
       g.addColorStop(0.00, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
-      g.addColorStop(0.25, `rgba(${colorCache.SUN_COLOR}, 0.42)`);
-      g.addColorStop(0.50, `rgba(${colorCache.SUN_COLOR}, 0.62)`);
-      g.addColorStop(0.75, `rgba(${colorCache.SUN_COLOR}, 0.42)`);
+      g.addColorStop(0.20, `rgba(${colorCache.SUN_COLOR}, 0.28)`);
+      g.addColorStop(0.35, `rgba(${colorCache.SUN_COLOR}, 0.45)`);
+      g.addColorStop(0.50, `rgba(${colorCache.SUN_COLOR}, 0.55)`);
+      g.addColorStop(0.65, `rgba(${colorCache.SUN_COLOR}, 0.45)`);
+      g.addColorStop(0.80, `rgba(${colorCache.SUN_COLOR}, 0.28)`);
       g.addColorStop(1.00, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
       ctx.fillStyle = g;
-      ctx.fillRect(0, horizon - 90, w, 200);
+      ctx.fillRect(0, horizon - 180, w, 400);
 
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      g = ctx.createLinearGradient(0, horizon - 70, 0, horizon + 80);
+      // Secondary gradient - more extended
+      g = ctx.createLinearGradient(0, horizon - 120, 0, horizon + 140);
       g.addColorStop(0.00, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
-      g.addColorStop(0.50, `rgba(${colorCache.SUN_COLOR}, 0.18)`);
+      g.addColorStop(0.35, `rgba(${colorCache.SUN_COLOR}, 0.12)`);
+      g.addColorStop(0.50, `rgba(${colorCache.SUN_COLOR}, 0.16)`);
+      g.addColorStop(0.65, `rgba(${colorCache.SUN_COLOR}, 0.12)`);
       g.addColorStop(1.00, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
       ctx.fillStyle = g;
-      ctx.fillRect(0, horizon - 70, w, 150);
+      ctx.fillRect(0, horizon - 120, w, 260);
       ctx.restore();
 
+      // Horizon line glow
       g = ctx.createLinearGradient(0, horizon - 8, 0, horizon + 8);
       g.addColorStop(0, `rgba(${colorCache.GRID_COLOR},0.00)`);
       g.addColorStop(0.5, `rgba(${colorCache.GRID_COLOR},0.10)`);
@@ -225,17 +232,21 @@ export default function VaporwaveGrid() {
       ctx.fillStyle = g;
       ctx.fillRect(0, horizon - 8, w, 16);
 
-      g = ctx.createLinearGradient(0, horizon - 150, 0, horizon);
+      // Top fade - more extended
+      g = ctx.createLinearGradient(0, horizon - 240, 0, horizon);
       g.addColorStop(0, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
+      g.addColorStop(0.6, `rgba(${colorCache.SUN_COLOR}, 0.06)`);
       g.addColorStop(1, `rgba(${colorCache.SUN_COLOR}, 0.10)`);
       ctx.fillStyle = g;
-      ctx.fillRect(0, horizon - 150, w, 150);
+      ctx.fillRect(0, horizon - 240, w, 240);
 
-      g = ctx.createLinearGradient(0, horizon, 0, horizon + 60);
+      // Bottom fade - more extended
+      g = ctx.createLinearGradient(0, horizon, 0, horizon + 100);
       g.addColorStop(0, `rgba(${colorCache.SUN_COLOR}, 0.18)`);
+      g.addColorStop(0.5, `rgba(${colorCache.SUN_COLOR}, 0.08)`);
       g.addColorStop(1, `rgba(${colorCache.SUN_COLOR}, 0.00)`);
       ctx.fillStyle = g;
-      ctx.fillRect(0, horizon, w, 60);
+      ctx.fillRect(0, horizon, w, 100);
     }
 
     const draw = () => {
