@@ -111,7 +111,7 @@ export function Navigation({ }: NavigationProps) {
                   {/* Menu */}
                   <div
                     ref={menuRef}
-                    className="absolute right-0 top-full mt-2 w-56 bg-card/98 backdrop-blur-xl border border-border/50 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200"
+                    className="absolute right-0 top-full mt-8 w-56 bg-card/98 backdrop-blur-xl border border-border/50 rounded-lg shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <div className="p-2">
