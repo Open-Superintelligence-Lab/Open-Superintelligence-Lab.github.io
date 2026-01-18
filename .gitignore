@@ -2,6 +2,7 @@
 .cursor/
 ai-notes/
 docs/
+specs/
 # dependencies
 /node_modules
 /.pnp
