@@ -1,9 +1,46 @@
 'use client';
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import VaporwaveGrid from "@/components/vaporwave-grid";
 
 export default function Home() {
+  const [isLightTheme, setIsLightTheme] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const bgColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--background')
+        .trim();
+      
+      if (bgColor) {
+        // Parse HSL: "H S% L%"
+        const parts = bgColor.split(/\s+/);
+        const lightness = parseFloat(parts[2]?.replace('%', '') || '0');
+        setIsLightTheme(lightness > 50);
+      }
+    };
+
+    checkTheme();
+    // Check on palette changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['style', 'class'],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Theme-aware shadow styles
+  const titleShadow = isLightTheme
+    ? 'drop-shadow(0 1px 3px rgba(0, 0, 0, 0.15)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.2))'
+    : 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1))';
+  
+  const subtitleShadow = isLightTheme
+    ? '0 1px 3px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.2)'
+    : '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1)';
+
   return (
     <>
       {/* Hero Section */}
@@ -25,7 +62,7 @@ export default function Home() {
             <div className="relative mb-4 pb-3 overflow-visible">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.4] pb-4"
                   style={{
-                    filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 2px rgba(0, 0, 0, 0.9)) drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1))'
+                    filter: titleShadow
                   }}>
                 <span className="inline-block bg-gradient-to-b from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent" 
                       style={{ 
@@ -39,7 +76,7 @@ export default function Home() {
             {/* Subtitle with embossed text shadow for readability */}
             <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-16 md:mb-8 font-medium"
                style={{
-                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.8), 0 0 2px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(255, 255, 255, 0.1)'
+                 textShadow: subtitleShadow
                }}>
               Do AI research with top tier AI researchers
             </p>
