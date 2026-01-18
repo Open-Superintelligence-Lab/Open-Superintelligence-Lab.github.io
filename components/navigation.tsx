@@ -52,6 +52,14 @@ export function Navigation({ }: NavigationProps) {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
               </Link>
 
+              <Link
+                href="/blog"
+                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+              >
+                <span className="relative z-10">Publish</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+              </Link>
+
               {/* Social Links with Icons */}
               <a
                 href="https://discord.com/invite/6AbXGpKTwN"
