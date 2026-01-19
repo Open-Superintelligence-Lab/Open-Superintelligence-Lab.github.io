@@ -24,7 +24,7 @@ export function Navigation({ }: NavigationProps) {
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Home</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </Link>
 
               <Link
@@ -32,7 +32,7 @@ export function Navigation({ }: NavigationProps) {
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Learn</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </Link>
 
               <Link
@@ -40,21 +40,21 @@ export function Navigation({ }: NavigationProps) {
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Publish</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </Link>
 
               <Link
                 href="/request-review"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Review</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </Link>
 
               {/* Social Links with Icons */}
               <a
                 href="https://discord.com/invite/6AbXGpKTwN"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-blue-400 transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -64,12 +64,12 @@ export function Navigation({ }: NavigationProps) {
                   </svg>
                   <span className="hidden sm:inline">Discord</span>
                 </span>
-                <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </a>
 
               <a
                 href="https://www.youtube.com/channel/UC7XJj9pv_11a11FUxCMz15g"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-red-500 transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -79,7 +79,7 @@ export function Navigation({ }: NavigationProps) {
                   </svg>
                   <span className="hidden sm:inline">YouTube</span>
                 </span>
-                <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/10 rounded-lg transition-all duration-300"></div>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </a>
             </div>
           </nav>
