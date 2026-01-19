@@ -1,10 +1,11 @@
-Here are the English scoring criteria based on the document provided:
+Request a review on the Discord.
 
-**1. Selection, timeliness, and practical background of the topic (0–10 points)**
+Review process:
+
+**1. Selection, timeliness, and potential practical use of the topic (0–10 points)**
 *   **Aspects to consider:**
-    *   Timeliness and current relevance of the thesis subject (objective).
+    *   Timeliness and current relevance of the subject (objective).
     *   Practical (industrial) utility and application.
-    *   Appropriate ratio of theoretical and practical parts.
 *   **Scoring:**
     *   **0-2:** Unsatisfactory, does not cover the task.
     *   **3-6:** Acceptable, partially meets the nature of the task.
@@ -13,7 +14,7 @@ Here are the English scoring criteria based on the document provided:
 **2. Professional elaboration, originality, and achieved results (0–50 points)**
 *   **Aspects to consider:**
     *   Content completeness in fulfilling the set tasks.
-    *   Correctness and feasibility of proposals, their economic significance, and originality.
+    *   Correctness and feasibility of proposals and originality.
     *   Insufficiently detailed parts, errors.
     *   Sound logical structure.
 *   **Scoring:**
@@ -35,7 +36,7 @@ Here are the English scoring criteria based on the document provided:
 
 **4. Applied solution methods and their numerical correctness (0–15 points)**
 *   **Aspects to consider:**
-    *   Expediency of methods (mathematical, statistical, empirical, etc.) chosen for situational analysis and analysis, and the professionalism of their application.
+    *   Expediency of methods (mathematical, statistical, empirical, etc.) chosen for the analysis, and the professionalism of their application.
     *   Factualness and groundedness of the situation presentation.
     *   Thoroughness of exploration/analysis, completeness appropriate to the objective.
 *   **Scoring:**
@@ -43,9 +44,8 @@ Here are the English scoring criteria based on the document provided:
     *   **4-11:** Acceptable, but missing elements and/or general, one-sided, contains numerical errors.
     *   **12-15:** Applies research methods appropriate to the topic and is numerically accurate; statistical support of results is correct.
 
-**5. Editing and formal appearance of the Thesis (0–15 points)**
+**5. Editing and formal appearance (0–15 points)**
 *   **Aspects to consider:**
-    *   Compliance with length regulations (min. 40 pages, 60,000 characters with spaces).
     *   Structural setup, articulation/segmentation.
     *   Style, language, illustrations, appendices, spelling.
 *   **Scoring:**

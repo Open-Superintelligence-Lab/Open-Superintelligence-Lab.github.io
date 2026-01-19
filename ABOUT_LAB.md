@@ -6,11 +6,6 @@ We will allow **absolute research freedom**. You may get inspired by our suggest
 
 ---
 
-## Articles
-
-### [Path To Open Superintelligence](/blog/path-to-open-superintelligence)
-A strategic roadmap for building AGI through open collaboration, addressing key challenges and defining our path forward to create transformative AI systems.
-
 ### [DeepSeek Sparse Attention](/blog/deepseek-sparse-attention)
 Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing.
 

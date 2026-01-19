@@ -2,10 +2,13 @@ import fs from "fs";
 import path from "path";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { getAllPosts, BlogPost } from "@/lib/blog-utils";
+import Link from "next/link";
 
 export default function Home() {
   const filePath = path.join(process.cwd(), "ABOUT_LAB.md");
   const aboutContent = fs.readFileSync(filePath, "utf8");
+  const posts = getAllPosts();
 
   return (
     <>
@@ -33,8 +36,6 @@ export default function Home() {
                 </span>
               </h1>
             </div>
-
-
           </div>
         </div>
       </section>
@@ -46,22 +47,59 @@ export default function Home() {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1: ({ node, ...props }) => <h1 className="text-4xl font-bold text-[#f0eee6] mb-8 border-b border-[#f0eee6]/10 pb-4" {...props} />,
-                h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-[#f0eee6] mt-12 mb-6" {...props} />,
-                h3: ({ node, ...props }) => <h3 className="text-xl font-bold text-[#f0eee6] mt-8 mb-4 hover:text-blue-400 transition-colors" {...props} />,
-                p: ({ node, ...props }) => <p className="text-[#f0eee6]/70 text-lg leading-relaxed mb-6" {...props} />,
-                ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#f0eee6]/70 text-lg" {...props} />,
-                li: ({ node, ...props }) => <li className="" {...props} />,
-                strong: ({ node, ...props }) => <strong className="text-[#f0eee6] font-semibold" {...props} />,
-                hr: ({ node, ...props }) => <hr className="my-12 border-[#f0eee6]/5" {...props} />,
-                a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors" {...props} />,
+                h1: ({ node, ...props }: any) => <h1 className="text-4xl font-bold text-[#f0eee6] mb-8 border-b border-[#f0eee6]/10 pb-4" {...props} />,
+                h2: ({ node, ...props }: any) => <h2 className="text-2xl font-bold text-[#f0eee6] mt-12 mb-6" {...props} />,
+                h3: ({ node, ...props }: any) => <h3 className="text-xl font-bold text-[#f0eee6] mt-8 mb-4 transition-colors" {...props} />,
+                p: ({ node, ...props }: any) => <p className="text-[#f0eee6]/70 text-lg leading-relaxed mb-6" {...props} />,
+                ul: ({ node, ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#f0eee6]/70 text-lg" {...props} />,
+                li: ({ node, ...props }: any) => <li className="" {...props} />,
+                strong: ({ node, ...props }: any) => <strong className="text-[#f0eee6] font-semibold" {...props} />,
+                hr: ({ node, ...props }: any) => <hr className="my-12 border-[#f0eee6]/5" {...props} />,
+                a: ({ node, ...props }: any) => <a className="text-[#f0eee6] hover:text-white transition-colors" {...props} />,
               }}
             >
               {aboutContent}
             </ReactMarkdown>
           </div>
+
+          {/* Dynamic Blog Posts Section */}
+          {posts.length > 0 && (
+            <div className="mt-24 border-t border-white/10 pt-16">
+              <h2 className="text-3xl font-bold text-[#f0eee6] mb-12 flex items-center gap-3">
+                <span className="text-2xl">📚</span>
+                Latest Research Articles
+              </h2>
+              <div className="space-y-12">
+                {posts.map((post) => (
+                  <div key={post.slug} className="group relative">
+                    <div className="flex items-center gap-4 text-sm text-[#f0eee6]/40 mb-3">
+                      <span>{post.date}</span>
+                    </div>
+                    <Link href={`/blog/${post.slug}`} className="block">
+                      <h3 className="text-2xl font-bold text-white mb-3">
+                        {post.title}
+                      </h3>
+                    </Link>
+                    <p className="text-[#f0eee6]/60 text-lg leading-relaxed mb-4">
+                      {post.description}
+                    </p>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
+                    >
+                      Read full article
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </>
   );
 }
+
