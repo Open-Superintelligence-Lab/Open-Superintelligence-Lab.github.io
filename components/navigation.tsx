@@ -10,35 +10,18 @@ export function Navigation({ }: NavigationProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Glassmorphism Navigation Bar */}
-      <div className="border-b border-white/10 bg-slate-900/80 backdrop-blur-xl">
+      <div className="border-b border-[#f0eee6]/10 bg-[#1f1e1d]/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 py-4">
           <nav className="flex justify-between items-center">
             {/* Logo */}
-            <Link href="/" className="group flex items-center gap-3 hover:scale-105 transition-all duration-300">
-              <div className="relative">
-                {/* Animated gradient border */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-2xl opacity-75 group-hover:opacity-100 blur group-hover:blur-md transition-all duration-300 animate-pulse"></div>
-
-                {/* Logo container */}
-                <div className="relative w-11 h-11 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-2xl">
-                  <span className="text-2xl filter drop-shadow-lg">🔮</span>
-                </div>
-              </div>
-
-              {/* Brand Name */}
-              <div className="hidden md:flex flex-col">
-                <span className="text-sm font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  Open Superintelligence
-                </span>
-                <span className="text-xs text-slate-400">Building the Future</span>
-              </div>
-            </Link>
+            {/* Removed Logo and Brand Name */}
+            <div className="flex-1"></div>
 
             {/* Navigation Links */}
             <div className="flex gap-1 items-center">
               <Link
                 href="/"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Home</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
@@ -46,7 +29,7 @@ export function Navigation({ }: NavigationProps) {
 
               <Link
                 href="/learn"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Learn</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
@@ -54,9 +37,17 @@ export function Navigation({ }: NavigationProps) {
 
               <Link
                 href="/blog"
-                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
                 <span className="relative z-10">Publish</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
+              </Link>
+
+              <Link
+                href="/request-review"
+                className="group relative px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-all duration-300"
+              >
+                <span className="relative z-10">Review</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-purple-600/0 to-cyan-600/0 group-hover:from-blue-600/10 group-hover:via-purple-600/10 group-hover:to-cyan-600/10 rounded-lg transition-all duration-300"></div>
               </Link>
 

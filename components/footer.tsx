@@ -4,30 +4,19 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="relative bg-gradient-to-b from-slate-900/80 to-slate-950/95 border-t border-white/5 backdrop-blur-xl">
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-purple-600/5 to-cyan-600/5"></div>
+    <footer className="relative bg-[#1f1e1d] border-t border-[#f0eee6]/5 backdrop-blur-xl">
+      {/* Subtle overlay */}
+      <div className="absolute inset-0 bg-[#f0eee6]/[0.02]"></div>
 
       <div className="relative container mx-auto px-6 py-12">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
           {/* Brand Section */}
-          <div className="space-y-4">
-            <Link href="/" className="group inline-flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-2xl opacity-50 group-hover:opacity-75 blur transition-all duration-300"></div>
-                <div className="relative w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-xl">
-                  <span className="text-xl filter drop-shadow-lg">🔮</span>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-sm font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                  Open Superintelligence
-                </span>
-                <span className="text-xs text-slate-500">Building the Future</span>
-              </div>
-            </Link>
-            <p className="text-sm text-slate-400 leading-relaxed">
+          <div className="space-y-4 pt-4">
+            <p className="text-sm text-[#f0eee6]/40 leading-relaxed uppercase tracking-widest font-bold">
+              Open Superintelligence Lab
+            </p>
+            <p className="text-sm text-[#f0eee6]/60 leading-relaxed">
               Advancing AI research and development through open collaboration.
             </p>
           </div>
@@ -105,9 +94,9 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-slate-500">
-            © 2025 <span className="text-slate-400 font-medium">Open Superintelligence Lab</span>. All rights reserved.
+        <div className="pt-8 border-t border-[#f0eee6]/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-[#f0eee6]/40">
+            © 2025 <span className="text-[#f0eee6]/60 font-medium">Open Superintelligence Lab</span>. All rights reserved.
           </p>
           <div className="flex items-center gap-3 text-sm text-slate-500">
             <span className="flex items-center gap-2">

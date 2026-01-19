@@ -236,6 +236,57 @@ export default function Research() {
                 </div>
               </div>
             </Link>
+
+            {/* Deep Delta Learning Research */}
+            <Link href="/blog/deep-delta-learning">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-violet-900/40 to-purple-900/40 backdrop-blur-sm border border-violet-500/30 rounded-2xl p-8 hover:border-violet-400/60 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-violet-500/20 mt-6">
+                {/* Animated gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-500/0 via-violet-500/10 to-violet-500/0 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+
+                <div className="relative">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-violet-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/30">
+                      <span className="text-2xl">🔬</span>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-violet-300 transition-colors">
+                        Deep Delta Learning
+                      </h3>
+                      <p className="text-violet-300 text-sm mb-3">
+                        Novel Approach to Neural Architecture Residual Updates
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-300 leading-relaxed mb-4">
+                    Our research on Deep Delta Learning (DDL), a breakthrough approach that replaces traditional additive residuals with learned update mechanisms. We explore Deep Delta Residuals (DeepDeltaRes) in transformer architectures, demonstrating improved training dynamics and model performance on 100M parameter models.
+                  </p>
+
+                  <div className="flex items-center gap-4 text-sm text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      </svg>
+                      Architecture Innovation
+                    </span>
+                    <span className="text-slate-600">•</span>
+                    <span className="flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      Research Article
+                    </span>
+                  </div>
+
+                  <div className="mt-6 flex items-center gap-2 text-violet-400 group-hover:text-violet-300 transition-colors">
+                    <span className="font-semibold">Read Full Research</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
 
           {/* How to Contribute */}

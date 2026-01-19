@@ -4,8 +4,8 @@ import path from 'path';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-export default function PublishPage() {
-    const filePath = path.join(process.cwd(), 'PUBLISH_GUIDE.md');
+export default function RequestReviewPage() {
+    const filePath = path.join(process.cwd(), 'REVIEW_CRITERIA.md');
     const content = fs.readFileSync(filePath, 'utf8');
 
     return (
@@ -23,8 +23,6 @@ export default function PublishPage() {
                             li: ({ node, ...props }) => <li className="" {...props} />,
                             strong: ({ node, ...props }) => <strong className="text-[#f0eee6] font-semibold" {...props} />,
                             hr: ({ node, ...props }) => <hr className="my-12 border-[#f0eee6]/5" {...props} />,
-                            blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-blue-500/50 pl-4 py-1 italic text-[#f0eee6]/60 my-6" {...props} />,
-                            a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
                         }}
                     >
                         {content}

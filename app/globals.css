@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background-color: #1f1e1d;
+  color: #f0eee6;
 }
 
 /* Custom scrollbar for dark theme */
@@ -33,28 +35,37 @@ body {
 
 /* Custom animations */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-20px) rotate(5deg);
   }
 }
 
 @keyframes float-delayed {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px) rotate(0deg);
   }
+
   50% {
     transform: translateY(-15px) rotate(-5deg);
   }
 }
 
 @keyframes gradient-x {
-  0%, 100% {
+
+  0%,
+  100% {
     background-size: 200% 200%;
     background-position: left center;
   }
+
   50% {
     background-size: 200% 200%;
     background-position: right center;
@@ -104,26 +115,29 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 20 4% 12%;
+    /* #1f1e1d approx */
+    --foreground: 48 25% 92%;
+    /* #f0eee6 approx */
+    --card: 20 4% 12%;
+    --card-foreground: 48 25% 92%;
+    --popover: 20 4% 12%;
+    --popover-foreground: 48 25% 92%;
+    --primary: 48 25% 92%;
+    --primary-foreground: 20 4% 12%;
+    --secondary: 20 4% 15%;
+    --secondary-foreground: 48 25% 92%;
+    --muted: 20 4% 15%;
+    --muted-foreground: 48 25% 70%;
+    --accent: 20 4% 15%;
+    --accent-foreground: 48 25% 92%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --destructive-foreground: 48 25% 92%;
+    --border: 20 4% 25%;
+    --input: 20 4% 25%;
+    --ring: 48 25% 80%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -138,6 +152,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
