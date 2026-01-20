@@ -6,8 +6,12 @@ import { getAllPosts, BlogPost } from "@/lib/blog-utils";
 import Link from "next/link";
 
 export default function Home() {
-  const filePath = path.join(process.cwd(), "ABOUT_LAB.md");
-  const aboutContent = fs.readFileSync(filePath, "utf8");
+  const aboutPath = path.join(process.cwd(), "ABOUT_LAB.md");
+  const aboutContent = fs.readFileSync(aboutPath, "utf8");
+
+  const researchPath = path.join(process.cwd(), "RESEARCH.md");
+  const researchContent = fs.existsSync(researchPath) ? fs.readFileSync(researchPath, "utf8") : "";
+
   const posts = getAllPosts();
 
   return (
@@ -31,7 +35,7 @@ export default function Home() {
             {/* Main Heading with cream-to-white gradient */}
             <div className="relative mb-4">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-                <span className="inline-block py-2 bg-gradient-to-b from-[#f0eee6] via-[#f0eee6] to-[#f0eee6]/60 bg-clip-text text-transparent">
+                <span className="inline-block py-2 bg-gradient-to-b from-[#faf9f6] via-[#faf9f6] to-[#faf9f6]/60 bg-clip-text text-transparent">
                   Open Superintelligence Lab
                 </span>
               </h1>
@@ -47,32 +51,53 @@ export default function Home() {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1: ({ node, ...props }: any) => <h1 className="text-4xl font-bold text-[#f0eee6] mb-8 border-b border-[#f0eee6]/10 pb-4" {...props} />,
-                h2: ({ node, ...props }: any) => <h2 className="text-2xl font-bold text-[#f0eee6] mt-12 mb-6" {...props} />,
-                h3: ({ node, ...props }: any) => <h3 className="text-xl font-bold text-[#f0eee6] mt-8 mb-4 transition-colors" {...props} />,
-                p: ({ node, ...props }: any) => <p className="text-[#f0eee6]/70 text-lg leading-relaxed mb-6" {...props} />,
-                ul: ({ node, ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#f0eee6]/70 text-lg" {...props} />,
-                li: ({ node, ...props }: any) => <li className="" {...props} />,
-                strong: ({ node, ...props }: any) => <strong className="text-[#f0eee6] font-semibold" {...props} />,
-                hr: ({ node, ...props }: any) => <hr className="my-12 border-[#f0eee6]/5" {...props} />,
-                a: ({ node, ...props }: any) => <a className="text-[#f0eee6] hover:text-white transition-colors" {...props} />,
+                h1: ({ ...props }: any) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
+                h2: ({ ...props }: any) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
+                h3: ({ ...props }: any) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...props} />,
+                p: ({ ...props }: any) => <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...props} />,
+                ul: ({ ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...props} />,
+                li: ({ ...props }: any) => <li className="" {...props} />,
+                strong: ({ ...props }: any) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
+                hr: ({ ...props }: any) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
+                a: ({ ...props }: any) => <a className="text-[#faf9f6] hover:text-white transition-colors" {...props} />,
+                blockquote: ({ ...props }: any) => <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...props} />,
               }}
             >
               {aboutContent}
             </ReactMarkdown>
+
+            {researchContent && (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({ ...props }: any) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
+                  h2: ({ ...props }: any) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
+                  h3: ({ ...props }: any) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...props} />,
+                  p: ({ ...props }: any) => <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...props} />,
+                  ul: ({ ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...props} />,
+                  li: ({ ...props }: any) => <li className="" {...props} />,
+                  strong: ({ ...props }: any) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
+                  hr: ({ ...props }: any) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
+                  a: ({ ...props }: any) => <a className="text-[#faf9f6] hover:text-white transition-colors" {...props} />,
+                  blockquote: ({ ...props }: any) => <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...props} />,
+                }}
+              >
+                {researchContent}
+              </ReactMarkdown>
+            )}
           </div>
 
           {/* Dynamic Blog Posts Section */}
           {posts.length > 0 && (
             <div className="mt-24 border-t border-white/10 pt-16">
-              <h2 className="text-3xl font-bold text-[#f0eee6] mb-12 flex items-center gap-3">
+              <h2 className="text-3xl font-bold text-[#faf9f6] mb-12 flex items-center gap-3">
                 <span className="text-2xl">📚</span>
                 Latest Research Articles
               </h2>
               <div className="space-y-12">
                 {posts.map((post) => (
                   <div key={post.slug} className="group relative">
-                    <div className="flex items-center gap-4 text-sm text-[#f0eee6]/40 mb-3">
+                    <div className="flex items-center gap-4 text-sm text-[#faf9f6]/50 mb-3">
                       <span>{post.date}</span>
                     </div>
                     <Link href={`/blog/${post.slug}`} className="block">
@@ -80,7 +105,7 @@ export default function Home() {
                         {post.title}
                       </h3>
                     </Link>
-                    <p className="text-[#f0eee6]/60 text-lg leading-relaxed mb-4">
+                    <p className="text-[#faf9f6]/75 text-lg leading-relaxed mb-4">
                       {post.description}
                     </p>
                     <Link

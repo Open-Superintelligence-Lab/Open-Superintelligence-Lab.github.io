@@ -28,14 +28,6 @@ export function Navigation({ }: NavigationProps) {
               </Link>
 
               <Link
-                href="/learn"
-                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
-              >
-                <span className="relative z-10">Learn</span>
-                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
-              </Link>
-
-              <Link
                 href="/blog"
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
@@ -44,10 +36,10 @@ export function Navigation({ }: NavigationProps) {
               </Link>
 
               <Link
-                href="/request-review"
+                href="/learn"
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >
-                <span className="relative z-10">Review</span>
+                <span className="relative z-10">Learn</span>
                 <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
               </Link>
 

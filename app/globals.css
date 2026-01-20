@@ -5,7 +5,7 @@
 body {
   font-family: var(--font-inter), system-ui, sans-serif;
   background-color: #1f1e1d;
-  color: #f0eee6;
+  color: #faf9f6;
 }
 
 /* Custom scrollbar for dark theme */
@@ -119,25 +119,25 @@ body {
   .dark {
     --background: 20 4% 12%;
     /* #1f1e1d approx */
-    --foreground: 48 25% 92%;
-    /* #f0eee6 approx */
+    --foreground: 48 20% 97%;
+    /* #faf9f6 approx */
     --card: 20 4% 12%;
-    --card-foreground: 48 25% 92%;
+    --card-foreground: 48 20% 97%;
     --popover: 20 4% 12%;
-    --popover-foreground: 48 25% 92%;
-    --primary: 48 25% 92%;
+    --popover-foreground: 48 20% 97%;
+    --primary: 48 20% 97%;
     --primary-foreground: 20 4% 12%;
     --secondary: 20 4% 15%;
-    --secondary-foreground: 48 25% 92%;
+    --secondary-foreground: 48 20% 97%;
     --muted: 20 4% 15%;
-    --muted-foreground: 48 25% 70%;
+    --muted-foreground: 48 20% 80%;
     --accent: 20 4% 15%;
-    --accent-foreground: 48 25% 92%;
+    --accent-foreground: 48 20% 97%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 48 25% 92%;
+    --destructive-foreground: 48 20% 97%;
     --border: 20 4% 25%;
     --input: 20 4% 25%;
-    --ring: 48 25% 80%;
+    --ring: 48 20% 90%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
