@@ -87,41 +87,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* Dynamic Blog Posts Section */}
-          {posts.length > 0 && (
-            <div className="mt-24 border-t border-white/10 pt-16">
-              <h2 className="text-3xl font-bold text-[#faf9f6] mb-12 flex items-center gap-3">
-                <span className="text-2xl">📚</span>
-                Latest Research Articles
-              </h2>
-              <div className="space-y-12">
-                {posts.map((post) => (
-                  <div key={post.slug} className="group relative">
-                    <div className="flex items-center gap-4 text-sm text-[#faf9f6]/50 mb-3">
-                      <span>{post.date}</span>
-                    </div>
-                    <Link href={`/blog/${post.slug}`} className="block">
-                      <h3 className="text-2xl font-bold text-white mb-3">
-                        {post.title}
-                      </h3>
-                    </Link>
-                    <p className="text-[#faf9f6]/75 text-lg leading-relaxed mb-4">
-                      {post.description}
-                    </p>
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors"
-                    >
-                      Read full article
-                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </main>
     </>

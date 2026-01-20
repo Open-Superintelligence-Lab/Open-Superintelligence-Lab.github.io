@@ -1,8 +1,11 @@
-### Open Tasks
+---
+
+## Open Tasks
 
 [Does RoPE mess with semantics of the vectors, what would you do differently? ➝](/blog/rope-semantics)
 
-Setup research environment for [Back to Basics: Let Denoising Generative Models Denoise](https://arxiv.org/pdf/2511.13720). Add research questions, ideas, topics, etc.
+
+[Make LLM pretraining accessible for everyone ➝](/blog/5-dollar-llm)
 
 
 ---
