@@ -1,5 +1,7 @@
 # Publish Research at Open Superintelligence Lab
 
+Publishing blogs, articles and papers is the only what I know of that will make you a competent researcher.
+
 ### Ideas
 - Explain high-level concepts or intuition
 - Detail the mathematical foundations and proofs
