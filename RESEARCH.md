@@ -1,4 +1,4 @@
----
+
 
 ## Open Tasks
 
@@ -8,7 +8,7 @@
 [Make LLM pretraining accessible for everyone ➝](/blog/5-dollar-llm)
 
 
----
+
 
 ### Arctices
 

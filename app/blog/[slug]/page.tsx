@@ -32,15 +32,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="min-h-screen bg-[#1f1e1d] text-[#faf9f6]/90 pt-32 pb-24">
             <div className="container mx-auto px-6 max-w-4xl">
                 <div className="mb-12">
-                    <Link
-                        href="/research"
-                        className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2 mb-8"
-                    >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Back to Research
-                    </Link>
+
 
                     <div className="flex items-center gap-4 text-sm text-[#faf9f6]/60 mb-4">
                         <span>{post.date}</span>
