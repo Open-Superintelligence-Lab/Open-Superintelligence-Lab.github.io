@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import fs from "fs";
 import path from "path";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { getAllPosts, BlogPost } from "@/lib/blog-utils";
-import Link from "next/link";
+import { getAllPosts } from "@/lib/blog-utils";
 
 export default function Home() {
   const aboutPath = path.join(process.cwd(), "ABOUT_LAB.md");
@@ -12,7 +13,7 @@ export default function Home() {
   const researchPath = path.join(process.cwd(), "RESEARCH.md");
   const researchContent = fs.existsSync(researchPath) ? fs.readFileSync(researchPath, "utf8") : "";
 
-  const posts = getAllPosts();
+
 
   return (
     <>
@@ -51,16 +52,16 @@ export default function Home() {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1: ({ ...props }: any) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
-                h2: ({ ...props }: any) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
-                h3: ({ ...props }: any) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...props} />,
-                p: ({ ...props }: any) => <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...props} />,
-                ul: ({ ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...props} />,
-                li: ({ ...props }: any) => <li className="" {...props} />,
-                strong: ({ ...props }: any) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
-                hr: ({ ...props }: any) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
-                a: ({ ...props }: any) => <a className="text-[#faf9f6] hover:text-white transition-colors" {...props} />,
-                blockquote: ({ ...props }: any) => <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...props} />,
+                h1: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...rest} /> },
+                h2: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...rest} /> },
+                h3: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...rest} /> },
+                p: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...rest} /> },
+                ul: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...rest} /> },
+                li: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <li className="" {...rest} /> },
+                strong: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <strong className="text-[#faf9f6] font-semibold" {...rest} /> },
+                hr: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <hr className="my-12 border-[#faf9f6]/5" {...rest} /> },
+                a: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <a className="text-[#faf9f6] hover:text-white transition-colors" {...rest} /> },
+                blockquote: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...rest} /> },
               }}
             >
               {aboutContent}
@@ -70,16 +71,16 @@ export default function Home() {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: ({ ...props }: any) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
-                  h2: ({ ...props }: any) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
-                  h3: ({ ...props }: any) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...props} />,
-                  p: ({ ...props }: any) => <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...props} />,
-                  ul: ({ ...props }: any) => <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...props} />,
-                  li: ({ ...props }: any) => <li className="" {...props} />,
-                  strong: ({ ...props }: any) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
-                  hr: ({ ...props }: any) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
-                  a: ({ ...props }: any) => <a className="text-[#faf9f6] hover:text-white transition-colors" {...props} />,
-                  blockquote: ({ ...props }: any) => <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...props} />,
+                  h1: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...rest} /> },
+                  h2: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...rest} /> },
+                  h3: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 transition-colors" {...rest} /> },
+                  p: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <p className="text-[#faf9f6]/85 text-lg leading-relaxed mb-6" {...rest} /> },
+                  ul: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <ul className="list-disc list-inside mb-6 space-y-3 text-[#faf9f6]/85 text-lg" {...rest} /> },
+                  li: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <li className="" {...rest} /> },
+                  strong: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <strong className="text-[#faf9f6] font-semibold" {...rest} /> },
+                  hr: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <hr className="my-12 border-[#faf9f6]/5" {...rest} /> },
+                  a: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <a className="text-[#faf9f6] hover:text-white transition-colors" {...rest} /> },
+                  blockquote: ({ ...props }) => { const { node: _node, ...rest } = props as any; return <blockquote className="border-l-4 border-[#faf9f6]/30 pl-6 my-8 italic text-[#faf9f6]/75" {...rest} /> },
                 }}
               >
                 {researchContent}

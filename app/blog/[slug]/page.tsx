@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getPostBySlug, getAllPosts } from "@/lib/blog-utils";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import Link from "next/link";
+
 
 interface PageProps {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 export async function generateStaticParams() {
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-    const { slug } = params;
+    const { slug } = await params;
     const post = getPostBySlug(slug);
 
     if (!post) {
@@ -65,26 +66,27 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
-                            h1: ({ node, ...props }) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
-                            h2: ({ node, ...props }) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
-                            h3: ({ node, ...props }) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 hover:text-blue-400 transition-colors" {...props} />,
-                            p: ({ node, ...props }) => <p className="text-lg leading-relaxed mb-6" {...props} />,
-                            ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-6 space-y-3 ml-4 text-lg" {...props} />,
-                            li: ({ node, ...props }) => <li className="" {...props} />,
-                            strong: ({ node, ...props }) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
-                            hr: ({ node, ...props }) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
-                            blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-blue-500/50 pl-4 py-1 italic text-[#faf9f6]/75 my-6" {...props} />,
-                            a: ({ node, ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
-                            code: ({ node, ...props }) => (
+                            h1: ({ ...props }) => <h1 className="text-4xl font-bold text-[#faf9f6] mb-8 border-b border-[#faf9f6]/10 pb-4" {...props} />,
+                            h2: ({ ...props }) => <h2 className="text-2xl font-bold text-[#faf9f6] mt-12 mb-6" {...props} />,
+                            h3: ({ ...props }) => <h3 className="text-xl font-bold text-[#faf9f6] mt-8 mb-4 hover:text-blue-400 transition-colors" {...props} />,
+                            p: ({ ...props }) => <p className="text-lg leading-relaxed mb-6" {...props} />,
+                            ul: ({ ...props }) => <ul className="list-disc list-inside mb-6 space-y-3 ml-4 text-lg" {...props} />,
+                            li: ({ ...props }) => <li className="" {...props} />,
+                            strong: ({ ...props }) => <strong className="text-[#faf9f6] font-semibold" {...props} />,
+                            hr: ({ ...props }) => <hr className="my-12 border-[#faf9f6]/5" {...props} />,
+                            blockquote: ({ ...props }) => <blockquote className="border-l-4 border-blue-500/50 pl-4 py-1 italic text-[#faf9f6]/75 my-6" {...props} />,
+                            a: ({ ...props }) => <a className="text-blue-400 hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
+                            code: ({ ...props }) => (
                                 <code className="bg-[#2a2928] px-1.5 py-0.5 rounded text-blue-300 font-mono text-sm" {...props} />
                             ),
-                            pre: ({ node, ...props }) => (
+                            pre: ({ ...props }) => (
                                 <pre className="bg-[#2a2928] p-6 rounded-xl border border-white/5 overflow-x-auto my-8 font-mono text-sm leading-relaxed" {...props} />
                             ),
-                            img: ({ node, ...props }) => (
+                            img: ({ ...props }) => (
                                 <span className="block my-12">
                                     <img
                                         className="rounded-2xl border border-white/10 shadow-2xl mx-auto"
+                                        alt={props.alt || ""}
                                         {...props}
                                     />
                                     {props.alt && (
