@@ -10,7 +10,10 @@
 
 
 
-### Arctices
+### Articles
+
+### [Space State Model (SSM): Encode n-gram](/blog/ssm-encode-n-gram)
+Claim: For any n-gram language model, there exists a state space language model that can simulate it with arbitrarily small error.
 
 ### [DeepSeek Sparse Attention](/blog/deepseek-sparse-attention)
 Advanced research on DeepSeek's innovative sparse attention mechanisms for efficient long-context processing.
