@@ -5,10 +5,6 @@
 [Does RoPE mess with semantics of the vectors, what would you do differently? ➝](/blog/rope-semantics)
 
 
-[Make LLM pretraining accessible for everyone ➝](/blog/5-dollar-llm)
-
-
-
 
 ### Articles
 

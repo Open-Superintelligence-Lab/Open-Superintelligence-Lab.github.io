@@ -36,6 +36,22 @@ export function Navigation({ }: NavigationProps) {
               </Link>
 
               <Link
+                href="/blog/weekly-research-posts"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
+              >
+                <span className="relative z-10 text-blue-400">Weekly Writing</span>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
+              </Link>
+
+              <Link
+                href="/blog/high-performance-research-team"
+                className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
+              >
+                <span className="relative z-10 text-purple-400">Core Team</span>
+                <div className="absolute inset-0 bg-[#f0eee6]/0 group-hover:bg-[#f0eee6]/5 rounded-lg transition-all duration-300"></div>
+              </Link>
+
+              <Link
                 href="/learn"
                 className="group relative px-4 py-2 text-sm font-medium text-[#f0eee6]/70 hover:text-[#f0eee6] transition-all duration-300"
               >

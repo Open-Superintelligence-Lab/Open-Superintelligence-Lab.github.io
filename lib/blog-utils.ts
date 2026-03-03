@@ -30,7 +30,7 @@ export function getAllPosts(): BlogPost[] {
             return {
                 slug: file.replace('.md', ''),
                 title: data.title || 'Untitled',
-                date: data.date || '',
+                date: data.date ? (data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date)) : '',
                 description: data.description || '',
                 youtubeId: data.youtubeId,
                 content,
@@ -53,7 +53,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     return {
         slug,
         title: data.title || 'Untitled',
-        date: data.date || '',
+        date: data.date ? (data.date instanceof Date ? data.date.toISOString().split('T')[0] : String(data.date)) : '',
         description: data.description || '',
         youtubeId: data.youtubeId,
         content,
