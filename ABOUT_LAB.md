@@ -1,4 +1,4 @@
-We are an online AI research lab.
+We are an open AI research lab.
 
 Our ULTIMATE goal is the acceleration of long term (50+ years) AI research, all science and technology - all our research serves this goal.
 
