@@ -1,5 +1,4 @@
 
-
 ## Open Tasks
 
 [Does RoPE mess with semantics of the vectors, what would you do differently? ➝](/blog/rope-semantics)

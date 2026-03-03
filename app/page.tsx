@@ -67,6 +67,7 @@ export default function Home() {
               {aboutContent}
             </ReactMarkdown>
 
+            {/* 
             {researchContent && (
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
@@ -86,6 +87,7 @@ export default function Home() {
                 {researchContent}
               </ReactMarkdown>
             )}
+            */}
           </div>
 
         </div>
