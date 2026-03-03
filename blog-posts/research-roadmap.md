@@ -24,24 +24,133 @@ We will setup baselines and experiments that cover many questions at once to hel
 
 Research applying per-parameter momentum of AdamW to Muon optimizer.
 
-Compression of LLMs. (quantization, knowledge distillation, pruning)
-
-Mixed precision quantization
-
 How to make a 1-bit quantization model as close as possible to the performance of a full precision model? 
 - BiLLM, issues: only works for LLMs, not for VLMs
 
-How does the sensitivity to quantization vary across different layers (e.g., early vs. middle vs. final layers), attention heads, and feed-forward blocks in transformer-based LLMs? [this idea is still not too specific]
-
-Fewer GPUs:
-
-What are the most effective metrics (e.g., Hessian trace, Fisher information, gradient magnitude, activation outlier statistics) for determining per-layer or per-block quantization sensitivity?
-
-Distinguish between important and non important activations (are big activations important) and how to protect them from quantization effects?
-
 ## JEPA
 
-[writing in progress]
+JEPA Research Questions & Topics
+
+1. Theoretical Foundations
+
+- What is the precise theoretical relationship between JEPA's energy-based framework and other self-supervised paradigms (contrastive learning, masked autoencoders, variational autoencoders)? Can JEPA be formalized as a special case of a broader family?
+- What are the information-theoretic properties of JEPA's latent space? How much task-relevant information is preserved vs. discarded compared to pixel-level reconstruction objectives?
+- Why does predicting in representation space rather than pixel/token space lead to more semantically meaningful representations? Can this be formalized via rate-distortion theory or the information bottleneck principle?
+- What are the conditions under which JEPA's energy function provably avoids representation collapse without contrastive negatives? How do different collapse prevention mechanisms (VICReg, variance-covariance regularization, architectural asymmetry, EMA targets) compare theoretically?
+- Can we derive generalization bounds for downstream tasks as a function of the quality of JEPA's learned energy landscape?
+- How does JEPA relate to predictive coding theories in neuroscience, and can neuroscience insights (e.g., hierarchical predictive coding, precision weighting) improve JEPA architectures?
+- What is the formal relationship between JEPA and optimal transport / Wasserstein distances in representation space?
+
+2. Architecture Design
+
+- What is the optimal encoder architecture for JEPA (ViT, CNN, hybrid, state-space models)? How does this vary across modalities (vision, audio, video, text, multimodal)?
+- How should the predictor network be designed? What capacity, depth, and architectural form (MLP, Transformer, hypernetwork) is optimal, and how does predictor capacity affect the quality of learned representations?
+- Is there an optimal ratio of predictor capacity to encoder capacity? What happens when the predictor is too powerful (bypasses encoder) or too weak (underfits)?
+- How should the target encoder (EMA teacher) be designed? Is EMA the best choice, or can alternatives (stop-gradient, periodic sync, distillation, Polyak averaging with adaptive rates) perform better?
+- Can hierarchical JEPA (H-JEPA) be effectively implemented with multiple levels of abstraction, and what is the best way to structure inter-level predictions?
+- How should masking strategies be designed — what mask ratio, mask shape (block, random, semantic-aware, attention-guided), and mask scheduling work best?
+- Can mixture-of-experts (MoE) predictors specialize in different types of predictions (spatial, temporal, semantic) and improve representation quality?
+- What is the role of the context encoder vs. target encoder asymmetry, and can symmetric architectures work with the right training objective?
+
+3. Training Objectives & Collapse Prevention
+
+- What is the most effective training objective for JEPA — L2 in latent space, cosine similarity, contrastive in latent space, or energy-based objectives? How do these compare at scale?
+- How do different collapse prevention strategies (VICReg regularization, Barlow Twins-style decorrelation, batch normalization, predictor architecture constraints, EMA targets, feature whitening) compare in terms of representation quality and training stability?
+- Can learned energy functions replace hand-designed objectives? Can the energy landscape be shaped via meta-learning?
+- Does multi-scale prediction (predicting representations at multiple spatial/temporal resolutions simultaneously) improve representation quality?
+- Can curriculum strategies for masking difficulty (easy → hard predictions) improve training efficiency and final representation quality?
+- What loss landscape properties (smoothness, number of minima, saddle points) characterize well-trained vs. collapsed JEPA models?
+- Can adversarial or game-theoretic formulations prevent collapse more robustly than current regularization-based methods?
+
+4. Masking & Prediction Strategies
+
+- What is the optimal masking strategy for vision (random patches, block masking, semantic masking, object-aware masking) and how does it differ from MAE-style masking?
+- How does masking ratio affect the trade-off between learning low-level features vs. high-level semantic features?
+- Can attention maps or saliency from a preliminary forward pass guide masking to focus on the most informative regions?
+- For video JEPA (V-JEPA), what temporal masking strategies work best — masking future frames, random temporal segments, or causal masking?
+- Should predictions be made at the patch level, region level, or global level? Can multi-granularity prediction improve representations?
+- How does the spatial/temporal distance between context and target affect what the model learns (local texture vs. global semantics vs. temporal dynamics)?
+- Can JEPA be extended to predict across modalities (e.g., predict audio representation from video context)?
+
+5. Video & Temporal Understanding (V-JEPA)
+
+- How should temporal abstraction be handled in V-JEPA — frame-level prediction, clip-level prediction, or hierarchical multi-scale temporal prediction?
+- Can V-JEPA learn meaningful temporal abstractions (actions, events, causal sequences) without explicit supervision?
+- How does V-JEPA compare to video MAE, VideoGPT, and contrastive video methods (e.g., VideoBYOL) on temporal reasoning benchmarks?
+- Can V-JEPA learn predictive models of physical dynamics (intuitive physics) purely from video observation?
+- What is the optimal temporal context window — how much past context is needed to predict future representations accurately?
+- Can V-JEPA be extended to learn action-conditioned world models for robotics and embodied AI?
+- How should V-JEPA handle variable frame rates, long videos, and temporally sparse events?
+- Can V-JEPA representations support zero-shot or few-shot action recognition, temporal localization, and video question answering?
+
+6. World Models & Planning
+
+- Can JEPA serve as the backbone for a learned world model, as proposed in LeCun's autonomous machine intelligence framework? What are the practical bottlenecks?
+- How can JEPA's latent predictions be used for planning (e.g., model-predictive control in latent space)? What planning algorithms work best with JEPA-learned dynamics?
+- Can JEPA learn to predict the effects of actions in latent space (action-conditioned JEPA), and how does this compare to model-based RL world models (Dreamer, IRIS, TD-MPC)?
+- How should uncertainty be represented in JEPA's predictions — deterministic prediction, stochastic latent variables, energy-based multiple hypotheses, or ensemble disagreement?
+- Can hierarchical JEPA (H-JEPA) learn multi-level world models where higher levels predict at longer time horizons with more abstract representations?
+- How can JEPA-based world models handle multimodal futures (multiple plausible outcomes from the same context)?
+- Can JEPA world models generalize to out-of-distribution states and novel compositions of known elements?
+- What is the relationship between JEPA world models and the free energy principle / active inference framework?
+
+7. Multimodal & Cross-Modal JEPA
+
+- Can JEPA be extended to jointly learn representations across vision, language, audio, and other modalities? What is the best architecture for multimodal JEPA?
+- How should cross-modal prediction be structured — predict one modality's representation from another, or predict a shared representation?
+- Can JEPA provide a more principled alternative to CLIP-style contrastive multimodal learning by predicting in latent space rather than contrasting?
+- How does multimodal JEPA handle missing modalities at inference time?
+- Can JEPA learn a shared semantic space where representations from different modalities are naturally aligned without explicit alignment objectives?
+- How should the predictor be designed for cross-modal prediction (e.g., audio from video) where the mapping is inherently uncertain/many-to-many?
+
+8. Representation Quality & Evaluation
+
+- How should JEPA representations be evaluated beyond standard linear probing — what benchmarks, probing methods, and evaluation protocols best capture representation quality?
+- How do JEPA representations compare to contrastive (SimCLR, DINO, DINOv2), reconstructive (MAE, BEiT), and generative (diffusion, VAE) representations on diverse downstream tasks?
+- Do JEPA representations capture compositional structure (objects, attributes, relations), and how can this be measured?
+- How do JEPA representations perform on out-of-distribution generalization, domain adaptation, and robustness benchmarks?
+- Can JEPA representations support few-shot and zero-shot transfer as effectively as large-scale contrastive models?
+- What do JEPA representations encode that other methods miss, and vice versa? Can representation probing (e.g., probing for depth, surface normals, object parts) reveal qualitative differences?
+- How does representation quality scale with model size, data size, and compute — are there scaling laws for JEPA?
+
+9. Scaling & Efficiency
+
+- What are the scaling laws for JEPA — how does representation quality improve with model parameters, dataset size, and training compute?
+- How does JEPA's training efficiency (compute per quality unit) compare to MAE, DINO, and contrastive methods at scale?
+- Can JEPA be made more data-efficient — how much unlabeled data is needed to learn good representations for a given domain?
+- How can JEPA training be distributed efficiently across many GPUs, and what are the communication bottlenecks (batch statistics for collapse prevention, EMA synchronization)?
+- Can JEPA be effectively pre-trained on large heterogeneous datasets (web-scale images + video + audio) in a single unified run?
+- What is the optimal training duration / number of epochs for JEPA, and how does this differ from contrastive and reconstructive methods?
+- Can progressive training (gradually increasing resolution, model size, or masking difficulty) improve JEPA's efficiency?
+
+10. Applications & Downstream Impact
+
+- Can JEPA representations improve performance in robotics and embodied AI (manipulation, navigation, locomotion) compared to current self-supervised methods?
+- How effective are JEPA representations for medical imaging, satellite imagery, scientific data, and other domains with limited labeled data?
+- Can JEPA-based world models be used for safe RL by enabling planning and look-ahead in latent space before acting in the real world?
+- Can JEPA representations serve as a foundation for continual/lifelong learning where the model must adapt to new data without forgetting?
+- How can JEPA be combined with LLMs — can JEPA provide the perceptual backbone for multimodal large language models?
+- Can JEPA representations improve retrieval, search, and recommendation systems?
+- Can JEPA be applied to scientific domains (molecular dynamics, climate modeling, protein structure) where prediction in latent space may be more natural than in observation space?
+
+11. Comparison with Alternative Paradigms
+
+- JEPA vs. MAE: When does predicting in representation space outperform predicting in pixel space, and vice versa? Can hybrid approaches combine the best of both?
+- JEPA vs. Contrastive Learning (SimCLR, DINO): How do invariance properties differ? Does JEPA preserve more information by avoiding explicit invariance enforcement?
+- JEPA vs. Generative Models (VAE, Diffusion): Can JEPA learn representations as good as or better than generative models without the cost of learning to generate?
+- JEPA vs. Autoregressive Models (GPT-style): Is the JEPA prediction paradigm fundamentally more efficient than next-token prediction for learning world models?
+- Can JEPA and contrastive objectives be combined (e.g., JEPA loss + contrastive loss) to get the benefits of both?
+- How does JEPA compare to BYOL/SimSiam (which also use prediction + EMA but in augmentation space rather than masking space)?
+
+12. Open Fundamental Questions
+
+- Is representation-space prediction sufficient for general intelligence, or are there fundamental limitations to the JEPA framework?
+- Can JEPA learn abstract reasoning, causal understanding, and common sense, or are additional mechanisms needed?
+- How should JEPA handle inherent stochasticity in the world — is a single deterministic prediction in latent space sufficient, or must the model represent distributions over latent predictions?
+- Can JEPA be extended to an active learning / active inference setting where the agent chooses what to observe and predict?
+- What is the minimal set of inductive biases needed for JEPA to learn useful representations from raw sensory data?
+- Can JEPA eventually replace autoregressive language modeling for text, or is it fundamentally better suited for continuous modalities (vision, audio)?
+- How close is the current JEPA paradigm to LeCun's full vision of autonomous machine intelligence, and what are the missing pieces?
 
 ## Diffusion Models
 
@@ -891,6 +1000,4 @@ A comprehensive collection of research directions organized by thematic area.
 
 Xiaohongshu小红书
 
-1,000 Ideas For AI Research:
-
-1.
+1,000 Ideas For AI Research
