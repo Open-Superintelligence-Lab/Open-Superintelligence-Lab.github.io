@@ -4,6 +4,90 @@ date: "2026-03-03"
 description: ""
 ---
 
+# Our roadmap to AGI / superintelligence.
+
+We argue that the current focus on AGI and
+generality as the North Star of the field, should be replaced
+with an emphasis on adaptability, including the time it takes
+to learn a new task, and the range of tasks capable of being learned. 
+
+Let's start from fundamentals. Forget 100k GPUs, we don't understand what 1 GPU can do yet.
+
+
+
+JEPA, autoregressive models, diffusion models, RL... are not competing paradigms - they are lenses that reveal different truths about the underlying, fundamental structure of data, models & intelligence. Let's study this.
+
+
+Main research tracks:
+
+1. What is the structure of data? - You cannot build intelligence on data you do not understand
+2. What do models actually learn? - Representations show internal understanding
+
+Auxiliary research tracks:
+
+3. How does understanding emerge? - Scaling and emergence need to be researched a lot deeper
+4. What can limits of architectures teach us? - Every architecture has a ceiling — what can we learn from it
+5. What is the difference between world models (JEPA, LLMs, Emboddied RL, etc.) - this will help us understand what a world model is.
+
+
+If you would like to be the first author on any of these topics (a few hours to 6 months, depending on the task you choose and your time availability), please contact me.[X: @VukRosic99] It's important that you approach it seriously and responsibly (with our support) and write a quality blog post / paper at the end.
+
+## Nature of data
+
+### Text / Language
+
+Question: I'm building our research roadmap and I'm looking for most important / impactful questions, do you think this one is it?
+
+What is the limit of intelligence we can create with text only and how do we move towards it? ->
+
+Can we examine the underlying data properties of language by training LLMs on the same data in different ways, and studying the internal representations:
+
+1. autoregressive LLM
+2. diffusion LLM
+3. SSM (Mamba, GDN)
+4. more? (maybe we don't want too many)
+
+Is there structure in left-to-right generation that doesn't get captured by diffusion, and what can we learn from it?
+
+Do the emergent capabilities come from the data, or from the autoregressive processing?
+
+Examine:
+
+1. The Embedding Matrix
+Every architecture learns a token embedding matrix.
+
+- Nearest-neighbor structure: for every token, compute its k-nearest neighbors in embedding space. Measure overlap across architectures. High overlap = the data forces these tokens to cluster, regardless of training objective.
+
+Analogical structure: do all three learn the same linear directions? (king − man + woman ≈ queen). Test systematically across semantic relations.
+
+Embedding isotropy / anisotropy: do all three develop the same geometric pathologies (e.g., the narrow cone problem)?
+
+Frequency-geometry correlation: plot token frequency vs. embedding norm. All three will likely show a relationship — but is it the same one?
+
+1. loss for each token for each architecture, which tokens are equality difficult for different architecture, which ones are not and what can we learn?
+
+2. token vectors, how many numbers are near 0, are they collapsed
+
+We have a good AR LLM here but we don't have setup for SSM and diffusion LLM yet.
+[blog to check](https://www.notion.so/Understanding-the-Limitations-of-Diffusion-LLMs-through-a-Probabilistic-Perspective-2ae0ba07baa88053b838d5bf0b0aad41)
+
+how to construct a llm that can understand language human language like huamn does?
+human can do length extraplotion by nature, very long input.
+
+IMPORTANT:
+To setup diffusion reserach, use FLA, register a new model
+replace causal = T
+true
+
+---
+
+maybe we should focus on benchmarking or improving how quickly a model learns a new skill
+
+---
+---
+---
+---
+
 We are curating list of around 1,000 AI research questions, we will possibly reduce it.
 
 ### Some questions we are thinking about
@@ -20,12 +104,66 @@ There shouldn't be more than 6 people can working on 1 topic / question, as it m
 
 We will setup baselines and experiments that cover many questions at once to help authors.
 
+## How to pick research question:
+1. What are you passionate about and have a deep understanding of?
+2. Have you done a literature review in this industry recently?
+3. Are you ready to spend months on incremental research? Or years for a fundamental change?
+- quote by @krik_exe on X
+
+We are going to focus on fundamental understanding of data and models.
+
+# Handpicked questions:
+
 ## LLM Research
+
+Can we examine underlying data distribution of language by training autoregressive LLM vs diffusion LLM, is there structure in left-to-right generation that doesn't get captured by diffusion, what can we learn from it?
 
 Research applying per-parameter momentum of AdamW to Muon optimizer.
 
 How to make a 1-bit quantization model as close as possible to the performance of a full precision model? 
 - BiLLM, issues: only works for LLMs, not for VLMs
+
+
+## LLM & Foundation Models
+
+A collection of fundamental, first-principles questions regarding Large Language Models and their underlying architectures.
+
+### 1. Next-Token Prediction & Objective Functions
+- Is the next-token prediction objective sufficient to learn an accurate causal world model, or does it merely approximate statistical correlations on the surface of the data?
+- What are the fundamental information-theoretic limits of learning complex reasoning processes via discrete, autoregressive token prediction?
+- Under what formal conditions does exact next-token prediction mathematically guarantee the learning of the underlying generative process (the "true" data manifold)?
+- Are LLMs optimizing for a Minimum Description Length (MDL) representation of the training data, and how does this relate to their generalization capabilities versus pure memorization?
+- Can alternative objectives (e.g., energy-based models, continuous latent prediction, contrastive learning) bypass the theoretical limits of autoregression in capturing long-tail knowledge?
+
+### 2. Architecture & Expressivity (Transformers & Attention)
+- What is the precise mathematical role of the multi-layer perceptron (MLP) layers versus self-attention layers concerning knowledge retrieval, storage, and information routing?
+- Are there fundamental limitations to self-attention's ability to model hierarchical or tree-structured data mathematically, and do current mechanisms simply approximate these structures?
+- From a dynamical systems perspective, can we map the forward pass of a deep LLM to a specific class of differential equations, and what does this imply about their reasoning limits?
+- What are the strict computational complexity bounds of transformer layers, and which formal languages or logic systems are fundamentally unlearnable by standard attention mechanisms?
+- Does replacing standard softmax attention with alternative mechanisms (e.g., linear attention, state-space models like Mamba) structurally change the model's hypothesis space or just make it more computationally efficient?
+
+### 3. Scaling Laws & Emergence
+- Are "emergent capabilities" truly discontinuous phase transitions governed by specific parameter/compute thresholds, or are they an artifact of the evaluation metrics used (e.g., discrete accuracy vs. cross-entropy)?
+- What physical or information-theoretic principles dictate the precise slope and intercept of empirical neural scaling laws?
+- Is there a fundamental threshold beyond which adding more data injects contradictory noise rather than useful signal, representing a strict asymptote on scaling?
+- Can we theoretically predict the exact point at which an LLM shifts from "memorizing" individual data points to "generalizing" structural patterns based on model capacity and dataset entropy?
+
+### 4. In-Context Learning & Working Memory
+- Is in-context learning fundamentally equivalent to implicit gradient descent on the prompt (meta-learning), or does it rely on a separate mechanism of dynamic circuitry and information routing within the weights?
+- What are the theoretical bounds on the working memory capacity of self-attention (context window), and how does attention entropy degrade as context length scales to infinity?
+- How do transformer heads construct momentary variable bindings or "pointers" in activation space, and are there fundamental computational limitations to this compared to classical von Neumann memory architectures?
+
+### 5. Representation, Semantics & Grounding
+- How is abstract semantic meaning topologically structured in high-dimensional embedding spaces, and is this geometry universal across different models, initializations, and modalities?
+- Can language models ever achieve true symbol grounding purely from ungrounded text (the "text-only" hypothesis), or does theoretical physics and cognitive science suggest a formal barrier necessitating embodied interaction?
+- Are the concepts learned by LLMs compositional by default? How can we mathematically measure the degree of compositionality and disentanglement in their internal representations?
+- Do LLMs learn a single, coherent representation of truth, or do they construct superpositioned simulation models that branch depending on the syntactic framing of the prompt?
+
+### 6. Optimization and Quantization
+- Research applying per-parameter momentum of AdamW to Muon optimizer.
+- How to make a 1-bit quantization model as close as possible to the performance of a full precision model? 
+- For BiLLM, what are the theoretical obstacles that limit its effectiveness to LLMs and prevent generalization to VLMs?
+- What is the theoretical limit of weight and activation quantization before structural knowledge is irreversibly destroyed, and does this limit depend on the entropy of the training data?
 
 ## JEPA
 
