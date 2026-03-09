@@ -4,19 +4,91 @@ date: "2026-03-03"
 description: ""
 ---
 
+## Table of Contents
+
+- [Our roadmap to AGI / superintelligence.](#our-roadmap-to-agi--superintelligence)
+  - [Nature of data](#nature-of-data)
+    - [Text / Language](#text--language)
+    - [Some questions we are thinking about](#some-questions-we-are-thinking-about)
+  - [How to pick research question:](#how-to-pick-research-question)
+- [Handpicked questions:](#handpicked-questions)
+  - [LLM Research](#llm-research)
+  - [Practical Model Projects](#practical-model-projects)
+  - [LLM & Foundation Models](#llm--foundation-models)
+    - [1. Next-Token Prediction & Objective Functions](#1-next-token-prediction--objective-functions)
+    - [2. Architecture & Expressivity (Transformers & Attention)](#2-architecture--expressivity-transformers--attention)
+    - [3. Scaling Laws & Emergence](#3-scaling-laws--emergence)
+    - [4. In-Context Learning & Working Memory](#4-in-context-learning--working-memory)
+    - [5. Representation, Semantics & Grounding](#5-representation-semantics--grounding)
+    - [6. Optimization and Quantization](#6-optimization-and-quantization)
+  - [JEPA](#jepa)
+  - [Diffusion Models](#diffusion-models)
+    - [1. Theoretical Foundations](#1-theoretical-foundations)
+    - [2. Sampling Efficiency & Fast Generation](#2-sampling-efficiency--fast-generation)
+    - [3. Architecture Design](#3-architecture-design)
+    - [4. Latent Diffusion & Representation Learning](#4-latent-diffusion--representation-learning)
+    - [5. Conditioning & Controllability](#5-conditioning--controllability)
+    - [6. Image Editing & Inversion](#6-image-editing--inversion)
+    - [7. Video Generation & Temporal Modeling](#7-video-generation--temporal-modeling)
+    - [8. 3D Generation](#8-3d-generation)
+    - [9. Audio, Music & Speech](#9-audio-music--speech)
+    - [10. Scientific & Domain-Specific Applications](#10-scientific--domain-specific-applications)
+    - [11. Discrete & Non-Euclidean Diffusion](#11-discrete--non-euclidean-diffusion)
+    - [12. Flow Matching & Continuous Normalizing Flows](#12-flow-matching--continuous-normalizing-flows)
+    - [13. Training Improvements](#13-training-improvements)
+    - [14. Evaluation Metrics & Benchmarking](#14-evaluation-metrics--benchmarking)
+    - [15. Personalization & Customization](#15-personalization--customization)
+    - [16. Efficiency, Compression & Deployment](#16-efficiency-compression--deployment)
+    - [17. Safety & Robustness](#17-safety--robustness)
+    - [18. Multi-Modal & Cross-Modal Diffusion](#18-multi-modal--cross-modal-diffusion)
+    - [19. Diffusion Models vs. Other Generative Paradigms](#19-diffusion-models-vs-other-generative-paradigms)
+    - [20. Diffusion for Decision-Making & Robotics](#20-diffusion-for-decision-making--robotics)
+    - [21. Diffusion for Inverse Problems & Restoration](#21-diffusion-for-inverse-problems--restoration)
+    - [22. Interpretability & Understanding](#22-interpretability--understanding)
+    - [23. Data Efficiency & Few-Shot Generation](#23-data-efficiency--few-shot-generation)
+    - [24. Continual & Lifelong Learning](#24-continual--lifelong-learning)
+    - [25. Connections to Physics & Thermodynamics](#25-connections-to-physics--thermodynamics)
+- [Reinforcement Learning](#reinforcement-learning)
+- [Research Questions for Reinforcement Learning](#research-questions-for-reinforcement-learning)
+  - [1. Theoretical Foundations](#1-theoretical-foundations-1)
+  - [2. Exploration](#2-exploration)
+  - [3. Sample Efficiency](#3-sample-efficiency)
+  - [4. Offline & Batch Reinforcement Learning](#4-offline--batch-reinforcement-learning)
+  - [5. Model-Based Reinforcement Learning](#5-model-based-reinforcement-learning)
+  - [6. Hierarchical Reinforcement Learning (HRL)](#6-hierarchical-reinforcement-learning-hrl)
+  - [7. Multi-Agent Reinforcement Learning (MARL)](#7-multi-agent-reinforcement-learning-marl)
+  - [8. Reward Design & Reward Learning](#8-reward-design--reward-learning)
+  - [9. RLHF & Alignment](#9-rlhf--alignment)
+  - [10. Policy Optimization & Algorithms](#10-policy-optimization--algorithms)
+  - [11. Representation Learning for RL](#11-representation-learning-for-rl)
+  - [12. Generalization & Transfer](#12-generalization--transfer)
+  - [13. Continual & Lifelong Learning](#13-continual--lifelong-learning)
+  - [14. Goal-Conditioned & Multi-Task RL](#14-goal-conditioned--multi-task-rl)
+  - [15. Language & Foundation Models for RL](#15-language--foundation-models-for-rl)
+  - [16. Safe & Constrained RL](#16-safe--constrained-rl)
+  - [17. Robustness & Adversarial RL](#17-robustness--adversarial-rl)
+  - [18. Imitation Learning & Learning from Demonstrations](#18-imitation-learning--learning-from-demonstrations)
+  - [19. Temporal Abstraction & Options Framework](#19-temporal-abstraction--options-framework)
+  - [20. Credit Assignment](#20-credit-assignment)
+  - [21. Curriculum Learning & Automatic Environment Design](#21-curriculum-learning--automatic-environment-design)
+  - [22. RL for Robotics & Embodied AI](#22-rl-for-robotics--embodied-ai)
+  - [23. RL for Games & Complex Decision-Making](#23-rl-for-games--complex-decision-making)
+  - [24. RL for Combinatorial Optimization](#24-rl-for-combinatorial-optimization)
+  - [25. RL for Science & Engineering](#25-rl-for-science--engineering)
+  - [26. RL for NLP & Code Generation](#26-rl-for-nlp--code-generation)
+  - [27. Distributional RL](#27-distributional-rl)
+  - [28. Inverse RL & Preference Learning](#28-inverse-rl--preference-learning)
+  - [29. Offline-to-Online & Hybrid RL](#29-offline-to-online--hybrid-rl)
+  - [30. Interpretability & Explainability](#30-interpretability--explainability)
+  - [31. Memory & Recurrence in RL](#31-memory--recurrence-in-rl)
+  - [32. Causal RL](#32-causal-rl)
+  - [33. Evaluation & Reproducibility](#33-evaluation--reproducibility)
+  - [34. Real-World RL Challenges](#34-real-world-rl-challenges)
+  - [35. Open-Ended & Emergent Learning](#35-open-ended--emergent-learning)
+  - [36. Neuroscience-Inspired RL](#36-neuroscience-inspired-rl)
+
+
 # Our roadmap to AGI / superintelligence.
-
-We argue that the current focus on AGI and
-generality as the North Star of the field, should be replaced
-with an emphasis on adaptability, including the time it takes
-to learn a new task, and the range of tasks capable of being learned. 
-
-Let's start from fundamentals. Forget 100k GPUs, we don't understand what 1 GPU can do yet.
-
-
-
-JEPA, autoregressive models, diffusion models, RL... are not competing paradigms - they are lenses that reveal different truths about the underlying, fundamental structure of data, models & intelligence. Let's study this.
-
 
 Main research tracks:
 
@@ -26,7 +98,7 @@ Main research tracks:
 Auxiliary research tracks:
 
 3. How does understanding emerge? - Scaling and emergence need to be researched a lot deeper
-4. What can limits of architectures teach us? - Every architecture has a ceiling — what can we learn from it
+4. What can limits of architectures teach us? - Every architecture has a ceiling - what can we learn from it
 5. What is the difference between world models (JEPA, LLMs, Emboddied RL, etc.) - this will help us understand what a world model is.
 
 
@@ -36,59 +108,31 @@ If you would like to be the first author on any of these topics (a few hours to 
 
 ### Text / Language
 
-Question: I'm building our research roadmap and I'm looking for most important / impactful questions, do you think this one is it?
-
-What is the limit of intelligence we can create with text only and how do we move towards it? ->
+**Core question:** What is the limit of intelligence we can create with text only, and how do we move towards it?
 
 Can we examine the underlying data properties of language by training LLMs on the same data in different ways, and studying the internal representations:
 
-1. autoregressive LLM
-2. diffusion LLM
+1. Autoregressive LLM
+2. Diffusion LLM
 3. SSM (Mamba, GDN)
-4. more? (maybe we don't want too many)
 
 Is there structure in left-to-right generation that doesn't get captured by diffusion, and what can we learn from it?
 
 Do the emergent capabilities come from the data, or from the autoregressive processing?
 
-Examine:
+**Experiments to run:**
 
-1. The Embedding Matrix
-Every architecture learns a token embedding matrix.
+1. **The Embedding Matrix** - Every architecture learns a token embedding matrix.
+   - Nearest-neighbor structure: for every token, compute its k-nearest neighbors in embedding space. Measure overlap across architectures. High overlap = the data forces these tokens to cluster, regardless of training objective.
+   - Analogical structure: do all three learn the same linear directions? (king − man + woman ≈ queen). Test systematically across semantic relations.
+   - Embedding isotropy / anisotropy: do all three develop the same geometric pathologies (e.g., the narrow cone problem)?
+   - Frequency-geometry correlation: plot token frequency vs. embedding norm. All three will likely show a relationship - but is it the same one?
 
-- Nearest-neighbor structure: for every token, compute its k-nearest neighbors in embedding space. Measure overlap across architectures. High overlap = the data forces these tokens to cluster, regardless of training objective.
+2. **Per-token loss comparison** - loss for each token for each architecture. Which tokens are equally difficult for different architectures, which ones are not, and what can we learn?
 
-Analogical structure: do all three learn the same linear directions? (king − man + woman ≈ queen). Test systematically across semantic relations.
+3. **Representation collapse analysis** - token vectors: how many dimensions are near 0, are representations collapsed?
 
-Embedding isotropy / anisotropy: do all three develop the same geometric pathologies (e.g., the narrow cone problem)?
-
-Frequency-geometry correlation: plot token frequency vs. embedding norm. All three will likely show a relationship — but is it the same one?
-
-1. loss for each token for each architecture, which tokens are equality difficult for different architecture, which ones are not and what can we learn?
-
-2. token vectors, how many numbers are near 0, are they collapsed
-
-We have a good AR LLM here but we don't have setup for SSM and diffusion LLM yet.
-[blog to check](https://www.notion.so/Understanding-the-Limitations-of-Diffusion-LLMs-through-a-Probabilistic-Perspective-2ae0ba07baa88053b838d5bf0b0aad41)
-
-how to construct a llm that can understand language human language like huamn does?
-human can do length extraplotion by nature, very long input.
-
-IMPORTANT:
-To setup diffusion reserach, use FLA, register a new model
-replace causal = T
-true
-
----
-
-maybe we should focus on benchmarking or improving how quickly a model learns a new skill
-
----
----
----
----
-
-We are curating list of around 1,000 AI research questions, we will possibly reduce it.
+**Related question:** Can we benchmark or improve how quickly a model learns a new skill?
 
 ### Some questions we are thinking about
 
@@ -107,12 +151,10 @@ We will setup baselines and experiments that cover many questions at once to hel
 ## How to pick research question:
 1. What are you passionate about and have a deep understanding of?
 2. Have you done a literature review in this industry recently?
-3. Are you ready to spend months on incremental research? Or years for a fundamental change?
+3. Are you ready to spend months on incremental research? Or years for a fundamental change? (is this how it is? i'm not sure)
 - quote by @krik_exe on X
 
-We are going to focus on fundamental understanding of data and models.
-
-# Handpicked questions:
+---
 
 ## LLM Research
 
@@ -123,6 +165,36 @@ Research applying per-parameter momentum of AdamW to Muon optimizer.
 How to make a 1-bit quantization model as close as possible to the performance of a full precision model? 
 - BiLLM, issues: only works for LLMs, not for VLMs
 
+## Practical Model Projects
+
+Building some practical models, here are examples below
+- We should probably distill bigger models into very small specialized models, possibly include reinforcement learning? Here are ideas below, give your feedback.
+
+**NLP & Information Extraction (Small LLMs)**
+
+1. **Email/Contact Extractor LLM** - Fine-tune a small LLM (e.g., 10M–125M parameters, SmolLM or TinyLlama) to extract structured data (emails, phone numbers, names, addresses) from raw unstructured text. Benchmark against regex, spaCy NER, and GPT-4 API on accuracy, speed, latency, and cost per 1M documents. Deliverable: trained model + benchmark report.
+
+2. **Document Summarizer for Research Papers** - Fine-tune a small model to take arXiv abstracts + introductions and produce structured summaries (problem, method, result, limitation). Compare 125M param fine-tuned model vs. 7B general model vs. API calls. Study what the small model learns vs. what it fails at.
+
+3. **Intent Classifier From Scratch** - Train a small transformer from scratch on customer support / chatbot intent data. Study how quickly the model learns to separate intents vs. how much data is needed. Connects to our core question: *how quickly can a model learn a new skill?*
+
+4. **Structured JSON Generator** - Fine-tune a small LLM to convert natural language descriptions into structured JSON (e.g., "3 bedroom apartment in NYC under $2000" → `{"bedrooms": 3, "city": "NYC", "max_price": 2000}`). Study failure modes - when does structured output break and why?
+
+**Architecture & Representation Experiments**
+
+6. **Attention vs. SSM on Identical Data** - Train a small transformer and a small Mamba model on identical data (e.g., TinyStories or a curated Wikipedia subset). Compare internal representations: CKA similarity, probing accuracy on syntactic/semantic tasks, per-token loss distributions. This directly feeds our core research on data structure.
+
+7. **Quantization Cliff Finder** - Take a pre-trained small LLM and progressively quantize it (FP16 → INT8 → INT4 → INT2 → 1-bit). For each level, measure not just perplexity but *which types of knowledge degrade first* (factual recall? syntax? reasoning? rare tokens?). Produces a "knowledge fragility map."
+
+8. **Embedding Geometry Comparator** - Train 3–5 small models with different architectures (transformer, SSM, RWKV) on the same data. Analyze embedding spaces: isotropy, nearest-neighbor overlap, frequency-norm correlation, analogical structure. Directly tests whether data structure is architecture-invariant.
+
+9. Reward hacking detector - Is there reward hacking in reasoning LLM training, how to measure and detect it?
+
+**Diffusion & Generation**
+
+9. **Tiny Diffusion LLM** - Implement a small diffusion language model (using MDLM or similar) and train on a small corpus. Compare token-level metrics against an autoregressive model of the same size on the same data. Which tokens does diffusion handle better/worse?
+
+10. **1-Step vs. N-Step Diffusion Image Quality** - Train a small latent diffusion model and distill it to 1-step, 2-step, 4-step, 8-step variants. Systematically measure what visual features degrade at each step reduction (textures? global structure? fine details? faces?).
 
 ## LLM & Foundation Models
 
@@ -186,13 +258,13 @@ JEPA Research Questions & Topics
 - Is there an optimal ratio of predictor capacity to encoder capacity? What happens when the predictor is too powerful (bypasses encoder) or too weak (underfits)?
 - How should the target encoder (EMA teacher) be designed? Is EMA the best choice, or can alternatives (stop-gradient, periodic sync, distillation, Polyak averaging with adaptive rates) perform better?
 - Can hierarchical JEPA (H-JEPA) be effectively implemented with multiple levels of abstraction, and what is the best way to structure inter-level predictions?
-- How should masking strategies be designed — what mask ratio, mask shape (block, random, semantic-aware, attention-guided), and mask scheduling work best?
+- How should masking strategies be designed - what mask ratio, mask shape (block, random, semantic-aware, attention-guided), and mask scheduling work best?
 - Can mixture-of-experts (MoE) predictors specialize in different types of predictions (spatial, temporal, semantic) and improve representation quality?
 - What is the role of the context encoder vs. target encoder asymmetry, and can symmetric architectures work with the right training objective?
 
 3. Training Objectives & Collapse Prevention
 
-- What is the most effective training objective for JEPA — L2 in latent space, cosine similarity, contrastive in latent space, or energy-based objectives? How do these compare at scale?
+- What is the most effective training objective for JEPA - L2 in latent space, cosine similarity, contrastive in latent space, or energy-based objectives? How do these compare at scale?
 - How do different collapse prevention strategies (VICReg regularization, Barlow Twins-style decorrelation, batch normalization, predictor architecture constraints, EMA targets, feature whitening) compare in terms of representation quality and training stability?
 - Can learned energy functions replace hand-designed objectives? Can the energy landscape be shaped via meta-learning?
 - Does multi-scale prediction (predicting representations at multiple spatial/temporal resolutions simultaneously) improve representation quality?
@@ -204,19 +276,17 @@ JEPA Research Questions & Topics
 
 - What is the optimal masking strategy for vision (random patches, block masking, semantic masking, object-aware masking) and how does it differ from MAE-style masking?
 - How does masking ratio affect the trade-off between learning low-level features vs. high-level semantic features?
-- Can attention maps or saliency from a preliminary forward pass guide masking to focus on the most informative regions?
-- For video JEPA (V-JEPA), what temporal masking strategies work best — masking future frames, random temporal segments, or causal masking?
-- Should predictions be made at the patch level, region level, or global level? Can multi-granularity prediction improve representations?
+- For video JEPA (V-JEPA), what temporal masking strategies work best - masking future frames, random temporal segments, or causal masking?
 - How does the spatial/temporal distance between context and target affect what the model learns (local texture vs. global semantics vs. temporal dynamics)?
 - Can JEPA be extended to predict across modalities (e.g., predict audio representation from video context)?
 
 5. Video & Temporal Understanding (V-JEPA)
 
-- How should temporal abstraction be handled in V-JEPA — frame-level prediction, clip-level prediction, or hierarchical multi-scale temporal prediction?
+- How should temporal abstraction be handled in V-JEPA - frame-level prediction, clip-level prediction, or hierarchical multi-scale temporal prediction?
 - Can V-JEPA learn meaningful temporal abstractions (actions, events, causal sequences) without explicit supervision?
 - How does V-JEPA compare to video MAE, VideoGPT, and contrastive video methods (e.g., VideoBYOL) on temporal reasoning benchmarks?
 - Can V-JEPA learn predictive models of physical dynamics (intuitive physics) purely from video observation?
-- What is the optimal temporal context window — how much past context is needed to predict future representations accurately?
+- What is the optimal temporal context window - how much past context is needed to predict future representations accurately?
 - Can V-JEPA be extended to learn action-conditioned world models for robotics and embodied AI?
 - How should V-JEPA handle variable frame rates, long videos, and temporally sparse events?
 - Can V-JEPA representations support zero-shot or few-shot action recognition, temporal localization, and video question answering?
@@ -226,7 +296,7 @@ JEPA Research Questions & Topics
 - Can JEPA serve as the backbone for a learned world model, as proposed in LeCun's autonomous machine intelligence framework? What are the practical bottlenecks?
 - How can JEPA's latent predictions be used for planning (e.g., model-predictive control in latent space)? What planning algorithms work best with JEPA-learned dynamics?
 - Can JEPA learn to predict the effects of actions in latent space (action-conditioned JEPA), and how does this compare to model-based RL world models (Dreamer, IRIS, TD-MPC)?
-- How should uncertainty be represented in JEPA's predictions — deterministic prediction, stochastic latent variables, energy-based multiple hypotheses, or ensemble disagreement?
+- How should uncertainty be represented in JEPA's predictions - deterministic prediction, stochastic latent variables, energy-based multiple hypotheses, or ensemble disagreement?
 - Can hierarchical JEPA (H-JEPA) learn multi-level world models where higher levels predict at longer time horizons with more abstract representations?
 - How can JEPA-based world models handle multimodal futures (multiple plausible outcomes from the same context)?
 - Can JEPA world models generalize to out-of-distribution states and novel compositions of known elements?
@@ -235,30 +305,19 @@ JEPA Research Questions & Topics
 7. Multimodal & Cross-Modal JEPA
 
 - Can JEPA be extended to jointly learn representations across vision, language, audio, and other modalities? What is the best architecture for multimodal JEPA?
-- How should cross-modal prediction be structured — predict one modality's representation from another, or predict a shared representation?
+- How should cross-modal prediction be structured - predict one modality's representation from another, or predict a shared representation?
 - Can JEPA provide a more principled alternative to CLIP-style contrastive multimodal learning by predicting in latent space rather than contrasting?
 - How does multimodal JEPA handle missing modalities at inference time?
 - Can JEPA learn a shared semantic space where representations from different modalities are naturally aligned without explicit alignment objectives?
 - How should the predictor be designed for cross-modal prediction (e.g., audio from video) where the mapping is inherently uncertain/many-to-many?
 
-8. Representation Quality & Evaluation
+8. Representation Quality, Scaling & Evaluation
 
-- How should JEPA representations be evaluated beyond standard linear probing — what benchmarks, probing methods, and evaluation protocols best capture representation quality?
 - How do JEPA representations compare to contrastive (SimCLR, DINO, DINOv2), reconstructive (MAE, BEiT), and generative (diffusion, VAE) representations on diverse downstream tasks?
 - Do JEPA representations capture compositional structure (objects, attributes, relations), and how can this be measured?
-- How do JEPA representations perform on out-of-distribution generalization, domain adaptation, and robustness benchmarks?
-- Can JEPA representations support few-shot and zero-shot transfer as effectively as large-scale contrastive models?
 - What do JEPA representations encode that other methods miss, and vice versa? Can representation probing (e.g., probing for depth, surface normals, object parts) reveal qualitative differences?
-- How does representation quality scale with model size, data size, and compute — are there scaling laws for JEPA?
-
-9. Scaling & Efficiency
-
-- What are the scaling laws for JEPA — how does representation quality improve with model parameters, dataset size, and training compute?
-- How does JEPA's training efficiency (compute per quality unit) compare to MAE, DINO, and contrastive methods at scale?
-- Can JEPA be made more data-efficient — how much unlabeled data is needed to learn good representations for a given domain?
-- How can JEPA training be distributed efficiently across many GPUs, and what are the communication bottlenecks (batch statistics for collapse prevention, EMA synchronization)?
-- Can JEPA be effectively pre-trained on large heterogeneous datasets (web-scale images + video + audio) in a single unified run?
-- What is the optimal training duration / number of epochs for JEPA, and how does this differ from contrastive and reconstructive methods?
+- How does representation quality scale with model size, data size, and compute - are there scaling laws for JEPA?
+- Can JEPA be made more data-efficient - how much unlabeled data is needed to learn good representations for a given domain?
 - Can progressive training (gradually increasing resolution, model size, or masking difficulty) improve JEPA's efficiency?
 
 10. Applications & Downstream Impact
@@ -267,7 +326,7 @@ JEPA Research Questions & Topics
 - How effective are JEPA representations for medical imaging, satellite imagery, scientific data, and other domains with limited labeled data?
 - Can JEPA-based world models be used for safe RL by enabling planning and look-ahead in latent space before acting in the real world?
 - Can JEPA representations serve as a foundation for continual/lifelong learning where the model must adapt to new data without forgetting?
-- How can JEPA be combined with LLMs — can JEPA provide the perceptual backbone for multimodal large language models?
+- How can JEPA be combined with LLMs - can JEPA provide the perceptual backbone for multimodal large language models?
 - Can JEPA representations improve retrieval, search, and recommendation systems?
 - Can JEPA be applied to scientific domains (molecular dynamics, climate modeling, protein structure) where prediction in latent space may be more natural than in observation space?
 
@@ -284,7 +343,7 @@ JEPA Research Questions & Topics
 
 - Is representation-space prediction sufficient for general intelligence, or are there fundamental limitations to the JEPA framework?
 - Can JEPA learn abstract reasoning, causal understanding, and common sense, or are additional mechanisms needed?
-- How should JEPA handle inherent stochasticity in the world — is a single deterministic prediction in latent space sufficient, or must the model represent distributions over latent predictions?
+- How should JEPA handle inherent stochasticity in the world - is a single deterministic prediction in latent space sufficient, or must the model represent distributions over latent predictions?
 - Can JEPA be extended to an active learning / active inference setting where the agent chooses what to observe and predict?
 - What is the minimal set of inductive biases needed for JEPA to learn useful representations from raw sensory data?
 - Can JEPA eventually replace autoregressive language modeling for text, or is it fundamentally better suited for continuous modalities (vision, audio)?
@@ -299,7 +358,7 @@ JEPA Research Questions & Topics
 - What are the theoretical convergence guarantees of diffusion models under realistic assumptions (finite data, finite network capacity, limited diffusion steps)?
 - How does the choice of noise schedule (linear, cosine, sigmoid, learned) affect the geometry of the learned probability path, and is there a provably optimal schedule?
 - Can information-theoretic perspectives (e.g., mutual information, rate-distortion) provide new insights into the forward and reverse diffusion processes?
-- What is the relationship between the manifold hypothesis and diffusion model performance — how do diffusion models handle data lying on low-dimensional manifolds embedded in high-dimensional space?
+- What is the relationship between the manifold hypothesis and diffusion model performance - how do diffusion models handle data lying on low-dimensional manifolds embedded in high-dimensional space?
 - Can optimal transport theory provide better formulations of the diffusion process (e.g., flow matching, rectified flows) that are theoretically superior to standard Gaussian diffusion?
 - How does the dimensionality of the data space affect the sample complexity and convergence rate of diffusion models?
 
@@ -371,7 +430,7 @@ JEPA Research Questions & Topics
 
 ## 7. Video Generation & Temporal Modeling
 
-- How should temporal consistency be enforced in video diffusion models — through 3D attention, temporal layers, autoregressive conditioning, or other mechanisms?
+- How should temporal consistency be enforced in video diffusion models - through 3D attention, temporal layers, autoregressive conditioning, or other mechanisms?
 - What are the best strategies for long-video generation beyond the training window (sliding window, hierarchical generation, autoregressive extension)?
 - How can motion quality and physical plausibility be improved in video diffusion models?
 - Can video diffusion models learn meaningful temporal dynamics that generalize to unseen motions or physics?
@@ -447,7 +506,7 @@ JEPA Research Questions & Topics
 - How does the choice of noise prediction target (ε-prediction, x₀-prediction, v-prediction, score prediction) affect training dynamics and generation quality?
 - What are the best practices for mixed-precision training, gradient accumulation, and EMA scheduling for large-scale diffusion models?
 - Can self-supervised or unsupervised pre-training improve diffusion model performance in low-data regimes?
-- How does data augmentation interact with diffusion model training — does it help or can it introduce artifacts?
+- How does data augmentation interact with diffusion model training - does it help or can it introduce artifacts?
 - What is the role of batch size, learning rate scheduling, and optimizer choice (Adam, AdamW, Adafactor, Lion) in diffusion model training?
 
 ---
@@ -456,9 +515,6 @@ JEPA Research Questions & Topics
 
 - Are current metrics (FID, IS, CLIP score, FVD) adequate for evaluating diffusion models, or do we need new metrics?
 - How can compositional correctness, text-image alignment, and semantic accuracy be reliably measured?
-- Can human preference prediction models (e.g., ImageReward, HPS, PickScore) serve as reliable automated evaluation?
-- How should diversity vs. quality trade-offs be quantified and reported?
-- What standardized benchmarks should be adopted for fair comparison across diffusion model variants?
 - How can evaluation protocols account for memorization vs. genuine generalization?
 - How should video and 3D generation quality be evaluated systematically?
 
@@ -468,10 +524,8 @@ JEPA Research Questions & Topics
 
 - How can diffusion models be efficiently personalized to generate specific subjects/styles with minimal examples (few-shot personalization)?
 - What are the trade-offs between fine-tuning-based (DreamBooth, Textual Inversion), adapter-based (LoRA, IP-Adapter), and encoder-based personalization?
-- How can concept forgetting, concept blending, and multi-concept personalization be handled simultaneously?
 - Can personalization be achieved without fine-tuning at all (zero-shot personalization via in-context learning)?
 - How can overfitting and mode collapse be prevented during few-shot personalization?
-- Can personalized models maintain the general capabilities of the base model while capturing subject-specific details?
 
 ---
 
@@ -486,17 +540,13 @@ JEPA Research Questions & Topics
 
 ---
 
-## 17. Safety, Ethics & Responsible AI
+## 17. Safety & Robustness
 
-- How can diffusion models be prevented from generating harmful, NSFW, or biased content?
 - What are effective methods for concept erasure (removing specific concepts from a trained model without retraining from scratch)?
 - How vulnerable are diffusion models to adversarial attacks (adversarial prompts, backdoor attacks, membership inference)?
 - Can watermarking or provenance tracking be embedded in diffusion model outputs reliably and imperceptibly?
 - How do diffusion models memorize and potentially reproduce training data, and how can this be detected and mitigated?
-- What are the copyright and intellectual property implications of diffusion model training and generation?
-- How can bias (gender, race, cultural) in generated outputs be measured and mitigated?
 - Can differential privacy be effectively applied to diffusion model training without destroying generation quality?
-- How should consent and opt-out mechanisms work for individuals whose data was used in training?
 
 ---
 
@@ -547,7 +597,7 @@ JEPA Research Questions & Topics
 
 ## 22. Interpretability & Understanding
 
-- What do diffusion models learn at different noise levels — is there a coarse-to-fine hierarchy, and how does it relate to human perception?
+- What do diffusion models learn at different noise levels - is there a coarse-to-fine hierarchy, and how does it relate to human perception?
 - Can the internal representations of diffusion models (attention maps, intermediate features) be interpreted meaningfully?
 - How do diffusion models represent and compose concepts internally?
 - Can mechanistic interpretability tools be applied to understand failure modes (e.g., wrong counting, incorrect spatial relationships)?
@@ -585,7 +635,7 @@ JEPA Research Questions & Topics
 
 ---
 
-This collection spans foundational theory, algorithmic innovations, architectural design, applications across domains, and societal implications — providing a broad landscape for impactful diffusion model research.
+This collection spans foundational theory, algorithmic innovations, architectural design, applications across domains, and societal implications - providing a broad landscape for impactful diffusion model research.
 
 # Reinforcement Learning
 
@@ -606,7 +656,7 @@ A comprehensive collection of research directions organized by thematic area.
 - What is the fundamental relationship between exploration complexity and the structure of the MDP (e.g., diameter, effective horizon, branching factor)?
 - Can information-theoretic tools provide tighter regret bounds for RL in structured environments?
 - How does partial observability (POMDPs) fundamentally change the hardness of learning compared to fully observable MDPs?
-- What are the theoretical foundations of reward shaping — when does it provably help, and when can it mislead learning?
+- What are the theoretical foundations of reward shaping - when does it provably help, and when can it mislead learning?
 - Can the PAC-MDP and regret frameworks be unified into a single performance measure for RL?
 - How does non-stationarity in the environment affect the theoretical guarantees of RL algorithms?
 
@@ -663,7 +713,7 @@ A comprehensive collection of research directions organized by thematic area.
 - What are the best architectures for world models (deterministic, stochastic, autoregressive, diffusion-based, transformer-based)?
 - How can model uncertainty and epistemic uncertainty be properly quantified and used for decision-making?
 - Can world models generalize beyond the training distribution, and how should out-of-distribution model predictions be handled?
-- How should planning be performed with learned models — Dyna-style, shooting methods, model-predictive control (MPC), or tree search?
+- How should planning be performed with learned models - Dyna-style, shooting methods, model-predictive control (MPC), or tree search?
 - What is the optimal balance between model learning and policy learning in terms of computational and data budget allocation?
 - Can world models learn abstract, task-relevant representations rather than pixel-level reconstruction?
 - How do latent-space world models (Dreamer, IRIS, TD-MPC) compare to observation-space models?
@@ -683,7 +733,7 @@ A comprehensive collection of research directions organized by thematic area.
 - Can language serve as an effective abstraction layer for hierarchical decision-making?
 - How do option discovery methods (eigenoption, diversity-based, bottleneck-based) compare in transfer and generalization?
 - Can hierarchical RL scale to real-world robotic manipulation and navigation tasks?
-- How should hierarchical policies be evaluated — on compositional generalization, transfer, or raw task performance?
+- How should hierarchical policies be evaluated - on compositional generalization, transfer, or raw task performance?
 - What is the relationship between hierarchical RL and planning with learned abstract models?
 
 ---
@@ -726,7 +776,7 @@ A comprehensive collection of research directions organized by thematic area.
 - What are the fundamental limitations of learning from pairwise preferences vs. cardinal ratings vs. rankings?
 - Can direct alignment methods (DPO, IPO, KTO, ORPO) match or surpass PPO-based RLHF, and under what conditions?
 - How should reward model capacity, training data diversity, and evaluation be managed to avoid reward model collapse?
-- Can constitutional AI (RLAIF) — using AI feedback instead of human feedback — achieve comparable alignment quality?
+- Can constitutional AI (RLAIF) - using AI feedback instead of human feedback - achieve comparable alignment quality?
 - How can RLHF handle diverse, conflicting, or culturally-varying human preferences?
 - What are the best strategies for preventing reward hacking in RLHF-trained models?
 - How can alignment be maintained as models are fine-tuned for downstream tasks (alignment tax)?
@@ -756,7 +806,7 @@ A comprehensive collection of research directions organized by thematic area.
 - What properties make a good state representation for RL (bisimulation, predictive, contrastive, reconstructive)?
 - How do self-supervised representation learning methods (CURL, SPR, ATC, BYOL-Explore) improve RL performance?
 - Can pre-trained visual encoders (CLIP, DINOv2, ViT) be effectively used as frozen feature extractors for RL?
-- How should representation learning and policy learning interact — should they be joint, alternating, or decoupled?
+- How should representation learning and policy learning interact - should they be joint, alternating, or decoupled?
 - Can object-centric representations improve generalization and sample efficiency in RL?
 - How do bisimulation-based metrics (DeepMDP, DBC) compare to other approaches for learning task-relevant representations?
 - Can language-grounded representations improve generalization across tasks and environments?
@@ -803,7 +853,7 @@ A comprehensive collection of research directions organized by thematic area.
 - Can automatic goal generation and curriculum learning improve goal-conditioned RL (MEGA, CURIOUS, GoExplore)?
 - How should multi-task RL handle task interference, gradient conflicts, and negative transfer?
 - Can universal value functions and successor features scale to complex, high-dimensional environments?
-- How should task specification work — reward functions, goal states, language instructions, demonstrations, or preferences?
+- How should task specification work - reward functions, goal states, language instructions, demonstrations, or preferences?
 - Can multi-task RL benefit from shared representations, modular policies, or mixture-of-experts architectures?
 - What is the optimal training distribution over tasks for multi-task RL?
 
@@ -829,7 +879,7 @@ A comprehensive collection of research directions organized by thematic area.
 - How can RL agents satisfy safety constraints during both training and deployment?
 - What are the best formulations for safe RL: constrained MDPs (CMDPs), risk-sensitive objectives, or constraint satisfaction?
 - Can Lagrangian-based methods (CPO, RCPO, Lagrangian PPO) reliably satisfy constraints without excessive conservatism?
-- How should safety constraints be specified — hard constraints, probabilistic constraints, chance constraints, or CVaR?
+- How should safety constraints be specified - hard constraints, probabilistic constraints, chance constraints, or CVaR?
 - Can formal verification or shielding methods guarantee safety while allowing RL to optimize performance?
 - How can safe exploration be performed (safe set expansion, Lyapunov-based methods, reachability analysis)?
 - What is the role of human oversight and intervention in safe RL training?
@@ -898,7 +948,7 @@ A comprehensive collection of research directions organized by thematic area.
 
 - How should task difficulty be sequenced to maximize learning efficiency (curriculum learning)?
 - Can automatic curriculum generation (PLR, PAIRED, UED) produce robust and generalizable agents?
-- What objective should curriculum learning optimize — regret, learning progress, competence, coverage?
+- What objective should curriculum learning optimize - regret, learning progress, competence, coverage?
 - How should environment parameters (difficulty, complexity, diversity) be adapted during training?
 - Can self-play and adversarial environment generation produce meaningful curricula?
 - How does curriculum learning interact with exploration strategies?
@@ -953,46 +1003,21 @@ A comprehensive collection of research directions organized by thematic area.
 - Can RL be applied to adaptive experimental design and active learning in scientific settings?
 - How effective is RL for controlling plasma in nuclear fusion reactors, and what are the key challenges?
 - Can RL optimize molecular generation and retrosynthetic planning in chemistry?
-- How should RL handle the expense and irreversibility of real-world scientific experiments?
 
 ---
 
-## 26. RL for Healthcare & Clinical Decision-Making
-
-- Can RL learn effective treatment policies (medication dosing, ventilator settings, sepsis management) from observational clinical data?
-- How can confounding, missing data, and selection bias in clinical datasets be handled in offline RL?
-- What safety constraints and evaluation protocols are needed for deploying RL in clinical settings?
-- How should RL policies be validated when randomized controlled trials are impractical?
-- Can RL handle the high stakes and irreversibility of medical decisions?
-- How can RL-based clinical decision support systems be made interpretable and trustworthy for clinicians?
-- Can RL optimize adaptive clinical trial design?
-
----
-
-## 27. RL for Autonomous Driving
-
-- How should RL be combined with rule-based systems and planning for safe autonomous driving?
-- Can RL handle the long-tail distribution of rare and dangerous driving scenarios?
-- How should multi-agent interactions (with other drivers, pedestrians, cyclists) be modeled in driving RL?
-- What is the best reward formulation for autonomous driving that balances safety, comfort, efficiency, and traffic rules?
-- Can RL policies be verified and validated to meet automotive safety standards (e.g., ISO 26262)?
-- How should simulation environments be designed for training driving RL agents that transfer to reality?
-
----
-
-## 28. RL for NLP & Code Generation
+## 26. RL for NLP & Code Generation
 
 - How does RL fine-tuning (RLHF, RLAIF) improve LLM capabilities beyond supervised fine-tuning?
 - Can RL optimize LLMs for specific objectives (factuality, reasoning, safety, helpfulness) simultaneously?
-- How should RL be applied to code generation — optimizing for correctness (unit tests), efficiency, or readability?
+- How should RL be applied to code generation - optimizing for correctness (unit tests), efficiency, or readability?
 - Can RL improve LLM reasoning through process reward models (PRM) vs. outcome reward models (ORM)?
 - How does RL interact with chain-of-thought prompting and search (e.g., AlphaProof-style methods)?
-- Can RL optimize multi-turn dialogue, negotiation, and persuasion strategies?
 - What are the best RL algorithms for the LLM fine-tuning setting (PPO, REINFORCE, GRPO, ReMax)?
 
 ---
 
-## 29. Distributional RL
+## 27. Distributional RL
 
 - How does distributional RL (learning return distributions vs. expected returns) improve policy learning?
 - What return distribution representations (categorical, quantile, implicit quantile) are most effective and when?
@@ -1003,7 +1028,7 @@ A comprehensive collection of research directions organized by thematic area.
 
 ---
 
-## 30. Inverse RL & Preference Learning
+## 28. Inverse RL & Preference Learning
 
 - How can IRL scale to high-dimensional, continuous environments with complex demonstrations?
 - Can IRL recover reward functions that are robust, transferable, and interpretable?
@@ -1011,131 +1036,80 @@ A comprehensive collection of research directions organized by thematic area.
 - Can IRL handle demonstrations from multiple agents with different (possibly conflicting) reward functions?
 - How should IRL handle suboptimal or noisy demonstrations?
 - Can preference-based RL (learning from pairwise comparisons) converge as efficiently as reward-based RL?
-- What is the sample complexity of preference learning as a function of the preference model and policy class?
 
 ---
 
-## 31. Offline-to-Online & Hybrid RL
+## 29. Offline-to-Online & Hybrid RL
 
 - What are the best strategies for transitioning from offline pre-training to online fine-tuning?
 - How can offline-to-online RL avoid performance collapse during the transition phase?
 - Can offline RL provide a warm start that accelerates online learning without constraining final performance?
-- How should the replay buffer be managed during the offline-to-online transition (mixing ratios, prioritization)?
 - Can pre-trained world models from offline data accelerate online model-based RL?
-- How do different offline RL algorithms (CQL, IQL, TD3+BC) affect the quality of online fine-tuning?
 
 ---
 
-## 32. Interpretability & Explainability
+## 30. Interpretability & Explainability
 
 - How can RL policies be made interpretable to humans (saliency maps, decision trees, language explanations)?
 - Can RL agents explain their decisions in natural language?
-- What visualization methods best convey the decision-making process of RL agents?
 - How can reward functions learned via IRL or RLHF be interpreted and validated?
 - Can causal explanations ("I did X because Y") be extracted from RL agents?
 - How does interpretability trade off with policy performance in RL?
-- Can interpretable RL policies be used in regulated domains (healthcare, finance, autonomous driving)?
-- How should value functions, advantage functions, and attention patterns be visualized for debugging RL agents?
 
 ---
 
-## 33. Scalability & Distributed RL
+## 31. Memory & Recurrence in RL
 
-- How can RL training be efficiently parallelized across thousands of CPUs/GPUs (IMPALA, SEED, R2D2)?
-- What are the best architectures for distributed RL (synchronous vs. asynchronous, centralized vs. decentralized)?
-- How does communication overhead affect the scalability of distributed RL?
-- Can large-batch RL training achieve similar or better performance than small-batch with appropriate hyperparameter tuning?
-- How should simulation environments be designed for maximum throughput in large-scale RL?
-- Can RL training leverage heterogeneous compute resources (CPUs for simulation, GPUs for learning)?
-- How do population-based methods (PBT) scale with the number of parallel agents?
-
----
-
-## 34. Memory & Recurrence in RL
-
-- How should RL agents handle partial observability — RNNs, LSTMs, transformers, state-space models, or external memory?
+- How should RL agents handle partial observability - RNNs, LSTMs, transformers, state-space models, or external memory?
 - Can transformers with long context windows replace recurrent architectures for POMDPs?
-- How should memory length and capacity be scaled with task complexity?
-- Can memory-augmented architectures (Neural Turing Machines, DNC) improve RL in memory-demanding tasks?
 - How does the credit assignment problem interact with memory and recurrence?
 - Can RL agents learn to selectively store and retrieve task-relevant information?
-- How should experience replay work with recurrent/memory-based policies (stored sequences, burn-in periods)?
 
 ---
 
-## 35. Causal RL
+## 32. Causal RL
 
 - How can causal reasoning improve RL sample efficiency, generalization, and robustness?
 - Can causal models of the environment be learned and used for counterfactual planning?
 - How does causal discovery interact with world model learning in RL?
-- Can interventional data be used more efficiently than observational data for RL?
-- How should confounding variables be handled in offline RL through causal inference?
 - Can causal abstractions provide better state representations for RL?
-- How does causal RL relate to transfer learning — does learning causal structure improve transfer?
+- How does causal RL relate to transfer learning - does learning causal structure improve transfer?
 
 ---
 
-## 36. Evaluation & Reproducibility
+## 33. Evaluation & Reproducibility
 
-- How should RL algorithms be evaluated — average return, sample efficiency curves, robustness, or real-world deployment metrics?
-- What statistical methods should be used for comparing RL algorithms (confidence intervals, bootstrap, hypothesis testing)?
 - How can reproducibility challenges in deep RL (sensitivity to seeds, hyperparameters, implementation details) be addressed?
 - Are current RL benchmarks (Atari, MuJoCo, DMC, Procgen, NetHack, Minecraft) representative of real-world challenges?
 - What new benchmarks are needed to evaluate capabilities like generalization, continual learning, safety, and multi-agent coordination?
-- How should computational cost be factored into RL algorithm comparisons?
-- Can standardized codebases and evaluation protocols improve the reliability of RL research?
 
 ---
 
-## 37. Real-World RL Challenges
+## 34. Real-World RL Challenges
 
 - What are the key barriers to deploying RL in real-world systems (safety, sample efficiency, sim-to-real gap, interpretability, latency)?
 - How can RL handle non-stationarity in real-world environments (changing user preferences, evolving systems)?
 - Can RL operate effectively with noisy, delayed, or incomplete observations typical of real-world sensors?
 - How should RL handle irreversible actions and the impossibility of resetting real-world environments?
-- What monitoring and maintenance procedures are needed for deployed RL systems?
-- Can RL systems detect and adapt to concept drift in real-world deployments?
-- How should human oversight be integrated into RL-powered decision-making systems?
 
 ---
 
-## 38. Open-Ended & Emergent Learning
+## 35. Open-Ended & Emergent Learning
 
-- Can RL agents achieve open-ended learning — continually discovering new skills and behaviors without a fixed task?
+- Can RL agents achieve open-ended learning - continually discovering new skills and behaviors without a fixed task?
 - How can quality-diversity algorithms (MAP-Elites, AURORA) be combined with RL for open-ended skill discovery?
 - Can self-play and auto-curricula produce unbounded complexity growth (as hypothesized by open-endedness research)?
 - How should open-ended learning be measured and evaluated?
-- Can emergent complexity in multi-agent RL systems be encouraged and controlled?
 - What is the role of intrinsic motivation in driving open-ended learning?
 - Can RL agents create their own goals, tasks, and evaluation criteria?
 
 ---
 
-## 39. Neuroscience-Inspired RL
+## 36. Neuroscience-Inspired RL
 
 - What insights from biological reward systems (dopamine, basal ganglia) can improve RL algorithms?
 - Can meta-RL explain aspects of prefrontal cortex function and rapid learning in animals?
 - How do biological credit assignment mechanisms (eligibility traces, neuromodulation) compare to algorithmic methods?
 - Can episodic memory and hippocampal replay inspire better experience replay methods?
 - What can successor representations and predictive coding contribute to RL algorithm design?
-- Can sleep-like consolidation phases improve continual learning in RL agents?
 - How do biological exploration strategies (curiosity, play, novelty-seeking) map to computational exploration methods?
-
----
-
-## 40. Ethical & Societal Considerations
-
-- How should RL systems be designed to respect human autonomy and agency?
-- What governance frameworks are appropriate for RL-powered autonomous decision-making systems?
-- How can RL-based recommendation systems avoid manipulation and addiction?
-- What are the long-term societal implications of RL-powered automation in labor markets?
-- How should responsibility and accountability be assigned when RL agents cause harm?
-- Can RL systems be audited for fairness, transparency, and accountability?
-- What role should public participation play in defining the objectives and constraints for RL systems?
-
-
-1000 ideas
-
-Xiaohongshu小红书
-
-1,000 Ideas For AI Research
