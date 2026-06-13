@@ -8,7 +8,7 @@ This note comes from the current `my-life` scan and the `open-superintelligence-
 
 - `app/page.tsx` already carries the public mission statement.
 - `app/lab/*` already exposes the public lab surface: Goals, Research, Ideas, Problems, Leaderboard, and Compute.
-- `app/lab/my/page.tsx` already shows a private-looking workspace, but it still reads from public JSON and does not enforce access.
+- `app/run/snapshot/page.tsx` already shows a private-looking workspace, but it still reads from public JSON and does not enforce access.
 - `public/data/lab/*.json` is the current site data layer.
 - `docs/lab-platform-plan.md` already describes the three-stage platform split.
 - `coaching-offer.md` and the surrounding coaching pages already contain the funding offer.

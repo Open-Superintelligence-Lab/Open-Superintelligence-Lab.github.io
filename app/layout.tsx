@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "highlight.js/styles/github-dark.css";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
+import { ConditionalChrome } from "@/components/conditional-chrome";
 
 
 const inter = Inter({
@@ -31,14 +30,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="min-h-screen text-white flex flex-col">
-          <Navigation />
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-
-        </div>
+        <ConditionalChrome>{children}</ConditionalChrome>
       </body>
     </html>
   );

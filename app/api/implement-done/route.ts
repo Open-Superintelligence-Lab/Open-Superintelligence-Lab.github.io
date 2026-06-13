@@ -3,6 +3,7 @@ import { promisify } from 'util';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { RESEARCH_REPO_DIR } from '@/lib/codexLauncher';
+import { getAutoImplementAgent } from '@/lib/autoimplement';
 
 const execFileAsync = promisify(execFile);
 const FLIP_SH = join(RESEARCH_REPO_DIR, 'autoresearch', 'bin', 'flip.sh');
@@ -63,8 +64,29 @@ export async function POST(req: Request) {
   );
   killer.unref();
 
+  // Auto-implement chain: this implement just finished, so a parallel slot is
+  // freeing up. If auto-implement is on, nudge the tick to launch the next
+  // Proposed idea — keeps the pipeline flowing even with no browser open.
+  // Fire-and-forget; the kill above lands first because the tick is async.
+  let autoImplement = false;
+  try {
+    if (await getAutoImplementAgent()) {
+      autoImplement = true;
+      const host = req.headers.get('host') ?? 'localhost:3001';
+      fetch(`http://${host}/api/auto-implement/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      }).catch(() => {
+        /* the browser poll tick will catch up */
+      });
+    }
+  } catch {
+    /* treat as off */
+  }
+
   return Response.json(
-    { success: true, slug, status: finalized, killed: session },
+    { success: true, slug, status: finalized, killed: session, autoImplement },
     { status: 200 }
   );
 }

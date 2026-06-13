@@ -267,7 +267,7 @@ Reviewers decide what graduates:
 Surfaces display or operate the queue:
 
 - `/lab/queue`
-- `/lab/my`
+- `/run`
 - terminal dashboard
 - future authenticated app
 

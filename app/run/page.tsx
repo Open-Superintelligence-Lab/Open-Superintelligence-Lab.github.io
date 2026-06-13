@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { MarkdownPanel } from "@/components/markdown-panel";
 
 type Session = {
@@ -42,6 +42,7 @@ type GpuInfo = {
 const IDEAS_PROMPT_PATH = "autoresearch/prompts/generate-ideas.md";
 const IMPLEMENT_PROMPT_PATH = "autoresearch/prompts/implement-idea.md";
 const RUN_PROMPT_PATH = "autoresearch/prompts/run-idea.md";
+const RUNNER_PROMPT_PATH = "autoresearch/prompts/runner.md";
 const REMOTE_BOX_PATH = "autoresearch/remote-box.json";
 const IMPLEMENT_SESSION_PREFIX = "lab-implement-";
 const RUN_SESSION_PREFIX = "lab-run-";
@@ -61,6 +62,34 @@ const AGENT_OPTIONS: { id: string; label: string }[] = [
   { id: "codex", label: "Codex" },
 ];
 
+// Human-readable labels + colour for each on-disk pipeline status. The raw
+// status string (what flip.sh writes) stays the source of truth — this only
+// renames them for display, so the jargon ("needs-taste", "needs-codereview")
+// reads clearly without touching the agents' state machine. Hover shows raw.
+const STATUS_META: Record<string, { label: string; cls: string }> = {
+  "needs-taste": { label: "Proposed", cls: "border-amber-300/25 bg-amber-300/5 text-amber-200/80" },
+  implementing: { label: "Implementing", cls: "border-emerald-300/25 bg-emerald-300/10 text-emerald-200/90" },
+  "needs-run": { label: "Queued · GPU", cls: "border-cyan-300/25 bg-cyan-300/10 text-cyan-200/90" },
+  running: { label: "Running · GPU", cls: "border-sky-300/40 bg-sky-300/15 text-sky-100" },
+  "needs-codereview": { label: "Code review", cls: "border-fuchsia-300/25 bg-fuchsia-300/10 text-fuchsia-200/90" },
+  "needs-review": { label: "Review", cls: "border-violet-300/25 bg-violet-300/10 text-violet-200/90" },
+  done: { label: "Done", cls: "border-[#faf9f6]/20 bg-white/5 text-[#faf9f6]/70" },
+  rejected: { label: "Rejected", cls: "border-red-300/25 bg-red-300/5 text-red-200/80" },
+  win: { label: "Win", cls: "border-emerald-400/40 bg-emerald-400/15 text-emerald-200" },
+  null: { label: "Null", cls: "border-[#faf9f6]/20 bg-white/5 text-[#faf9f6]/60" },
+  drift: { label: "Drift", cls: "border-red-400/40 bg-red-400/15 text-red-200" },
+  fail: { label: "Fail", cls: "border-red-400/40 bg-red-400/15 text-red-200" },
+};
+
+function statusMeta(s: string): { label: string; cls: string } {
+  return (
+    STATUS_META[s] ?? {
+      label: s,
+      cls: "border-amber-300/20 bg-amber-300/5 text-amber-200/80",
+    }
+  );
+}
+
 // "3s" / "2m 5s" — compact relative age for freshness labels.
 function formatAgo(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000));
@@ -69,12 +98,200 @@ function formatAgo(ms: number): string {
   return `${m}m ${s % 60}s`;
 }
 
+// Statuses that mean an experiment is finished — they show the full training
+// curve and live in the "Finished experiments" section at the bottom.
+const FINISHED_STATUSES = new Set([
+  "done",
+  "win",
+  "null",
+  "drift",
+  "fail",
+  "rejected",
+]);
+
+type CurveRun = {
+  role: "control" | "treatment" | "control2";
+  label: string;
+  steps: number[];
+  valLosses: number[];
+};
+type CurveData = { id: string; runs: CurveRun[] };
+
+// Module-level cache so re-renders / re-mounts don't re-hit the API for the same
+// finished experiment. The curve never changes once a run is done.
+const curveCache = new Map<string, CurveData>();
+
+const CURVE_COLOR: Record<CurveRun["role"], string> = {
+  control: "#9ca3af", // grey — baseline
+  treatment: "#34d399", // emerald — the experiment
+  control2: "#c084fc", // violet — second baseline
+};
+
+// Full per-step validation-loss curve for one finished experiment, drawn as an
+// inline SVG (no chart lib). One line per run (ctrl / experiment / ctrl2) over a
+// shared, auto-scaled axis, with a small legend. Renders nothing until data
+// arrives, and nothing if the experiment has no usable curve.
+function TrainingCurve({ id }: { id: string }) {
+  const [data, setData] = useState<CurveData | null>(
+    () => curveCache.get(id) ?? null
+  );
+
+  useEffect(() => {
+    if (curveCache.has(id)) {
+      setData(curveCache.get(id)!);
+      return;
+    }
+    let cancelled = false;
+    fetch("/api/training-curve/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: CurveData | null) => {
+        if (cancelled || !d || !Array.isArray(d.runs)) return;
+        curveCache.set(id, d);
+        setData(d);
+      })
+      .catch(() => {
+        /* leave chart hidden on failure */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  const runs = (data?.runs ?? []).filter((r) => r.steps.length > 1);
+  if (runs.length === 0) return null;
+
+  const W = 460;
+  const H = 190;
+  const padL = 40;
+  const padR = 12;
+  const padT = 12;
+  const padB = 26;
+
+  const allSteps = runs.flatMap((r) => r.steps);
+  const allLoss = runs.flatMap((r) => r.valLosses);
+  const minX = Math.min(...allSteps);
+  const maxX = Math.max(...allSteps);
+  const minY = Math.min(...allLoss);
+  const maxY = Math.max(...allLoss);
+  const spanX = maxX - minX || 1;
+  const spanY = maxY - minY || 1;
+  const px = (x: number) => padL + ((x - minX) / spanX) * (W - padL - padR);
+  const py = (y: number) =>
+    padT + (1 - (y - minY) / spanY) * (H - padT - padB);
+
+  const yTicks = [minY, minY + spanY / 2, maxY];
+
+  return (
+    <div className="mt-3 rounded-lg border border-white/10 bg-black/20 px-3 py-3">
+      <div className="mb-2 text-[10px] uppercase tracking-[0.2em] text-[#faf9f6]/40">
+        val loss · full training curve
+      </div>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="w-full"
+        role="img"
+        aria-label={`Validation loss curve for ${id}`}
+      >
+        {/* y gridlines + labels */}
+        {yTicks.map((v, i) => (
+          <g key={i}>
+            <line
+              x1={padL}
+              y1={py(v)}
+              x2={W - padR}
+              y2={py(v)}
+              stroke="#ffffff"
+              strokeOpacity={0.07}
+              strokeWidth={1}
+            />
+            <text
+              x={padL - 5}
+              y={py(v) + 3}
+              textAnchor="end"
+              fontSize={9}
+              fill="#faf9f6"
+              fillOpacity={0.45}
+              fontFamily="monospace"
+            >
+              {v.toFixed(2)}
+            </text>
+          </g>
+        ))}
+        {/* x end labels */}
+        <text
+          x={padL}
+          y={H - 8}
+          textAnchor="start"
+          fontSize={9}
+          fill="#faf9f6"
+          fillOpacity={0.4}
+          fontFamily="monospace"
+        >
+          step {minX}
+        </text>
+        <text
+          x={W - padR}
+          y={H - 8}
+          textAnchor="end"
+          fontSize={9}
+          fill="#faf9f6"
+          fillOpacity={0.4}
+          fontFamily="monospace"
+        >
+          {maxX}
+        </text>
+        {/* one polyline per run */}
+        {runs.map((r) => (
+          <polyline
+            key={r.role}
+            fill="none"
+            stroke={CURVE_COLOR[r.role]}
+            strokeWidth={1.75}
+            strokeOpacity={r.role === "treatment" ? 1 : 0.85}
+            points={r.steps
+              .map((s, idx) => `${px(s)},${py(r.valLosses[idx])}`)
+              .join(" ")}
+          />
+        ))}
+      </svg>
+      {/* legend */}
+      <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-[#faf9f6]/55">
+        {runs.map((r) => (
+          <span key={r.role} className="flex items-center gap-1.5">
+            <span
+              className="inline-block h-2 w-3 rounded-sm"
+              style={{ backgroundColor: CURVE_COLOR[r.role] }}
+            />
+            <span className="font-mono">{r.label}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function LaunchCodexPage() {
   const [agent, setAgent] = useState<string>("minimax");
   // Headless = run the agent non-interactively so it exits (and the tmux pane
   // self-closes) when the task finishes. On by default; uncheck to keep the
   // agent open at its REPL so you can attach and watch/intervene.
   const [headless, setHeadless] = useState<boolean>(true);
+  // How many ideas the next "Generate Ideas" press asks the agent for — injected
+  // into the generate prompt server-side.
+  const [ideaCount, setIdeaCount] = useState<number>(10);
+  // Autorun: when on, each finished run auto-launches the next queued idea
+  // (server-side, via run-done). Mirrors a persisted flag; reflects real state.
+  const [autorunOn, setAutorunOn] = useState<boolean>(false);
+  const [autorunBusy, setAutorunBusy] = useState<boolean>(false);
+  // Auto-implement: when on, Proposed ideas get implemented automatically (up to
+  // a parallel cap). Defaults ON — optimistic so the toggle reads "on" before
+  // the first state fetch resolves.
+  const [autoImplementOn, setAutoImplementOn] = useState<boolean>(true);
+  const [autoImplementBusy, setAutoImplementBusy] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateMessage, setGenerateMessage] = useState("");
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -83,6 +300,8 @@ export default function LaunchCodexPage() {
   const [openFile, setOpenFile] = useState<{ path: string; title: string } | null>(
     null
   );
+  // Settings popover (uncommon controls: agent, headless, prompt files).
+  const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   const [implementing, setImplementing] = useState<string | null>(null);
   const [attaching, setAttaching] = useState<string | null>(null);
   const [ideaActionMsg, setIdeaActionMsg] = useState("");
@@ -257,6 +476,46 @@ export default function LaunchCodexPage() {
     return () => clearInterval(interval);
   }, [refreshSessions, refreshIdeas]);
 
+  // Autorun: a bodyless POST reports state AND drives one tick — it re-invokes
+  // the single lab-autorun runner agent (which drains the whole needs-run queue
+  // on the box) whenever autorun is on, no runner is alive, and there's work.
+  // Poll on load + every 5s so the queue keeps draining without a click.
+  useEffect(() => {
+    const tick = () => {
+      fetch("/api/autorun/", { method: "POST" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d && typeof d.enabled === "boolean") setAutorunOn(d.enabled);
+        })
+        .catch(() => {
+          /* default off */
+        });
+    };
+    tick();
+    const interval = setInterval(tick, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Auto-implement: a bodyless POST reports state AND drives one tick (launches
+  // implements for Proposed ideas up to the cap). Call it on load and every 5s
+  // so freshly-generated ideas get picked up without a click. The server-side
+  // implement-done chain keeps it going when the tab is closed.
+  useEffect(() => {
+    const tick = () => {
+      fetch("/api/auto-implement/", { method: "POST" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          if (d && typeof d.enabled === "boolean") setAutoImplementOn(d.enabled);
+        })
+        .catch(() => {
+          /* leave the optimistic state; next tick retries */
+        });
+    };
+    tick();
+    const interval = setInterval(tick, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Poll GPU usage every 4s, but pause while the tab is hidden so we don't SSH
   // the box in the background for a page nobody is looking at.
   useEffect(() => {
@@ -329,7 +588,7 @@ export default function LaunchCodexPage() {
       const response = await fetch("/api/generate-ideas/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agent, headless }),
+        body: JSON.stringify({ agent, headless, count: ideaCount }),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -376,7 +635,7 @@ export default function LaunchCodexPage() {
       const response = await fetch("/api/implement-idea/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, agent }),
+        body: JSON.stringify({ slug, agent, headless }),
       });
       const data = await response.json().catch(() => ({}));
       setIdeaActionMsg(
@@ -393,6 +652,60 @@ export default function LaunchCodexPage() {
     }
   };
 
+  // Flip autorun on/off. Enabling also kicks the first run server-side (and we
+  // pass the selected agent so the whole chain uses it).
+  const handleToggleAutorun = async () => {
+    const next = !autorunOn;
+    setAutorunBusy(true);
+    try {
+      const response = await fetch("/api/autorun/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ enabled: next, agent, headless }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && typeof data.enabled === "boolean") {
+        setAutorunOn(data.enabled);
+        setRunMessage(
+          data.enabled
+            ? "Autorun on — finished runs auto-launch the next queued idea."
+            : "Autorun off."
+        );
+      }
+    } catch {
+      setRunMessage("Failed to toggle autorun");
+    } finally {
+      setAutorunBusy(false);
+      refreshSessions();
+      refreshIdeas();
+    }
+  };
+
+  // Flip auto-implement on/off. The toggle response also carries the running
+  // state back; enabling drives an immediate tick server-side.
+  const handleToggleAutoImplement = async () => {
+    const next = !autoImplementOn;
+    setAutoImplementBusy(true);
+    setAutoImplementOn(next); // optimistic
+    try {
+      const response = await fetch("/api/auto-implement/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ enabled: next, agent }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.ok && typeof data.enabled === "boolean") {
+        setAutoImplementOn(data.enabled);
+      }
+    } catch {
+      setAutoImplementOn(!next); // revert on failure
+    } finally {
+      setAutoImplementBusy(false);
+      refreshSessions();
+      refreshIdeas();
+    }
+  };
+
   const handleRunNext = async () => {
     setIsRunningNext(true);
     setRunMessage("");
@@ -400,7 +713,7 @@ export default function LaunchCodexPage() {
       const response = await fetch("/api/run-next/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agent }),
+        body: JSON.stringify({ agent, headless }),
       });
       const data = await response.json().catch(() => ({}));
       setRunMessage(
@@ -499,6 +812,40 @@ export default function LaunchCodexPage() {
     .sort((a, b) => (a.updated || a.id).localeCompare(b.updated || b.id));
   const gpuQueue = [...runningIdeas, ...queuedIdeas];
   const gpuBusy = runningIdeas.length > 0;
+
+  // Group ideas into clear buckets instead of one scattered list. needs-run /
+  // running live in the GPU section below, and finished experiments get their
+  // own section at the very bottom — so the Ideas section only shows pre-GPU
+  // work, grouped by where it is in the pipeline.
+  const byStatus = (...statuses: string[]) =>
+    ideas
+      .filter((i) => statuses.includes(i.status))
+      .sort((a, b) => (a.updated || a.id).localeCompare(b.updated || b.id));
+  const ideaGroups: { key: string; label: string; ideas: Idea[] }[] = [
+    { key: "proposed", label: "Proposed", ideas: byStatus("needs-taste") },
+    { key: "implementing", label: "Implementing", ideas: byStatus("implementing") },
+    { key: "review", label: "In review", ideas: byStatus("needs-codereview", "needs-review") },
+  ];
+  // Anything not finished, not on the GPU, and not in a named bucket above —
+  // so a new/unexpected status never silently disappears.
+  const bucketed = new Set([
+    "needs-taste",
+    "implementing",
+    "needs-codereview",
+    "needs-review",
+    "needs-run",
+    "running",
+  ]);
+  const otherIdeas = ideas.filter(
+    (i) => !FINISHED_STATUSES.has(i.status) && !bucketed.has(i.status)
+  );
+  if (otherIdeas.length > 0) {
+    ideaGroups.push({ key: "other", label: "Other", ideas: otherIdeas });
+  }
+  const activeIdeaCount = ideaGroups.reduce((n, g) => n + g.ideas.length, 0);
+  const finishedIdeas = ideas
+    .filter((i) => FINISHED_STATUSES.has(i.status))
+    .sort((a, b) => (b.updated || b.id).localeCompare(a.updated || a.id));
 
   // Split the flat tmux list by what each session is for, so idea-generation
   // sessions sit with the Ideas section and GPU-run supervisors with the GPU
@@ -696,37 +1043,212 @@ export default function LaunchCodexPage() {
     );
   };
 
-  return (
-    <main className="min-h-screen bg-[#1f1e1d] pt-28 text-[#faf9f6] md:pt-36">
-      <div className="container mx-auto flex min-h-[calc(100vh-12rem)] flex-col items-center px-6 py-24">
-        {/* Global control — the agent every launch uses. */}
-        <div className="flex flex-col items-center gap-2 text-center">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#faf9f6]/45">
-            Agent
-          </span>
-          <select
-            value={agent}
-            onChange={(e) => setAgent(e.target.value)}
-            className="rounded-full border border-cyan-300/30 bg-[#1f1e1d] px-5 py-2.5 text-sm font-semibold tracking-[0.08em] text-cyan-200 transition hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+  // One idea row — the title, status badge, action buttons, and (for finished
+  // ideas) the final-loss summary bars. Used by every grouped list so the cards
+  // stay identical wherever they appear.
+  const renderIdeaCard = (idea: Idea, extra?: ReactNode) => {
+    const implementSessionName = IMPLEMENT_SESSION_PREFIX + idea.id;
+    const runSessionName = RUN_SESSION_PREFIX + idea.id;
+    const liveImplement = liveSessions.has(implementSessionName);
+    const liveRun = liveSessions.has(runSessionName);
+    const liveSessionName = liveRun ? runSessionName : implementSessionName;
+    const isLive = liveImplement || liveRun;
+    const isTrackedWip =
+      idea.status === "implementing" || idea.status === "running";
+    const isStuck = isTrackedWip && !isLive;
+    const busy = implementing === idea.id;
+    const canImplement = !["needs-run", "running", "done"].includes(idea.status);
+
+    return (
+      <li
+        key={idea.id}
+        className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+      >
+        <div className="flex items-start justify-between gap-3">
+          <button
+            type="button"
+            onClick={() => setOpenFile({ path: idea.path, title: idea.title })}
+            className="min-w-0 flex-1 text-left transition hover:opacity-80 focus:outline-none"
           >
-            {AGENT_OPTIONS.map((opt) => (
-              <option key={opt.id} value={opt.id} className="bg-[#1f1e1d] text-cyan-100">
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <label className="mt-1 flex cursor-pointer items-center gap-2 text-[11px] text-[#faf9f6]/55">
-            <input
-              type="checkbox"
-              checked={headless}
-              onChange={(e) => setHeadless(e.target.checked)}
-              className="h-3.5 w-3.5 cursor-pointer accent-cyan-400"
-            />
-            Headless — exit &amp; auto-close tmux when done
-            <span className="text-[#faf9f6]/30">
-              (uncheck to keep it open to watch)
-            </span>
-          </label>
+            <p className="truncate text-sm font-semibold text-[#faf9f6]">
+              {idea.title}
+            </p>
+            {idea.plain && (
+              <p className="mt-1 text-xs text-[#faf9f6]/55">{idea.plain}</p>
+            )}
+          </button>
+          <div className="flex shrink-0 flex-col items-end gap-2">
+            <div className="flex items-center gap-2">
+              {isLive && (
+                <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] text-emerald-300">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                  {liveRun ? "gpu" : "working"}
+                </span>
+              )}
+              {isStuck && (
+                <span className="text-[10px] uppercase tracking-[0.15em] text-orange-300">
+                  stuck
+                </span>
+              )}
+              <span
+                title={idea.status}
+                className={`rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] ${statusMeta(idea.status).cls}`}
+              >
+                {statusMeta(idea.status).label}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              {idea.evidencePath && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setOpenFile({
+                      path: idea.evidencePath!,
+                      title: `${idea.title} — evidence`,
+                    })
+                  }
+                  className="rounded-full border border-fuchsia-300/30 bg-fuchsia-300/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-fuchsia-200 transition hover:border-fuchsia-300/60 hover:bg-fuchsia-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/40"
+                >
+                  Evidence
+                </button>
+              )}
+              {isStuck && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleReset(
+                      idea.id,
+                      idea.status === "running" ? "needs-run" : "needs-taste",
+                      idea.status === "running"
+                        ? "requeued stuck GPU run from UI"
+                        : "reset stuck idea from UI"
+                    )
+                  }
+                  disabled={busy}
+                  className="rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-300 transition hover:border-orange-400/60 hover:bg-orange-400/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-400/40 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {idea.status === "running" ? "Requeue" : "Reset"}
+                </button>
+              )}
+              {isLive ? (
+                <button
+                  type="button"
+                  onClick={() => handleAttach(liveSessionName)}
+                  disabled={attaching === liveSessionName}
+                  className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {attaching === liveSessionName ? "..." : "Attach"}
+                </button>
+              ) : (canImplement && !autoImplementOn) ||
+                (isStuck && idea.status !== "running") ? (
+                // When auto-implement is on, the normal "Implement" run-once
+                // button is hidden (the tick handles Proposed ideas); the stuck
+                // "Retry" recovery button still shows.
+                <button
+                  type="button"
+                  onClick={() => handleImplement(idea.id)}
+                  disabled={busy}
+                  className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300 transition hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/40 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {busy ? "Launching…" : isStuck ? "Retry" : "Implement"}
+                </button>
+              ) : idea.status === "needs-run" ? (
+                <span className="rounded-full border border-cyan-300/20 bg-cyan-300/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200/70">
+                  Queued
+                </span>
+              ) : null}
+            </div>
+          </div>
+        </div>
+        {idea.result && renderResult(idea.result)}
+        {extra}
+      </li>
+    );
+  };
+
+  return (
+    <main className="min-h-screen bg-[#1f1e1d] pt-10 text-[#faf9f6] md:pt-12">
+      <div className="container mx-auto flex min-h-[calc(100vh-12rem)] flex-col items-center px-6 py-10">
+        {/* Uncommon controls (agent, headless, prompt files) live behind this
+            gear so the main view stays focused on ideas + the queue. */}
+        <div className="relative w-full max-w-2xl">
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => setSettingsOpen((v) => !v)}
+              aria-expanded={settingsOpen}
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus:outline-none focus:ring-2 focus:ring-white/20 ${
+                settingsOpen
+                  ? "border-white/30 bg-white/[0.08] text-white"
+                  : "border-white/12 bg-white/[0.03] text-[#faf9f6]/55 hover:border-white/30 hover:text-white"
+              }`}
+            >
+              <span aria-hidden>⚙</span>
+              Settings · {AGENT_OPTIONS.find((o) => o.id === agent)?.label ?? agent}
+            </button>
+          </div>
+
+          {settingsOpen && (
+            <div className="absolute right-0 z-20 mt-2 w-72 rounded-xl border border-white/12 bg-[#262524] p-4 text-left shadow-xl shadow-black/40">
+              <div className="mb-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#faf9f6]/45">
+                  Agent
+                </span>
+                <select
+                  value={agent}
+                  onChange={(e) => setAgent(e.target.value)}
+                  className="mt-1.5 w-full rounded-lg border border-cyan-300/30 bg-[#1f1e1d] px-3 py-2 text-sm font-semibold tracking-[0.04em] text-cyan-200 transition hover:border-cyan-300/60 focus:outline-none focus:ring-2 focus:ring-cyan-300/40"
+                >
+                  {AGENT_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id} className="bg-[#1f1e1d] text-cyan-100">
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <label className="flex cursor-pointer items-start gap-2 text-[11px] text-[#faf9f6]/65">
+                <input
+                  type="checkbox"
+                  checked={headless}
+                  onChange={(e) => setHeadless(e.target.checked)}
+                  className="mt-0.5 h-3.5 w-3.5 cursor-pointer accent-cyan-400"
+                />
+                <span>
+                  Headless — exit &amp; auto-close tmux when done{" "}
+                  <span className="text-[#faf9f6]/30">(uncheck to watch)</span>
+                </span>
+              </label>
+
+              <div className="mt-4 border-t border-white/10 pt-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-[#faf9f6]/40">
+                  Edit prompts
+                </span>
+                <div className="mt-2 flex flex-col gap-1.5 text-xs">
+                  {[
+                    { path: IDEAS_PROMPT_PATH, title: "generate-ideas.md", label: "Generate ideas" },
+                    { path: IMPLEMENT_PROMPT_PATH, title: "implement-idea.md", label: "Implement" },
+                    { path: RUNNER_PROMPT_PATH, title: "runner.md", label: "Autorun runner" },
+                    { path: RUN_PROMPT_PATH, title: "run-idea.md", label: "Single run" },
+                    { path: REMOTE_BOX_PATH, title: "remote-box.json", label: "GPU box" },
+                  ].map((p) => (
+                    <button
+                      key={p.path}
+                      type="button"
+                      onClick={() => {
+                        setOpenFile({ path: p.path, title: p.title });
+                        setSettingsOpen(false);
+                      }}
+                      className="flex items-center justify-between rounded-md px-2 py-1 text-left text-[#faf9f6]/70 transition hover:bg-white/[0.06] hover:text-white"
+                    >
+                      <span>{p.label}</span>
+                      <span className="text-[10px] text-[#faf9f6]/35">{p.title}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ================= SECTION 1 · IDEAS ================= */}
@@ -743,52 +1265,72 @@ export default function LaunchCodexPage() {
                 </p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={refreshIdeas}
-              className="shrink-0 text-xs uppercase tracking-[0.2em] text-amber-300/70 transition hover:text-amber-200"
-            >
-              Refresh
-            </button>
+            <div className="flex shrink-0 items-center gap-3">
+              <button
+                type="button"
+                onClick={handleToggleAutoImplement}
+                disabled={autoImplementBusy}
+                title={
+                  autoImplementOn
+                    ? "Auto-implement is ON — Proposed ideas get implemented automatically (max 2 at once). Click to stop."
+                    : "Auto-implement is OFF. Click to auto-implement Proposed ideas (max 2 at once)."
+                }
+                className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+                  autoImplementOn
+                    ? "border-emerald-400/50 bg-emerald-400/15 text-emerald-200 hover:bg-emerald-400/25 focus:ring-emerald-400/40"
+                    : "border-white/15 bg-white/[0.04] text-[#faf9f6]/55 hover:border-white/30 hover:text-white focus:ring-white/20"
+                }`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    autoImplementOn ? "animate-pulse bg-emerald-400" : "bg-[#faf9f6]/40"
+                  }`}
+                />
+                {autoImplementBusy
+                  ? "…"
+                  : autoImplementOn
+                    ? "Auto-implement on"
+                    : "Auto-implement off"}
+              </button>
+              <button
+                type="button"
+                onClick={refreshIdeas}
+                className="shrink-0 text-xs uppercase tracking-[0.2em] text-amber-300/70 transition hover:text-amber-200"
+              >
+                Refresh
+              </button>
+            </div>
           </div>
 
           {/* Generate controls + prompt edit links */}
           <div className="mb-6 flex flex-col items-center gap-3 text-center">
-            <form onSubmit={handleGenerate}>
+            <form onSubmit={handleGenerate} className="flex items-center gap-2">
+              <label className="flex items-center gap-1.5 rounded-full border border-amber-300/30 bg-amber-300/5 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-amber-200/80">
+                <span>How many</span>
+                <input
+                  type="number"
+                  min={1}
+                  max={20}
+                  value={ideaCount}
+                  onChange={(e) => {
+                    const n = Math.round(Number(e.target.value));
+                    setIdeaCount(Number.isFinite(n) ? Math.max(1, Math.min(20, n)) : 1);
+                  }}
+                  className="w-12 rounded-md border border-amber-300/30 bg-[#1f1e1d] px-1.5 py-1 text-center text-sm font-semibold text-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300/40"
+                  aria-label="Number of ideas to generate"
+                />
+              </label>
               <button
                 type="submit"
                 disabled={isGenerating}
                 className="rounded-full border border-amber-300/30 bg-amber-300/10 px-8 py-3.5 text-sm font-semibold uppercase tracking-[0.24em] text-amber-200 transition hover:border-amber-300/60 hover:bg-amber-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-amber-300/40 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isGenerating ? "Generating..." : "Generate Ideas"}
+                {isGenerating ? "Generating..." : `Generate ${ideaCount} Idea${ideaCount === 1 ? "" : "s"}`}
               </button>
             </form>
             {generateMessage && (
               <p className="text-sm text-amber-300">{generateMessage}</p>
             )}
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-              <button
-                type="button"
-                onClick={() =>
-                  setOpenFile({ path: IDEAS_PROMPT_PATH, title: "generate-ideas.md" })
-                }
-                className="text-xs uppercase tracking-[0.2em] text-amber-300/70 underline-offset-4 transition hover:text-amber-200 hover:underline"
-              >
-                Edit ideas prompt
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setOpenFile({
-                    path: IMPLEMENT_PROMPT_PATH,
-                    title: "implement-idea.md",
-                  })
-                }
-                className="text-xs uppercase tracking-[0.2em] text-emerald-300/70 underline-offset-4 transition hover:text-emerald-200 hover:underline"
-              >
-                Edit implement prompt
-              </button>
-            </div>
           </div>
 
           {ideaActionMsg && (
@@ -798,134 +1340,26 @@ export default function LaunchCodexPage() {
             <p className="mb-2 text-xs text-orange-300">{ideaLoadError}</p>
           )}
 
-          {ideas.length === 0 ? (
+          {activeIdeaCount === 0 ? (
             <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-6 text-center text-sm text-[#faf9f6]/40">
-              No ideas yet.
+              No open ideas — finished experiments are at the bottom.
             </p>
           ) : (
-            <ul className="space-y-2">
-              {ideas.map((idea) => {
-                const implementSessionName = IMPLEMENT_SESSION_PREFIX + idea.id;
-                const runSessionName = RUN_SESSION_PREFIX + idea.id;
-                const liveImplement = liveSessions.has(implementSessionName);
-                const liveRun = liveSessions.has(runSessionName);
-                const liveSessionName = liveRun ? runSessionName : implementSessionName;
-                const isLive = liveImplement || liveRun;
-                const isTrackedWip =
-                  idea.status === "implementing" || idea.status === "running";
-                const isStuck = isTrackedWip && !isLive;
-                const busy = implementing === idea.id;
-                const canImplement = !["needs-run", "running", "done"].includes(
-                  idea.status
-                );
-
-                return (
-                  <li
-                    key={idea.id}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setOpenFile({ path: idea.path, title: idea.title })
-                      }
-                      className="min-w-0 flex-1 text-left transition hover:opacity-80 focus:outline-none"
-                    >
-                      <p className="truncate text-sm font-semibold text-[#faf9f6]">
-                        {idea.title}
-                      </p>
-                      {idea.plain && (
-                        <p className="mt-1 text-xs text-[#faf9f6]/55">
-                          {idea.plain}
-                        </p>
-                      )}
-                    </button>
-                    <div className="flex shrink-0 flex-col items-end gap-2">
-                      <div className="flex items-center gap-2">
-                        {isLive && (
-                          <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] text-emerald-300">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-                            {liveRun ? "gpu" : "working"}
-                          </span>
-                        )}
-                        {isStuck && (
-                          <span className="text-[10px] uppercase tracking-[0.15em] text-orange-300">
-                            stuck
-                          </span>
-                        )}
-                        <span className="rounded-full border border-amber-300/20 bg-amber-300/5 px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-amber-200/80">
-                          {idea.status}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {idea.evidencePath && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setOpenFile({
-                                path: idea.evidencePath!,
-                                title: `${idea.title} — evidence`,
-                              })
-                            }
-                            className="rounded-full border border-fuchsia-300/30 bg-fuchsia-300/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-fuchsia-200 transition hover:border-fuchsia-300/60 hover:bg-fuchsia-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-fuchsia-300/40"
-                          >
-                            Evidence
-                          </button>
-                        )}
-                        {isStuck && (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleReset(
-                                idea.id,
-                                idea.status === "running" ? "needs-run" : "needs-taste",
-                                idea.status === "running"
-                                  ? "requeued stuck GPU run from UI"
-                                  : "reset stuck idea from UI"
-                              )
-                            }
-                            disabled={busy}
-                            className="rounded-full border border-orange-400/30 bg-orange-400/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-orange-300 transition hover:border-orange-400/60 hover:bg-orange-400/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-orange-400/40 disabled:cursor-not-allowed disabled:opacity-50"
-                          >
-                            {idea.status === "running" ? "Requeue" : "Reset"}
-                          </button>
-                        )}
-                        {isLive ? (
-                          <button
-                            type="button"
-                            onClick={() => handleAttach(liveSessionName)}
-                            disabled={attaching === liveSessionName}
-                            className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40 disabled:cursor-not-allowed disabled:opacity-50"
-                          >
-                            {attaching === liveSessionName ? "..." : "Attach"}
-                          </button>
-                        ) : canImplement || (isStuck && idea.status !== "running") ? (
-                          <button
-                            type="button"
-                            onClick={() => handleImplement(idea.id)}
-                            disabled={busy}
-                            className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300 transition hover:border-emerald-400/60 hover:bg-emerald-400/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-emerald-400/40 disabled:cursor-not-allowed disabled:opacity-50"
-                          >
-                            {busy
-                              ? "Launching…"
-                              : isStuck
-                                ? "Retry"
-                                : "Implement"}
-                          </button>
-                        ) : idea.status === "needs-run" ? (
-                          <span className="rounded-full border border-cyan-300/20 bg-cyan-300/5 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-cyan-200/70">
-                            Queued
-                          </span>
-                        ) : null}
-                      </div>
-                    </div>
-                    </div>
-                    {idea.result && renderResult(idea.result)}
-                  </li>
-                );
-              })}
-            </ul>
+            <div className="space-y-6">
+              {ideaGroups
+                .filter((group) => group.ideas.length > 0)
+                .map((group) => (
+                  <div key={group.key}>
+                    <h3 className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.24em] text-amber-200/50">
+                      {group.label}
+                      <span className="text-[#faf9f6]/30">({group.ideas.length})</span>
+                    </h3>
+                    <ul className="space-y-2">
+                      {group.ideas.map((idea) => renderIdeaCard(idea))}
+                    </ul>
+                  </div>
+                ))}
+            </div>
           )}
 
           {/* Idea-work tmux sessions (generate + implement) */}
@@ -951,26 +1385,6 @@ export default function LaunchCodexPage() {
                 </p>
               </div>
             </div>
-            <div className="flex shrink-0 items-center gap-4">
-              <button
-                type="button"
-                onClick={() =>
-                  setOpenFile({ path: RUN_PROMPT_PATH, title: "run-idea.md" })
-                }
-                className="text-xs uppercase tracking-[0.2em] text-cyan-300/70 underline-offset-4 transition hover:text-cyan-200 hover:underline"
-              >
-                Edit run prompt
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  setOpenFile({ path: REMOTE_BOX_PATH, title: "remote-box.json" })
-                }
-                className="text-xs uppercase tracking-[0.2em] text-fuchsia-300/70 underline-offset-4 transition hover:text-fuchsia-200 hover:underline"
-              >
-                Edit GPU box
-              </button>
-            </div>
           </div>
 
           {/* GPU queue */}
@@ -984,20 +1398,48 @@ export default function LaunchCodexPage() {
                 {runningIdeas.length} running · {queuedIdeas.length} ready
               </p>
             </div>
-            <button
-              type="button"
-              onClick={handleRunNext}
-              disabled={isRunningNext || gpuBusy || queuedIdeas.length === 0}
-              className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {isRunningNext
-                ? "Launching..."
-                : gpuBusy
-                  ? "GPU busy"
-                  : queuedIdeas.length === 0
-                    ? "Queue empty"
-                    : "Run next"}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleToggleAutorun}
+                disabled={autorunBusy}
+                title={
+                  autorunOn
+                    ? "Autorun is ON — each finished run auto-launches the next queued idea. Click to stop."
+                    : "Autorun is OFF. Click to march through the queue automatically (one run at a time)."
+                }
+                className={`flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 ${
+                  autorunOn
+                    ? "border-emerald-400/50 bg-emerald-400/15 text-emerald-200 hover:bg-emerald-400/25 focus:ring-emerald-400/40"
+                    : "border-white/15 bg-white/[0.04] text-[#faf9f6]/60 hover:border-white/30 hover:text-white focus:ring-white/20"
+                }`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    autorunOn ? "animate-pulse bg-emerald-400" : "bg-[#faf9f6]/40"
+                  }`}
+                />
+                {autorunBusy ? "…" : autorunOn ? "Autorun on" : "Autorun off"}
+              </button>
+              {/* Manual single-run only makes sense when autorun is off — when
+                  it's on, the lab-autorun runner agent drains the queue itself. */}
+              {!autorunOn && (
+                <button
+                  type="button"
+                  onClick={handleRunNext}
+                  disabled={isRunningNext || gpuBusy || queuedIdeas.length === 0}
+                  className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200 transition hover:border-cyan-300/60 hover:bg-cyan-300/20 hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300/40 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isRunningNext
+                    ? "Launching..."
+                    : gpuBusy
+                      ? "GPU busy"
+                      : queuedIdeas.length === 0
+                        ? "Queue empty"
+                        : "Run next"}
+                </button>
+              )}
+            </div>
           </div>
 
           {runMessage && <p className="mt-3 text-xs text-cyan-200">{runMessage}</p>}
@@ -1279,6 +1721,38 @@ export default function LaunchCodexPage() {
           )}
 
           {renderSessionList(otherSessions, "No other tmux sessions.")}
+        </section>
+
+        {/* ============ SECTION 4 · FINISHED EXPERIMENTS (bottom) ============ */}
+        <section className="mt-16 w-full max-w-2xl">
+          <div className="mb-5 flex items-end justify-between gap-3 border-b border-emerald-300/20 pb-3">
+            <div className="flex items-center gap-3">
+              <span className="h-7 w-1 rounded-full bg-emerald-300/70" />
+              <div>
+                <h2 className="text-sm font-semibold uppercase tracking-[0.28em] text-emerald-200">
+                  Finished experiments
+                </h2>
+                <p className="text-[11px] text-[#faf9f6]/40">
+                  Completed A/Bs with the full validation-loss curve, newest first.
+                </p>
+              </div>
+            </div>
+            <span className="shrink-0 text-xs uppercase tracking-[0.2em] text-emerald-300/60">
+              {finishedIdeas.length}
+            </span>
+          </div>
+
+          {finishedIdeas.length === 0 ? (
+            <p className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-6 text-center text-sm text-[#faf9f6]/40">
+              No finished experiments yet.
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {finishedIdeas.map((idea) =>
+                renderIdeaCard(idea, <TrainingCurve id={idea.id} />)
+              )}
+            </ul>
+          )}
         </section>
       </div>
 

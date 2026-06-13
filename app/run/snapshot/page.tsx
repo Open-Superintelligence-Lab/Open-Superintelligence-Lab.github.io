@@ -313,7 +313,7 @@ export default function MyLabPage() {
           Personal view only. Local exports, not a public account system.
         </p>
         <p className="mt-3 text-sm text-[#faf9f6]/55">
-          <Link href="/lab/my/launch-codex" className="text-cyan-300 transition hover:text-cyan-200">
+          <Link href="/run" className="text-cyan-300 transition hover:text-cyan-200">
             Open the Codex launcher
           </Link>
         </p>

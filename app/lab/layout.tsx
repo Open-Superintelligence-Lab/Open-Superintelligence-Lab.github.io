@@ -34,7 +34,7 @@ const navGroups = [
   },
   {
     label: "Private",
-    links: [{ href: "/lab/my", label: "My research" }],
+    links: [{ href: "/run", label: "My research" }],
   },
 ];
 

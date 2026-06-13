@@ -154,7 +154,7 @@ const labGroups = [
   },
   {
     title: "Private",
-    links: [{ href: "/lab/my", label: "My lab", description: "Local private working view." }],
+    links: [{ href: "/run", label: "My lab", description: "Local private working view." }],
   },
 ];
 

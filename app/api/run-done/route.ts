@@ -59,6 +59,9 @@ export async function POST(req: Request) {
   );
   killer.unref();
 
+  // Note: this only finalizes a manual single "Run next" (per-idea lab-run-*
+  // session). Autorun no longer chains here — the lab-autorun runner agent owns
+  // and drains the whole needs-run queue itself.
   return Response.json(
     { success: true, slug, status: finalized, killed: session },
     { status: 200 }
