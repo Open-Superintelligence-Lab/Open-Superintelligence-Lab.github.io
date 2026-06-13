@@ -21,20 +21,18 @@ type LaunchResult =
   | { success: false; session: string; error: string };
 
 /**
- * Fire-and-forget: read a prompt file and launch Codex in a detached tmux
- * session via launch_codex.sh. Returns once the session is started — it does
- * NOT wait for Codex to finish.
+ * Fire-and-forget: launch Codex in a detached tmux session via launch_codex.sh
+ * with the given prompt text. Returns once the session is started — it does NOT
+ * wait for Codex to finish. Pass an explicit `session` name to make the tmux
+ * session identifiable (e.g. per-idea); otherwise one is generated.
  */
-export async function launchCodexWithPrompt(
-  promptPath: string,
+export async function launchCodexWithText(
+  promptText: string,
   sessionPrefix: string,
-  cwd: string = RESEARCH_REPO_DIR
+  cwd: string = RESEARCH_REPO_DIR,
+  session: string = makeSessionName(sessionPrefix)
 ): Promise<LaunchResult> {
-  const session = makeSessionName(sessionPrefix);
-
   try {
-    const prompt = await readFile(promptPath, 'utf8');
-
     // The Next dev server sets npm_config_prefix, which makes nvm refuse to
     // load in the spawned tmux shell — and `codex` lives under nvm. Strip it
     // so the tmux shell sources nvm normally and finds codex on PATH.
@@ -42,7 +40,7 @@ export async function launchCodexWithPrompt(
     delete env.npm_config_prefix;
     delete env.NPM_CONFIG_PREFIX;
 
-    const { stdout } = await execFileAsync(LAUNCHER, [session, prompt], {
+    const { stdout } = await execFileAsync(LAUNCHER, [session, promptText], {
       cwd,
       env,
       maxBuffer: 10 * 1024 * 1024,
@@ -53,5 +51,20 @@ export async function launchCodexWithPrompt(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return { success: false, session, error: message };
+  }
+}
+
+/** Read a prompt file, then launch it via {@link launchCodexWithText}. */
+export async function launchCodexWithPrompt(
+  promptPath: string,
+  sessionPrefix: string,
+  cwd: string = RESEARCH_REPO_DIR
+): Promise<LaunchResult> {
+  try {
+    const prompt = await readFile(promptPath, 'utf8');
+    return launchCodexWithText(prompt, sessionPrefix, cwd);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return { success: false, session: makeSessionName(sessionPrefix), error: message };
   }
 }
