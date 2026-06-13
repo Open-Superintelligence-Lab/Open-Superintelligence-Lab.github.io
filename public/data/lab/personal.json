@@ -1,0 +1,133 @@
+{
+ "owner": "Vuk",
+ "note": "UI separation only for now - this file is publicly served. Real privacy comes with logins (stage 2).",
+ "research_prompts": [
+  {
+   "name": "Coin a mechanism",
+   "prompt": "Invent ONE original micro-mechanism for a transformer LM. Constraints: (1) identity at step 0 - zero-init gates/scales so the first forward pass equals baseline; (2) under 30 lines of code; (3) state WHERE it acts (QKV, attention scores, head outputs, residual write, FFN, embedding, norm) and WHAT signal drives it; (4) write the one-sentence hypothesis for WHY it should help; (5) state the kill criterion: what result kills the idea."
+  },
+  {
+   "name": "Screen protocol",
+   "prompt": "Run the A/B: tiny tier first (seed 42, fixed data), baseline vs mechanism. LIVENESS CHECK: milestone val losses must differ from baseline - bitwise-identical milestones mean your flag is inert. Noise band = ctrl rerun spread (ours: 0.005). A win must clear it by 3x AND survive the next tier before you claim anything."
+  },
+  {
+   "name": "Hypothesis controls",
+   "prompt": "Your mechanism won the screen. Before celebrating, design 3 controls: (1) GRANULARITY - the coarser version of your mechanism; if it matches yours, your fine structure is doing nothing. (2) INGREDIENT - turn off the input-dependence (or whatever you claim is active); if the win remains, your explanation is wrong. (3) COMPOSITION - combine with a known win; non-additive means fragile. Pre-register the predicted outcome of each BEFORE running."
+  },
+  {
+   "name": "Negative result write-up",
+   "prompt": "Write the negative honestly: mechanism, exact deltas, what hypothesis it kills, what it leaves open. A measured null at one scale is not a death sentence at another - say which claims your evidence actually supports. Negatives are paper sections, not trash."
+  },
+  {
+   "name": "Scale-transfer check",
+   "prompt": "Tiny-tier wins are hypotheses about scale, never claims. Promote: rerun winner + fresh control at the next tier. Watch for: effect growing (real mechanism), effect vanishing (tier artifact), effect INVERTING (we measured one: residual norm gate -0.0166 tiny, +0.0719 at 10x). Composition non-additivity at the small tier is an early fragility warning."
+  }
+ ],
+ "brainstorm_seeds": [
+  "Where else does per-channel selectivity help? (It was THE ingredient in our V-gate win)",
+  "Why does input-side gating help and output-side hurt? What does that say about what the optimizer already balances?",
+  "What signal other than RMS norm could drive an input-dependent gate - and would it survive scale?",
+  "Sync period H in DiLoCo as a screening axis: what is the cheapest 2-GPU experiment that says something real?"
+ ],
+ "projects": [
+  {
+   "id": "cheap-multiplicative-gates",
+   "title": "Cheap multiplicative gates",
+   "one_liner": "Where in a transformer do zero-init multiplicative gates help? Screen, control, scale.",
+   "status": "writing",
+   "hypothesis": "ANSWERED: channel selectivity on V is the one gate that helps (-0.0147 tiny, -0.1075 at 10M); input-dependence explained the residual gate's tiny win but it inverted at scale; output-side gating hurts everywhere.",
+   "plan": [
+    {
+     "label": "Screen 6 gate mechanisms at tiny tier",
+     "done": true
+    },
+    {
+     "label": "Pre-registered controls H1-H5",
+     "done": true
+    },
+    {
+     "label": "Scale confirmation at Screen10M20M",
+     "done": true
+    },
+    {
+     "label": "Full10M200M record attempt (ctrl + VCG)",
+     "done": false
+    },
+    {
+     "label": "Final figures + publish",
+     "done": false
+    }
+   ],
+   "paper_id": "cheap-multiplicative-gates",
+   "findings": [
+    "Value-channel gate: -0.1075 at 10M tier, effect grows with scale",
+    "Residual norm gate: tiny-tier win INVERTED at scale (+0.0719) - measured tier artifact",
+    "Per-head scalar V gate exactly null -> channel selectivity is the active ingredient",
+    "Output-side gating hurts at both granularities"
+   ],
+   "next_action": "Fold overnight 10M/200M record results into final table; regenerate figures; publish."
+  },
+  {
+   "id": "entropy-gated-heads",
+   "title": "Entropy-gated attention heads",
+   "one_liner": "Does a head's attention entropy predict its value? (No.)",
+   "status": "closed",
+   "hypothesis": "REFUTED: attenuating diffuse heads is null (-0.0013); amplifying confident heads actively hurts (+0.0140). Attention entropy does not predict head value.",
+   "plan": null,
+   "paper_id": "entropy-gated-heads",
+   "findings": [
+    "Clean two-experiment negative; published as a what-doesn't-work result"
+   ],
+   "next_action": "Closed. Kept as the lesson that motivated hypothesis-driven controls."
+  },
+  {
+   "id": "diloco-2gpu",
+   "title": "DiLoCo on 2 GPUs",
+   "one_liner": "Does DiLoCo-style local SGD match single-GPU training at the 10M tier?",
+   "status": "forming",
+   "hypothesis": "DiLoCo with sync period H in [50, 500] matches single-GPU val loss at equal tokens within the tier noise band, while cutting inter-GPU communication ~100x.",
+   "plan": [
+    {
+     "label": "Literature: DiLoCo family + fault-tolerance toolbox",
+     "done": true
+    },
+    {
+     "label": "Design doc: inner/outer optimizer split against our harness",
+     "done": false
+    },
+    {
+     "label": "Rent 2nd GPU, implement, sweep H",
+     "done": false
+    },
+    {
+     "label": "Paper: decentralized == centralized at 10M, or where it breaks",
+     "done": false
+    }
+   ],
+   "paper_id": null,
+   "findings": [],
+   "next_action": "Write the design doc from the literature briefs in distributed-llm-training/."
+  },
+  {
+   "id": "10m-speedrun-record",
+   "title": "10M speedrun record",
+   "one_liner": "Beat the Full10M200M leaderboard record by stacking confirmed mechanisms.",
+   "status": "active",
+   "hypothesis": null,
+   "plan": [
+    {
+     "label": "ctrl + VCG at Full10M200M (running overnight)",
+     "done": false
+    },
+    {
+     "label": "If VCG holds: stack with existing record recipe (vq-gain+swa+highrope)",
+     "done": false
+    }
+   ],
+   "paper_id": null,
+   "findings": [],
+   "next_action": "Check finals in the morning; VCG led at every milestone overnight."
+  }
+ ],
+ "generated_at": "2026-06-11T21:11:08+0800"
+}

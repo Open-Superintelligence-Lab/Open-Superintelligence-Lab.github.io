@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensuperintelligencelab.com/schemas/queue-core/review.schema.json",
+  "title": "QueueCoreReview",
+  "type": "object",
+  "required": ["target_type", "target_id", "reviewer_id", "decision", "created_at"],
+  "properties": {
+    "target_type": { "type": "string", "enum": ["job", "result"] },
+    "target_id": { "type": "string", "minLength": 1 },
+    "reviewer_id": { "type": "string", "minLength": 1 },
+    "decision": { "type": "string", "enum": ["approve", "request_changes", "reject", "keep"] },
+    "created_at": { "type": "string" },
+    "note": { "type": "string" }
+  },
+  "additionalProperties": true
+}

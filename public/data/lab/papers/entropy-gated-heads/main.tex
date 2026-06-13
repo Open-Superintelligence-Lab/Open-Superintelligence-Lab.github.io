@@ -1,0 +1,42 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\title{Entropy-Gated Attention Heads: let confident heads speak louder}
+\author{Vuk Rosić}
+\date{}
+\begin{document}
+\maketitle
+
+\textbf{Author:} Vuk Rosić
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Method}
+
+\section{Experiments}
+
+\section{Analysis}
+
+\section{Results}
+
+\section{Reproducibility}
+\section{Related Work}
+Entropy has become a useful lens for understanding when attention is sharp, diffuse, or unstable. Zhai et al. (2023), in \emph{Stabilizing Transformer Training by Preventing Attention Entropy Collapse}, showed that very low attention entropy often tracks training instability and one-hot-like attention rows, and they introduced spectral reparameterization to keep entropy from collapsing. Other recent analyses use similar entropy diagnostics to describe attention concentration and rank collapse [verify]. Our mechanism differs in a simple way: we do not regularize the logits or chase a global entropy target. Instead, we read the entropy of each head and use it directly as a per-head confidence signal that scales the head output.
+
+Work on head importance and redundancy shows that many attention heads are either weakly used or structurally redundant. Michel et al. (2019), \emph{Are Sixteen Heads Really Better than One?}, demonstrated that a large fraction of heads can be removed at test time with little loss, and Voita et al. (2019), \emph{Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned}, found that only a subset of heads carry most of the useful work. This line of work motivates selective mechanisms, but the main intervention is pruning or static head selection. Our method is different because it keeps every head alive and trainable, but modulates each head's contribution continuously through its own entropy-driven gate.
+
+There is also a broad family of gated and adaptive attention mechanisms that change how much context a model can use. Sukhbaatar et al. (2019), \emph{Adaptive Attention Span in Transformers}, learned a per-head span so heads could ignore distant tokens and reduce compute. Hua et al. (2022), \emph{Transformer Quality in Linear Time}, introduced the Gated Attention Unit (GAU) in FLASH [verify], which replaces standard multi-head attention with a gated formulation designed for efficiency and quality. These methods adapt the receptive field or the attention block itself, whereas our gate sits after attention and does not limit span, alter token coverage, or replace the attention operator.
+
+Another related thread changes the softmax normalization to reshape entropy directly. Sparsemax (Martins and Astudillo, 2016) and entmax (Peters et al., 2019) make attention distributions sparse by modifying the projection from logits to probabilities, and later work such as Softpick [verify] and Scalable-Softmax [verify] continues this theme by changing the normalization to avoid flat or sink-prone attention. These approaches intervene inside the attention map, changing which tokens receive probability mass. Our mechanism is complementary but strictly less invasive: we keep standard softmax attention unchanged and only rescale the head output according to the entropy of that head's distribution.
+
+Temperature and attention-scaling work is the closest in spirit because it changes the sharpness of attention through a scalar. Dufter et al. (2020), \emph{Increasing Learning Efficiency of Self-Attention Networks through Direct Position Interactions, Learnable Temperature, and Convoluted Attention}, showed that a learnable temperature can improve self-attention behavior, and later papers explore adaptive or per-instance temperature scaling in Transformer variants [verify]. The key difference is that temperature acts before softmax and therefore changes the attention weights themselves. Our gate acts after softmax, uses the head's own normalized entropy, and starts from identity because each per-head scalar is zero-initialized.
+
+Overall, the closest prior ideas either prune heads, alter the attention map, or add a general gate to the attention block. Our novelty is a cheap, identity-initialized, per-head self-regulating gate driven by the head's own confidence. Confident, peaked heads keep full weight; diffuse, high-entropy heads are down-weighted without deleting capacity or changing the base softmax mechanism.
+
+\end{document}

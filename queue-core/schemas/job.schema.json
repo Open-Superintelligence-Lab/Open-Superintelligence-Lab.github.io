@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensuperintelligencelab.com/schemas/queue-core/job.schema.json",
+  "title": "QueueCoreJob",
+  "type": "object",
+  "required": ["id", "kind", "title", "status", "priority", "owner", "created_at", "updated_at", "input", "expected_output"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "kind": { "type": "string", "enum": ["experiment", "review", "code", "write", "ops"] },
+    "title": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ready", "claimed", "running", "blocked", "submitted", "accepted", "rejected", "archived"]
+    },
+    "priority": { "type": "integer", "minimum": 0 },
+    "owner": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "input": {
+      "type": "object",
+      "required": ["brief"],
+      "properties": {
+        "brief": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "expected_output": {
+      "type": "object",
+      "required": ["summary"],
+      "properties": {
+        "summary": { "type": "string" },
+        "artifacts": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "gpu_vram_gb": { "type": ["number", "null"] },
+        "max_hours": { "type": ["number", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "public_summary": { "type": "string" }
+  },
+  "additionalProperties": true
+}

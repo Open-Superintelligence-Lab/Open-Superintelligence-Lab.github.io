@@ -1,0 +1,398 @@
+{
+  "generated_at": "2026-06-12T07:44:31.916751Z",
+  "counts": {
+    "done": 17,
+    "needs-codereview": 1,
+    "needs-plan": 45,
+    "needs-run": 7,
+    "rejected": 3,
+    "reviewing": 2,
+    "running": 4,
+    "tasting": 3
+  },
+  "gate_summary": {
+    "taste": 3,
+    "definition": 2,
+    "code": 46,
+    "needs_run": 7,
+    "running": 4,
+    "done": 17,
+    "rejected": 3
+  },
+  "feeding_gpu": 11,
+  "gpu_idle_risk": false,
+  "in_flight": [
+    {
+      "id": "022-softpick-attention",
+      "status": "running",
+      "round": 3,
+      "updated": "2026-06-10T12:28:10Z"
+    },
+    {
+      "id": "027-moonlight-x-qknorm",
+      "status": "running",
+      "round": 1,
+      "updated": "2026-06-10T12:28:10Z"
+    },
+    {
+      "id": "029-v-norm",
+      "status": "running",
+      "round": 1,
+      "updated": "2026-06-10T12:28:10Z"
+    },
+    {
+      "id": "030-unet-skip-sigmoid",
+      "status": "running",
+      "round": 1,
+      "updated": "2026-06-10T12:28:10Z"
+    },
+    {
+      "id": "020-forgetting-attn",
+      "status": "needs-run",
+      "round": 3,
+      "updated": "2026-06-10T12:33:14Z"
+    },
+    {
+      "id": "026-fire-x-qknorm",
+      "status": "needs-run",
+      "round": 2,
+      "updated": "2026-06-10T12:33:38Z"
+    },
+    {
+      "id": "028-deep-thin-config",
+      "status": "needs-run",
+      "round": 1,
+      "updated": "2026-06-10T12:43:18Z"
+    },
+    {
+      "id": "058-fixup",
+      "status": "needs-run",
+      "round": 1,
+      "updated": "2026-06-11T01:16:36Z"
+    },
+    {
+      "id": "051-scalenorm",
+      "status": "needs-run",
+      "round": 1,
+      "updated": "2026-06-11T01:38:25Z"
+    },
+    {
+      "id": "067-confidence-penalty",
+      "status": "needs-run",
+      "round": 1,
+      "updated": "2026-06-11T01:41:35Z"
+    },
+    {
+      "id": "038-swan",
+      "status": "needs-run",
+      "round": 1,
+      "updated": "2026-06-11T01:51:33Z"
+    },
+    {
+      "id": "065-bilevel-pe",
+      "status": "needs-codereview",
+      "round": 1,
+      "updated": "2026-06-11T01:19:20Z"
+    },
+    {
+      "id": "081-scale-invariant-attn",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "083-root-optimizer",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "084-peri-ln",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "085-hybridnorm",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "086-muddformer",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "087-entropy-guided-attn",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:26Z"
+    },
+    {
+      "id": "088-rodimus",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:52Z"
+    },
+    {
+      "id": "089-pi-attention",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:52Z"
+    },
+    {
+      "id": "090-tapernorm",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:52Z"
+    },
+    {
+      "id": "091-scale-anchor-loss",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:52Z"
+    },
+    {
+      "id": "092-seednorm",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:53Z"
+    },
+    {
+      "id": "093-derf",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:17:53Z"
+    },
+    {
+      "id": "094-keel-highway-postln",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:16Z"
+    },
+    {
+      "id": "095-bhyt",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:16Z"
+    },
+    {
+      "id": "096-siamesenorm",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:16Z"
+    },
+    {
+      "id": "097-asentmax",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:16Z"
+    },
+    {
+      "id": "098-lp-qknorm",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:17Z"
+    },
+    {
+      "id": "099-double-p",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:17Z"
+    },
+    {
+      "id": "100-mud",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "101-trasmuon",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "102-sf-normuon",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "103-momentum-streams",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "104-post-norm-resharpen",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "105-retrospective-sparse-attn",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "106-mvn-grad",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:18:41Z"
+    },
+    {
+      "id": "060-ngpt",
+      "status": "needs-plan",
+      "round": 2,
+      "updated": "2026-06-11T01:19:47Z"
+    },
+    {
+      "id": "057-normformer",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:21:40Z"
+    },
+    {
+      "id": "069-focal-loss",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:21:40Z"
+    },
+    {
+      "id": "074-transformer-xl",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:21:40Z"
+    },
+    {
+      "id": "078-fnetar",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:21:40Z"
+    },
+    {
+      "id": "082-diff-transformer",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:21:40Z"
+    },
+    {
+      "id": "052-fixnorm",
+      "status": "needs-plan",
+      "round": 2,
+      "updated": "2026-06-11T01:22:23Z"
+    },
+    {
+      "id": "071-realformer",
+      "status": "needs-plan",
+      "round": 2,
+      "updated": "2026-06-11T01:22:23Z"
+    },
+    {
+      "id": "072-t5-rpe",
+      "status": "needs-plan",
+      "round": 2,
+      "updated": "2026-06-11T01:22:23Z"
+    },
+    {
+      "id": "054-polycom",
+      "status": "needs-plan",
+      "round": 2,
+      "updated": "2026-06-11T01:23:34Z"
+    },
+    {
+      "id": "033-sophia",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "037-lookahead",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "042-knocking-heads",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "044-attnres",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "046-multi-token",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "047-synthesizer",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "048-adaptive-span",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "064-xpos",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "073-deberta-disentangled",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:07Z"
+    },
+    {
+      "id": "034-adan",
+      "status": "needs-plan",
+      "round": 1,
+      "updated": "2026-06-11T01:34:08Z"
+    },
+    {
+      "id": "032-adams",
+      "status": "reviewing",
+      "round": 1,
+      "updated": "2026-06-10T23:48:43Z"
+    },
+    {
+      "id": "041-talking-heads",
+      "status": "reviewing",
+      "round": 1,
+      "updated": "2026-06-10T23:50:36Z"
+    },
+    {
+      "id": "031-adam-mini",
+      "status": "tasting",
+      "round": 2,
+      "updated": "2026-06-10T23:48:30Z"
+    },
+    {
+      "id": "061-alibi-bias",
+      "status": "tasting",
+      "round": 2,
+      "updated": "2026-06-10T23:49:04Z"
+    },
+    {
+      "id": "045-transformerfam",
+      "status": "tasting",
+      "round": 2,
+      "updated": "2026-06-10T23:49:43Z"
+    }
+  ]
+}

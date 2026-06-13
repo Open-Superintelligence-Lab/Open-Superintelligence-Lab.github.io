@@ -1,0 +1,661 @@
+{
+ "generated_at": "2026-06-11T21:11:08+0800",
+ "ideas": [
+  {
+   "id": "001-cautious-muon",
+   "name": "001 \u2014 Cautious Muon",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Liang et al. 2024, \"Cautious Optimizers: Improving Training with One Line of Code\" (arXiv 2411.16085). Mechanism One-line sign-mask on the orthogonalized Muon update: zero out components whose sign disagrees with the current gradient. Suppresses stale-momentum artifacts. Bit-identical to base",
+   "verdict": "Verdict: NULL tier: tiny1m3m, seed 42, box: vast 220.82.52.202:34386 (RTX 3060) treatment val: 6.4125 (r1), 6.4156 (r2) \u2014 n=2 control: ctrl/ctrl2 over two batches = 6.3875 / 6.4050 / 6.4322 / 6.4009 (mean 6.4064) \u0394 vs mean ctrl: +0.006 (wrong sign \u2014 treatment is slightly worse) pass/fail bar: needed"
+  },
+  {
+   "id": "002-cautious-adamw",
+   "name": "002 \u2014 Cautious AdamW",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Liang et al. 2024, \"Cautious Optimizers\" (arXiv 2411.16085). Extension of [[001-cautious-muon]] to the AdamW path (1D params: gains, scalars, embeddings, head). Mechanism Same sign-mask as Cautious Muon, applied to the AdamW update for 1D parameters. The mechanistic claim from the paper is th",
+   "verdict": "Verdict: NULL tier: tiny1m3m, seed 42, box: vast-34386 (220.82.52.202:34386, RTX 3060, sm_86) control val: 6.4403 treatment A val: 6.4406 (embedding bucket: token_embedding + emb_proj) \u0394: +0.0003 treatment B val: 6.4337 (gain bucket: *.norm.weight + 1D scalars) \u0394: -0.0066 pass/fail bar (tiny1m3m): b"
+  },
+  {
+   "id": "003-soap",
+   "name": "003 \u2014 Soap (Shampoo + Adam)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Vyas, Morwani, Zhao, Kwun, Shapira, Brandfonbrener, Janson, Kakade \u2014 \"SOAP: Improving and Stabilizing Shampoo using Adam\" (arXiv:2409.11321, Sep 2024; v2 Jan 2025). Code: https://github.com/nikhilvyas/SOAP. Mechanism Showed Shampoo (1/2-power) is mathematically equivalent to Adafactor in the ",
+   "verdict": "Verdict: NULL tier: tiny1m3m, seed 42, box: vast 220.82.52.202:34386 (RTX 3060, sm_86) treatment val: 6.4191 \u2014 n=1 (single seed, per ONE-SEED-ONLY protocol) control bracket: ctrl=6.4078, ctrl2=6.4072 (gap 0.0006 \u2014 very tight this batch) \u0394 vs ctrl: +0.0113 (treatment is worse); \u0394 vs ctrl2: +0.0119 (w"
+  },
+  {
+   "id": "004-retnet-retention",
+   "name": "004 \u2014 RetNet retention (linear-attention alternative)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Sun, Dong, Huang, Ma, Xia, Xue, Wang, Wei (Microsoft) \u2014 \"Retentive Network: A Successor to Transformer for Large Language Models\" (arXiv:2307.08621, Jul 2023). Code: https://aka.ms/retnet. \u26a0\ufe0f 2023 paper; field has moved (Mamba, GLA, RWKV-7). Filing because: linear-attention alternatives are u",
+   "verdict": "Verdict: NULL tier: tiny1m3m, seed 42, box: vast 220.82.52.202:34386 (RTX 3060, sm_86) treatment val: 6.4162 (r1) \u2014 n=1 control bracket: ctrl=6.3875, ctrl2=6.4050 (gap 0.0175) \u0394 vs ctrl: +0.0287 (treatment is worse than ctrl) \u0394 vs ctrl2: +0.0112 (treatment is worse than ctrl2) pass/fail bar (idea.md"
+  },
+  {
+   "id": "005-decoupled-qkv-muon",
+   "name": "005 \u2014 Decoupled Q/K/V for Muon routing",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Modded-nanoGPT (Keller Jordan) \u2014 https://github.com/KellerJordan/modded-nanogpt \u2014 train_gpt2.py, the Muon path treats Q, K, V as three independent 2D matrices (not a fused qkvo projection) and routes them separately to the orthogonalized optimizer. The repo's modded-nanogpt record is the cano",
+   "verdict": "Verdict: NULL tier: tiny1m3m, seed 42, box: vast 220.82.52.202:34386 (RTX 3060, sm_86) treatment val: 6.3909 (r1) \u2014 n=1 control bracket: ctrl=6.3875, ctrl2=6.4050 (gap 0.0175) \u0394 vs ctrl: +0.0034 (treatment is marginally worse than ctrl) \u0394 vs ctrl2: -0.0141 (treatment is better than ctrl2, but by < g"
+  },
+  {
+   "id": "006-schedule-free-adamw",
+   "name": "006 \u2014 Schedule-Free AdamW",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Defazio, Yang, Mehta, Mishchenko, Khaled, Cutkosky \u2014 \"The Road Less Scheduled\" (arXiv:2405.15682, May 2024, v4 Oct 2024). Code: https://github.com/facebookresearch/schedule_free. Won the MLCommons 2024 AlgoPerf Algorithmic Efficiency Challenge (Self-Tuning track). Mechanism Eliminates the LR ",
+   "verdict": "Verdict: NULL (treatment worse) tier: tiny1m3m, seed 42, box: vast-34386 (220.82.52.202:34386, RTX 3060) control val: 6.5953 treatment val: 6.8056 \u0394: +0.2103 (worse) ctrl2: 6.6091 (two-ctrl bracket; ctrl-to-ctrl gap 0.0138) pass/fail bar: PASS \u2264 \u22120.005 vs ctrl \u2192 NOT met \u2014 treatment is +0.21 worse, w"
+  },
+  {
+   "id": "009-fire-pe",
+   "name": "009 \u2014 FIRE positional encoding (functional-interpolation relative PE)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Li et al., \"Functional Interpolation for Relative Positional Encoding\" (NeurIPS 2023, arXiv:2306.02613). Reference: original paper repo. Mechanism Add a learnable position-dependent bias to attention logits: bias(i,j) = \u03b3(i-j) \u00b7 f(\u03c6(x_i), \u03c6(x_j)) where \u03b3 is a fixed Lp-norm kernel (monotone de",
+   "verdict": "Verdict: WIN tier: tiny1m3m, seed 42, box: vast 220.82.52.202:34386 (RTX 3060, sm_86) treatment val: 6.3234 (r1) \u2014 n=1 control bracket: ctrl=6.3875, ctrl2=6.4050 (gap 0.0175) \u0394 vs ctrl: -0.0641 (treatment beats ctrl by 0.0641 \u226b gap 0.0175) \u0394 vs ctrl2: -0.0816 (treatment beats ctrl2 by 0.0816 \u226b gap 0"
+  },
+  {
+   "id": "010-polyloss",
+   "name": "010-polyloss",
+   "phase": "done",
+   "status": "done",
+   "summary": "010 \u2014 PolyLoss (polynomial expansion of cross-entropy) Source Leng et al., \"PolyLoss: A Polynomial Expansion Perspective of Loss Functions in Deep Learning\" (2022, arXiv:2204.12511). Mechanism CE = -log p_t = (1-p_t) + (1-p_t)\u00b2/2 + \u2026 (Taylor series of -log(1 - x) at x =1-p_t). Standard CE keeps only",
+   "verdict": "Verdict: NULL (inside variance) tier: tiny1m3m, seed 42, box: vast-34386 (220.82.52.202:34386, RTX 3060) control val: 6.5991 treatment val: 6.5938 \u0394: \u22120.0053 ctrl2: 6.6050 (two-ctrl bracket; ctrl-to-ctrl gap 0.0059) pass/fail bar: PASS \u2264 \u22120.005 vs ctrl. Treatment beats ctrl1 by 0.0053 and ctrl2 by 0"
+  },
+  {
+   "id": "011-cautious-lion",
+   "name": "011 \u2014 Cautious Lion",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Liang et al., \"Cautious Optimizers: Improving Training with One Line of Code\" (arXiv:2411.16085, 2024). The \"Cautious\" mask trick generalized from Adam to any sign-based optimizer. Lion (Chen et al., 2023) is a natural target: its update is update = sign(\u03b2\u2081\u00b7m + (1-\u03b2\u2081)\u00b7g) \u2014 already a sign \u2014 so",
+   "verdict": "Verdict: WIN (within session) tier: tiny1m3m, seed 42, box: vast-34386 (220.82.52.202:34386, RTX 3060) control val: 6.4253 treatment val: 6.3941 \u0394: \u22120.0312 (vs ctrl) ctrl2: 6.4262 (two-ctrl bracket; ctrl-to-ctrl gap 0.0009) Treatment beats both ctrls by 0.0312 and 0.0321 \u2014 margin far exceeds the ctr"
+  },
+  {
+   "id": "013-cope",
+   "name": "013 \u2014 CoPE (Contextual Position Encoding)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Golovneva et al., \"Contextual Position Encoding: Learning to Count What's Important\" (arXiv:2405.18719, 2024, Meta). Position is computed per-head from the content of nearby tokens: the position offset between token i and j is the number of \"important\" tokens (those with high dot-product to a",
+   "verdict": "Date: 2026-06-09 Tier: tiny1m3m (0.94M params, 3M tokens) Box: vast-34386 (RTX 3060) Seed: 42 (one seed only, per project rule) Queue: ctrl \u2192 013-cope (FIRE+CoPE stacked) \u2192 ctrl2 Results | Run | Final Val Loss | \u0394 vs ctrl1 | \u0394 vs ctrl2 | |---|---|---|---| | ctrl | 6.3969 | \u2014 | \u2014 | | 013 (FIRE + CoPE"
+  },
+  {
+   "id": "015-moonlight-muon-rms",
+   "name": "015 \u2014 Moonlight Muon (per-tensor RMS scaling on orthogonalized update)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source \"Muon is Scalable for LLMs\" (Moonlight team, Moonshot AI / Kimi, 2025) \u2014 extends Keller Jordan's Muon (https://x.com/kellerjordan0/status/1853203334560575586). Kimi's writeup + arXiv preprint from Feb 2025; arXiv:2502.16982 (best-known citation at filing time \u2014 please verify in taste gate). M",
+   "verdict": "Date: 2026-06-09 Tier: tiny1m3m (0.94M params, 3M tokens) Box: vast-34386 (RTX 3060) Seed: 42 (one seed only, per project rule) Queue: ctrl \u2192 015 \u2192 016 \u2192 017 \u2192 ctrl2 Results | Run | Final Val Loss | \u0394 vs ctrl1 | \u0394 vs ctrl2 | |---|---|---|---| | ctrl | 6.4044 | \u2014 | \u2014 | | 015 (Moonlight c\u00b7\u221amax(d_in,d_"
+  },
+  {
+   "id": "016-qk-norm",
+   "name": "016 \u2014 QK-Norm (LayerNorm on Q and K head-dim before attention)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source \"Scaling Vision Transformers to 22 Billion Parameters\" (Dehghani et al., Google, 2023 \u2014 arXiv:2302.05442). Also adopted in Meta's Chameleon and Stability AI's Stable LM 2 as a depth-stability lever. Mechanism In the MHA forward, after the Q and K projections reshape into (B, H, T, d_head), ap",
+   "verdict": "Date: 2026-06-09 Tier: tiny1m3m (0.94M params, 3M tokens) Box: vast-34386 (RTX 3060) Seed: 42 (one seed only, per project rule) Queue: ctrl \u2192 015 \u2192 016 \u2192 017 \u2192 ctrl2 Results | Run | Final Val Loss | \u0394 vs ctrl1 | \u0394 vs ctrl2 | |---|---|---|---| | ctrl | 6.4044 | \u2014 | \u2014 | | 015 (Moonlight) | 6.3906 | \u22120"
+  },
+  {
+   "id": "017-sub-ln-sandwich",
+   "name": "017 \u2014 Sub-LN / Sandwich block (additional LN after each sublayer)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source \"DeepNet: Scaling Transformers to 1,000 Layers\" (Wang et al., Microsoft, 2022 \u2014 arXiv:2203.00555, \u00a73.1 introduces the sub-LN pattern). Related: \"NormFormer\" (Shleifer et al., Microsoft, 2021). Pre-norm-only (closed) and post-norm (closed) are the corner cases; sub-LN is the interior of that a",
+   "verdict": "Date: 2026-06-09 Tier: tiny1m3m (0.94M params, 3M tokens) Box: vast-34386 (RTX 3060) Seed: 42 (one seed only, per project rule) Queue: ctrl \u2192 015 \u2192 016 \u2192 017 \u2192 ctrl2 Results | Run | Final Val Loss | \u0394 vs ctrl1 | \u0394 vs ctrl2 | |---|---|---|---| | ctrl | 6.4044 | \u2014 | \u2014 | | 015 (Moonlight) | 6.3906 | \u22120"
+  },
+  {
+   "id": "020-forgetting-attn",
+   "name": "020 \u2014 Forgetting Transformer (per-head learnable decay multiplier)",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source \"Forgetting Transformer: Softmax Attention with a Forget Gate\" (Lin, Wang, Yang et al.; March 2025 \u2014 arXiv:2503.02130). Adds a per-head, per-token learnable forget gate to standard softmax attention; reports consistent wins over RoPE/SWA baselines at GPT-2 and Llama scales. Mechanism Standard",
+   "verdict": "Verdict: FAIL \u2014 NaN, needs-recode tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val: n/a (shared fire-ctrl was buggy \u2014 see \"Wiring bug\" below) treatment val: NaN (both orig 2026-06-10T08:14Z and rerun 2026-06-10T11:13Z) pass/fail bar (plan.md): WIN trt < ctrl \u2212 0.02 / NULL"
+  },
+  {
+   "id": "021-value-residual",
+   "name": "021 \u2014 Value Residual Learning (cross-layer V shortcut)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Zhou et al., \"Value Residual Learning for Alleviating Attention Concentration in Transformers\" (arXiv:2410.17897), Oct 2024. Also adopted as value embed-adjacent trick in modded-nanogpt speedruns, but the cross-layer formulation here is the paper's ResFormer/SVA. Mechanism Compute the value p",
+   "verdict": "Verdict: WIN (within-session, with shared fire-ctrl wiring caveat) tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val (shared fire-ctrl, buggy \u2014 see note): 6.3419 treatment val: 6.3075 \u00b7 \u0394: \u22120.0344 pass/fail bar (plan.md): WIN trt < ctrl \u2212 0.005 / NULL |\u0394| < 0.01 / FAIL trt"
+  },
+  {
+   "id": "022-softpick-attention",
+   "name": "022 \u2014 Softpick (rectified-softmax attention, sink-free normalization)",
+   "phase": "run",
+   "status": "running",
+   "summary": "Source Zuhri, Fuadi, Aji, \"Softpick: No Attention Sink, No Massive Activations with Rectified Softmax\" (arXiv:2504.20966), 29 Apr 2025. Mechanism Replace the softmax in scaled-dot-product attention with a rectified normalization that permits a zero total attention mass: softpick(x_i) = relu(exp(x_i)",
+   "verdict": "Verdict: FAIL \u2014 NaN, needs-recode tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val: n/a (shared fire-ctrl was buggy \u2014 see \"Wiring bug\" below) treatment val: NaN (both orig 2026-06-10T08:19Z and rerun 2026-06-10T11:19Z) pass/fail bar (plan.md): WIN trt < ctrl \u2212 0.005 / NUL"
+  },
+  {
+   "id": "023-canon-conv",
+   "name": "023 \u2014 Canon layers (gated depthwise causal Conv1d on the residual stream)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Allen-Zhu et al., \"Physics of Language Models\" Canon-layer line (2024-2025); the same short causal depthwise convolution is used as the local token-mixing block in Griffin (De/Smith/Fernando, \"Griffin: Mixing Gated Linear Recurrences with Local Attention for Efficient Language Models\", arXiv:",
+   "verdict": "Verdict: WIN (within-session, with shared fire-ctrl wiring caveat) tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val (shared fire-ctrl, buggy \u2014 see note): 6.3419 treatment val: 6.2581 \u00b7 \u0394: \u22120.0838 pass/fail bar (plan.md): WIN trt < ctrl \u2212 0.01 / NULL |\u0394| \u2264 0.01 / FAIL trt "
+  },
+  {
+   "id": "024-gated-attention",
+   "name": "024 \u2014 Gated Attention (per-head sigmoid output gate)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Qiu et al., \"Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free\" (arXiv:2505.06708), May 2025. The same head-output gate appears in modded-nanogpt speedrun variants. (Not Qwen's \"gated attention\" \u2014 Qwen gates Q pre-softmax, a different site on a differ",
+   "verdict": "Verdict: WIN (within-session, with plan-024 fire-ctrl wiring caveat) tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val (plan-024 ctrl = Tiny1M3MConfig + use_fire_pe=True, buggy): 6.4269 treatment val: 6.3316 \u00b7 \u0394: \u22120.0953 pass/fail bar (plan.md, reviewer-locked): pass iff \u0394"
+  },
+  {
+   "id": "025-scalable-softmax",
+   "name": "025 \u2014 Scalable-Softmax (SSMax, length-aware attention temperature)",
+   "phase": "done",
+   "status": "done",
+   "summary": "Source Nakanishi, \"Scalable-Softmax Is Superior for Attention\" (arXiv:2501.19399), Jan 2025. Mechanism Replace the softmax over attention logits with SSMax, which scales the logits by s \u00b7 log(n) before the exponential, where n is the number of keys the query attends to (its causal context length) an",
+   "verdict": "Verdict: WIN (within-session, with TWO wiring bugs) tier: tiny1m3m, seed 42, box: vast-81.45.65.189 (V100-PCIE-32GB) control val (plan-025 ctrl = Tiny1M3MConfig + use_fire_pe=True, buggy): 6.4269 treatment val: 6.3359 \u00b7 \u0394: \u22120.0910 pass/fail bar (plan.md): WIN trt < ctrl \u2212 0.01 / NULL \u22120.01 < \u0394 \u2264 0 /"
+  },
+  {
+   "id": "026-fire-x-qknorm",
+   "name": "026 \u2014 FIRE \u00d7 QK-Norm (positional bias + per-head Q,K normalization)",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source Internal composition of two in-stack levers: autoresearch/ideas/009-fire-pe/evidence.md \u2014 WIN, \u0394 \u22120.064/\u22120.082 at tiny1m3m (seed 42) autoresearch/ideas/016-qk-norm/evidence.md \u2014 WIN, \u0394 \u22120.0138/\u22120.0185 at tiny1m3m (seed 42) Mechanism Enable both use_fire_pe and use_qk_norm simultaneously. In m",
+   "verdict": null
+  },
+  {
+   "id": "027-moonlight-x-qknorm",
+   "name": "027 \u2014 Moonlight Muon RMS \u00d7 QK-Norm (optimizer scale alignment + per-head logit bounding)",
+   "phase": "run",
+   "status": "running",
+   "summary": "Source Internal composition of two in-stack levers: autoresearch/ideas/015-moonlight-muon-rms/evidence.md \u2014 WIN, \u0394 \u22120.0138/\u22120.0185 at tiny1m3m (seed 42) autoresearch/ideas/016-qk-norm/evidence.md \u2014 WIN, \u0394 \u22120.0138/\u22120.0185 at tiny1m3m (seed 42) Mechanism Enable both use_moonlight_muon (per-tensor RMS ",
+   "verdict": null
+  },
+  {
+   "id": "028-deep-thin-config",
+   "name": "028 \u2014 Deep-and-Thin Config (depth/width ratio swap at fixed param budget)",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source Ma et al., \"MobileLLM: Optimizing Sub-billion Parameter Language Models for On-Device Use Cases\" (ICML 2024, arXiv:2402.14905). Reported +2.7% average gain at 125M and +4.3% at 350M from depth/width swap vs prior sub-billion SOTA, holding total parameters and training tokens fixed. Mechanism ",
+   "verdict": null
+  },
+  {
+   "id": "029-v-norm",
+   "name": "029 \u2014 V-Norm (per-head LayerNorm on Value projection)",
+   "phase": "run",
+   "status": "running",
+   "summary": "Source Wortsman et al., \"Small-scale proxies for large-scale Transformer training instabilities\" (2023, arXiv:2309.14322). QK-Norm is the canonical form (016 is in the recipe stack); Value normalization is the symmetric partner: normalizing V vectors before the AV aggregation step prevents outlier v",
+   "verdict": null
+  },
+  {
+   "id": "030-unet-skip-sigmoid",
+   "name": "030 \u2014 U-Net Skip Gates (sigmoid gate init \u22121.5 fix)",
+   "phase": "run",
+   "status": "running",
+   "summary": "Source KellerJordan/modded-nanogpt PR #125 (https://github.com/KellerJordan/modded-nanogpt/pull/125): replaced zero-init gates with sigmoid gates initialized at weight \u22121.5. This gave +1.25% speedup and U-Net skip connections became a permanent part of the modded-nanogpt record architecture. (Our pr",
+   "verdict": null
+  },
+  {
+   "id": "031-adam-mini",
+   "name": "031 - Adam-mini",
+   "phase": "taste",
+   "status": "tasting",
+   "summary": "Source Adam-mini: Use Fewer Learning Rates To Gain More (arXiv:2406.16793, Zhang et al., 2024). Mechanism Use the paper's verbatim partition \u2014 not a custom one. AdamW keeps per-element v for Embed, Output (LM head), MLP (up/down), and all LayerNorm/RMSNorm tensors. The change is confined to the atte",
+   "verdict": null
+  },
+  {
+   "id": "032-adams",
+   "name": "032 - AdamS",
+   "phase": "definition",
+   "status": "reviewing",
+   "summary": "Source AdamS: Momentum Itself Can Be A Normalizer for LLM Pretraining and Post-training (arXiv:2505.16363, 2025). Mechanism Replace AdamW's per-tensor second-moment buffer v_t with sqrt(\u03b1\u00b7m_t^2 + \u03b2\u00b7g_t^2) (momentum-magnitude + raw gradient, weighted), so the optimizer normalizes the update by a func",
+   "verdict": null
+  },
+  {
+   "id": "033-sophia",
+   "name": "033 - Sophia",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Sophia: A Scalable Stochastic Second-order Optimizer for Language Model Pre-training (arXiv:2305.14342, 2023). Mechanism Per-coordinate update clip(m_t / max(h_t, \u03b5), \u03c1), where m_t = \u03b21\u00b7m_{t-1} + (1-\u03b21)\u00b7g is the gradient EMA (\u03b21=0.965) and h_t = \u03b22\u00b7h_{t-1} + (1-\u03b22)\u00b7\u0125 is a diagonal Hessian EMA",
+   "verdict": null
+  },
+  {
+   "id": "034-adan",
+   "name": "034 - Adan",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Adan: Adaptive Nesterov Momentum Algorithm for Faster Optimizing Deep Models (arXiv:2208.06677, 2022). Paper claims ~2\u00d7 wall-clock speedup over AdamW for ViT/ConvNeXt/MAE and reports 1k\u219232k minibatch tolerance on language models (GPT-2, Transformer-XL, BERT). Mechanism Replaces Muon on the 2D",
+   "verdict": null
+  },
+  {
+   "id": "035-agc",
+   "name": "035 - Adaptive Gradient Clipping",
+   "phase": "unknown",
+   "status": "rejected",
+   "summary": "Source High-Performance Large-Scale Image Recognition Without Normalization (Brock et al., arXiv:2102.06171, 2021). NFNet-F1/F2/F3/F4/F5 reach 83.2-86.5% top-1 on ImageNet without BatchNorm by replacing global L2 grad clip with per-parameter-unit AGC at threshold \u03bb=0.01. Mechanism Replace torch.nn.u",
+   "verdict": null
+  },
+  {
+   "id": "037-lookahead",
+   "name": "037 \u2014 Lookahead (k steps forward, 1 step back)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Zhang et al., \"Lookahead Optimizer: k steps forward, 1 step back\" (arXiv:1907.08610, NeurIPS 2019). Generic wrapper, not optimizer-family. Mechanism Wrap the existing Muon + AdamW(vocab) pair. Maintain a slow-weight buffer \u03c6 alongside the fast weights \u03b8. Every k inner steps, take k normal inn",
+   "verdict": null
+  },
+  {
+   "id": "038-swan",
+   "name": "038 - SWAN",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source SWAN: SGD with Normalization and Whitening Enables Stateless LLM Training (arXiv:2412.13148, 2024). Ma, Gong, Scetbon, Meeds \u2014 Dec 2024 / Feb 2025 v3. Reports LLaMA 350M / 1.3B pretraining and ~2x token-to-perplexity vs Adam. Citation and authors verified. Mechanism Pre-process gradients with",
+   "verdict": null
+  },
+  {
+   "id": "041-talking-heads",
+   "name": "041 \u2014 Talking-Heads Attention (post-softmax weight mix)",
+   "phase": "definition",
+   "status": "reviewing",
+   "summary": "Source Shazeer et al., \"Talking-Heads Attention\" (arXiv:2003.02436), 2020. The paper actually proposes two cross-head mixes: a pre-softmax score mix (the dominant lever per their ablations) and a post-softmax weight mix (the variant the name \"talking heads\" comes from \u2014 heads literally communicate v",
+   "verdict": null
+  },
+  {
+   "id": "042-knocking-heads",
+   "name": "042 \u2014 Knocking-Heads Attention (Q/K/V feature mix, pre-attention)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Zhou et al., \"Knocking-Heads Attention\" (arXiv:2510.23052), 2025. The paper's headline lever is a pre-attention cross-head mix on the Q, K, V feature channels (the per-head d_k axis), before the dot-product. The paper also tests post-attention variants; this repitch commits to the Q/K/V featu",
+   "verdict": null
+  },
+  {
+   "id": "044-attnres",
+   "name": "044 \u2014 Attention Residuals",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Kimi Team, \"Attention Residuals\" (arXiv:2603.15031), 2026. https://arxiv.org/abs/2603.15031 (stable URL alongside the arXiv ID per r1 flag). Mechanism Replace fixed residual accumulation with a learned softmax over the sequence of earlier block outputs. The standard x \u2190 x + h becomes x \u2190 \u03a3_i ",
+   "verdict": null
+  },
+  {
+   "id": "045-transformerfam",
+   "name": "045 \u2014 TransformerFAM (feedback attention as working memory)",
+   "phase": "taste",
+   "status": "tasting",
+   "summary": "Source Hwang et al., \"TransformerFAM: Feedback attention is working memory\" (arXiv:2404.09173), 2024. Paper's published gains are on long-context tasks at 1B / 8B / 24B; FAM has not been measured at <1B or on dense pre-training val loss. Mechanism Feed the model's own latent states back into a secon",
+   "verdict": null
+  },
+  {
+   "id": "046-multi-token",
+   "name": "046 \u2014 Multi-Token Attention (Q/K time-axis, stacked on Canon)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Golovneva et al., \"Multi-Token Attention\" (arXiv:2504.00927), 2025. The paper conditions attention scores on small neighborhoods of query/key tokens by depthwise convolving over projected Q, K, and (in the full paper) the heads axis. For tiny1m3m we adopt the Q/K time-axis half of the mechani",
+   "verdict": null
+  },
+  {
+   "id": "047-synthesizer",
+   "name": "047 \u2014 Dense Synthesizer (zero-gated hybrid head)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Tay et al., \"Synthesizer: Rethinking Self-Attention in Transformer Models\" (arXiv:2005.00743), 2020. Variant pinned: Dense Synthesizer (paper \u00a72.1) \u2014 the only one of the paper's four variants (Dense / Random / Factorized / Mixture) that roughly matches vanilla on language modeling; Random is ",
+   "verdict": null
+  },
+  {
+   "id": "048-adaptive-span",
+   "name": "048 \u2014 Adaptive Attention Span (per-head, on top of SWA-512)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Sukhbaatar et al., \"Adaptive Attention Span in Transformers\" (arXiv:1905.07799), 2019. Re-purposed for the SWA-uniform baseline rather than the full-context regime the paper targeted. Mechanism Per head, learn a softplus-bounded scalar s_h \u2208 [s_min, sliding_window_size] that parameterises a h",
+   "verdict": null
+  },
+  {
+   "id": "050-performer",
+   "name": "050 \u2014 Performer",
+   "phase": "unknown",
+   "status": "rejected",
+   "summary": "Source Choromanski et al., \"Rethinking Attention with Performers\" (arXiv:2009.14794), 2020. Mechanism Approximate softmax attention with positive orthogonal random features (FAVOR+), turning the quadratic attention kernel into a linear-time feature map. In this repo, the clean ablation is a feature-",
+   "verdict": null
+  },
+  {
+   "id": "051-scalenorm",
+   "name": "051 \u2014 ScaleNorm (RMSNorm with a single scalar gain)",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source Nguyen & Salazar, \"Transformers without Tears: Improving the Normalization of Self-Attention\" (arXiv:1910.05895). Used recently in modded-nanogpt-adjacent recipes as the cheapest possible residual-stream norm. Mechanism Replace each nn.RMSNorm(d_model) site (current baseline: models/layers.py",
+   "verdict": null
+  },
+  {
+   "id": "052-fixnorm",
+   "name": "052 \u2014 FixNorm (fixed-length token embeddings)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Nguyen & Salazar, \"Transformers without Tears: Improving the Normalization of Self-Attention\" (arXiv:1910.05895). The same paper also reaffirms FixNorm: normalizing word embeddings to a fixed length. Mechanism Project token embeddings to a fixed L2 radius before they enter the stack, and opti",
+   "verdict": null
+  },
+  {
+   "id": "054-polycom",
+   "name": "054 \u2014 PolyCom (PolyNorm FFN activation)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Zhuo et al., \"Polynomial Composition Activations: Unleashing the Dynamics of Large Language Models\" (arXiv:2411.03884). The paper proposes two FFN activation modules: PolyReLU \u03a3 a\u1d62\u00b7ReLU(x)^i (a fixed sum of polynomial powers of ReLU(x), with learnable scalar coefs) and PolyNorm (the same form",
+   "verdict": null
+  },
+  {
+   "id": "057-normformer",
+   "name": "057 \u2014 Mid-FFN LayerNorm (post-W1)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Shleifer, Weston, and Ott, \"NormFormer: Improved Transformer Pretraining with Extra Normalization\" (arXiv:2110.09456). The paper ships three extra-normalization ops per block; r1 of this idea was the full bundle and was sent back for poor info value at single-A/B granularity. The piece being ",
+   "verdict": null
+  },
+  {
+   "id": "058-fixup",
+   "name": "058 \u2014 Fixup (zero-init residual projections) at 6L",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source Zhang, Dauphin, and Ma, \"Fixup Initialization: Residual Learning Without Normalization\" (arXiv:1901.09321). The cheapest Fixup ingredient \u2014 *zero-init the last linear in each residual branch* \u2014 is already implemented in this repo as the zero_init_resid config flag (configs/llm_config.py:47, m",
+   "verdict": null
+  },
+  {
+   "id": "060-ngpt",
+   "name": "060 \u2014 nGPT (hypersphere-normalized Transformer)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Loshchilov, Hsieh, Sun, Ginsburg, \"nGPT: Normalized Transformer with Representation Learning on the Hypersphere\" (arXiv:2410.01131). Mechanism Constrain every \"vector that moves information\" to unit L2-norm so the token representation evolves on a hypersphere instead of an unconstrained resid",
+   "verdict": null
+  },
+  {
+   "id": "061-alibi-bias",
+   "name": "061 \u2014 ALiBi bias",
+   "phase": "taste",
+   "status": "tasting",
+   "summary": "Source Press, Smith, and Lewis, \"Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation\" (arXiv:2108.12409). Aug 2021. Mechanism Stack on FIRE, not replace it. Add a per-head linear distance penalty on top of the existing FIRE-PE attention path: attn_logits = q\u00b7k\u1d40 / ",
+   "verdict": null
+  },
+  {
+   "id": "062-pos-interp",
+   "name": "062 \u2014 Position interpolation",
+   "phase": "unknown",
+   "status": "rejected",
+   "summary": "Source Chen et al., \"Extending Context Window of Large Language Models via Positional Interpolation\" (arXiv:2306.15595). Jun 2023. Mechanism Linearly down-scale position indices before RoPE, pos' = pos * alpha, so long sequences are mapped back into the pretraining range instead of pushing rotary ph",
+   "verdict": null
+  },
+  {
+   "id": "064-xpos",
+   "name": "064 \u2014 XPOS (length-dependent rotary scale, in-distribution bet)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Sun, Dong, Patra, Ma, Huang, Majumder, Wei, \"A Length-Extrapolatable Transformer\" (arXiv:2212.10554). Dec 2022. Mechanism Standard RoPE multiplies q and k by a position-dependent rotation R(pos, \u03b8_d). XPOS adds a per-position, per-dim magnitude scale on top of the rotation: q_xpos = R(pos, \u03b8_",
+   "verdict": null
+  },
+  {
+   "id": "065-bilevel-pe",
+   "name": "065 \u2014 Bilevel positional encoding (fixed-stride two-band RoPE, stacked on FIRE)",
+   "phase": "code",
+   "status": "needs-codereview",
+   "summary": "Source He et al., \"Two Stones Hit One Bird: Bilevel Positional Encoding for Better Length Extrapolation\" (arXiv:2401.16421). Jan 2024. We borrow only BiPE's two-scale index decomposition; the paper's length-extrapolation framing is dropped (OOS at tiny1m3m's fixed 2048 ctx, same posture as 009-fire-",
+   "verdict": null
+  },
+  {
+   "id": "067-confidence-penalty",
+   "name": "067 \u2014 Confidence penalty",
+   "phase": "run",
+   "status": "needs-run",
+   "summary": "Source Pereyra et al., \"Regularizing Neural Networks by Penalizing Confident Output Distributions\" (arXiv:1701.06548). Jan 2017. Mechanism Add an entropy bonus on the token distribution, equivalent to penalizing low-entropy logits: loss = CE - \u03bb * H(p). It pushes the model away from pathological pea",
+   "verdict": null
+  },
+  {
+   "id": "069-focal-loss",
+   "name": "069 \u2014 Frequency-conditioned focal loss",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Mukhoti et al., \"Calibrating Deep Neural Networks using Focal Loss\" (arXiv:2002.09437, Feb 2020) \u2014 base form. The frequency-conditioned variant pitched here is LM-specific and not in Mukhoti; closest prior art is class-balanced re-weighting (Cui et al., \"Class-Balanced Loss Based on Effective",
+   "verdict": null
+  },
+  {
+   "id": "071-realformer",
+   "name": "071 \u2014 RealFormer (residual attention across layers)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source RealFormer: Transformer Likes Residual Attention (He et al., arXiv:2012.11747, Dec 2020). The mechanism is the lever; the publication is just where it was first named. Mechanism Cache the previous layer's pre-softmax (post-positional-bias, pre-mask) attention score tensor and add it into the ",
+   "verdict": null
+  },
+  {
+   "id": "072-t5-rpe",
+   "name": "072 \u2014 T5 Relative Position Bias",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (Raffel et al., JMLR 2020 / arXiv:1910.10683). T5 has been the canonical learned-bucketed distance bias since 2019/2020; no successor has dethroned it as a mainstream pretrained form, and it is the reference poi",
+   "verdict": null
+  },
+  {
+   "id": "073-deberta-disentangled",
+   "name": "073 \u2014 DeBERTa Disentangled Attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source DeBERTa: Decoding-enhanced BERT with Disentangled Attention (arXiv:2006.03654). 2020. Mechanism Replaces FIRE (does not stack \u2014 013-cope showed stacking PE is destructive). Adds a content-position cross-term Q_c(H_i) \u00b7 K_p(P_{i-j}) to attention logits, where P_{i-j} is a learnable relative-po",
+   "verdict": null
+  },
+  {
+   "id": "074-transformer-xl",
+   "name": "074 \u2014 Transformer-XL Memory",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context (arXiv:1901.02860). Dai et al., 2019. Mechanism Split each 2048-token training sequence into 4 sub-segments of 512 tokens. Run sub-segments in order within a single forward pass. After each sub-segment's attention, detach",
+   "verdict": null
+  },
+  {
+   "id": "078-fnetar",
+   "name": "078 \u2014 FNetAR Causal Fourier Residual Mixer",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source FNetAR: Mixing Tokens with Autoregressive Fourier Transforms (arXiv:2107.10932, Lee-Thorp & Ainslie, 2021). Causal counterpart to FNet (arXiv:2105.03824); shown competitive with Transformer-XL on WikiText-103 with 75% of attention layers replaced. Mechanism Add one gated, causal Fourier resid",
+   "verdict": null
+  },
+  {
+   "id": "081-scale-invariant-attn",
+   "name": "081 \u2014 Scale-Invariant Attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Scale-invariant attention (arXiv:2505.17083). 2025. Mechanism Apply a small position-dependent transform to attention logits so total attention mass and sparsity stay roughly invariant as context grows. The implementation is a lightweight logit rescaling / shift keyed by token distance, paire",
+   "verdict": null
+  },
+  {
+   "id": "082-diff-transformer",
+   "name": "082 \u2014 Differential Transformer",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Differential Transformer (arXiv:2410.05258). 2024. Mechanism Replace one attention map with two softmax maps per head and subtract them so common-mode attention noise cancels. This keeps the macro block layout intact while giving each head a built-in noise-cancellation path. Scale evidence Th",
+   "verdict": null
+  },
+  {
+   "id": "083-root-optimizer",
+   "name": "083 \u2014 ROOT Optimizer",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source ROOT: Robust Orthogonalized Optimizer for Neural Network Training (arXiv:2511.20626). 2025. Mechanism Start from the Muon-style orthogonalized update path, then add dimension-adaptive Newton-Schulz coefficients plus a proximal soft-threshold step to suppress gradient outliers. It can likely b",
+   "verdict": null
+  },
+  {
+   "id": "084-peri-ln",
+   "name": "084 \u2014 Peri-LN",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Peri-LN: Revisiting Layer Normalization in the Transformer Architecture (arXiv:2502.02732). 2025. Mechanism Move normalization to the periphery of each sublayer so the block keeps a stronger identity path while still controlling activation growth. This is a placement change, not a new norm fo",
+   "verdict": null
+  },
+  {
+   "id": "085-hybridnorm",
+   "name": "085 \u2014 HybridNorm",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source HybridNorm: Towards Stable and Efficient Transformer Training via Hybrid Normalization (arXiv:2503.04598). 2025. Mechanism Use QKV normalization inside attention and Post-Norm in the FFN so the block gets both stable attention dynamics and a stronger residual-depth signal. The lever is a plac",
+   "verdict": null
+  },
+  {
+   "id": "086-muddformer",
+   "name": "086 \u2014 MUDDFormer",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source MUDDFormer: Breaking Residual Bottlenecks in Transformers via MUDD Connections (arXiv:2502.12170). 2025. Mechanism Add lightweight MUDD connections to break residual bottlenecks and let the model mix information more freely across layers without changing the overall transformer shell. This is",
+   "verdict": null
+  },
+  {
+   "id": "087-entropy-guided-attn",
+   "name": "087 \u2014 Entropy-Guided Attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Entropy-Guided Attention for Private LLMs (arXiv:2501.03489). 2025. Mechanism Add an entropy-guided attention regularizer and a small attention-side entropy control rule so heads keep diversity when nonlinearities are reduced. This is a lightweight attention-entropy control mechanism rather t",
+   "verdict": null
+  },
+  {
+   "id": "088-rodimus",
+   "name": "088 \u2014 Rodimus",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Rodimus*: Breaking the Accuracy-Efficiency Trade-Off with Efficient Attentions (arXiv:2410.06577). 2024. Mechanism Use data-dependent tempered selection in a linear-attention, purely recurrent block so the model can compress semantic content into a fixed hidden state while filtering irrelevan",
+   "verdict": null
+  },
+  {
+   "id": "089-pi-attention",
+   "name": "089 \u2014 Pi Attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Pi-Attention: Periodic Sparse Transformers for Efficient Long-Context Modeling (arXiv:2511.10696). 2025. Mechanism Combine ring-local attention with periodic stride skips and a learned fusion gate so long-range coverage grows predictably without a dense quadratic path. The key lever is the pe",
+   "verdict": null
+  },
+  {
+   "id": "090-tapernorm",
+   "name": "090 \u2014 TaperNorm (gated normalization removal)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Kanavalau, Amo Alonso, and Lall, \"Gated Removal of Normalization in Transformers Enables Stable Training and Efficient Inference\" (arXiv:2602.10408). The paper's core lever is TaperNorm: start as a standard norm, then taper the sample-dependent branch away. Mechanism Replace each pre-norm RMS",
+   "verdict": null
+  },
+  {
+   "id": "091-scale-anchor-loss",
+   "name": "091 \u2014 Scale anchoring auxiliary loss",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Same source as TaperNorm: Kanavalau, Amo Alonso, and Lall, \"Gated Removal of Normalization in Transformers Enables Stable Training and Efficient Inference\" (arXiv:2602.10408). The paper argues that an explicit target on the pre-logit residual scale can substitute for some of the work done by ",
+   "verdict": null
+  },
+  {
+   "id": "092-seednorm",
+   "name": "092 \u2014 SeeDNorm (self-rescaled dynamic normalization)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Cai, Zhu, Liu, and Min, \"SeeDNorm: Self-Rescaled Dynamic Normalization\" (arXiv:2510.22777). Mechanism Use RMSNorm as the base, but let the scale coefficient depend on the current input norm instead of being a static learned vector or scalar. The layer still normalizes, but it preserves and re",
+   "verdict": null
+  },
+  {
+   "id": "093-derf",
+   "name": "093 \u2014 Derf (erf pointwise norm replacement)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Chen et al., \"Stronger Normalization-Free Transformers\" (arXiv:2512.10938). The paper's best design is Derf: a pointwise erf-based replacement for normalization. Mechanism Swap each LayerNorm/RMSNorm site for a learned pointwise function of the form erf(\u03b1x + s). This keeps the module cheap an",
+   "verdict": null
+  },
+  {
+   "id": "094-keel-highway-postln",
+   "name": "094 \u2014 Keel highway Post-LN",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Chen and Wei, \"Post-LayerNorm Is Back: Stable, Expressive, and Deep\" (arXiv:2601.19895). Their Keel variant keeps Post-LN but swaps the residual pathway for a highway-style connection. Mechanism Keep the post-norm layout, but replace the plain residual add with a gated highway connection that",
+   "verdict": null
+  },
+  {
+   "id": "095-bhyt",
+   "name": "095 \u2014 BHyT (bounded hyperbolic tanh)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Byun et al., \"Bounded Hyperbolic Tangent: A Stable and Efficient Alternative to Pre-Layer Normalization in Large Language Models\" (arXiv:2601.09719). Mechanism Replace Pre-LN with a tanh-based bounded activation that keeps inputs inside a safe range, while computing exact statistics once per ",
+   "verdict": null
+  },
+  {
+   "id": "096-siamesenorm",
+   "name": "096 \u2014 SiameseNorm",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Li et al., \"SiameseNorm: Breaking the Barrier to Reconciling Pre/Post-Norm\" (arXiv:2602.08064). Mechanism Use two coupled streams with shared parameters: one stream keeps the stable pre-norm identity path, the other keeps the post-norm expressive path. The block receives combined gradients fr",
+   "verdict": null
+  },
+  {
+   "id": "097-asentmax",
+   "name": "097 \u2014 ASEntmax long-context sparse attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Vasylenko, Treviso, and Martins, \"Long-Context Generalization with Sparse Attention\" (arXiv:2506.16640). Mechanism Replace softmax with alpha-entmax and make its temperature adaptive to context size and content. The result is sparse support when the model should focus and softer support when ",
+   "verdict": null
+  },
+  {
+   "id": "098-lp-qknorm",
+   "name": "098 \u2014 Lp QK-Norm",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Lopez-Rubio, Montes-Perez, and Palomo, \"Enhanced QKNorm normalization for neural transformers with the Lp norm\" (arXiv:2602.05006). Mechanism Generalize QK-Norm from L2 to Lp, so the attention geometry can tune \"spikiness\" through the norm choice itself instead of only through the temperature",
+   "verdict": null
+  },
+  {
+   "id": "099-double-p",
+   "name": "099 \u2014 Double-P hierarchical top-p sparse attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Ni et al., \"Double-P: Hierarchical Top-P Sparse Attention for Long-Context LLMs\" (arXiv:2602.05191). Mechanism Use a two-stage top-p sparse attention scheme: first coarse cluster-level selection, then token-level refinement only where the coarse pass says it matters. Scale evidence The paper ",
+   "verdict": null
+  },
+  {
+   "id": "100-mud",
+   "name": "100 \u2014 MUD (momentum decorrelation)",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Southworth and Thomas, \"Beyond Muon: MUD (MomentUm Decorrelation) for Faster Transformer Training\" (arXiv:2603.17970). Mechanism Replace Muon's polar-decomposition orthogonalizer with a cheaper triangular whitening surrogate inspired by Gram-Schmidt and Gauss-Seidel. Scale evidence The paper ",
+   "verdict": null
+  },
+  {
+   "id": "101-trasmuon",
+   "name": "101 \u2014 TrasMuon",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Cheng et al., \"TrasMuon: Trust-Region Adaptive Scaling for Orthogonalized Momentum Optimizers\" (arXiv:2602.13498). Mechanism Keep Muon's orthogonalized direction, but add global RMS calibration and energy-based trust-region clipping so the update magnitude stays in a stable zone. Scale eviden",
+   "verdict": null
+  },
+  {
+   "id": "102-sf-normuon",
+   "name": "102 \u2014 SF-NorMuon",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Apte et al., \"Anytime Training with Schedule-Free Spectral Optimization\" (arXiv:2605.23061). Mechanism Use a schedule-free spectral optimizer instead of a fixed-horizon LR schedule, with weight decay applied at the fast iterate for long-horizon stability. Scale evidence The paper says a singl",
+   "verdict": null
+  },
+  {
+   "id": "103-momentum-streams",
+   "name": "103 \u2014 Momentum Streams",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Gai, Huang, and Wu, \"Momentum Streams for Optimizer-Inspired Transformers\" (arXiv:2605.24425). Mechanism Recast the residual update as optimizer-like dynamics and build transformer variants that mirror triple momentum, AdamW, Muon, or SOAP inside the architecture itself. Scale evidence The pa",
+   "verdict": null
+  },
+  {
+   "id": "104-post-norm-resharpen",
+   "name": "104 \u2014 Post-Norm resharpening",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Zs\u00e1mboki et al., \"Post-Norm can Resharpen Attention\" (arXiv:2510.08341). Mechanism Use Post-Norm as a corrective to attention dispersion, so the model can sharpen overly spread-out attention distributions instead of only damping activations. Scale evidence The paper gives mechanistic and expe",
+   "verdict": null
+  },
+  {
+   "id": "105-retrospective-sparse-attn",
+   "name": "105 \u2014 Retrospective sparse attention",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Retrospective Sparse Attention for Efficient Long-Context Generation (arXiv:2508.09001). Mechanism Let sparse attention revise earlier outputs when new KV entries arrive, rather than treating each sparse pass as final. Scale evidence The paper targets efficient long-context generation and rel",
+   "verdict": null
+  },
+  {
+   "id": "106-mvn-grad",
+   "name": "106 \u2014 MVN-Grad",
+   "phase": "code",
+   "status": "needs-plan",
+   "summary": "Source Patitucci and Mokhtari, \"Adaptive Optimization via Momentum on Variance-Normalized Gradients\" (arXiv:2602.10204). Mechanism Normalize gradients by their estimated variance, then apply momentum after normalization instead of before it. The key idea is to decouple stale momentum from the stocha",
+   "verdict": null
+  }
+ ]
+}

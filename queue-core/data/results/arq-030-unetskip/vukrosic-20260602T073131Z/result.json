@@ -1,0 +1,29 @@
+{
+  "spec_id": "arq-030-unetskip",
+  "worker": "vukrosic",
+  "started": "2026-06-02T07:17:30.784642Z",
+  "finished": "2026-06-02T07:31:31Z",
+  "exit_status": "success",
+  "metrics": {
+    "val_loss": 5.008125,
+    "val_accuracy": 0.24212261846604788,
+    "val_perplexity": 149.62392810857312,
+    "train_loss": 4.729219913482666,
+    "tokens_per_sec": 19509.880915557245
+  },
+  "environment": {
+    "gpu": "unknown",
+    "torch": "2.8.0",
+    "python": "3.12.8",
+    "seed": 42
+  },
+  "job_id": "arq-030-unetskip",
+  "lease_id": null,
+  "worker_id": "vukrosic",
+  "finished_at": "2026-06-02T07:31:31Z",
+  "summary": "",
+  "artifacts": [],
+  "legacy": {
+    "source_file": "/Users/vukrosic/my-life/llm-research-kit-scaling/results/arq-030-unetskip/vukrosic-20260602T073131Z/result.json"
+  }
+}

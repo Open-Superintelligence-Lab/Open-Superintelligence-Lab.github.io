@@ -3,6 +3,7 @@ import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "highlight.js/styles/github-dark.css";
 import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
 
 const inter = Inter({
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Open Superintelligence Lab",
-  description: "Open Superintelligence Lab - Advancing AI research and development",
+  description: "Open Superintelligence Lab - make the #1 LLM fully open.",
 };
 
 export default function RootLayout({
@@ -35,6 +36,7 @@ export default function RootLayout({
           <main className="flex-1">
             {children}
           </main>
+          <Footer />
 
         </div>
       </body>

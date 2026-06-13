@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensuperintelligencelab.com/schemas/queue-core/claim.schema.json",
+  "title": "QueueCoreClaim",
+  "type": "object",
+  "required": ["job_id", "lease_id", "worker_id", "claimed_at", "expires_at", "heartbeat_at", "status"],
+  "properties": {
+    "job_id": { "type": "string", "minLength": 1 },
+    "lease_id": { "type": "string", "minLength": 1 },
+    "worker_id": { "type": "string", "minLength": 1 },
+    "claimed_at": { "type": "string" },
+    "expires_at": { "type": "string" },
+    "heartbeat_at": { "type": "string" },
+    "status": { "type": "string", "enum": ["active", "released", "expired", "completed"] },
+    "released_at": { "type": "string" },
+    "completed_at": { "type": "string" },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": true
+}

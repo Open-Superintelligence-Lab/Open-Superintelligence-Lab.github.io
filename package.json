@@ -9,7 +9,9 @@
     "lint": "eslint",
     "export": "next build",
     "build:prod": "NODE_ENV=production npm run build",
-    "serve:out": "npx serve out"
+    "serve:out": "npx serve out",
+    "refresh": "bash scripts/refresh-site.sh",
+    "codex:launch-server": "node scripts/codex-launch-server.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.27.0",

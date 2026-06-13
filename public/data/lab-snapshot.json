@@ -1,0 +1,190 @@
+{
+  "generated_at": "2026-06-12T01:35:40+00:00",
+  "summary": {
+    "threads": 8,
+    "runs": 11,
+    "queue_items": 3,
+    "decisions": 4,
+    "ideas": 9
+  },
+  "threads": [
+    {
+      "name": "lr_schedule",
+      "title": "WSD (warmup-stable-decay) schedule. Full 200M run set a new record: 4.549 vs 5.015 constant.",
+      "status": "done",
+      "created": "2026-06-01"
+    },
+    {
+      "name": "per_group_lr",
+      "title": "Screen per-group learning rates against the 20M baseline",
+      "status": "active",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "value_residual",
+      "title": "Screen value residual learning against the 20M baseline",
+      "status": "active",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "recipe",
+      "title": "Cheap recipe/architecture levers to lower 10m val loss.",
+      "status": "active",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "kernels",
+      "title": "Find real per-run speedups for the 10m benchmark (compile, batch, kernels).",
+      "status": "active",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "logit_softcap",
+      "title": "Tanh logit soft-capping lowers val loss at 10m scale.",
+      "status": "planning",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "layerscale",
+      "title": "LayerScale thread imported from completed local runs",
+      "status": "done",
+      "created": "2026-05-31"
+    },
+    {
+      "name": "smoke",
+      "title": "Local smoke-screen lever runs imported for coordination",
+      "status": "done",
+      "created": "2026-05-31"
+    }
+  ],
+  "runs": [
+    {
+      "name": "value_residual_200m_from20m",
+      "command_summary": "python train_llm.py --config screen10m_value_residual --train_tokens 200000000 --seed 42 --dataset_path processed_data/pretrain_1B --load_checkpoint runs/threads/value_residual_...",
+      "status": "stopped",
+      "metric": {
+        "label": "steps",
+        "value": "25,000"
+      },
+      "created": "2026-06-01"
+    },
+    {
+      "name": "10m_constant_old_record",
+      "command_summary": "10m_constant_old_record",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "5.0150"
+      },
+      "created": "2026-06-01"
+    },
+    {
+      "name": "10m_warmup_decay_w002",
+      "command_summary": "python3 train_llm.py --config 10m --schedule_type warmup_decay_to_zero --warmup_ratio 0.02 --seed 42 --dataset_path processed_data/pretrain_1B --output_dir runs/issue30/10m_warm...",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "4.5490"
+      },
+      "created": "2026-06-01"
+    },
+    {
+      "name": "baseline",
+      "command_summary": "baseline",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "9.3994"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "screen5m_layerscale",
+      "command_summary": "screen5m_layerscale",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "5.5556"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "screen5m_layerscale_1400",
+      "command_summary": "screen5m_layerscale_1400",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "5.5444"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "screen5m_layerscale_1600",
+      "command_summary": "screen5m_layerscale_1600",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "5.5403"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "screen5m_layerscale_1800",
+      "command_summary": "screen5m_layerscale_1800",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "5.5406"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "softcap",
+      "command_summary": "softcap",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "9.4038"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "warmup_decay",
+      "command_summary": "warmup_decay",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "9.5563"
+      },
+      "created": "2026-05-31"
+    },
+    {
+      "name": "zero_init",
+      "command_summary": "zero_init",
+      "status": "completed",
+      "metric": {
+        "label": "final val loss",
+        "value": "9.4075"
+      },
+      "created": "2026-05-31"
+    }
+  ],
+  "decisions": [
+    {
+      "decision": "scale: 200m continuation reached 20000 exact step at val_loss 4.69203125 vs 4.6996875 baseline (delta -0.00765625); keep as candidate for scale-up review",
+      "created": "2026-06-01"
+    },
+    {
+      "decision": "pending: Review w002 (4.549). Decide whether to run schedule follow-ups (w001, w005, cosine_w002) or close the thread and write the paper.",
+      "created": "2026-06-01"
+    },
+    {
+      "decision": "discard: late checkpoint lost to baseline at 1800 steps; earlier gains did not hold",
+      "created": "2026-05-31"
+    },
+    {
+      "decision": "discard: all smoke variants were slightly worse than baseline",
+      "created": "2026-05-31"
+    }
+  ]
+}

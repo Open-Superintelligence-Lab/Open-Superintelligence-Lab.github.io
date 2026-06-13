@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opensuperintelligencelab.com/schemas/queue-core/result.schema.json",
+  "title": "QueueCoreResult",
+  "type": "object",
+  "required": ["job_id", "lease_id", "worker_id", "finished_at", "exit_status", "summary", "metrics", "artifacts"],
+  "properties": {
+    "job_id": { "type": "string", "minLength": 1 },
+    "lease_id": { "type": ["string", "null"] },
+    "worker_id": { "type": "string", "minLength": 1 },
+    "finished_at": { "type": "string" },
+    "exit_status": { "type": "string" },
+    "summary": { "type": "string" },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": { "type": ["number", "string", "boolean", "null"] }
+    },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "error": { "type": "string" },
+    "retry": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

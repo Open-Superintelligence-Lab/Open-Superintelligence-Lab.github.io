@@ -1,0 +1,76 @@
+{
+ "mission": "Create the best open LM in the world \u2014 fully open: training data, model code, training infrastructure, everything.",
+ "public_goals": [
+  {
+   "id": "beat-smollm-135m",
+   "title": "Beat SmolLM-135M",
+   "status": "active",
+   "description": "Train a fully-open ~135M-param LM that beats SmolLM-135M on val loss and standard small-LM evals, with every component public: data pipeline, configs, training code, logs.",
+   "why": "First public rung on the ladder to the best open LM. Small enough to be reproducible by anyone, big enough to be a real claim.",
+   "milestones": [
+    {
+     "label": "Screening harness + baselines (tiny1m3m, screen10m20m tiers)",
+     "done": true
+    },
+    {
+     "label": "Mechanism screening pipeline finding real wins (value-channel gate, residual norm gate)",
+     "done": true
+    },
+    {
+     "label": "10M-param / 200M-token speedrun record with winning mechanisms",
+     "done": false
+    },
+    {
+     "label": "135M recipe: scale winning mechanisms, open data mix",
+     "done": false
+    },
+    {
+     "label": "Train + eval vs SmolLM-135M, publish everything",
+     "done": false
+    }
+   ]
+  },
+  {
+   "id": "training-infrastructure",
+   "title": "Open training infrastructure",
+   "status": "forming",
+   "description": "Distributed training infrastructure that scales from donated single GPUs to data-center clusters \u2014 the compute layer that the open LM trains on.",
+   "why": "The best open LM needs open infrastructure; closed labs' moat is infra as much as weights.",
+   "milestones": [
+    {
+     "label": "Single-box run queue with detached runs (universe-lm on Vast)",
+     "done": true
+    },
+    {
+     "label": "Donated-compute task queue: anyone attaches a GPU, pulls screening jobs",
+     "done": false
+    },
+    {
+     "label": "Multi-node data-parallel training for the 135M run",
+     "done": false
+    },
+    {
+     "label": "Data-center scale distributed training (method TBD - open question)",
+     "done": false
+    }
+   ]
+  }
+ ],
+ "private_goals": [
+  {
+   "id": "cheap-multiplicative-gates-paper",
+   "title": "Finish the cheap-multiplicative-gates paper",
+   "owner": "Vuk",
+   "status": "active",
+   "next": "All controls + scale confirmation done: VCG confirmed (-0.1075 at 10M tier), RNG inverted. Full10M200M record attempt running overnight; then final figures + publish."
+  }
+ ],
+ "strategy_ladder": [
+  "1. 2026-27: be undeniably best at small scale - beat SmolLM-135M, then the 1-3B tier, with fully-open reproducible recipes. Costs thousands, not billions.",
+  "2. Convert proof into a patron: sovereign funds, foundations, or a Mistral-style raise for an open lab - ask with a verified track record of 10x intelligence-per-FLOP, not a vision deck.",
+  "3. Spend patron-scale compute through our recipe stack. DeepSeek-V3 proved ~100x efficiency vs frontier spend is possible; recipes are what our factory mass-produces.",
+  "Failure condition (falsifiable): if frontier scaling keeps paying linearly AND efficiency gains stop transferring upward, #1 stays gated behind billions. We watch for DeepSeek-style gap-closings as the signal."
+ ],
+ "mission_note": "Donated/distributed compute cannot match datacenters on FLOPs (2-3 orders of magnitude gap, permanently). It wins at massively parallel mechanism screening - intelligence-per-FLOP, not FLOPs.",
+ "generated_at": "2026-06-11T21:11:08+0800"
+}

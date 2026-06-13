@@ -1,0 +1,40 @@
+{
+ "problems": [
+  {
+   "id": "attention-entropy-head-value",
+   "title": "Does attention entropy predict a head's value?",
+   "status": "answered",
+   "answer": "No \u2014 at 0.94M scale, attenuating diffuse heads is null and amplifying confident heads actively hurts (+0.0140). Confident heads are not the valuable ones.",
+   "paper": "entropy-gated-heads"
+  },
+  {
+   "id": "where-do-gates-help",
+   "title": "Where in a transformer do cheap multiplicative gates help?",
+   "status": "being-attacked",
+   "answer": "Emerging: gating what a head takes IN (V) helps; gating what it puts OUT hurts; input-dependent residual write scaling helps. H1-H5 controls running.",
+   "paper": "cheap-multiplicative-gates"
+  },
+  {
+   "id": "tiny-screen-transfer",
+   "title": "Do 1M-param screening wins transfer to 10M+ models?",
+   "status": "being-attacked",
+   "answer": "Screen-tier confirmation runs for both gate wins are in progress.",
+   "paper": "cheap-multiplicative-gates"
+  },
+  {
+   "id": "distributed-open-training",
+   "title": "How do we train one LM across donated, heterogeneous, unreliable GPUs?",
+   "status": "open",
+   "answer": null,
+   "paper": null
+  },
+  {
+   "id": "open-data-mix-135m",
+   "title": "What fully-open data mix matches SmolLM's curated corpus at 135M scale?",
+   "status": "open",
+   "answer": null,
+   "paper": null
+  }
+ ],
+ "generated_at": "2026-06-11T21:11:08+0800"
+}
