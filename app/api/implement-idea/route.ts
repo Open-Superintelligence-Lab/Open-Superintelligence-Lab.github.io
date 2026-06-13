@@ -6,8 +6,12 @@ const TEMPLATE_PATH = `${RESEARCH_REPO_DIR}/autoresearch/prompts/implement-idea.
 export async function POST(req: Request) {
   let slug = '';
   let agent: string | undefined;
+  let headless = true;
   try {
-    ({ slug, agent } = await req.json());
+    const body = await req.json();
+    slug = body.slug;
+    agent = body.agent;
+    if (typeof body.headless === 'boolean') headless = body.headless;
   } catch {
     slug = '';
   }
@@ -36,7 +40,15 @@ export async function POST(req: Request) {
   // Deterministic, identifiable session name per idea.
   const session = `lab-implement-${slug}`;
 
-  const result = await launchCodexWithText(prompt, 'lab-implement', RESEARCH_REPO_DIR, session, agent);
+  // Headless safety net: run the finalize curl after the agent exits, so the
+  // idea lands at needs-run even if the agent forgot to ping. Single-quoted to
+  // survive the launcher's double-quoted send-keys line; slug is validated.
+  const onExit = `curl -s -X POST '${doneUrl}' -H 'Content-Type: application/json' -d '{"slug":"${slug}"}' >/dev/null 2>&1`;
+
+  const result = await launchCodexWithText(prompt, 'lab-implement', RESEARCH_REPO_DIR, session, agent, {
+    headless,
+    onExit,
+  });
 
   if (result.success) {
     return Response.json(

@@ -9,6 +9,15 @@ type Session = {
   windows: number;
 };
 
+type Result = {
+  verdict: string;
+  controlVal: number | null;
+  treatmentVal: number | null;
+  ctrl2Val: number | null;
+  deltaCtrl: number | null;
+  deltaCtrl2: number | null;
+};
+
 type Idea = {
   id: string;
   title: string;
@@ -17,6 +26,7 @@ type Idea = {
   updated: string;
   path: string;
   evidencePath: string | null;
+  result: Result | null;
 };
 
 type GpuInfo = {
@@ -61,6 +71,10 @@ function formatAgo(ms: number): string {
 
 export default function LaunchCodexPage() {
   const [agent, setAgent] = useState<string>("minimax");
+  // Headless = run the agent non-interactively so it exits (and the tmux pane
+  // self-closes) when the task finishes. On by default; uncheck to keep the
+  // agent open at its REPL so you can attach and watch/intervene.
+  const [headless, setHeadless] = useState<boolean>(true);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generateMessage, setGenerateMessage] = useState("");
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -315,7 +329,7 @@ export default function LaunchCodexPage() {
       const response = await fetch("/api/generate-ideas/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ agent }),
+        body: JSON.stringify({ agent, headless }),
       });
       const data = await response.json().catch(() => ({}));
 
@@ -584,6 +598,104 @@ export default function LaunchCodexPage() {
       </ul>
     );
 
+  // Baseline-vs-experiment val-loss comparison drawn under a finished idea.
+  // Lower loss = better. The axis is zoomed around the three values so the
+  // (tiny) differences are actually visible.
+  const renderResult = (r: Result) => {
+    const rows: { label: string; val: number | null; kind: "ctrl" | "trt" }[] = [
+      { label: "Baseline (ctrl)", val: r.controlVal, kind: "ctrl" },
+      { label: "Experiment", val: r.treatmentVal, kind: "trt" },
+      { label: "Baseline₂ (ctrl2)", val: r.ctrl2Val, kind: "ctrl" },
+    ];
+    const vals = rows.map((x) => x.val).filter((v): v is number => v != null);
+    if (vals.length === 0) return null;
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const span = max - min || 1;
+    const pad = span * 0.6 + 1e-6;
+    const axisMin = min - pad;
+    const axisMax = max + pad;
+    const pct = (v: number) =>
+      Math.max(2, Math.min(100, ((v - axisMin) / (axisMax - axisMin)) * 100));
+
+    const verdict = r.verdict || "—";
+    const vColor =
+      verdict === "WIN"
+        ? "border-emerald-400/40 bg-emerald-400/15 text-emerald-200"
+        : verdict === "DRIFT" || verdict === "FAIL"
+          ? "border-red-400/40 bg-red-400/15 text-red-200"
+          : "border-[#faf9f6]/20 bg-white/5 text-[#faf9f6]/60"; // NULL / unknown
+    // For Δ: negative = experiment lower than baseline = better (green).
+    const deltaText = (d: number | null) =>
+      d == null ? "—" : `${d > 0 ? "+" : ""}${d.toFixed(4)}`;
+    const deltaColor = (d: number | null) =>
+      d == null
+        ? "text-[#faf9f6]/40"
+        : d < 0
+          ? "text-emerald-300"
+          : d > 0
+            ? "text-amber-300"
+            : "text-[#faf9f6]/60";
+
+    return (
+      <div className="mt-3 rounded-lg border border-white/10 bg-black/20 px-3 py-3">
+        <div className="mb-2 flex items-center justify-between">
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[#faf9f6]/40">
+            val loss · baseline vs experiment
+          </span>
+          <span
+            className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${vColor}`}
+          >
+            {verdict}
+          </span>
+        </div>
+        <div className="space-y-1.5">
+          {rows.map((row) =>
+            row.val == null ? null : (
+              <div key={row.label} className="flex items-center gap-2">
+                <span className="w-32 shrink-0 text-[11px] text-[#faf9f6]/55">
+                  {row.label}
+                </span>
+                <div className="relative h-3 flex-1 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className={`h-full rounded-full ${
+                      row.kind === "trt"
+                        ? verdict === "WIN"
+                          ? "bg-emerald-400/80"
+                          : verdict === "DRIFT" || verdict === "FAIL"
+                            ? "bg-red-400/70"
+                            : "bg-sky-400/80"
+                        : "bg-[#faf9f6]/30"
+                    }`}
+                    style={{ width: `${pct(row.val)}%` }}
+                  />
+                </div>
+                <span className="w-16 shrink-0 text-right font-mono text-[11px] text-[#faf9f6]/80">
+                  {row.val.toFixed(4)}
+                </span>
+              </div>
+            )
+          )}
+        </div>
+        <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px]">
+          <span className="text-[#faf9f6]/40">
+            Δ vs ctrl{" "}
+            <span className={`font-mono ${deltaColor(r.deltaCtrl)}`}>
+              {deltaText(r.deltaCtrl)}
+            </span>
+          </span>
+          <span className="text-[#faf9f6]/40">
+            Δ vs ctrl2{" "}
+            <span className={`font-mono ${deltaColor(r.deltaCtrl2)}`}>
+              {deltaText(r.deltaCtrl2)}
+            </span>
+          </span>
+          <span className="text-[#faf9f6]/30">(− = experiment better)</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <main className="min-h-screen bg-[#1f1e1d] pt-28 text-[#faf9f6] md:pt-36">
       <div className="container mx-auto flex min-h-[calc(100vh-12rem)] flex-col items-center px-6 py-24">
@@ -603,9 +715,18 @@ export default function LaunchCodexPage() {
               </option>
             ))}
           </select>
-          <span className="text-[10px] text-[#faf9f6]/35">
-            Generate · Implement · Run all launch with this agent.
-          </span>
+          <label className="mt-1 flex cursor-pointer items-center gap-2 text-[11px] text-[#faf9f6]/55">
+            <input
+              type="checkbox"
+              checked={headless}
+              onChange={(e) => setHeadless(e.target.checked)}
+              className="h-3.5 w-3.5 cursor-pointer accent-cyan-400"
+            />
+            Headless — exit &amp; auto-close tmux when done
+            <span className="text-[#faf9f6]/30">
+              (uncheck to keep it open to watch)
+            </span>
+          </label>
         </div>
 
         {/* ================= SECTION 1 · IDEAS ================= */}
@@ -701,8 +822,9 @@ export default function LaunchCodexPage() {
                 return (
                   <li
                     key={idea.id}
-                    className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+                    className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
                   >
+                    <div className="flex items-start justify-between gap-3">
                     <button
                       type="button"
                       onClick={() =>
@@ -798,6 +920,8 @@ export default function LaunchCodexPage() {
                         ) : null}
                       </div>
                     </div>
+                    </div>
+                    {idea.result && renderResult(idea.result)}
                   </li>
                 );
               })}

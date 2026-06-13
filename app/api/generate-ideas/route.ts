@@ -4,13 +4,20 @@ const PROMPT_PATH = `${RESEARCH_REPO_DIR}/autoresearch/prompts/generate-ideas.md
 
 export async function POST(req: Request) {
   let agent: string | undefined;
+  let headless = true;
   try {
-    ({ agent } = await req.json());
+    const body = await req.json();
+    agent = body.agent;
+    if (typeof body.headless === 'boolean') headless = body.headless;
   } catch {
     agent = undefined;
   }
 
-  const result = await launchCodexWithPrompt(PROMPT_PATH, 'lab-generate-ideas', undefined, agent);
+  // Generate has no finalize endpoint — headless just makes the session exit
+  // (and self-close) when idea filing is done, instead of lingering at a REPL.
+  const result = await launchCodexWithPrompt(PROMPT_PATH, 'lab-generate-ideas', undefined, agent, {
+    headless,
+  });
 
   if (result.success) {
     return Response.json(

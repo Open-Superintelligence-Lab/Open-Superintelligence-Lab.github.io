@@ -1,8 +1,17 @@
-import { readFile, readdir, access } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { join } from 'path';
 import { RESEARCH_REPO_DIR } from '@/lib/codexLauncher';
 
 const IDEAS_DIR = join(RESEARCH_REPO_DIR, 'autoresearch', 'ideas');
+
+type Result = {
+  verdict: string; // WIN | NULL | DRIFT | FAIL | ...
+  controlVal: number | null;
+  treatmentVal: number | null;
+  ctrl2Val: number | null;
+  deltaCtrl: number | null;
+  deltaCtrl2: number | null;
+};
 
 type Idea = {
   id: string;
@@ -12,7 +21,32 @@ type Idea = {
   updated: string;
   path: string;
   evidencePath: string | null;
+  result: Result | null;
 };
+
+function num(md: string, label: string): number | null {
+  // e.g. "- control val: 6.4037" / "- delta vs ctrl: +0.0054"
+  const m = md.match(new RegExp(`${label}\\s*:?\\s*([+-]?\\d+(?:\\.\\d+)?)`, 'i'));
+  return m ? Number(m[1]) : null;
+}
+
+// Pull the baseline-vs-experiment numbers out of an evidence.md so the UI can
+// chart them. Returns null if the file has no recognisable val losses.
+function parseEvidence(md: string): Result | null {
+  const verdictMatch = md.match(/##\s*Verdict:\s*([A-Za-z]+)/i);
+  const controlVal = num(md, 'control val');
+  const treatmentVal = num(md, 'treatment val');
+  const ctrl2Val = num(md, 'ctrl2 val');
+  if (controlVal === null && treatmentVal === null) return null;
+  return {
+    verdict: verdictMatch ? verdictMatch[1].toUpperCase() : '',
+    controlVal,
+    treatmentVal,
+    ctrl2Val,
+    deltaCtrl: num(md, 'delta vs ctrl(?!2)') ?? num(md, 'delta vs ctrl'),
+    deltaCtrl2: num(md, 'delta vs ctrl2'),
+  };
+}
 
 function parseFrontmatter(md: string): Record<string, string> {
   const match = md.match(/^---\n([\s\S]*?)\n---/);
@@ -46,9 +80,13 @@ async function listIdeas(): Promise<Idea[]> {
     try {
       const md = await readFile(join(IDEAS_DIR, dir, 'idea.md'), 'utf8');
       const fm = parseFrontmatter(md);
-      const hasEvidence = await access(join(IDEAS_DIR, dir, 'evidence.md'))
-        .then(() => true)
-        .catch(() => false);
+      // Read evidence.md if present, and parse the loss numbers out of it.
+      let evidenceMd: string | null = null;
+      try {
+        evidenceMd = await readFile(join(IDEAS_DIR, dir, 'evidence.md'), 'utf8');
+      } catch {
+        evidenceMd = null;
+      }
       ideas.push({
         id: fm.id || dir,
         title: parseTitle(md, dir),
@@ -56,7 +94,8 @@ async function listIdeas(): Promise<Idea[]> {
         plain: fm.plain || '',
         updated: fm.updated || '',
         path: `autoresearch/ideas/${dir}/idea.md`,
-        evidencePath: hasEvidence ? `autoresearch/ideas/${dir}/evidence.md` : null,
+        evidencePath: evidenceMd !== null ? `autoresearch/ideas/${dir}/evidence.md` : null,
+        result: evidenceMd !== null ? parseEvidence(evidenceMd) : null,
       });
     } catch {
       // No idea.md in this folder — skip.

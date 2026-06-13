@@ -53,8 +53,11 @@ async function queueIdeas(): Promise<QueueIdea[]> {
 
 export async function POST(req: Request) {
   let agent: string | undefined;
+  let headless = true;
   try {
-    ({ agent } = await req.json());
+    const body = await req.json();
+    agent = body.agent;
+    if (typeof body.headless === 'boolean') headless = body.headless;
   } catch {
     agent = undefined;
   }
@@ -102,7 +105,15 @@ export async function POST(req: Request) {
   const prompt = template.replaceAll('{{IDEA_SLUG}}', slug).replaceAll('{{DONE_URL}}', doneUrl);
   const session = `lab-run-${slug}`;
 
-  const result = await launchCodexWithText(prompt, 'lab-run', RESEARCH_REPO_DIR, session, agent);
+  // Headless safety net: curl run-done after the agent exits so a finished (or
+  // crashed) run always finalizes — run-done flips a still-"running" idea to
+  // needs-codereview rather than leaving the GPU queue wedged. slug is validated.
+  const onExit = `curl -s -X POST '${doneUrl}' -H 'Content-Type: application/json' -d '{"slug":"${slug}"}' >/dev/null 2>&1`;
+
+  const result = await launchCodexWithText(prompt, 'lab-run', RESEARCH_REPO_DIR, session, agent, {
+    headless,
+    onExit,
+  });
 
   if (result.success) {
     return Response.json(
