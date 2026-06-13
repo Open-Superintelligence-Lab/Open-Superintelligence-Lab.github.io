@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'fs/promises';
+import { readFile, readdir, access } from 'fs/promises';
 import { join } from 'path';
 import { RESEARCH_REPO_DIR } from '@/lib/codexLauncher';
 
@@ -11,6 +11,7 @@ type Idea = {
   plain: string;
   updated: string;
   path: string;
+  evidencePath: string | null;
 };
 
 function parseFrontmatter(md: string): Record<string, string> {
@@ -45,6 +46,9 @@ async function listIdeas(): Promise<Idea[]> {
     try {
       const md = await readFile(join(IDEAS_DIR, dir, 'idea.md'), 'utf8');
       const fm = parseFrontmatter(md);
+      const hasEvidence = await access(join(IDEAS_DIR, dir, 'evidence.md'))
+        .then(() => true)
+        .catch(() => false);
       ideas.push({
         id: fm.id || dir,
         title: parseTitle(md, dir),
@@ -52,6 +56,7 @@ async function listIdeas(): Promise<Idea[]> {
         plain: fm.plain || '',
         updated: fm.updated || '',
         path: `autoresearch/ideas/${dir}/idea.md`,
+        evidencePath: hasEvidence ? `autoresearch/ideas/${dir}/evidence.md` : null,
       });
     } catch {
       // No idea.md in this folder — skip.

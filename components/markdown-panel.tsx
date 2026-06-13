@@ -28,7 +28,7 @@ export function MarkdownPanel({ path, title, onClose }: MarkdownPanelProps) {
     setLoading(true);
     setMessage('');
     setTab('preview');
-    fetch('/api/file', {
+    fetch('/api/file/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'read', path }),
@@ -51,7 +51,7 @@ export function MarkdownPanel({ path, title, onClose }: MarkdownPanelProps) {
     setSaving(true);
     setMessage('');
     try {
-      const response = await fetch('/api/file', {
+      const response = await fetch('/api/file/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'save', path, content }),

@@ -5,8 +5,9 @@ const TEMPLATE_PATH = `${RESEARCH_REPO_DIR}/autoresearch/prompts/implement-idea.
 
 export async function POST(req: Request) {
   let slug = '';
+  let agent: string | undefined;
   try {
-    ({ slug } = await req.json());
+    ({ slug, agent } = await req.json());
   } catch {
     slug = '';
   }
@@ -24,11 +25,18 @@ export async function POST(req: Request) {
     return Response.json({ success: false, error: message }, { status: 500 });
   }
 
-  const prompt = template.replaceAll('{{IDEA_SLUG}}', slug);
+  // The finalize endpoint the implement session curls when it's done. Built
+  // from the request host so the port is always right (dev server picks it).
+  const host = req.headers.get('host') ?? 'localhost:3000';
+  const doneUrl = `http://${host}/api/implement-done/`;
+
+  const prompt = template
+    .replaceAll('{{IDEA_SLUG}}', slug)
+    .replaceAll('{{DONE_URL}}', doneUrl);
   // Deterministic, identifiable session name per idea.
   const session = `lab-implement-${slug}`;
 
-  const result = await launchCodexWithText(prompt, 'lab-implement', RESEARCH_REPO_DIR, session);
+  const result = await launchCodexWithText(prompt, 'lab-implement', RESEARCH_REPO_DIR, session, agent);
 
   if (result.success) {
     return Response.json(

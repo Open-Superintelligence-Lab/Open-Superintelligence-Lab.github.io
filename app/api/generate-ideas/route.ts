@@ -2,8 +2,15 @@ import { launchCodexWithPrompt, RESEARCH_REPO_DIR } from '@/lib/codexLauncher';
 
 const PROMPT_PATH = `${RESEARCH_REPO_DIR}/autoresearch/prompts/generate-ideas.md`;
 
-export async function POST() {
-  const result = await launchCodexWithPrompt(PROMPT_PATH, 'lab-generate-ideas');
+export async function POST(req: Request) {
+  let agent: string | undefined;
+  try {
+    ({ agent } = await req.json());
+  } catch {
+    agent = undefined;
+  }
+
+  const result = await launchCodexWithPrompt(PROMPT_PATH, 'lab-generate-ideas', undefined, agent);
 
   if (result.success) {
     return Response.json(
