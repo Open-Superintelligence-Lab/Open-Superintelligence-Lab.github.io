@@ -16,7 +16,7 @@ from typing import Any
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DB_PATH = Path("/Users/vukrosic/my-life/experiment-registry/registry/experiments.sqlite")
+DB_PATH = Path("/Users/vukrosic/my-life/voidbase/registry/experiments.sqlite")
 OUTPUT_PATH = REPO_ROOT / "public" / "data" / "lab-snapshot.json"
 
 HOME_PATH_RE = re.compile(
