@@ -64,14 +64,14 @@ const AGENT_OPTIONS: { id: string; label: string }[] = [
 
 // Human-readable labels + colour for each on-disk pipeline status. The raw
 // status string (what flip.sh writes) stays the source of truth — this only
-// renames them for display, so the jargon ("needs-taste", "needs-codereview")
+// renames them for display, so the jargon ("needs-taste", "needs-recode")
 // reads clearly without touching the agents' state machine. Hover shows raw.
 const STATUS_META: Record<string, { label: string; cls: string }> = {
   "needs-taste": { label: "Proposed", cls: "border-amber-300/25 bg-amber-300/5 text-amber-200/80" },
   implementing: { label: "Implementing", cls: "border-emerald-300/25 bg-emerald-300/10 text-emerald-200/90" },
   "needs-run": { label: "Queued · GPU", cls: "border-cyan-300/25 bg-cyan-300/10 text-cyan-200/90" },
   running: { label: "Running · GPU", cls: "border-sky-300/40 bg-sky-300/15 text-sky-100" },
-  "needs-codereview": { label: "Code review", cls: "border-fuchsia-300/25 bg-fuchsia-300/10 text-fuchsia-200/90" },
+  "needs-recode": { label: "Fixing · failed run", cls: "border-orange-300/25 bg-orange-300/10 text-orange-200/90" },
   "needs-review": { label: "Review", cls: "border-violet-300/25 bg-violet-300/10 text-violet-200/90" },
   done: { label: "Done", cls: "border-[#faf9f6]/20 bg-white/5 text-[#faf9f6]/70" },
   rejected: { label: "Rejected", cls: "border-red-300/25 bg-red-300/5 text-red-200/80" },
@@ -108,6 +108,13 @@ const FINISHED_STATUSES = new Set([
   "fail",
   "rejected",
 ]);
+
+// Whether a status gets a live "time in this state" timer. Rule, not a fixed
+// list, so any in-flight status (current or future) is covered: every idea is
+// timed EXCEPT needs-taste (Proposed — just waiting to be picked up) and the
+// finished statuses (those show final results, not an elapsed clock).
+const isTimedStatus = (status: string) =>
+  status !== "needs-taste" && !FINISHED_STATUSES.has(status);
 
 type CurveRun = {
   role: "control" | "treatment" | "control2";
@@ -802,6 +809,14 @@ export default function LaunchCodexPage() {
     }
   };
 
+  // "How long it's been in this state" — measured from the idea's last status
+  // flip (idea.updated, written by flip.sh). `now` ticks every 1s, so the label
+  // counts up live between the 5s polls. Returns null for an unparseable stamp.
+  const timeInState = (iso: string): string | null => {
+    const t = Date.parse(iso);
+    return Number.isFinite(t) ? formatAgo(now - t) : null;
+  };
+
   // Join: which ideas have a live implement/run session right now.
   const liveSessions = new Set(sessions.map((s) => s.name));
   const queuedIdeas = ideas
@@ -823,15 +838,16 @@ export default function LaunchCodexPage() {
       .sort((a, b) => (a.updated || a.id).localeCompare(b.updated || b.id));
   const ideaGroups: { key: string; label: string; ideas: Idea[] }[] = [
     { key: "proposed", label: "Proposed", ideas: byStatus("needs-taste") },
-    { key: "implementing", label: "Implementing", ideas: byStatus("implementing") },
-    { key: "review", label: "In review", ideas: byStatus("needs-codereview", "needs-review") },
+    { key: "implementing", label: "Implementing", ideas: byStatus("implementing", "needs-recode", "recoding") },
+    { key: "review", label: "In review", ideas: byStatus("needs-review") },
   ];
   // Anything not finished, not on the GPU, and not in a named bucket above —
   // so a new/unexpected status never silently disappears.
   const bucketed = new Set([
     "needs-taste",
     "implementing",
-    "needs-codereview",
+    "needs-recode",
+    "recoding",
     "needs-review",
     "needs-run",
     "running",
@@ -889,7 +905,10 @@ export default function LaunchCodexPage() {
                   </div>
                   <p className="text-xs text-[#faf9f6]/40">
                     {session.windows} window{session.windows === 1 ? "" : "s"} ·
-                    started {new Date(session.created).toLocaleTimeString()}
+                    started {new Date(session.created).toLocaleTimeString()} ·{" "}
+                    <span className="font-mono tabular-nums text-[#faf9f6]/55">
+                      ⏱ {formatAgo(now - session.created)}
+                    </span>
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
@@ -1090,6 +1109,14 @@ export default function LaunchCodexPage() {
                   stuck
                 </span>
               )}
+              {isTimedStatus(idea.status) && timeInState(idea.updated) && (
+                <span
+                  title="time in this state"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 font-mono text-[10px] tabular-nums text-[#faf9f6]/55"
+                >
+                  ⏱ {timeInState(idea.updated)}
+                </span>
+              )}
               <span
                 title={idea.status}
                 className={`rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] ${statusMeta(idea.status).cls}`}
@@ -1252,7 +1279,7 @@ export default function LaunchCodexPage() {
         </div>
 
         {/* ================= SECTION 1 · IDEAS ================= */}
-        <section className="mt-14 w-full max-w-2xl">
+        <section className="mt-14 w-full max-w-4xl">
           <div className="mb-5 flex items-end justify-between gap-3 border-b border-amber-300/20 pb-3">
             <div className="flex items-center gap-3">
               <span className="h-7 w-1 rounded-full bg-amber-300/70" />
@@ -1354,7 +1381,7 @@ export default function LaunchCodexPage() {
                       {group.label}
                       <span className="text-[#faf9f6]/30">({group.ideas.length})</span>
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                       {group.ideas.map((idea) => renderIdeaCard(idea))}
                     </ul>
                   </div>
@@ -1480,6 +1507,18 @@ export default function LaunchCodexPage() {
                       </p>
                     </button>
                     <div className="flex shrink-0 items-center gap-2">
+                      {timeInState(idea.updated) && (
+                        <span
+                          title={
+                            idea.status === "running"
+                              ? "time running"
+                              : "time waiting in queue"
+                          }
+                          className="font-mono text-[10px] tabular-nums text-[#faf9f6]/45"
+                        >
+                          ⏱ {timeInState(idea.updated)}
+                        </span>
+                      )}
                       {isRunLive && (
                         <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.15em] text-emerald-300">
                           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />

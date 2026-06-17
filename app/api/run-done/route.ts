@@ -14,8 +14,8 @@ function statusOf(md: string): string {
 }
 
 // Called by the run Codex session as its final act. A good runner already wrote
-// evidence.md and flipped to done; a failed runner should flip to needs-codereview.
-// If it exits while still marked running, surface that as a reviewable failure
+// evidence.md and flipped to done; a failed runner should flip to needs-recode.
+// If it exits while still marked running, surface that as a fixable failure
 // instead of leaving the GPU queue wedged forever.
 export async function POST(req: Request) {
   let slug = '';
@@ -42,10 +42,10 @@ export async function POST(req: Request) {
     if (status === 'running') {
       await execFileAsync(
         FLIP_SH,
-        [slug, 'needs-codereview', 'run-done', 'run session exited without verdict'],
+        [slug, 'needs-recode', 'run-done', 'run session exited without verdict'],
         { cwd: RESEARCH_REPO_DIR, timeout: 15_000 }
       );
-      finalized = 'needs-codereview';
+      finalized = 'needs-recode';
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

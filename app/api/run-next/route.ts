@@ -107,7 +107,7 @@ export async function POST(req: Request) {
 
   // Headless safety net: curl run-done after the agent exits so a finished (or
   // crashed) run always finalizes — run-done flips a still-"running" idea to
-  // needs-codereview rather than leaving the GPU queue wedged. slug is validated.
+  // needs-recode rather than leaving the GPU queue wedged. slug is validated.
   const onExit = `curl -s -X POST '${doneUrl}' -H 'Content-Type: application/json' -d '{"slug":"${slug}"}' >/dev/null 2>&1`;
 
   const result = await launchCodexWithText(prompt, 'lab-run', RESEARCH_REPO_DIR, session, agent, {

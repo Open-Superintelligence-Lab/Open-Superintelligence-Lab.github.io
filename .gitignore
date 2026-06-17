@@ -42,3 +42,11 @@ next-env.d.ts
 
 # claude code local config
 .claude/
+
+# LaTeX build artifacts
+public/data/lab/papers/cheap-multiplicative-gates/main.aux
+public/data/lab/papers/cheap-multiplicative-gates/main.fdb_latexmk
+public/data/lab/papers/cheap-multiplicative-gates/main.fls
+public/data/lab/papers/cheap-multiplicative-gates/main.log
+public/data/lab/papers/cheap-multiplicative-gates/main.out
+public/data/lab/papers/cheap-multiplicative-gates/main.pdf
